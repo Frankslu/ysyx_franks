@@ -10,8 +10,6 @@
 //==========
 
 class Vexample__Syms;
-class Vexample_VerilatedVcd;
-
 
 //----------
 
@@ -19,9 +17,15 @@ VL_MODULE(Vexample___024root) {
   public:
 
     // PORTS
-    VL_IN8(a,0,0);
-    VL_IN8(b,0,0);
-    VL_OUT8(c,0,0);
+    VL_IN8(clk,0,0);
+    VL_IN8(rst,0,0);
+    VL_OUT16(led,15,0);
+
+    // LOCAL SIGNALS
+    IData/*31:0*/ light__DOT__count;
+
+    // LOCAL VARIABLES
+    CData/*0:0*/ __Vclklast__TOP__clk;
 
     // INTERNAL VARIABLES
     Vexample__Syms* vlSymsp;  // Symbol table

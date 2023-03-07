@@ -29,16 +29,14 @@ void Vexample___024root___eval_initial(Vexample___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     Vexample__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vexample___024root___eval_initial\n"); );
+    // Body
+    vlSelf->__Vclklast__TOP__clk = vlSelf->clk;
 }
-
-void Vexample___024root___combo__TOP__1(Vexample___024root* vlSelf);
 
 void Vexample___024root___eval_settle(Vexample___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     Vexample__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vexample___024root___eval_settle\n"); );
-    // Body
-    Vexample___024root___combo__TOP__1(vlSelf);
 }
 
 void Vexample___024root___final(Vexample___024root* vlSelf) {
@@ -52,7 +50,8 @@ void Vexample___024root___ctor_var_reset(Vexample___024root* vlSelf) {
     Vexample__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vexample___024root___ctor_var_reset\n"); );
     // Body
-    vlSelf->a = VL_RAND_RESET_I(1);
-    vlSelf->b = VL_RAND_RESET_I(1);
-    vlSelf->c = VL_RAND_RESET_I(1);
+    vlSelf->clk = VL_RAND_RESET_I(1);
+    vlSelf->rst = VL_RAND_RESET_I(1);
+    vlSelf->led = VL_RAND_RESET_I(16);
+    vlSelf->light__DOT__count = VL_RAND_RESET_I(32);
 }

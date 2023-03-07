@@ -12,9 +12,6 @@
 
 class Vexample__Syms;
 class Vexample___024root;
-class VerilatedVcdC;
-class Vexample_VerilatedVcd;
-
 
 // This class is the main interface to the Verilated model
 class Vexample VL_NOT_FINAL {
@@ -27,9 +24,9 @@ class Vexample VL_NOT_FINAL {
     // PORTS
     // The application code writes and reads these signals to
     // propagate new values into/out from the Verilated model.
-    VL_IN8(&a,0,0);
-    VL_IN8(&b,0,0);
-    VL_OUT8(&c,0,0);
+    VL_IN8(&clk,0,0);
+    VL_IN8(&rst,0,0);
+    VL_OUT16(&led,15,0);
 
     // CELLS
     // Public to allow access to /* verilator public */ items.
@@ -62,8 +59,6 @@ class Vexample VL_NOT_FINAL {
     void eval_end_step() {}
     /// Simulation complete, run final blocks.  Application must call on completion.
     void final();
-    /// Trace signals in the model; called by application code
-    void trace(VerilatedVcdC* tfp, int levels, int options = 0);
     /// Return current simulation context for this model.
     /// Used to get to e.g. simulation time via contextp()->time()
     VerilatedContext* contextp() const;

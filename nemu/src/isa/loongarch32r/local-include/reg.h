@@ -13,37 +13,21 @@
 * See the Mulan PSL v2 for more details.
 ***************************************************************************************/
 
-#ifndef __COMMON_H__
-#define __COMMON_H__
+#ifndef __LOONGARCH32R_REG_H__
+#define __LOONGARCH32R_REG_H__
 
-#include <stdint.h>
-#include <inttypes.h>
-#include <stdbool.h>
-#include <string.h>
+#include <common.h>
 
-#include <generated/autoconf.h>
-#include <macro.h>
+static inline int check_reg_idx(int idx) {
+  IFDEF(CONFIG_RT_CHECK, assert(idx >= 0 && idx < 32));
+  return idx;
+}
 
-#ifdef CONFIG_TARGET_AM
-#include <klib.h>
-#else
-#include <assert.h>
-#include <stdlib.h>
-#endif
+#define gpr(idx) cpu.gpr[check_reg_idx(idx)]
 
-#if CONFIG_MBASE + CONFIG_MSIZE > 0x100000000ul
-#define PMEM64 1
-#endif
-
-typedef MUXDEF(CONFIG_ISA64, uint64_t, uint32_t) word_t;
-typedef MUXDEF(CONFIG_ISA64, int64_t, int32_t)  sword_t;
-#define FMT_WORD MUXDEF(CONFIG_ISA64, "0x%016" PRIx64, "0x%08" PRIx32)
-
-typedef word_t vaddr_t;
-typedef MUXDEF(PMEM64, uint64_t, uint32_t) paddr_t;
-#define FMT_PADDR MUXDEF(PMEM64, "0x%016" PRIx64, "0x%08" PRIx32)
-typedef uint16_t ioaddr_t;
-
-#include <debug.h>
+static inline const char* reg_name(int idx, int width) {
+  extern const char* regs[];
+  return regs[check_reg_idx(idx)];
+}
 
 #endif
