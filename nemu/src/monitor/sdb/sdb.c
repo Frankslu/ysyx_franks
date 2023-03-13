@@ -13,6 +13,7 @@
 * See the Mulan PSL v2 for more details.
 ***************************************************************************************/
 
+#include <memory/vaddr.h>
 #include <isa.h>
 #include <cpu/cpu.h>
 #include <readline/readline.h>
@@ -70,10 +71,23 @@ static int cmd_si(char *args){
 }
 
 static int cmd_info(char *args){
+  if(args == NULL){
+	printf("Invalid input\nUse info r or info w");
+	return 0;
+  }
   char c[3];
   sscanf(args, "%s", c);
   if(c[0] == 'r' && c[1] == '\0'){
     isa_reg_display(NULL);
+  }
+  return 0;
+}
+
+static int cmd_x(char *args){
+  int n,expr;
+  sscanf(args, "%d%x", &n, &expr);
+  for(int i=0;i<n;i++){
+    printf("0x%08x  0x%08x\n",expr + 32*i, vaddr_read(expr + 32*i, 32));
   }
   return 0;
 }
@@ -90,6 +104,7 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
   { "si", "Run N instructions in NEMU", cmd_si},
   { "info", "print the information in reg or breakpoint", cmd_info},
+  { "x", "scan memory", cmd_x},
   /* TODO: Add more commands */
 
 };
