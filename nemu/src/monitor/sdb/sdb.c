@@ -70,9 +70,9 @@ static int cmd_si(char *args){
 }
 
 static int cmd_info(char *args){
-  char c[4];
+  char c[3];
   sscanf(args, "%s", c);
-  if(strcmp(c,"r")){
+  if(c[0] == 'r' && c[1] == '\0'){
     isa_reg_display(NULL);
   }
   return 0;
