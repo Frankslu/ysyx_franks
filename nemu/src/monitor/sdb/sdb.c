@@ -58,13 +58,25 @@ static int cmd_si(char *args){
   if(NULL == args){
     step = 1;
   }else{
-	step = atoi(args);
+	int tmp = atoi(args);
+	if(tmp <= 0){
+	  printf("invalid input!");
+	  return 0;
+	}else
+	  step = (uint64_t)tmp;
   }
   cpu_exec(step);
   return 0;
 }
 
-//static int cmd_info(char *args)
+static int cmd_info(char *args){
+  char c[4];
+  sscanf(args, "%s", c);
+  if(strcmp(c,"r")){
+    isa_reg_display(NULL);
+  }
+  return 0;
+}
 
 static int cmd_help(char *args);
 
@@ -77,7 +89,7 @@ static struct {
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
   { "si", "Run N instructions in NEMU", cmd_si},
-//  { "info", "print the information in reg or breakpoint", cmd_info},
+  { "info", "print the information in reg or breakpoint", cmd_info},
   /* TODO: Add more commands */
 
 };
