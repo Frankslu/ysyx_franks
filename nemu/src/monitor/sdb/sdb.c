@@ -88,7 +88,7 @@ static int cmd_x(char *args){
   int n;
   sscanf(args, "%d%lx", &n, &expr);
   for(int i=0;i<n;i++){
-    printf("0x%08lx  0x%08x\n",expr + 32*i, vaddr_read(expr + 32*i, 32));
+    printf("0x%08lx  0x%08x\n",expr + 4*i, vaddr_read(expr + 4*i, 4));
   }
   return 0;
 }
