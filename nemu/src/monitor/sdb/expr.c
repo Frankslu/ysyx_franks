@@ -242,6 +242,6 @@ word_t expr(char *e, bool *success) {
 		printf("err = -2: main op not found\n");
 		*success = false;
 	}
-
+	printf("result = %d\n",result);
   return (word_t)result;
 }
