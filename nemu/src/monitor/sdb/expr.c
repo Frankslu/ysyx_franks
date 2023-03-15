@@ -35,7 +35,7 @@ static struct rule {
   /* TODO: Add more rules.
    * Pay attention to the precedence level of different rules.
    */
-  {"\\dd", NUM},
+  {"^\\d{3}$", NUM},
   {" +", TK_NOTYPE},    // spaces
   {"\\+", '+'},          // plus
   {"-", '-'},
