@@ -33,8 +33,8 @@ int main(int argc, char *argv[]){
 	uint32_t result;
 
 	FILE *fp;
-	char filename[] = "/home/franks/ysyx-workbench/nemu/tools/gen-expr/build/input";
-	fp = fopen(filename,"w");
+	char filename[] = "/home/franks/ysyx-workbench/nemu/tools/gen-expr/build/input.txt";
+	fp = fopen(filename,"r");
 
 	while(fscanf(fp,"%d %s",&result, e) != 2){
 		uint32_t i = expr(e,&success);
