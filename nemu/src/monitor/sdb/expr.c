@@ -105,6 +105,8 @@ static bool make_token(char *e) {
 					case TK_NOTYPE:break;
 					case NUM:
 						strncpy(tokens[nr_token].str, substr_start, substr_len);
+						if(substr_len < 32)
+							tokens[nr_token].str[substr_len] = '\0';
 					case '+':
 					case '-':
 					case '*':
@@ -116,7 +118,6 @@ static bool make_token(char *e) {
 						tokens[nr_token].type = rules[i].token_type;
 						nr_token++;break;
 					default:
-						nr_token++;
 						break;
         }
 
@@ -133,6 +134,94 @@ static bool make_token(char *e) {
   return true;
 }
 
+int skip_brackets(int p, int q){
+	int i,left,right;
+	left=0;right=1;
+
+	for(i = q-1; i>=p; i--){
+		if(tokens[i].type == '('){
+			left++;
+			if(left == right){
+			  return i;
+			}
+		}
+		else if(tokens[i].type == ')'){
+			right++;
+		}
+	}
+
+	if(left != right)
+		return -1;
+	else
+		return i;
+}
+
+int found_main_op(int p, int q){
+	int pos1 = -1;
+	int i=q;
+	while(i >= q){
+		if(tokens[i].type == '+' || tokens[i].type == '-'){
+			return i;//found '+' or '-'
+		}
+		else if(pos1 == -1 && (tokens[i].type == '*' || tokens[i].type == '/')){
+			pos1 = i;
+		}else if(tokens[i].type == ')'){
+			i = skip_brackets(p,i);
+		}
+		i--;
+	}
+
+	return pos1;
+}
+//return -1:main op not found
+
+uint32_t eval(int p, int q, int *err){
+	if(p > q){
+		*err = 0;
+		return 1;
+	}
+	else if(p == q){
+		if(tokens[p].type == NUM){
+			uint32_t i;
+			sscanf(tokens[p].str, "%d", &i);
+			return i;
+		}
+	}
+	else if(tokens[q].type == ')'){
+		int i=skip_brackets(p,q);
+		if(i==p){
+			return eval(p+1, q-1, err);
+		}
+		else if(i==-1){
+			*err = -1;
+			return 1;
+		}
+	}
+
+	int main_op_pos = found_main_op(p, q);
+	if(main_op_pos == -1){
+		*err = -2;
+		return 1;
+	}
+	
+	uint32_t val1 = eval(p, main_op_pos - 1, err);
+	uint32_t val2 = eval(main_op_pos + 1, q, err);
+
+	switch (tokens[main_op_pos].type){
+		case '+': return val1 + val2;
+		case '-': return val1 - val2;
+		case '*': return val1 * val2;
+		case '/': 
+			if(val2 == 0){
+				if(*err != 0 && *err != -1 && *err != -2){
+					*err = -3;
+				}
+				return 1;
+			}
+			return val1 / val2;
+	}
+	return 1;
+}
 
 word_t expr(char *e, bool *success) {
   if (!make_token(e)) {
@@ -141,7 +230,20 @@ word_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
-  TODO();
+  int invalid_expr=1;
+	uint32_t result = eval(0, nr_token - 1, &invalid_expr);
+	if(invalid_expr == -0){
+		printf("err = 0: p > q\n");
+		*success = false;
+	}
+	else if(invalid_expr == -1){
+		printf("err = -1: brackets not match\n");
+		*success = false;
+	}
+	else if(invalid_expr == -2){
+		printf("err = -2: main op not found\n");
+		*success = false;
+	}
 
-  return 0;
+  return (word_t)result;
 }
