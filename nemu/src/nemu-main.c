@@ -20,11 +20,13 @@ void init_monitor(int, char *[]);
 void am_init_monitor();
 void engine_start();
 int is_exit_status_bad();
+void init_regex();
 
 #ifdef TEST
 word_t expr(char *e, bool *success);
 
 int main(){
+	init_regex();
 	char e[32] = "11 +  55 -22";
 	bool success = true;
 	while(1){
