@@ -14,12 +14,29 @@
 ***************************************************************************************/
 
 #include <common.h>
+#define TEST
 
 void init_monitor(int, char *[]);
 void am_init_monitor();
 void engine_start();
 int is_exit_status_bad();
 
+#ifdef TEST
+word_t expr(char *e, bool *success);
+
+int main(){
+	char e[32];
+	bool success = true;
+	while(1){
+		if(scanf("%s",e) != 1)
+			continue;
+		uint32_t i = expr(e,&success);
+		if(success == true)
+		printf("expr: %s = %d", e, i);
+	}
+	return 0;
+}
+#else
 int main(int argc, char *argv[]) {
   /* Initialize the monitor. */
 #ifdef CONFIG_TARGET_AM
@@ -33,3 +50,4 @@ int main(int argc, char *argv[]) {
 
   return is_exit_status_bad();
 }
+#endif
