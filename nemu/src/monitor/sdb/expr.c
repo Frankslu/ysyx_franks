@@ -242,5 +242,9 @@ word_t expr(char *e, bool *success) {
 		printf("err = -2: main op not found\n");
 		*success = false;
 	}
+	else if(invalid_expr == -3){
+		printf("err = -3: divided by 0\n");
+		*success = false;
+	}
   return (word_t)result;
 }
