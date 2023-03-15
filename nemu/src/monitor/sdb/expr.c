@@ -157,7 +157,7 @@ int skip_brackets(int p, int q){
 int found_main_op(int p, int q){
 	int pos1 = -1;
 	int i=q;
-	while(i >= q){
+	while(i >= p){
 		if(tokens[i].type == '+' || tokens[i].type == '-'){
 			return i;//found '+' or '-'
 		}
