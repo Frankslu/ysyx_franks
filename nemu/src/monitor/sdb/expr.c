@@ -76,13 +76,13 @@ typedef struct token {
 static Token tokens[32] __attribute__((used)) = {};
 static int nr_token __attribute__((used))  = 0;
 
-static bool make_token(char *e) {
+static bool make_token(char *d) {
   int position = 0;
   int i;
   regmatch_t pmatch;
 
   nr_token = 0;
-
+  char e[] = "5+11+22";
   while (e[position] != '\0') {
     /* Try all rules one by one. */
     for (i = 0; i < NR_REGEX; i ++) {
