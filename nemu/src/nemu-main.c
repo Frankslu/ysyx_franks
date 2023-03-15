@@ -26,11 +26,11 @@ void init_regex();
 word_t expr(char *e, bool *success);
 
 int main(int argc, char *argv[]){
-  	init_monitor(argc, argv);
+	init_monitor(argc, argv);
 	char e[32] = "11 +  55 -22";
 	bool success = true;
 	while(1){
-		if(scanf("%s",e) != 1)
+		if(scanf("%[^\n]",e) != 1)
 			continue;
 		uint32_t i = expr(e,&success);
 		if(success == true)
