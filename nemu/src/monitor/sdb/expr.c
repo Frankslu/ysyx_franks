@@ -82,7 +82,7 @@ static bool make_token(char *d) {
   regmatch_t pmatch;
 
   nr_token = 0;
-  char e[] = "5 + 11 + 22";
+  char e[] = " 5 + 11 + 22";
   while (e[position] != '\0') {
     /* Try all rules one by one. */
     for (i = 0; i < NR_REGEX; i ++) {
