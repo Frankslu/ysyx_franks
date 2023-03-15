@@ -1,5 +1,9 @@
 /***************************************************************************************
 * Copyright (c) 2014-2022 Zihao Yu, Nanjing University
+  int seed = time(0);
+  srand(seed);
+  int seed = time(0);
+  srand(seed);
 *
 * NEMU is licensed under Mulan PSL v2.
 * You can use this software according to the terms and conditions of the Mulan PSL v2.
@@ -25,14 +29,53 @@ static char buf[65536] = {};
 static char code_buf[65536 + 128] = {}; // a little larger than `buf`
 static char *code_format =
 "#include <stdio.h>\n"
-"int main() { "
-"  unsigned result = %s; "
-"  printf(\"%%u\", result); "
-"  return 0; "
+"int main() { \n"
+"  unsigned result = %s; \n"
+"  printf(\"%%u\", result); \n"
+"  return 0; \n"
 "}";
+int buf_pos = 0;
+int token_num = 0;
+
+static void gen_num(){
+	uint32_t num = rand()%0x80000000;
+	char s[33] = {};
+	sprintf(s, "%d", num);
+	strcpy(buf+buf_pos, s);
+	buf_pos += strlen(s);
+	token_num++;
+	return;
+}
+
+static void gen(char s){
+	buf[buf_pos] = s;
+	token_num++;
+	buf_pos++;
+	return;
+}
+
+static void gen_rand_op(){
+	int op = rand()%4;
+	switch(op){
+		case 0: buf[buf_pos] = '+';break;
+		case 1:	buf[buf_pos] = '-';break;
+		case 2: buf[buf_pos] = '*';break;
+		case 3: buf[buf_pos] = '/';break;
+	}
+	buf_pos++;
+	token_num++;
+	return;
+}
 
 static void gen_rand_expr() {
-  buf[0] = '\0';
+//  int seed = time(0);
+//  srand(seed);
+	switch(rand()%3){	
+		case 0:gen_num();break;
+		case 1:gen('(');gen_rand_expr();gen(')');break;
+		default:gen_rand_expr();gen_rand_op();gen_rand_expr();break;
+	}
+	return;
 }
 
 int main(int argc, char *argv[]) {
@@ -43,8 +86,14 @@ int main(int argc, char *argv[]) {
     sscanf(argv[1], "%d", &loop);
   }
   int i;
+	int fuckgcc;
   for (i = 0; i < loop; i ++) {
-    gen_rand_expr();
+    buf_pos = 0;token_num = 0;
+		gen_rand_expr();
+		buf[buf_pos] = '\0';
+		if(token_num >= 32){
+			continue;
+		}
 
     sprintf(code_buf, code_format, buf);
 
@@ -60,7 +109,8 @@ int main(int argc, char *argv[]) {
     assert(fp != NULL);
 
     int result;
-    fscanf(fp, "%d", &result);
+    fuckgcc = fscanf(fp, "%d", &result);
+		fuckgcc++;
     pclose(fp);
 
     printf("%u %s\n", result, buf);

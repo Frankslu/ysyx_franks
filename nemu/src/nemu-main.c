@@ -28,14 +28,20 @@ word_t expr(char *e, bool *success);
 
 int main(int argc, char *argv[]){
 	init_monitor(argc, argv);
-	char e[32] = "11 +  55 -22";
+	char e[128] = {};
 	bool success = true;
-	int a;
-	a=scanf("%[^\n]",e);
-	++a;
-	uint32_t i = expr(e,&success);
-	if(success == true){
-		printf("expr: %s = %d\n", e, i);fflush(stdout);}
+	uint32_t result;
+
+	FILE *fp;
+	char filename[] = "../tools/gen-expr/build/input";
+	fp = fopen(filename,"w");
+
+	while(fscanf(fp,"%d %s",&result, e) != 2){
+		uint32_t i = expr(e,&success);
+		if(result != i && success != true){
+			printf("expr: %s  i=%d result=%d\n",e,i,result);
+		}
+	}
 	return 0;
 }
 #else
