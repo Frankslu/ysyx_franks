@@ -27,7 +27,6 @@ void init_regex();
 word_t expr(char *e, bool *success);
 
 int main(int argc, char *argv[]){
-	printf("hello\n");
 	init_monitor(argc, argv);
 	char e[32] = "11 +  55 -22";
 	bool success = true;
@@ -36,7 +35,7 @@ int main(int argc, char *argv[]){
 			continue;
 		uint32_t i = expr(e,&success);
 //		if(success == true)
-			printf("expr: %s = %d\n", e, i);
+			printf("expr: %s = %d\n", e, i);fflush(stdout);
 	}
 	return 0;
 }
