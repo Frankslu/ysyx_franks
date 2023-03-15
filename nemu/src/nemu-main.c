@@ -34,7 +34,7 @@ int main(int argc, char *argv[]){
 			continue;
 		uint32_t i = expr(e,&success);
 		if(success == true)
-		printf("expr: %s = %d", e, i);
+			printf("expr: %s = %d", e, i);
 	}
 	return 0;
 }
