@@ -28,8 +28,8 @@ int main(){
 	char e[32] = "11 +  55 -22";
 	bool success = true;
 	while(1){
-//		if(scanf("%s",e) != 1)
-//			continue;
+		if(scanf("%s",e) != 1)
+			continue;
 		uint32_t i = expr(e,&success);
 		if(success == true)
 		printf("expr: %s = %d", e, i);
