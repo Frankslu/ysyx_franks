@@ -198,7 +198,7 @@ uint32_t eval(int p, int q, int *err){
 
 	int main_op_pos = found_main_op(p, q);
 	if(main_op_pos == -1){
-		*err = -2;
+		*err = -1;
 		return 1;
 	}
 	
