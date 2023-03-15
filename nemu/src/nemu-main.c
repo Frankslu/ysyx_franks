@@ -36,13 +36,15 @@ int main(int argc, char *argv[]){
 	char filename[] = "/home/franks/ysyx-workbench/nemu/tools/gen-expr/build/input.txt";
 	fp = fopen(filename,"r");
 
+	int cal=0;
 	while(fscanf(fp,"%d %s",&result, e) != 2){
 		uint32_t i = expr(e,&success);
 		if(result != i && success != true){
 			printf("expr: %s  i=%d result=%d\n",e,i,result);
 		}
+		cal++;
 	}
-	printf("finish!\n");
+	printf("finish:%d\n",cal);
 	return 0;
 }
 #else
