@@ -30,13 +30,12 @@ int main(int argc, char *argv[]){
 	init_monitor(argc, argv);
 	char e[32] = "11 +  55 -22";
 	bool success = true;
-	while(1){
-		if(scanf("%[^\n]",e) != 1)
-			continue;
-		uint32_t i = expr(e,&success);
-//		if(success == true)
-			printf("expr: %s = %d\n", e, i);fflush(stdout);
-	}
+	int a;
+	a=scanf("%[^\n]",e);
+	++a;
+	uint32_t i = expr(e,&success);
+	if(success == true){
+		printf("expr: %s = %d\n", e, i);fflush(stdout);}
 	return 0;
 }
 #else
