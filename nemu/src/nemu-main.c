@@ -14,6 +14,7 @@
 ***************************************************************************************/
 
 #include <common.h>
+#include <stdio.h>
 #define TEST
 
 void init_monitor(int, char *[]);
@@ -33,7 +34,7 @@ int main(int argc, char *argv[]){
 		if(scanf("%[^\n]",e) != 1)
 			continue;
 		uint32_t i = expr(e,&success);
-		if(success == true)
+//		if(success == true)
 			printf("expr: %s = %d", e, i);
 	}
 	return 0;
