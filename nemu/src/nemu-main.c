@@ -42,6 +42,7 @@ int main(int argc, char *argv[]){
 			printf("expr: %s  i=%d result=%d\n",e,i,result);
 		}
 	}
+	printf("finish!\n");
 	return 0;
 }
 #else
