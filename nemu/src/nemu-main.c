@@ -25,8 +25,8 @@ void init_regex();
 #ifdef TEST
 word_t expr(char *e, bool *success);
 
-int main(){
-	init_regex();
+int main(int argc, char *argv[]){
+  	init_monitor(argc, argv);
 	char e[32] = "11 +  55 -22";
 	bool success = true;
 	while(1){
