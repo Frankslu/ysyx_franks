@@ -37,14 +37,16 @@ int main(int argc, char *argv[]){
 	fp = fopen(filename,"r");
 
 	int cal=0;
+	int err=0;
 	while(fscanf(fp,"%d %s",&result, e) == 2){
 		uint32_t i = expr(e,&success);
 		if(result != i && success != true){
 			printf("expr: %s  i=%d result=%d\n",e,i,result);
+			err++;
 		}
 		cal++;
 	}
-	printf("finish:%d\n",cal);
+	printf("finish:%d, err:%d\n",cal, err);
 	return 0;
 }
 #else
