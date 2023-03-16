@@ -36,7 +36,7 @@ static struct rule {
    * Pay attention to the precedence level of different rules.
    */
   {"[0-9]{1,32}", NUM},
-  {" +", TK_NOTYPE},    // spaces
+  {"[ +|\\(uint32_t\\)]", TK_NOTYPE},    // spaces
   {"\\+", '+'},          // plus
   {"-", '-'},
   {"\\*", '*'},
