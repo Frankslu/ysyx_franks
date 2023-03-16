@@ -95,14 +95,16 @@ static void gen_rand_expr() {
 //  int seed = time(0);
 //  srand(seed);
 	fuc_num++;
-	if(fuc_num >= 72){
+	if(fuc_num >= 64){
 		gen_num();
 		fuc_num--;
 		return;
 	}
-	switch(rand()%3){	
+	switch(rand()%5){	
 		case 0:gen_num();break;
 		case 1:gen('(');gen_rand_expr();gen(')');break;
+		case 2:gen((char)32);gen_rand_expr();break;
+		case 3:gen_rand_expr();gen((char)32);break;
 		default:gen_rand_expr();gen_rand_op();gen_rand_expr();break;
 	}
 	fuc_num--;
@@ -125,7 +127,7 @@ int main(int argc, char *argv[]) {
 		buf[buf_pos] = '\0';
 		
 		buf1[buf1_pos] = '\0';
-		if(token_num <= 16){
+		if(token_num <= 16 || token_num >= 127){
 			continue;
 		}
 
