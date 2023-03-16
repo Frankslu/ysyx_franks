@@ -45,6 +45,7 @@ int main(int argc, char *argv[]){
 			err++;
 		}
 		cal++;
+		printf("at %d\n",cal);
 	}
 	printf("finish:%d, err:%d\n",cal, err);
 	return 0;
