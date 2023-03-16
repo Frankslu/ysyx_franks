@@ -26,7 +26,7 @@ void init_regex();
 #ifdef TEST
 word_t expr(char *e, bool *success);
 
-/*int main(int argc, char *argv[]){
+int main(int argc, char *argv[]){
 	init_monitor(argc, argv);
 	char e[128] = {};
 	bool success = true;
@@ -49,9 +49,9 @@ word_t expr(char *e, bool *success);
 	}
 	printf("finish:%d, err:%d\n",cal, err);
 	return 0;
-}*/
+}
 
-int main(int argc, char *argv[]){
+/*int main(int argc, char *argv[]){
 	init_monitor(argc, argv);
 	char e[128] = {};
 	bool success = true;
@@ -61,7 +61,7 @@ int main(int argc, char *argv[]){
 		printf("expr: %s  i=%d",e,i);
 	}
 	return 0;
-}
+}*/
 
 #else
 int main(int argc, char *argv[]) {
