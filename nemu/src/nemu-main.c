@@ -28,7 +28,7 @@ word_t expr(char *e, bool *success);
 
 int main(int argc, char *argv[]){
 	init_monitor(argc, argv);
-	char e[128] = {};
+	char e[2048] = {};
 	bool success = true;
 	uint32_t result;
 
