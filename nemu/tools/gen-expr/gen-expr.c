@@ -32,8 +32,8 @@ static char *code_format =
 "#include <stdio.h>\n"
 "#include <stdint.h>\n"
 "int main() { \n"
-"  unsigned result = %s; \n"
-"  printf(\"%%u\", result); \n"
+"  uint32_t result = ((uint32_t)13205/((uint32_t)8266/(uint32_t)21275)*(uint32_t)6560); \n"
+"  printf(\"%u\", result); \n"
 "  return 0; \n"
 "}";
 int buf_pos = 0;
@@ -120,8 +120,8 @@ int main(int argc, char *argv[]) {
 			continue;
 		}
 
-    sprintf(code_buf, code_format, buf);
-
+    //sprintf(code_buf, code_format, buf);
+	strcpy(code_buf, code_format);
     FILE *fp = fopen("/tmp/.code.c", "w");
     assert(fp != NULL);
     fputs(code_buf, fp);
