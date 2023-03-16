@@ -26,6 +26,7 @@
 
 // this should be enough
 static char buf[65536] = {};
+static char buf1[65536] = {};
 static char code_buf[65536 + 256] = {}; // a little larger than `buf`
 static char *code_format =
 "#include <stdio.h>\n"
@@ -36,6 +37,7 @@ static char *code_format =
 "  return 0; \n"
 "}";
 int buf_pos = 0;
+int buf1_pos = 0;
 int token_num = 0;
 
 static void gen_num(){
@@ -48,14 +50,21 @@ static void gen_num(){
 	buf_pos += strlen(uint);
 	strcpy(buf+buf_pos, s);
 	buf_pos += strlen(s);
+	
+	strcpy(buf1+buf1_pos, s);
+	buf1_pos += strlen(s);
 	token_num++;
 	return;
 }
 
 static void gen(char s){
 	buf[buf_pos] = s;
+	
+	buf1[buf1_pos] = s;
 	token_num++;
 	buf_pos++;
+	
+	buf1_pos++;
 	return;
 }
 
@@ -67,7 +76,15 @@ static void gen_rand_op(){
 		case 2: buf[buf_pos] = '*';break;
 		case 3: buf[buf_pos] = '/';break;
 	}
+	
+	switch(op){
+		case 0: buf1[buf1_pos] = '+';break;
+		case 1:	buf1[buf1_pos] = '-';break;
+		case 2: buf1[buf1_pos] = '*';break;
+		case 3: buf1[buf1_pos] = '/';break;
+	}
 	buf_pos++;
+	buf1_pos++;
 	token_num++;
 	return;
 }
@@ -94,8 +111,11 @@ int main(int argc, char *argv[]) {
 	int fuckgcc;
   for (i = 0; i < loop; i ++) {
     buf_pos = 0;token_num = 0;
+    buf1_pos = 0;
 		gen_rand_expr();
 		buf[buf_pos] = '\0';
+		
+		buf1[buf1_pos] = '\0';
 		if(token_num >= 32){
 			continue;
 		}
@@ -118,7 +138,7 @@ int main(int argc, char *argv[]) {
 		fuckgcc++;
     pclose(fp);
 
-    printf("%u %s\n", result, buf);
+    printf("%u %s\n", result, buf1);
   }
   return 0;
 }
