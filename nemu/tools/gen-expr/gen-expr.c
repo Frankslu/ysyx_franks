@@ -95,12 +95,12 @@ static void gen_rand_expr() {
 //  int seed = time(0);
 //  srand(seed);
 	fuc_num++;
-	if(fuc_num >= 64){
+	if(fuc_num >= 32){
 		gen_num();
 		fuc_num--;
 		return;
 	}
-	switch(rand()%5){	
+	switch(rand()%6){	
 		case 0:gen_num();break;
 		case 1:gen('(');gen_rand_expr();gen(')');break;
 		case 2:gen((char)32);gen_rand_expr();break;
