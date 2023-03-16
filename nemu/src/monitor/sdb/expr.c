@@ -214,7 +214,7 @@ uint32_t eval(int p, int q, int *err){
 				if(*err != 0 && *err != -1 && *err != -2){
 					*err = -3;
 				}
-				return 1;
+				return 0xffffffff;
 			}
 			return val1 / val2;
 	}
