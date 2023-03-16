@@ -27,27 +27,28 @@
 // this should be enough
 static char buf[65536] = {};
 static char buf1[65536] = {};
-static char code_buf[65536 + 256] = {}; // a little larger than `buf`
-static char *code_format =
+static char code_buf[65536 + 128] = {}; // a little larger than `buf`
+static char *code_format1 =
 "#include <stdio.h>\n"
 "#include <stdint.h>\n"
 "int main() { \n"
-"  uint32_t result = ((uint32_t)13205/((uint32_t)8266/(uint32_t)21275)*(uint32_t)6560); \n"
+"  uint32_t result = %s;\n";
+static char *code_format2 =
 "  printf(\"%u\", result); \n"
 "  return 0; \n"
 "}";
 int buf_pos = 0;
 int buf1_pos = 0;
 int token_num = 0;
+char uint_my[] = "(uint32_t)";
+char s[33] = {};
 
 static void gen_num(){
 //	uint32_t num = rand()%0x80000000;
 	uint32_t num = rand()%0x8000;
-	char s[33] = {};
-	char uint[] = "(uint32_t)";
 	sprintf(s, "%d", num);
-	strcpy(buf+buf_pos, uint);
-	buf_pos += strlen(uint);
+	strcpy(buf+buf_pos, uint_my);
+	buf_pos += strlen(uint_my);
 	strcpy(buf+buf_pos, s);
 	buf_pos += strlen(s);
 	
@@ -116,18 +117,18 @@ int main(int argc, char *argv[]) {
 		buf[buf_pos] = '\0';
 		
 		buf1[buf1_pos] = '\0';
-		if(token_num >= 32){
+		if(token_num >= 32 || token_num == 1){
 			continue;
 		}
 
-    //sprintf(code_buf, code_format, buf);
-	strcpy(code_buf, code_format);
+    sprintf(code_buf, code_format1, buf);
     FILE *fp = fopen("/tmp/.code.c", "w");
     assert(fp != NULL);
     fputs(code_buf, fp);
+    fputs(code_format2, fp);
     fclose(fp);
 
-    int ret = system("gcc /tmp/.code.c -Wall -o /tmp/.expr");
+    int ret = system("gcc /tmp/.code.c -Wall -Werror -o /tmp/.expr");
     if (ret != 0) continue;
 
     fp = popen("/tmp/.expr", "r");
