@@ -125,7 +125,7 @@ int main(int argc, char *argv[]) {
 		buf[buf_pos] = '\0';
 		
 		buf1[buf1_pos] = '\0';
-		if(token_num >= 32 || token_num == 1){
+		if(token_num <= 16){
 			continue;
 		}
 
