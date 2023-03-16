@@ -38,7 +38,8 @@ int main(int argc, char *argv[]){
 
 	int cal=0;
 	int err=0;
-	while(fscanf(fp,"%u %s",&result, e) == 2){
+	while(fscanf(fp,"%u",&result) == 1){
+		if(fscanf(fp,"%[^\n]",e) == 1){int a=1; a++;}
 		uint32_t i = expr(e,&success);
 		if((uint32_t)result != (uint32_t)i && success != true){
 			printf("expr: %s  i=%u result=%u\n",e,i,result);
