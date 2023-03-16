@@ -42,6 +42,7 @@ int buf1_pos = 0;
 int token_num = 0;
 char uint_my[] = "(uint32_t)";
 char s[33] = {};
+char fuc_num=0;
 
 static void gen_num(){
 //	uint32_t num = rand()%0x80000000;
@@ -93,11 +94,18 @@ static void gen_rand_op(){
 static void gen_rand_expr() {
 //  int seed = time(0);
 //  srand(seed);
+	fuc_num++;
+	if(fuc_num >= 72){
+		gen_num();
+		fuc_num--;
+		return;
+	}
 	switch(rand()%3){	
 		case 0:gen_num();break;
 		case 1:gen('(');gen_rand_expr();gen(')');break;
 		default:gen_rand_expr();gen_rand_op();gen_rand_expr();break;
 	}
+	fuc_num--;
 	return;
 }
 
@@ -112,7 +120,7 @@ int main(int argc, char *argv[]) {
 	int fuckgcc;
   for (i = 0; i < loop; i ++) {
     buf_pos = 0;token_num = 0;
-    buf1_pos = 0;
+    buf1_pos = 0;fuc_num=0;
 		gen_rand_expr();
 		buf[buf_pos] = '\0';
 		
