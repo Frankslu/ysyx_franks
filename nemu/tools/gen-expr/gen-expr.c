@@ -38,7 +38,8 @@ int buf_pos = 0;
 int token_num = 0;
 
 static void gen_num(){
-	uint32_t num = rand()%0x80000000;
+//	uint32_t num = rand()%0x80000000;
+	uint32_t num = rand()%0x8000;
 	char s[33] = {};
 	sprintf(s, "%d", num);
 	strcpy(buf+buf_pos, s);
