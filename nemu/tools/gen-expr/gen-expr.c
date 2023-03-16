@@ -29,6 +29,7 @@ static char buf[65536] = {};
 static char code_buf[65536 + 256] = {}; // a little larger than `buf`
 static char *code_format =
 "#include <stdio.h>\n"
+"#include <stdint.h>\n"
 "int main() { \n"
 "  unsigned result = %s; \n"
 "  printf(\"%%u\", result); \n"
@@ -41,7 +42,10 @@ static void gen_num(){
 //	uint32_t num = rand()%0x80000000;
 	uint32_t num = rand()%0x8000;
 	char s[33] = {};
+	char uint[] = "(uint32_t)";
 	sprintf(s, "%d", num);
+	strcpy(buf+buf_pos, uint);
+	buf_pos += strlen(uint);
 	strcpy(buf+buf_pos, s);
 	buf_pos += strlen(s);
 	token_num++;
