@@ -21,7 +21,7 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ = 257, TK_NE = 258, NUM = 259, UINT = 260,
+  TK_NOTYPE = 256, TK_EQ = 257, TK_NE = 258, NUM = 259, HEXNUM,
 
   /* TODO: Add more token types */
 
@@ -35,8 +35,8 @@ static struct rule {
   /* TODO: Add more rules.
    * Pay attention to the precedence level of different rules.
    */
-  {"[0-9]{1,32}", NUM},
-  {"\\(uint32_t\\)", UINT},
+	{"0x[0-9|a-f|A-F]", HEXNUM},
+  {"[0-9]+", NUM},
   {" +", TK_NOTYPE},    // spaces
   {"\\+", '+'},          // plus
   {"-", '-'},
