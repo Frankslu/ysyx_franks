@@ -15,7 +15,7 @@
 
 #include <common.h>
 #include <stdio.h>
-#define TEST
+
 
 void init_monitor(int, char *[]);
 void am_init_monitor();
@@ -55,9 +55,9 @@ int main(int argc, char *argv[]){
 	char e[128] = {};
 	bool success = true;
 
-	while(scanf("%s",e) == 1){
+	while(scanf("%[^\n]",e) == 1){
 		uint32_t i = expr(e,&success);
-		printf("expr: %s  i=%d",e,i);
+		printf("expr: %s  i=%d\n",e,i);
 	}
 	return 0;
 }*/

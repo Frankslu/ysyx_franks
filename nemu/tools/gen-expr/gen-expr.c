@@ -71,12 +71,15 @@ static void gen(char s){
 }
 
 static void gen_rand_op(){
-	int op = rand()%4;
+	int op = rand()%7;
 	switch(op){
 		case 0: buf[buf_pos] = '+';break;
 		case 1:	buf[buf_pos] = '-';break;
 		case 2: buf[buf_pos] = '*';break;
 		case 3: buf[buf_pos] = '/';break;
+		case 4: buf[buf_pos] = '&';buf_pos++;buf[buf_pos] = '&';break;
+		case 5: buf[buf_pos] = '=';buf_pos++;buf[buf_pos] = '=';break;
+		case 6: buf[buf_pos] = '!';buf_pos++;buf[buf_pos] = '=';break;
 	}
 	
 	switch(op){
@@ -84,13 +87,15 @@ static void gen_rand_op(){
 		case 1:	buf1[buf1_pos] = '-';break;
 		case 2: buf1[buf1_pos] = '*';break;
 		case 3: buf1[buf1_pos] = '/';break;
+		case 4: buf1[buf1_pos] = '&';buf1_pos++;buf1[buf1_pos] = '&';break;
+		case 5: buf1[buf1_pos] = '=';buf1_pos++;buf1[buf1_pos] = '=';break;
+		case 6: buf1[buf1_pos] = '!';buf1_pos++;buf1[buf1_pos] = '=';break;
 	}
 	buf_pos++;
 	buf1_pos++;
 	token_num++;
 	return;
 }
-
 static void gen_rand_expr() {
 //  int seed = time(0);
 //  srand(seed);
@@ -100,12 +105,13 @@ static void gen_rand_expr() {
 		fuc_num--;
 		return;
 	}
-	switch(rand()%5){	
-		case 0:gen_num();break;
-		case 1:gen('(');gen_rand_expr();gen(')');break;
+	switch(rand()%7){	
+		case 0:
+		case 1:gen_num();break;
 		case 2:gen((char)32);gen_rand_expr();break;
-		case 3:gen_rand_expr();gen((char)32);break;
-		default:gen_rand_expr();gen_rand_op();gen_rand_expr();break;
+		case 3:gen('(');gen('-');gen_rand_expr();gen(')');break;
+		case 4:gen_rand_expr();gen((char)32);break;
+		default:gen('(');gen('-');gen_rand_expr();gen(')');gen_rand_op();gen('(');gen('-');gen_rand_expr();gen(')');break;
 	}
 	fuc_num--;
 	return;
