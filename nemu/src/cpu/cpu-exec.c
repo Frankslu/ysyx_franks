@@ -31,7 +31,7 @@ static uint64_t g_timer = 0; // unit: us
 static bool g_print_step = false;
 
 void device_update();
-extern void scan_wp();
+extern int scan_wp();
 
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_ITRACE_COND
@@ -41,7 +41,10 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 	IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
 
 #ifdef CONFIG_WATCHPOINT
-	scan_wp();
+	int i=scan_wp();
+	if(i == 1 && nemu_state.state != NEMU_END){
+		nemu_state.state = NEMU_STOP;
+	}
 #endif
 }
 

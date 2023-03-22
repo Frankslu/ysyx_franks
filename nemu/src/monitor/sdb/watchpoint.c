@@ -151,18 +151,19 @@ void print_watchpoint(){
 	return;
 }
 
-void scan_wp(){
+int scan_wp(){
 	WP *p = head;
 	word_t i=0;
+	int changed = 0;
 	bool success = true;
 	while(p!=NULL){
 		i = expr(p->str, &success);
 		if(i != p->result){
 			printf("watchpoint %d changed: %-32s  old_res=%08x  res=%08x\n", p->NO, p->str, p->result, i);
 			p->result = i;
-			nemu_state.state = NEMU_STOP;
+			changed = 1;
 		}
 		p = p->next;
 	}
-	return;
+	return changed;
 }
