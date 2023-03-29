@@ -23,7 +23,7 @@
 #define Mw vaddr_write
 
 enum {
-  TYPE_2RI12, TYPE_1RI20, TYPE_3R, TYPE_OFFS26,
+  TYPE_2RI12, TYPE_1RI20, TYPE_3R, TYPE_OFFS26, TYPE_2RO16,	
   TYPE_N, // none
 };
 
@@ -32,6 +32,7 @@ enum {
 #define simm12() do { *imm = SEXT(BITS(i, 21, 10), 12); } while (0)
 #define simm20() do { *imm = SEXT(BITS(i, 24, 5), 20) << 12; } while (0)
 #define offs26() do { *imm = (SEXT(BITS(i, 25, 10), 16) | (SEXT(BITS(i, 9, 0), 10) << 16)) << 2;} while (0)
+#define offs16() do { *imm = SEXT(BITS(i, 25, 10), 16) << 2;} while (0)
 
 static void decode_operand(Decode *s, int *rd_, word_t *src1, word_t *src2, word_t *imm, int type) {
   uint32_t i = s->isa.inst.val;
@@ -43,6 +44,7 @@ static void decode_operand(Decode *s, int *rd_, word_t *src1, word_t *src2, word
     case TYPE_2RI12: simm12(); src1R(); break;
     case TYPE_3R   : src1R();  src2R(); break;
     case TYPE_OFFS26: offs26();break;
+    case TYPE_2RO16: offs16(); src1R(); break;
   }
 }
 
@@ -59,6 +61,7 @@ static int decode_exec(Decode *s) {
 
   INSTPAT_START();
   INSTPAT("010101 ???????????????? ??????????"    , bl       , OFFS26, R(1) = s->snpc, s->dnpc = s->pc + imm);
+  INSTPAT("010011 ???????????????? ????? ?????"   , jirl     , 2RO16 , R(rd) = s->snpc, s->dnpc = src1 + imm);
   INSTPAT("0001110 ????? ????? ????? ????? ?????" , pcaddu12i, 1RI20 , R(rd) = s->pc + imm);
   INSTPAT("0010100010 ???????????? ????? ?????"   , ld.w     , 2RI12 , R(rd) = Mr(src1 + imm, 4));
   INSTPAT("0010100110 ???????????? ????? ?????"   , st.w     , 2RI12 , Mw(src1 + imm, 4, R(rd)));
