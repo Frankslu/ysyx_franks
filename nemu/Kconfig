@@ -213,15 +213,3 @@ config RT_CHECK
   default y
 
 endmenu
-
-choice
-  prompt "Display watchponit every clock"
-  default NOWATCHPOINT
- 
-config WATCHPOINT
-  bool "enable"
- 
-config NOWATCHPOINT
-        bool "disable"
- 
-endchoice
