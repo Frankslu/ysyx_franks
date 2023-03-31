@@ -30,7 +30,7 @@
 #define ISA_QEMU_BIN "qemu-system-i386"
 #define ISA_QEMU_ARGS
 #elif defined(CONFIG_ISA_loongarch32r)
-#define ISA_QEMU_BIN "qemu-system-aarch64"
+#define ISA_QEMU_BIN "qemu-system-riscv64"
 #define ISA_QEMU_ARGS
 #else
 #error Unsupport ISA
