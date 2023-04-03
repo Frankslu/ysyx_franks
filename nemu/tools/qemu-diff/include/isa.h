@@ -32,7 +32,7 @@
 
 #elif defined(CONFIG_ISA_loongarch32r)
 #define ISA_QEMU_BIN "qemu-system-loongarch32"
-#define ISA_QEMU_ARGS
+#define ISA_QEMU_ARGS "-machine"
 #else
 #error Unsupport ISA
 #endif
