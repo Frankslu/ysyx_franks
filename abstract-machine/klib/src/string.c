@@ -6,6 +6,7 @@
 
 size_t strlen(const char *s) {
   
+  panic("Not implemented");
 }
 
 char *strcpy(char *dst, const char *src) {
