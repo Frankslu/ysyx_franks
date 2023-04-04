@@ -185,7 +185,7 @@ static uint8_t* recv_packet(FILE *in, size_t *ret_size, bool* ret_sum_ok) {
   while ((c = fgetc(in)) != EOF && c != '$');
 
   while((c = fgetc(in)) != EOF){
-  	putchar(fgets(in));
+  	putchar(c);
   }
 
   while ((c = fgetc(in)) != EOF) {
