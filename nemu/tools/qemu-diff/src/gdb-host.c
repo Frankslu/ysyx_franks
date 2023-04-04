@@ -47,7 +47,7 @@ static bool gdb_memcpy_to_qemu_small(uint32_t dest, void *src, int len) {
 }
 
 bool gdb_memcpy_to_qemu(uint32_t dest, void *src, int len) {
-  const int mtu = 8;
+  const int mtu = 4;
   bool ok = true;
   while (len > mtu) {
     ok &= gdb_memcpy_to_qemu_small(dest, src, mtu);
