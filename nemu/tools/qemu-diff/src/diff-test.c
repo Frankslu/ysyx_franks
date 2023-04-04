@@ -76,7 +76,7 @@ void difftest_init(int port) {
     }
 
     close(STDIN_FILENO);
-    execlp(ISA_QEMU_BIN, ISA_QEMU_BIN, ISA_QEMU_ARGS "-S", "-gdb", buf, "-nographic",
+    execlp(ISA_QEMU_BIN, ISA_QEMU_BIN, ISA_QEMU_ARGS "-S", "-gdb", buf, "-d", "int", "-nographic",
         "-serial", "none", "-monitor", "none", NULL);
     perror("exec");
     assert(0);
