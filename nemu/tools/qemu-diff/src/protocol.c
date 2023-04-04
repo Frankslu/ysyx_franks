@@ -188,7 +188,7 @@ static uint8_t* recv_packet(FILE *in, size_t *ret_size, bool* ret_sum_ok) {
   	putchar(c);
   }
 
-  while ((c = fgetc(in)) != EOF) {
+/*  while ((c = fgetc(in)) != EOF) {
     sum += c;
     switch (c) {
       case '$': // new packet?  start over...
@@ -274,7 +274,8 @@ static uint8_t* recv_packet(FILE *in, size_t *ret_size, bool* ret_sum_ok) {
   else if (feof(in))
     errx(0, "recv: Connection closed");
   else
-    errx(1, "recv: Unknown connection error");
+    errx(1, "recv: Unknown connection error");*/
+    return reply;
 }
 
 uint8_t* gdb_recv(struct gdb_conn *conn, size_t *size) {
