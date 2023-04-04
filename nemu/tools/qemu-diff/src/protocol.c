@@ -171,15 +171,15 @@ void gdb_send(struct gdb_conn *conn, const uint8_t *command, size_t size) {
 }
 
 static uint8_t* recv_packet(FILE *in, size_t *ret_size, bool* ret_sum_ok) {
-  size_t i = 0;
-  size_t size = 4096;
+//  size_t i = 0;
+//  size_t size = 4096;
   uint8_t *reply = malloc(size);
   if (reply == NULL)
     err(1, "malloc");
 
   int c;
   uint8_t sum = 0;
-  bool escape = false;
+//  bool escape = false;
 
   // fast-forward to the first start of packet
   while ((c = fgetc(in)) != EOF && c != '$');
