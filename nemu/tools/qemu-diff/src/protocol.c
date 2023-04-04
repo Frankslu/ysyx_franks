@@ -184,6 +184,10 @@ static uint8_t* recv_packet(FILE *in, size_t *ret_size, bool* ret_sum_ok) {
   // fast-forward to the first start of packet
   while ((c = fgetc(in)) != EOF && c != '$');
 
+  while((c = fgetc(in)) != EOF){
+  	putchar(fgets(in));
+  }
+
   while ((c = fgetc(in)) != EOF) {
     sum += c;
     switch (c) {
