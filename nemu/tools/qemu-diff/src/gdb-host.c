@@ -47,7 +47,7 @@ static bool gdb_memcpy_to_qemu_small(uint32_t dest, void *src, int len) {
 }
 
 bool gdb_memcpy_to_qemu(uint32_t dest, void *src, int len) {
-  const int mtu = 1500;
+  const int mtu = 100;
   bool ok = true;
   while (len > mtu) {
     ok &= gdb_memcpy_to_qemu_small(dest, src, mtu);
@@ -56,7 +56,7 @@ bool gdb_memcpy_to_qemu(uint32_t dest, void *src, int len) {
     len -= mtu;
   }
   ok &= gdb_memcpy_to_qemu_small(dest, src, len);
-  return true;
+  return ok;
 }
 
 bool gdb_getregs(union isa_gdb_regs *r) {
