@@ -31,7 +31,7 @@ enum {
 #define src2R()  do { *src2 = R(rk); } while (0)
 #define simm12() do { *imm = SEXT(BITS(i, 21, 10), 12); } while (0)
 #define simm20() do { *imm = SEXT(BITS(i, 24, 5), 20) << 12; } while (0)
-#define offs26() do { *imm = (SEXT(BITS(i, 25, 10), 16) | (SEXT(BITS(i, 9, 0), 10) << 16)) << 2;} while (0)
+#define offs26() do { *imm = (BITS(i, 25, 10)) << 2 | (BITS(i, 9, 0)) << 18;} while (0)
 #define offs16() do { *imm = SEXT(BITS(i, 25, 10), 16) << 2;} while (0)
 
 static void decode_operand(Decode *s, int *rd_, word_t *src1, word_t *src2, word_t *imm, int type) {
