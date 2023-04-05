@@ -109,8 +109,7 @@ bool gdb_setregs(union isa_gdb_regs *r) {
   
   char *buf1="g";
   gdb_send(conn, (const uint8_t *)buf1, strlen(buf1));
-  uint8_t *reply = gdb_recv(conn, &size);
-  int i;
+  reply = gdb_recv(conn, &size);
   uint8_t *p1 = reply;
   uint8_t c;
   for (i = 0; i < sizeof(union isa_gdb_regs) / sizeof(uint32_t); i ++) {
