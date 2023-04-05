@@ -14,12 +14,55 @@
 ***************************************************************************************/
 
 #include <common.h>
+#include <stdio.h>
+
 
 void init_monitor(int, char *[]);
 void am_init_monitor();
 void engine_start();
 int is_exit_status_bad();
+void init_regex();
 
+#ifdef TEST
+word_t expr(char *e, bool *success);
+
+int main(int argc, char *argv[]){
+	init_monitor(argc, argv);
+	char e[2048] = {};
+	bool success = true;
+	uint32_t result;
+
+	FILE *fp;
+	char filename[] = "/home/franks/ysyx-workbench/nemu/tools/gen-expr/build/input.txt";
+	fp = fopen(filename,"r");
+
+	int cal=0;
+	int err=0;
+	while(fscanf(fp,"%u %[^\n]",&result,e) == 2){
+		uint32_t i = expr(e,&success);
+		if((uint32_t)result != (uint32_t)i && success != true){
+			printf("expr: %s  i=%u result=%u\n",e,i,result);
+			err++;
+		}
+		cal++;
+	}
+	printf("finish:%d, err:%d\n",cal, err);
+	return 0;
+}
+
+/*int main(int argc, char *argv[]){
+	init_monitor(argc, argv);
+	char e[128] = {};
+	bool success = true;
+
+	while(scanf("%[^\n]",e) == 1){
+		uint32_t i = expr(e,&success);
+		printf("expr: %s  i=%d\n",e,i);
+	}
+	return 0;
+}*/
+
+#else
 int main(int argc, char *argv[]) {
   /* Initialize the monitor. */
 #ifdef CONFIG_TARGET_AM
@@ -33,3 +76,4 @@ int main(int argc, char *argv[]) {
 
   return is_exit_status_bad();
 }
+#endif
