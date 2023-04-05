@@ -56,7 +56,7 @@ bool gdb_memcpy_to_qemu(uint32_t dest, void *src, int len) {
     len -= mtu;
   }
   ok &= gdb_memcpy_to_qemu_small(dest, src, len);
-  char *buf="m1c000000,100";
+  char *buf="m0,100";
   gdb_send(conn, (const uint8_t *)buf, strlen(buf));
   size_t size;
   uint8_t *reply = gdb_recv(conn, &size);
