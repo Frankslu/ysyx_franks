@@ -63,21 +63,6 @@ bool gdb_memcpy_to_qemu(uint32_t dest, void *src, int len) {
   }
   ok &= gdb_memcpy_to_qemu_small(dest, src, len);
   
-  char *buf1="g";
-  gdb_send(conn, (const uint8_t *)buf1, strlen(buf1));
-  uint8_t *reply = gdb_recv(conn, &size);
-  int i;
-  uint8_t *p = reply;
-  uint8_t c;
-  for (i = 0; i < sizeof(union isa_gdb_regs) / sizeof(uint32_t); i ++) {
-    c = p[8];
-    p[8] = '\0';
-    int j = gdb_decode_hex_str(p);
-    printf("%d:%x\n",i,j);
-    p[8] = c;
-    p += 8;
-  }
-  
   return ok;
 }
 
@@ -121,6 +106,21 @@ bool gdb_setregs(union isa_gdb_regs *r) {
   size_t size;
   uint8_t *reply = gdb_recv(conn, &size);
   bool ok = !strcmp((const char*)reply, "OK");
+  
+  char *buf1="g";
+  gdb_send(conn, (const uint8_t *)buf1, strlen(buf1));
+  uint8_t *reply = gdb_recv(conn, &size);
+  int i;
+  uint8_t *p = reply;
+  uint8_t c;
+  for (i = 0; i < sizeof(union isa_gdb_regs) / sizeof(uint32_t); i ++) {
+    c = p[8];
+    p[8] = '\0';
+    int j = gdb_decode_hex_str(p);
+    printf("%d:%x\n",i,j);
+    p[8] = c;
+    p += 8;
+  }
   free(reply);
 
   return ok;
