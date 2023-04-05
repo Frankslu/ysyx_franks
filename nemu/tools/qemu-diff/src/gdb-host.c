@@ -53,7 +53,6 @@ bool gdb_memcpy_to_qemu(uint32_t dest, void *src, int len) {
   
   char *buf="Qqemu.PhyMemMode:1";
   gdb_send(conn, (const uint8_t *)buf, strlen(buf));
-  size_t size;
   
   while (len > mtu) {
     ok &= gdb_memcpy_to_qemu_small(dest, src, mtu);
@@ -105,7 +104,6 @@ bool gdb_setregs(union isa_gdb_regs *r) {
 
   size_t size;
   uint8_t *reply = gdb_recv(conn, &size);
-  size=1;
   bool ok = !strcmp((const char*)reply, "OK");
   
   char *buf1="g";
