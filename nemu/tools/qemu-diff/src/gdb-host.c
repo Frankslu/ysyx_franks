@@ -72,8 +72,8 @@ bool gdb_memcpy_to_qemu(uint32_t dest, void *src, int len) {
   for (i = 0; i < sizeof(union isa_gdb_regs) / sizeof(uint32_t); i ++) {
     c = p[8];
     p[8] = '\0';
-    r->array[i] = gdb_decode_hex_str(p);
-    printf("%x\n",r->array[i]);
+    int j = gdb_decode_hex_str(p);
+    printf("%x\n",j);
     p[8] = c;
     p += 8;
   }
