@@ -66,7 +66,17 @@ bool gdb_memcpy_to_qemu(uint32_t dest, void *src, int len) {
   char *buf1="g";
   gdb_send(conn, (const uint8_t *)buf1, strlen(buf1));
   uint8_t *reply = gdb_recv(conn, &size);
-  printf("%s\n",(char *)reply);
+  int i;
+  uint8_t *p = reply;
+  uint8_t c;
+  for (i = 0; i < sizeof(union isa_gdb_regs) / sizeof(uint32_t); i ++) {
+    c = p[8];
+    p[8] = '\0';
+    r->array[i] = gdb_decode_hex_str(p);
+    printf("%x\n",r->array[i]);
+    p[8] = c;
+    p += 8;
+  }
   
   return ok;
 }
