@@ -105,6 +105,7 @@ bool gdb_setregs(union isa_gdb_regs *r) {
 
   size_t size;
   uint8_t *reply = gdb_recv(conn, &size);
+  size=1;
   bool ok = !strcmp((const char*)reply, "OK");
   
   char *buf1="g";
