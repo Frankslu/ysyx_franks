@@ -111,15 +111,15 @@ bool gdb_setregs(union isa_gdb_regs *r) {
   gdb_send(conn, (const uint8_t *)buf1, strlen(buf1));
   uint8_t *reply = gdb_recv(conn, &size);
   int i;
-  uint8_t *p = reply;
+  uint8_t *p1 = reply;
   uint8_t c;
   for (i = 0; i < sizeof(union isa_gdb_regs) / sizeof(uint32_t); i ++) {
-    c = p[8];
-    p[8] = '\0';
-    int j = gdb_decode_hex_str(p);
+    c = p1[8];
+    p1[8] = '\0';
+    int j = gdb_decode_hex_str(p1);
     printf("%d:%x\n",i,j);
-    p[8] = c;
-    p += 8;
+    p1[8] = c;
+    p1 += 8;
   }
   free(reply);
 
