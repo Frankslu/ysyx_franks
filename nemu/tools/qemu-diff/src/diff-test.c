@@ -42,7 +42,6 @@ void difftest_regcpy(void *dut, bool direction) {
     memcpy(&qemu_r, dut, DIFFTEST_REG_SIZE);
     bool ok = gdb_setregs(&qemu_r);
     assert(ok == 1);
-    printf("OK regs\n");
   } else {
     memcpy(dut, &qemu_r, DIFFTEST_REG_SIZE);
   }
