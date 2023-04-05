@@ -51,6 +51,13 @@ static bool gdb_memcpy_to_qemu_small(uint32_t dest, void *src, int len) {
 bool gdb_memcpy_to_qemu(uint32_t dest, void *src, int len) {
   const int mtu = 1500;
   bool ok = true;
+  
+  char *buf="Qqemu.PhyMemMode:1";
+  gdb_send(conn, (const uint8_t *)buf, strlen(buf));
+  size_t size;
+  uint8_t *reply = gdb_recv(conn, &size);
+  printf("%s\n",(char *)reply);
+  
   while (len > mtu) {
     ok &= gdb_memcpy_to_qemu_small(dest, src, mtu);
     dest += mtu;
@@ -58,11 +65,6 @@ bool gdb_memcpy_to_qemu(uint32_t dest, void *src, int len) {
     len -= mtu;
   }
   ok &= gdb_memcpy_to_qemu_small(dest, src, len);
-  char *buf="qqemu.PhyMemMode";
-  gdb_send(conn, (const uint8_t *)buf, strlen(buf));
-  size_t size;
-  uint8_t *reply = gdb_recv(conn, &size);
-  printf("%s\n",(char *)reply);
   
   return true;
 }
