@@ -55,12 +55,12 @@ bool gdb_memcpy_to_qemu(uint32_t dest, void *src, int len) {
     src += mtu;
     len -= mtu;
   }
-  ok &= gdb_memcpy_to_qemu_small(dest, src, len);/*
-  char *buf="m1c000000";
+  ok &= gdb_memcpy_to_qemu_small(dest, src, len);
+  char *buf="m1c000000,100";
   gdb_send(conn, (const uint8_t *)buf, strlen(buf));
   size_t size;
   uint8_t *reply = gdb_recv(conn, &size);
-  printf("%s\n",(char *)reply);*/
+  printf("%s\n",(char *)reply);
   
   return true;
 }
