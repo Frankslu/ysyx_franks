@@ -73,7 +73,7 @@ bool gdb_memcpy_to_qemu(uint32_t dest, void *src, int len) {
     c = p[8];
     p[8] = '\0';
     int j = gdb_decode_hex_str(p);
-    printf("%x\n",j);
+    printf("%d:%x\n",i,j);
     p[8] = c;
     p += 8;
   }
