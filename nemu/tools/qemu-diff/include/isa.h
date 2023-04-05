@@ -31,8 +31,8 @@
 #define ISA_QEMU_ARGS
 
 #elif defined(CONFIG_ISA_loongarch32r)
-#define ISA_QEMU_BIN "qemu-system-loongarch32"
-#define ISA_QEMU_ARGS "-machine", "ls3a5k32", "-m", "128M",
+#define ISA_QEMU_BIN "qemu-system-riscv64"
+#define ISA_QEMU_ARGS 
 #else
 #error Unsupport ISA
 #endif
