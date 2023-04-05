@@ -40,6 +40,8 @@ static bool gdb_memcpy_to_qemu_small(uint32_t dest, void *src, int len) {
 
   size_t size;
   uint8_t *reply = gdb_recv(conn, &size);
+  
+  printf("%s\n",(char *)reply);
   bool ok = !strcmp((const char*)reply, "OK");
   free(reply);
 
