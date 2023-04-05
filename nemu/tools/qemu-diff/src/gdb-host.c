@@ -49,41 +49,18 @@ static bool gdb_memcpy_to_qemu_small(uint32_t dest, void *src, int len) {
 bool gdb_memcpy_to_qemu(uint32_t dest, void *src, int len) {
   const int mtu = 1500;
   bool ok = true;
-  /*while (len > mtu) {
+  while (len > mtu) {
     ok &= gdb_memcpy_to_qemu_small(dest, src, mtu);
     dest += mtu;
     src += mtu;
     len -= mtu;
-  }*/
-  dest=0x0;
-  ok &= gdb_memcpy_to_qemu_small(dest, src, mtu);
-  printf("OK=%d\n", ok==true);
-  dest=0x11000000;
-  ok &= gdb_memcpy_to_qemu_small(dest, src, mtu);
-  printf("OK=%d\n", ok==true);
-  dest=0x12000000;
-  ok &= gdb_memcpy_to_qemu_small(dest, src, mtu);
-  printf("OK=%d\n", ok==true);
-  dest=0x13000000;
-  ok &= gdb_memcpy_to_qemu_small(dest, src, mtu);
-  printf("OK=%d\n", ok==true);
-  dest=0x14000000;
-  ok &= gdb_memcpy_to_qemu_small(dest, src, mtu);
-  printf("OK=%d\n", ok==true);
-  dest=0x15000000;
-  ok &= gdb_memcpy_to_qemu_small(dest, src, mtu);
-  printf("OK=%d\n", ok==true);
-  dest=0x16000000;
-  ok &= gdb_memcpy_to_qemu_small(dest, src, mtu);
-  printf("OK=%d\n", ok==true);
-  dest=0x17000000;
-  ok &= gdb_memcpy_to_qemu_small(dest, src, mtu);
-  printf("OK=%d\n", ok==true);
-  dest=0x18000000;
-  ok &= gdb_memcpy_to_qemu_small(dest, src, mtu);
-  printf("OK=%d\n", ok==true);
-  
+  }
   ok &= gdb_memcpy_to_qemu_small(dest, src, len);
+  char *buf="m1c000000";
+  gdb_send(conn, (const uint8_t *)buf, strlen(buf));
+  uint8_t *reply = gdb_recv(conn, &size);
+  print("%s\n",(char *)reply);
+  
   return true;
 }
 
