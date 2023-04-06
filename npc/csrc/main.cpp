@@ -2,20 +2,20 @@
 #include <stdlib.h>
 #include <verilated.h>
 #include <verilated_vcd_c.h>
-#include "Vtop.h"
+#include "VGCD.h"
 
 int main(){
-	Vtop *top = new Vtop;
+	VGCD *GCD = new VGCD;
 
 	Verilated::traceEverOn(true);
 	VerilatedVcdC *wv = new VerilatedVcdC;
 
-	top->trace(wv,0);
+	GCD->trace(wv,0);
 	wv->open("wave.vcd");
 
-	top->final();
+	GCD->final();
 	wv->close();
-	delete top;
+	delete GCD;
 
 	return 0;
 }
