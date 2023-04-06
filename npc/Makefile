@@ -36,6 +36,7 @@ sim:
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
 	verilator -Wall --trace --cc vsrc/*.v --top-module GCD --exe  csrc/*.cpp
 	make -C $(BUILD_DIR) -f VGCD.mk VGCD
+	./$(BUILD_DIR)/VGCD
 	
 
 include ../Makefile
