@@ -12,7 +12,7 @@ class GCD extends Module {
     val loadingValues = Input(Bool())
     val outputGCD     = Output(UInt(16.W))
     val outputValid   = Output(Bool())
-  }}
+  })
 
   val x = Reg(UInt())
   val y = Reg(UInt())
