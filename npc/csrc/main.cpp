@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <verilated.h>
-#include <verilated_vcd.h>
+#include <verilated_vcd_c.h>
 #include "Vtop.h"
 
 int main(){
