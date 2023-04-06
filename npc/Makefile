@@ -1,6 +1,6 @@
 VERILOG_DIR = ./vsrc
 CPP_DIR = ./csrc
-BUILD_DIR = ./build
+BUILD_DIR = ./obj_dir
 
 export PATH := $(PATH):$(abspath ./utils)
 
