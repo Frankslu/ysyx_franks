@@ -32,7 +32,6 @@
   `define INIT_RANDOM_PROLOG_
 `endif // RANDOMIZE
 
-/* verilator lint_off UNUSEDSIGNAL */
 module GCD(	// <stdin>:2:10
   input         clock,
                 reset,
