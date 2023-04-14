@@ -23,7 +23,7 @@
 #define Mw vaddr_write
 
 enum {
-	TYPE_2RI12, TYPE_1RI20, TYPE_3R, TYPE_OFFS26, TYPE_2RO16,	
+	TYPE_2RI12, TYPE_1RI20, TYPE_3R, TYPE_OFFS26, TYPE_2RO16, TYPE_2RI5,	
 	TYPE_N, // none
 };
 
@@ -45,6 +45,7 @@ static void decode_operand(Decode *s, int *rd_, word_t *src1, word_t *src2, word
 		case TYPE_3R   : src1R();  src2R(); break;
 		case TYPE_OFFS26: offs26();break;
 		case TYPE_2RO16: offs16(); src1R(); break;
+		case TYPE_2RI5: src1R(); *src2 = rk; break;
 	}
 }
 
@@ -82,6 +83,9 @@ static int decode_exec(Decode *s) {
 	INSTPAT("00000000000100101 ????? ????? ?????"   , sltu     , 3R     , R(rd) = (unsigned)src1 < (unsigned)src2 ? 1 : 0);
 	INSTPAT("00000000000101010 ????? ????? ?????"   , move(or) , 3R     , R(rd) = src1 | src2);
 	INSTPAT("00000000000101011 ????? ????? ?????"   , xor      , 3R     , R(rd) = src1 ^ src2);
+	INSTPAT("00000000010000001 ????? ????? ?????"   , slli.w   , 2RI5   , R(rd) = src1 << src2);
+	INSTPAT("00000000010001001 ????? ????? ?????"   , srli.w   , 2RI5   , R(rd) = (unsigned)src1 >> src2);
+	INSTPAT("00000000010010001 ????? ????? ?????"   , srai.w   , 2RI5   , R(rd) = (signed)src1 >> src2);
 	INSTPAT("0000 0000 0010 10100 ????? ????? ?????", break    , N      , NEMUTRAP(s->pc, R(4)), printf("break\n")); // R(4) is $a0
 	INSTPAT("????????????????? ????? ????? ?????"   , inv      , N      , INV(s->pc));
 	INSTPAT_END();
