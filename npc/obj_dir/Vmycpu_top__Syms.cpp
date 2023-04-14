@@ -1,16 +1,16 @@
 // Verilated -*- C++ -*-
 // DESCRIPTION: Verilator output: Symbol table implementation internals
 
-#include "VGCD__Syms.h"
-#include "VGCD.h"
-#include "VGCD___024root.h"
+#include "Vmycpu_top__Syms.h"
+#include "Vmycpu_top.h"
+#include "Vmycpu_top___024root.h"
 
 // FUNCTIONS
-VGCD__Syms::~VGCD__Syms()
+Vmycpu_top__Syms::~Vmycpu_top__Syms()
 {
 }
 
-VGCD__Syms::VGCD__Syms(VerilatedContext* contextp, const char* namep, VGCD* modelp)
+Vmycpu_top__Syms::Vmycpu_top__Syms(VerilatedContext* contextp, const char* namep, Vmycpu_top* modelp)
     : VerilatedSyms{contextp}
     // Setup internal state of the Syms class
     , __Vm_modelp{modelp}

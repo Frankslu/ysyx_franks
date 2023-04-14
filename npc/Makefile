@@ -32,9 +32,12 @@ clean:
 
 .PHONY: test verilog help compile bsp reformat checkformat clean
 
+c:
+	verilator --top-module mycpu_top -cc vsrc/*.v
+
 sim:
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
-	verilator -Wall --trace --cc vsrc/*.v --top-module GCD --exe  csrc/*.cpp
+	verilator -Wall --trace --cc vsrc/*.v --top-module mycpu_top --exe  csrc/*.cpp
 	make -C $(BUILD_DIR) -f VGCD.mk VGCD
 	./$(BUILD_DIR)/VGCD
 	

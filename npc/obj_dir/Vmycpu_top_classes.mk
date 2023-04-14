@@ -2,7 +2,7 @@
 # DESCRIPTION: Verilator output: Make include file with class lists
 #
 # This file lists generated Verilated files, for including in higher level makefiles.
-# See VGCD.mk for the caller.
+# See Vmycpu_top.mk for the caller.
 
 ### Switches...
 # C11 constructs required?  0/1 (always on now)
@@ -14,38 +14,35 @@ VM_COVERAGE = 0
 # Parallel builds?  0/1 (from --output-split)
 VM_PARALLEL_BUILDS = 0
 # Tracing output mode?  0/1 (from --trace/--trace-fst)
-VM_TRACE = 1
+VM_TRACE = 0
 # Tracing output mode in VCD format?  0/1 (from --trace)
-VM_TRACE_VCD = 1
+VM_TRACE_VCD = 0
 # Tracing output mode in FST format?  0/1 (from --trace-fst)
 VM_TRACE_FST = 0
 
 ### Object file lists...
 # Generated module classes, fast-path, compile with highest optimization
 VM_CLASSES_FAST += \
-	VGCD \
-	VGCD___024root__DepSet_hf36bda4f__0 \
-	VGCD___024root__DepSet_ha2a8e0ca__0 \
+	Vmycpu_top \
+	Vmycpu_top___024root__DepSet_h368ace38__0 \
+	Vmycpu_top___024root__DepSet_hcf0db31f__0 \
 
 # Generated module classes, non-fast-path, compile with low/medium optimization
 VM_CLASSES_SLOW += \
-	VGCD___024root__Slow \
-	VGCD___024root__DepSet_hf36bda4f__0__Slow \
-	VGCD___024root__DepSet_ha2a8e0ca__0__Slow \
+	Vmycpu_top___024root__Slow \
+	Vmycpu_top___024root__DepSet_h368ace38__0__Slow \
+	Vmycpu_top___024root__DepSet_hcf0db31f__0__Slow \
 
 # Generated support classes, fast-path, compile with highest optimization
 VM_SUPPORT_FAST += \
-	VGCD__Trace__0 \
 
 # Generated support classes, non-fast-path, compile with low/medium optimization
 VM_SUPPORT_SLOW += \
-	VGCD__Syms \
-	VGCD__Trace__0__Slow \
+	Vmycpu_top__Syms \
 
 # Global classes, need linked once per executable, fast-path, compile with highest optimization
 VM_GLOBAL_FAST += \
 	verilated \
-	verilated_vcd_c \
 	verilated_threads \
 
 # Global classes, need linked once per executable, non-fast-path, compile with low/medium optimization

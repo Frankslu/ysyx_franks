@@ -4,34 +4,32 @@
 // Internal details; most calling programs do not need this header,
 // unless using verilator public meta comments.
 
-#ifndef VERILATED_VGCD__SYMS_H_
-#define VERILATED_VGCD__SYMS_H_  // guard
+#ifndef VERILATED_VMYCPU_TOP__SYMS_H_
+#define VERILATED_VMYCPU_TOP__SYMS_H_  // guard
 
 #include "verilated.h"
 
 // INCLUDE MODEL CLASS
 
-#include "VGCD.h"
+#include "Vmycpu_top.h"
 
 // INCLUDE MODULE CLASSES
-#include "VGCD___024root.h"
+#include "Vmycpu_top___024root.h"
 
 // SYMS CLASS (contains all model state)
-class VGCD__Syms final : public VerilatedSyms {
+class Vmycpu_top__Syms final : public VerilatedSyms {
   public:
     // INTERNAL STATE
-    VGCD* const __Vm_modelp;
-    bool __Vm_activity = false;  ///< Used by trace routines to determine change occurred
-    uint32_t __Vm_baseCode = 0;  ///< Used by trace routines when tracing multiple models
+    Vmycpu_top* const __Vm_modelp;
     VlDeleter __Vm_deleter;
     bool __Vm_didInit = false;
 
     // MODULE INSTANCE STATE
-    VGCD___024root                 TOP;
+    Vmycpu_top___024root           TOP;
 
     // CONSTRUCTORS
-    VGCD__Syms(VerilatedContext* contextp, const char* namep, VGCD* modelp);
-    ~VGCD__Syms();
+    Vmycpu_top__Syms(VerilatedContext* contextp, const char* namep, Vmycpu_top* modelp);
+    ~Vmycpu_top__Syms();
 
     // METHODS
     const char* name() { return TOP.name(); }
