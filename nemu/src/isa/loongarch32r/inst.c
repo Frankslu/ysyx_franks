@@ -23,16 +23,17 @@
 #define Mw vaddr_write
 
 enum {
-	TYPE_2RI12, TYPE_1RI20, TYPE_3R, TYPE_OFFS26, TYPE_2RO16, TYPE_2RI5,	
+	TYPE_2RI12, TYPE_2RI12U,TYPE_1RI20, TYPE_3R, TYPE_OFFS26, TYPE_2RO16, TYPE_2RI5,	
 	TYPE_N, // none
 };
 
-#define src1R()  do { *src1 = R(rj); } while (0)
-#define src2R()  do { *src2 = R(rk); } while (0)
-#define simm12() do { *imm = SEXT(BITS(i, 21, 10), 12); } while (0)
-#define simm20() do { *imm = SEXT(BITS(i, 24, 5), 20) << 12; } while (0)
-#define offs26() do { *imm = SEXT((BITS(i, 25, 10) << 2 | BITS(i, 9, 0) << 18), 28);} while (0)
-#define offs16() do { *imm = SEXT(BITS(i, 25, 10), 16) << 2;} while (0)
+#define src1R()   do { *src1 = R(rj); } while (0)
+#define src2R()   do { *src2 = R(rk); } while (0)
+#define simm12()  do { *imm = SEXT(BITS(i, 21, 10), 12); } while (0)
+#define simm12u() do { *imm = BITS(i, 21, 10); } while (0)
+#define simm20()  do { *imm = SEXT(BITS(i, 24, 5), 20) << 12; } while (0)
+#define offs26()  do { *imm = SEXT((BITS(i, 25, 10) << 2 | BITS(i, 9, 0) << 18), 28);} while (0)
+#define offs16()  do { *imm = SEXT(BITS(i, 25, 10), 16) << 2;} while (0)
 
 static void decode_operand(Decode *s, int *rd_, word_t *src1, word_t *src2, word_t *imm, int type) {
 	uint32_t i = s->isa.inst.val;
@@ -40,12 +41,13 @@ static void decode_operand(Decode *s, int *rd_, word_t *src1, word_t *src2, word
 	int rk = BITS(i, 14, 10);
 	*rd_ = BITS(i, 4, 0);
 	switch (type) {
-		case TYPE_1RI20: simm20(); src1R(); break;
-		case TYPE_2RI12: simm12(); src1R(); break;
-		case TYPE_3R   : src1R();  src2R(); break;
+		case TYPE_1RI20 : simm20(); src1R(); break;
+		case TYPE_2RI12 : simm12(); src1R(); break;
+		case TYPE_2RI12U: simm12u(); src1R(); break;
+		case TYPE_3R    : src1R();  src2R(); break;
 		case TYPE_OFFS26: offs26();break;
-		case TYPE_2RO16: offs16(); src1R(); break;
-		case TYPE_2RI5: src1R(); *src2 = rk; break;
+		case TYPE_2RO16 : offs16(); src1R(); break;
+		case TYPE_2RI5  : src1R(); *src2 = rk; break;
 	}
 }
 
@@ -74,9 +76,9 @@ static int decode_exec(Decode *s) {
 	INSTPAT("0000001000 ???????????? ????? ?????"   , slti     , 2RI12  , R(rd) = (signed)src1 < (signed)imm ? 1 : 0);
 	INSTPAT("0000001001 ???????????? ????? ?????"   , sltui    , 2RI12  , R(rd) = (unsigned)src1 < (unsigned)imm ? 1 : 0);
 	INSTPAT("0000001010 ???????????? ????? ?????"   , addi     , 2RI12  , R(rd) = imm + src1);
-	INSTPAT("0000001101 ???????????? ????? ?????"   , andi     , 2RI12  , R(rd) = imm & src1);
-	INSTPAT("0000001110 ???????????? ????? ?????"   , ori      , 2RI12  , R(rd) = imm | src1);
-	INSTPAT("0000001111 ???????????? ????? ?????"   , xori     , 2RI12  , R(rd) = imm ^ src1);
+	INSTPAT("0000001101 ???????????? ????? ?????"   , andi     , 2RI12U , R(rd) = imm & src1);
+	INSTPAT("0000001110 ???????????? ????? ?????"   , ori      , 2RI12U , R(rd) = imm | src1);
+	INSTPAT("0000001111 ???????????? ????? ?????"   , xori     , 2RI12U , R(rd) = imm ^ src1);
 	INSTPAT("0010100000 ???????????? ????? ?????"   , ld.b     , 2RI12  , R(rd) = (int8_t)Mr(src1 + imm, 1));
 	INSTPAT("0010100001 ???????????? ????? ?????"   , ld.h     , 2RI12  , R(rd) = (int16_t)Mr(src1 + imm, 2));
 	INSTPAT("0010100010 ???????????? ????? ?????"   , ld.w     , 2RI12  , R(rd) = Mr(src1 + imm, 4));
