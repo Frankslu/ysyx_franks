@@ -33,7 +33,7 @@
 `endif // RANDOMIZE
 
 // VCS coverage exclude_file
-module rf_combMem(	// regfile.scala:34:17
+module rf_combMem(	// regfile.scala:35:17
   input  [4:0]  R0_addr,
   input         R0_en,
                 R0_clk,
@@ -47,28 +47,28 @@ module rf_combMem(	// regfile.scala:34:17
   output [31:0] R0_data,
                 R1_data);
 
-  reg [31:0] Memory[0:31];	// regfile.scala:34:17
-  always @(posedge W0_clk) begin	// regfile.scala:34:17
-    if (W0_en)	// regfile.scala:34:17
-      Memory[W0_addr] <= W0_data;	// regfile.scala:34:17
+  reg [31:0] Memory[0:31];	// regfile.scala:35:17
+  always @(posedge W0_clk) begin	// regfile.scala:35:17
+    if (W0_en)	// regfile.scala:35:17
+      Memory[W0_addr] <= W0_data;	// regfile.scala:35:17
   end // always @(posedge)
-  `ifndef SYNTHESIS	// regfile.scala:34:17
-    `ifdef RANDOMIZE_MEM_INIT	// regfile.scala:34:17
-      integer initvar;	// regfile.scala:34:17
-      reg [31:0] _RANDOM_MEM;	// regfile.scala:34:17
+  `ifndef SYNTHESIS	// regfile.scala:35:17
+    `ifdef RANDOMIZE_MEM_INIT	// regfile.scala:35:17
+      integer initvar;	// regfile.scala:35:17
+      reg [31:0] _RANDOM_MEM;	// regfile.scala:35:17
     `endif // RANDOMIZE_MEM_INIT
-    initial begin	// regfile.scala:34:17
-      `INIT_RANDOM_PROLOG_	// regfile.scala:34:17
-      `ifdef RANDOMIZE_MEM_INIT	// regfile.scala:34:17
+    initial begin	// regfile.scala:35:17
+      `INIT_RANDOM_PROLOG_	// regfile.scala:35:17
+      `ifdef RANDOMIZE_MEM_INIT	// regfile.scala:35:17
         for (initvar = 0; initvar < 32; initvar = initvar + 1) begin
           _RANDOM_MEM = {`RANDOM};
           Memory[initvar] = _RANDOM_MEM[31:0];
-        end	// regfile.scala:34:17
+        end	// regfile.scala:35:17
       `endif // RANDOMIZE_MEM_INIT
     end // initial
   `endif // not def SYNTHESIS
-  assign R0_data = R0_en ? Memory[R0_addr] : 32'bx;	// regfile.scala:34:17
-  assign R1_data = R1_en ? Memory[R1_addr] : 32'bx;	// regfile.scala:34:17
+  assign R0_data = R0_en ? Memory[R0_addr] : 32'bx;	// regfile.scala:35:17
+  assign R1_data = R1_en ? Memory[R1_addr] : 32'bx;	// regfile.scala:35:17
 endmodule
 
 module regfile(	// <stdin>:2:10
@@ -82,9 +82,9 @@ module regfile(	// <stdin>:2:10
   output [31:0] io_rdata1,
                 io_rdata2);
 
-  wire [31:0] _rf_ext_R0_data;	// regfile.scala:34:17
-  wire [31:0] _rf_ext_R1_data;	// regfile.scala:34:17
-  rf_combMem rf_ext (	// regfile.scala:34:17
+  wire [31:0] _rf_ext_R0_data;	// regfile.scala:35:17
+  wire [31:0] _rf_ext_R1_data;	// regfile.scala:35:17
+  rf_combMem rf_ext (	// regfile.scala:35:17
     .R0_addr (io_raddr1),
     .R0_en   (1'h1),	// <stdin>:2:10
     .R0_clk  (clock),
@@ -98,7 +98,7 @@ module regfile(	// <stdin>:2:10
     .R0_data (_rf_ext_R0_data),
     .R1_data (_rf_ext_R1_data)
   );
-  assign io_rdata1 = io_raddr1 == 5'h0 ? 32'h0 : _rf_ext_R0_data;	// <stdin>:2:10, regfile.scala:34:17, :36:{21,32}
-  assign io_rdata2 = io_raddr2 == 5'h0 ? 32'h0 : _rf_ext_R1_data;	// <stdin>:2:10, regfile.scala:34:17, :36:{21,32}, :37:{21,32}
+  assign io_rdata1 = io_raddr1 == 5'h0 ? 32'h0 : _rf_ext_R0_data;	// <stdin>:2:10, regfile.scala:35:17, :37:{21,32}
+  assign io_rdata2 = io_raddr2 == 5'h0 ? 32'h0 : _rf_ext_R1_data;	// <stdin>:2:10, regfile.scala:35:17, :37:{21,32}, :38:{21,32}
 endmodule
 
