@@ -1,6 +1,6 @@
 import chisel3._
 import config.Configs._
-
+/*
 class regfile extends Module{
     val io = IO(new Bundle {
         val waddr = Input(UInt(REG_ADDR_LEN.W))
@@ -20,4 +20,19 @@ class regfile extends Module{
 
     io.rdata1 := Mux(io.raddr1 === 0.U, 0.U, regfile(io.raddr1))
     io.rdata2 := Mux(io.raddr2 === 0.U, 0.U, regfile(io.raddr2))
+}*/
+class regfile extends Module{
+    val io = IO(new Bundle {
+        val waddr = Input(UInt(REG_ADDR_LEN.W))
+        val raddr1 = Input(UInt(REG_ADDR_LEN.W))
+        val raddr2 = Input(UInt(REG_ADDR_LEN.W))
+        val wdata = Input(UInt(DATA_WIDTH.W))
+        val rdata1 = Output(UInt(DATA_WIDTH.W))
+        val rdata2 = Output(UInt(DATA_WIDTH.W))
+        val wen = Input(Bool())
+    })
+    val rf = Mem(32,UInt(32.W))
+    when(io.wen) {rf(io.waddr) := io.wdata}
+    io.rdata1 := Mux(io.raddr1 === 0.U, 0.U, rf(io.raddr1))
+    io.rdata2 := Mux(io.raddr2 === 0.U, 0.U, rf(io.raddr2))
 }
