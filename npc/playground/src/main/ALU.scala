@@ -33,9 +33,9 @@ class ALU (alu_op_num: Int, data_width: Int = 32)extends Module{
     val or_res  = io.src1 | io.src2
     val nor_res = ~or_res
     val xor_res = io.src1 ^ io.src2
-    val sll_res = io.src1 << io.src2
+    val sll_res = io.src1 << io.src2(4,0)
     val sr = Cat(Fill(32, io.src1(31) & op_sra), io.src1)
-    val sr_res = sr >> io.src2
+    val sr_res = sr >> io.src2(4,0)
     val lui_res = io.src2
 
     io.res := Mux1H(Seq(
