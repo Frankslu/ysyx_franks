@@ -4,13 +4,15 @@ import chisel3.util.Cat
 import chisel3.util.Mux1H
 import cpucore.Config.Configs._
 
+class ALU_io extends Bundle{
+    val alu_op = Input(UInt(ALU_OP_NUM.W))//0:add, 1:sub, 2:and 4:or 5:xor 6:
+    val src1   = Input(UInt(DATA_WIDTH.W))
+    val src2   = Input(UInt(DATA_WIDTH.W))
+    val res    = Output(UInt(DATA_WIDTH.W))
+}
+
 class ALU extends Module{
-    val io = IO(new Bundle {
-        val alu_op = Input(UInt(ALU_OP_NUM.W))//0:add, 1:sub, 2:and 4:or 5:xor 6:
-        val src1   = Input(UInt(DATA_WIDTH.W))
-        val src2   = Input(UInt(DATA_WIDTH.W))
-        val res    = Output(UInt(DATA_WIDTH.W))
-    })
+    val io = IO(new ALU_io)
 
     val op_add  = io.alu_op( 0)
 	val op_sub  = io.alu_op( 1)
