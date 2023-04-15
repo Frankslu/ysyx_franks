@@ -1,17 +1,15 @@
-
-
 import chisel3._
 import chisel3.util.Fill
 import chisel3.util.Cat
 import chisel3.util.Mux1H
+import config.Configs._
 
-
-class ALU (alu_op_num: Int, data_width: Int = 32)extends Module{
+class ALU extends Module{
     val io = IO(new Bundle {
-        val alu_op = Input(UInt(alu_op_num.W))//0:add, 1:sub, 2:and 4:or 5:xor 6:
-        val src1   = Input(UInt(data_width.W))
-        val src2   = Input(UInt(data_width.W))
-        val res    = Output(UInt(data_width.W))
+        val alu_op = Input(UInt(ALU_OP_NUM.W))//0:add, 1:sub, 2:and 4:or 5:xor 6:
+        val src1   = Input(UInt(DATA_WIDTH.W))
+        val src2   = Input(UInt(DATA_WIDTH.W))
+        val res    = Output(UInt(DATA_WIDTH.W))
     })
 
     val op_add  = io.alu_op( 0)
