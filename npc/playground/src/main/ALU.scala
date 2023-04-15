@@ -1,4 +1,7 @@
 import chisel3._
+import chisel3.util.Fill
+import chisel3.util.Cat
+import chisel3.util.Mux1H
 
 
 class ALU (alu_op_num: Int, data_width: Int = 32)extends Module{
@@ -30,5 +33,19 @@ class ALU (alu_op_num: Int, data_width: Int = 32)extends Module{
     val or_res  = io.src1 | io.src2
     val nor_res = ~or_res
     val xor_res = io.src1 ^ io.src2
-    val sll_res = io.src1
+    val sll_res = io.src1 << io.src2
+    val sr = Cat(Fill(32, io.src1(31) & op_sra), io.src1)
+    val sr_res = sr >> io.src2
+    val lui_res = io.src2
+
+    io.res := Mux1H(Seq(
+        (op_add | op_sub) -> add_res,
+        op_and -> and_res,
+        op_or  -> or_res,
+        op_nor -> nor_res,
+        op_xor -> xor_res,
+        op_sll -> sll_res,
+        (op_sra | op_srl) -> sr_res,
+        op_lui -> lui_res
+    ))
 }
