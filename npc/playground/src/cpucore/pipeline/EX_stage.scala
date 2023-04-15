@@ -4,9 +4,7 @@ import cpucore.Config.Configs
 class EX_stage extends Module{
     val a = IO(Flipped(new fs2es))
 
-    val b = IO(new Bundle {
-        val c = Output(UInt(1.W))
-    })
+    val b = IO(Input(UInt(1.W)))
 
-    b.c := a.alu_op(1)
+    b := a.alu_op(1)
 }
