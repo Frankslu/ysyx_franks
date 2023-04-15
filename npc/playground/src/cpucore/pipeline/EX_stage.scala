@@ -2,7 +2,7 @@ import chisel3._
 import cpucore.Config.Configs
 
 class EX_stage extends Module{
-    val a = IO(Flipped(new fs2es))
+    val a = IO(Flipped(new ds2es))
     val b = IO(Output(UInt(32.W)))
 
     val alu_u = Module(new ALU)

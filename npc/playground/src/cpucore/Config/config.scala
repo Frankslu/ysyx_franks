@@ -9,4 +9,8 @@ object Configs {
     val ALU_OP_NUM = 12
     val ADDR_WIDTH = 32
     val DATA_WIDTH = 32
+
+    val PC_INIT = 0x1c000000
+
+    val WSTRB_WIDTH = 4
 }
