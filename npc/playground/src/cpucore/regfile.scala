@@ -31,7 +31,7 @@ class regfile extends Module{
         val rdata2 = Output(UInt(DATA_WIDTH.W))
         val wen = Input(Bool())
     })
-    val rf = Mem(32,UInt(32.W))
+    val rf = Mem(REG_NUM ,UInt(DATA_WIDTH.W))
     when(io.wen) {rf(io.waddr) := io.wdata}
     io.rdata1 := Mux(io.raddr1 === 0.U, 0.U, rf(io.raddr1))
     io.rdata2 := Mux(io.raddr2 === 0.U, 0.U, rf(io.raddr2))
