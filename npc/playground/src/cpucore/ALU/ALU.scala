@@ -1,8 +1,10 @@
+package cpucore.ALU
+
 import chisel3._
 import chisel3.util.Fill
 import chisel3.util.Cat
 import chisel3.util.Mux1H
-import config.Configs._
+import cpucore.Config.Configs._
 
 class ALU extends Module{
     val io = IO(new Bundle {

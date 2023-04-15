@@ -1,5 +1,6 @@
+
+import cpucore.Config.Configs._
 import chisel3._
-import config.Configs._
 /*
 class regfile extends Module{
     val io = IO(new Bundle {
