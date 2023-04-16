@@ -9,6 +9,8 @@ class ds2es extends Bundle{
 
 class fs2ds extends Bundle{
     val inst = Output(UInt(DATA_WIDTH.W))
+    val br_taken = Input(Bool())
+    val br_target = Input(UInt(ADDR_WIDTH.W))
 }
 
 class sram_io_1 extends Bundle{
