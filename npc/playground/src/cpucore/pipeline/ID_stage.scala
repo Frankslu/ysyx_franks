@@ -20,5 +20,4 @@ class ID_stage extends Module{
     val imm20 = Cat(rd, inst(25,10))
     val imm26 = Cat(rj, rd, inst(25,10))
 
-    val
 }

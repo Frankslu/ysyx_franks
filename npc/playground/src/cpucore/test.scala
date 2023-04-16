@@ -15,5 +15,8 @@ class SimpleDecoder extends Module {
   val input = IO(Input(UInt(3.W)))
   val output = IO(Output(UInt(1.W)))
   output := decoder(input, table)
+
+
 }
+
 

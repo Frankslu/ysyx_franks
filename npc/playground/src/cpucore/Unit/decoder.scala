@@ -61,7 +61,7 @@ object loongarch32r_inst{
     def SRAI_W    = BitPat("b00000000010010001_?????_?????_?????"   ) 
     def BREAK     = BitPat("b0000_0000_0010_10100_?????_?????_?????") 
 
-    def signal = BitPat("b"+)
+    def signal = BitPat("b")
     val inst_table = TruthTable(
         Map(
             B ->         BitPat("b_000000001"),
