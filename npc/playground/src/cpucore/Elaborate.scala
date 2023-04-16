@@ -1,8 +1,10 @@
 import circt.stage._
 import chisel3.getVerilogString
 
+import cpucore.pipeline._
+
 object Elaborate extends App {
-  def top = new SimpleDecoder
+  def top = new ID_stage
   
   val useMFC = true // use MLIR-based firrtl compiler
   val generator = Seq(chisel3.stage.ChiselGeneratorAnnotation(() => top))

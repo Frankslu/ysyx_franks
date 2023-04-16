@@ -6,7 +6,7 @@ object Configs {
     val REG_NUM = 32
 
     //ALU
-    val ALU_OP_NUM = 12
+    val ALU_OP_NUM = 19
     val ADDR_WIDTH = 32
     val DATA_WIDTH = 32
 
