@@ -1,3 +1,5 @@
+package cpucore.Unit
+
 import chisel3._
 import chisel3.util.Fill
 import chisel3.util.Cat
@@ -15,17 +17,17 @@ class ALU extends Module{
     val io = IO(new ALU_io)
 
     val op_add  = io.alu_op( 0)
-	val op_sub  = io.alu_op( 1)
-	val op_slt  = io.alu_op( 2)
-	val op_sltu = io.alu_op( 3)
-	val op_and  = io.alu_op( 4)
-	val op_nor  = io.alu_op( 5)
-	val op_or   = io.alu_op( 6)
-	val op_xor  = io.alu_op( 7)
-	val op_sll  = io.alu_op( 8)
-	val op_srl  = io.alu_op( 9)
-	val op_sra  = io.alu_op(10)
-	val op_lui  = io.alu_op(11)
+    val op_sub  = io.alu_op( 1)
+    val op_slt  = io.alu_op( 2)
+    val op_sltu = io.alu_op( 3)
+    val op_and  = io.alu_op( 4)
+    val op_nor  = io.alu_op( 5)
+    val op_or   = io.alu_op( 6)
+    val op_xor  = io.alu_op( 7)
+    val op_sll  = io.alu_op( 8)
+    val op_srl  = io.alu_op( 9)
+    val op_sra  = io.alu_op(10)
+    val op_lui  = io.alu_op(11)
     
     val add_sub = (op_sub | op_slt | op_sltu).asBool
     val add_res = io.src1 +& Mux(add_sub, ~io.src2, io.src2) + Mux(add_sub, 1.U, 0.U)
@@ -50,4 +52,19 @@ class ALU extends Module{
         (op_sra | op_srl) -> sr_res,
         op_lui -> lui_res
     ))
+}
+
+object ALUOP{
+    val op_add  = 0x1
+    val op_sub  = 0x2
+    val op_slt  = 0x4
+    val op_sltu = 0x8
+    val op_and  = 0x10
+    val op_nor  = 0x20
+    val op_or   = 0x40
+    val op_xor  = 0x80
+    val op_sll  = 0x100
+    val op_srl  = 0x200
+    val op_sra  = 0x400
+    val op_lui  = 0x800
 }

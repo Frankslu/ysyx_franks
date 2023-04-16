@@ -1,4 +1,5 @@
-//package cpucore.pipeline
+package cpucore.pipeline
+
 import chisel3._
 import cpucore.Config.Configs._
 

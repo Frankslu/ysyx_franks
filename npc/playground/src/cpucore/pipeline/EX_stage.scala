@@ -1,5 +1,8 @@
+package cpucore.pipeline
+
 import chisel3._
 import cpucore.Config.Configs
+import cpucore.Unit._
 
 class EX_stage extends Module{
     val a = IO(Flipped(new ds2es))
