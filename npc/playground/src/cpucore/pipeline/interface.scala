@@ -7,10 +7,13 @@ class ds2es extends Bundle{
     val alu_op = Output(UInt(ALU_OP_NUM.W))
 }
 
-class fs2ds extends Bundle{
-    val inst = Output(UInt(DATA_WIDTH.W))
+class pre_IF extends Bundle{
     val br_taken = Input(Bool())
     val br_target = Input(UInt(ADDR_WIDTH.W))
+}
+
+class fs2ds extends Bundle{
+    val inst = Output(UInt(DATA_WIDTH.W))
 }
 
 class sram_io_1 extends Bundle{
