@@ -1,4 +1,4 @@
-package cpucore.Unit
+/*package cpucore.Unit
 
 import chisel3._
 import chisel3.util.experimental.decode.TruthTable
@@ -115,4 +115,4 @@ object loongarch32r_inst{
          BitPat("b1")
      )
  
-}
+}*/
