@@ -1,19 +1,21 @@
+//package cpucore.pipeline
+
 import chisel3._
 import cpucore.Config.Configs._
+
+class br_bus extends Bundle{
+    val taken = Input(Bool())
+    val target = Input(UInt(ADDR_WIDTH.W))
+}
+
+class fs2ds extends Bundle{
+    val inst = Output(UInt(DATA_WIDTH.W))
+}
 
 class ds2es extends Bundle{
     val alu_src1 = Output(UInt(DATA_WIDTH.W))
     val alu_src2 = Output(UInt(DATA_WIDTH.W))
     val alu_op = Output(UInt(ALU_OP_NUM.W))
-}
-
-class pre_IF extends Bundle{
-    val br_taken = Input(Bool())
-    val br_target = Input(UInt(ADDR_WIDTH.W))
-}
-
-class fs2ds extends Bundle{
-    val inst = Output(UInt(DATA_WIDTH.W))
 }
 
 class sram_io_1 extends Bundle{
