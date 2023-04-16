@@ -112,7 +112,7 @@ object loongarch32r_inst{
             SRAI_W ->    BitPat("b" +OP_SRA  ),
             BREAK ->     BitPat("b" +OP_NONE )
          ),
-         BitPat("b1")
+         BitPat("b"+OP_NONE)
      )
     def loongarch32r_decoder(inst : UInt) = decoder(inst, inst_table)
 }
