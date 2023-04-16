@@ -115,5 +115,4 @@ object loongarch32r_inst{
          BitPat("b1")
      )
  
-     def
 }
