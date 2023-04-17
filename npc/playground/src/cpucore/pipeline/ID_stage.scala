@@ -10,15 +10,15 @@ import myUtil.myUtil._
 class a extends Bundle{
     val alu_op = Wire(UInt(ALU_OP_NUM.W))
     val inst_type = Wire(UInt(4.W))
-    val mem_we = Wire(Bool())
+    val mem_we = Wire(UInt(1.W))
     val inst_name = Wire(UInt(5.W))
-    val rf_we = Wire(Bool())
+    val rf_we = Wire(UInt(1.W))
 }
 
 class ID_stage extends Module{
-    val toes = IO(new ds2es)
-    val fromfs = IO(Flipped(new fs2ds))
-    val br   = IO(Flipped(new br_bus))
+    val toes = IO(new ds2es())
+    val fromfs = IO(Flipped(new fs2ds()))
+    val br   = IO(Flipped(new br_bus()))
 
     val inst = fromfs.inst
     val rj = inst(9,5)
@@ -34,7 +34,7 @@ class ID_stage extends Module{
 
     
     //val decode_res = Cat(toes.alu_op, mem_we, inst_type, inst_name, rf_we)
-    val aa = Wire(new a)
+    val aa = Wire(new a())
     aa := loongarch32r_decoder(inst)
     toes.alu_op := aa.alu_op
     val inst_type = aa.inst_type
