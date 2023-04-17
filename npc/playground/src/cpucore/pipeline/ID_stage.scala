@@ -44,7 +44,7 @@ class ID_stage extends Module{
         (inst_type === u(I26))   -> 4.U
     ))
 
-    val rk_or_rd = Wire(Bool())////////////
+    val rk_or_rd = inst_name =/= u(INST_JIRL) & inst_type === u(R2I16)
     val reg = Module(new regfile)
     reg.io.raddr1 := rj
     reg.io.raddr2 := Mux(rk_or_rd, rk, rd)
