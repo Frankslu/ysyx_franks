@@ -23,7 +23,7 @@ class test extends Module{
         (inst_type === s"b${R2I5}".U)  -> imm5,
         (inst_type === s"b${R2I12}".U) -> imm12.asUInt,
         (inst_type === s"b${R2I12U}".U) -> imm12u,
-        (inst_type === s"b${R2I16}".U) -> imm16,
+        (inst_type === s"b${R2I16}".U) -> imm16.asUInt,
         (inst_type === s"b${R1I20}".U) -> imm20,
         (inst_type === s"b${I26}".U)   -> imm26
     ))
