@@ -5,6 +5,6 @@ module test(	// <stdin>:2:10
   input  [2:0] in,
   output       out);
 
-  assign out = in == 3'h1 & in == 3'h2 & in == 3'h5;	// <stdin>:2:10, tool.scala:36:{23,31}
+  assign out = in[0];	// <stdin>:2:10, te.scala:14:9
 endmodule
 
