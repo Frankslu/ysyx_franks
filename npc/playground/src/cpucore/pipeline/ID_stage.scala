@@ -7,14 +7,6 @@ import cpucore.Unit._
 import cpucore.Unit.loongarch32r_inst._
 import myUtil.myUtil._
 
-class a extends Bundle{
-    val alu_op = Wire(UInt(ALU_OP_NUM.W))
-    val inst_type = Wire(UInt(4.W))
-    val mem_we = Wire(UInt(1.W))
-    val inst_name = Wire(UInt(5.W))
-    val rf_we = Wire(UInt(1.W))
-}
-
 class ID_stage extends Module{
     val toes = IO(new ds2es())
     val fromfs = IO(Flipped(new fs2ds()))
@@ -34,13 +26,13 @@ class ID_stage extends Module{
 
     
     //val decode_res = Cat(toes.alu_op, mem_we, inst_type, inst_name, rf_we)
-    val aa = Wire(new a())
-    aa := loongarch32r_decoder(inst)
-    toes.alu_op := aa.alu_op
-    val inst_type = aa.inst_type
-    val mem_we = aa.mem_we
-    val inst_name = aa.inst_name
-    val rf_we = aa.rf_we
+    val decode_res = loongarch32r_decoder(inst)
+
+    toes.alu_op := decode_res(29,11)
+    val inst_type = decode_res(10,7)
+    val mem_we = decode_res(6)
+    val inst_name = decode_res(5,1)
+    val rf_we = decode_res(0)
 
     val imm = Wire(UInt(DATA_WIDTH.W))
     imm := MuxCase(0x0.U(DATA_WIDTH.W), Seq(
