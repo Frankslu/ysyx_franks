@@ -22,6 +22,7 @@ class ds2es extends Bundle{
     val alu_src1 = Output(UInt(DATA_WIDTH.W))
     val alu_src2 = Output(UInt(DATA_WIDTH.W))
     val alu_op = Output(UInt(ALU_OP_NUM.W))
+    val rf_waddr = Output(UInt(REG_ADDR_LEN.W))
 }
 
 class sram_io_1 extends Bundle{

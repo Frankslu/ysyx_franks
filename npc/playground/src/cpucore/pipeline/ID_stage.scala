@@ -55,7 +55,7 @@ class ID_stage extends Module{
     val rj_value = reg.io.rdata1
     val rkd_value = reg.io.rdata2
 
-    val rf_waddr = Mux(inst_name === INST_B.U, 1.U(5.W), rd)//output
+    val rf_waddr = Mux(inst_name === u(INST_B), 1.U(5.W), rd)//output
 
     //branch
     val rj_eq_rd  = rj_value === rkd_value
