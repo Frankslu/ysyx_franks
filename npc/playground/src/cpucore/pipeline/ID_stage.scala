@@ -54,5 +54,5 @@ class ID_stage extends Module{
     toes.alu_src2 := rkd_value
 
     //branch
-    val beq_taken = inst_name === inst_beq
+    //val beq_taken = inst_name === inst_beq
 }
