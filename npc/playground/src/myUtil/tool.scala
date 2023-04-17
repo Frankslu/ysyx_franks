@@ -39,7 +39,7 @@ object myUtil{
     }
 
     def u(input: String) = {
-        val c = "b"+input
+        val c = s"b${input}"
         c.U
     }
 }
