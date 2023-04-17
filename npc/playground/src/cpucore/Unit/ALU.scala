@@ -55,8 +55,8 @@ class ALU extends Module{
     val mulh_res = (io.src1.asSInt * io.src2.asSInt)(63,32)
     val divu_res = io.src1 / io.src2
     val modu_res = io.src1 % io.src2
-    val div_res = io.src1.asSInt / io.src2.asSInt
-    val mod_res = io.src1.asSInt % io.src2.asSInt
+    val div_res = (io.src1.asSInt / io.src2.asSInt).asUInt
+    val mod_res = (io.src1.asSInt % io.src2.asSInt).asUInt
 
     io.res := Mux1H(Seq(
         (op_add | op_sub) -> add_res,
