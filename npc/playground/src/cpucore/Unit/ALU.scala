@@ -101,7 +101,7 @@ object ALUOP{
     val sub_   = 1 ;val OP_SUB  = to_onehot(1 << sub_ )//"0000000000000000010"
     val slt_   = 2 ;val OP_SLT  = to_onehot(1 << slt_ )//"0000000000000000100"
     val sltu_  = 3 ;val OP_SLTU = to_onehot(1 << sltu_)//"0000000000000001000"
-    val and_   = 4 ;val OP_AND  = to_onehot(1 << nor_ )//"0000000000000010000"
+    val and_   = 4 ;val OP_AND  = to_onehot(1 << and_ )//"0000000000000010000"
     val nor_   = 5 ;val OP_NOR  = to_onehot(1 << nor_ )//"0000000000000100000"
     val or_    = 6 ;val OP_OR   = to_onehot(1 << or_  )//"0000000000001000000"
     val xor_   = 7 ;val OP_XOR  = to_onehot(1 << xor_ )//"0000000000010000000"
