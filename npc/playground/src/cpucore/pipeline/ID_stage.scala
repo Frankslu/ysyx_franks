@@ -62,7 +62,7 @@ class ID_stage extends Module{
     val rj_sub_rd = rj_value +& rkd_value + 1.U
     val slt_res = rj_value(31) & ~rkd_value(31) | ~(rj_value(31) ^ rkd_value(31)) & rj_sub_rd(31)
     val sltu_res = ~rj_sub_rd(32)
-    val br_taken =  inst_name === u(INST_BEQ)  & rj_eq_rd |
+    br.taken  :=  inst_name === u(INST_BEQ)  & rj_eq_rd |
                     inst_name === u(INST_BNE)  & ~rj_eq_rd |
                     inst_name === u(INST_BLT)  & slt_res |
                     inst_name === u(INST_BGE)  & ~slt_res |
@@ -70,9 +70,10 @@ class ID_stage extends Module{
                     inst_name === u(INST_BGEU) & ~sltu_res |
                     inst_name === u(INST_B) | inst_name === u(INST_BL) | inst_name === u(INST_JIRL)
     val ds_pc = fromfs.pc
-    val br_target = Mux(inst_name === u(INST_JIRL), rj_value, ds_pc) + imm
+    br.target := Mux(inst_name === u(INST_JIRL), rj_value, ds_pc) + imm
 
     toes.pc := ds_pc
     toes.alu_src1 := Mux(eq_list(inst_name, u(INST_JIRL), u(INST_PCAD), u(INST_BL)), ds_pc, rj_value)
     toes.alu_src2 := Mux(inst_type === u(R3), rkd_value, imm)
+    toes.rf_waddr := rf_waddr
 }
