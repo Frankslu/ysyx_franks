@@ -82,15 +82,9 @@ class ALU extends Module{
 
 object ALUOP{
 
-    def creat_? = {
-        var a = ""
-        for(i <- 1 to ALU_OP_NUM){
-            a = a + "?"
-        }
-        a
-    }
+    
 
-    val to_onehot = set_onehot(_, ALU_OP_NUM, "String")
+    val to_onehot = set_onehot(_, ALU_OP_NUM)
 
     val add_   = 0 ;val OP_ADD  = to_onehot(add_ )//"0000000000000000001"
     val sub_   = 1 ;val OP_SUB  = to_onehot(sub_ )//"0000000000000000010"
@@ -111,5 +105,5 @@ object ALUOP{
     val divu_  = 16;val OP_DIVU = to_onehot(divu_)//"0010000000000000000"
     val mod_   = 17;val OP_MOD  = to_onehot(mod_ )
     val modu_  = 18;val OP_MODU = to_onehot(modu_)
-    val OP_NONE = creat_?
+    val OP_NONE = creat_?(ALU_OP_NUM)
 }

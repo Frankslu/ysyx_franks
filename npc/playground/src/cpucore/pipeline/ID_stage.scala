@@ -24,10 +24,12 @@ class ID_stage extends Module{
     val imm26  = Cat(rj, rd, inst(25,10))
 
 
-    val rk_or_rd = Wire(Bool())
+    
     val inst_type = Wire(UInt(4.W))
-    val inst_name = Wire(UInt(4.W))
-    val decode_res = Cat(toes.alu_op, inst_type)
+    val inst_name = Wire(UInt(5.W))
+    val mem_we = Wire(Bool())
+    val rf_we = Wire(Bool())
+    val decode_res = Cat(toes.alu_op, mem_we, inst_type, inst_name, rf_we)
     decode_res := loongarch32r_decoder(inst)
 
     val imm = Wire(UInt(32.W))
@@ -40,6 +42,7 @@ class ID_stage extends Module{
         (inst_type === s"b${I26}".U)   -> imm26
     ))
 
+    val rk_or_rd = Wire(Bool())////////////
     val reg = Module(new regfile)
     reg.io.raddr1 := rj
     reg.io.raddr2 := Mux(rk_or_rd, rk, rd)
@@ -50,9 +53,22 @@ class ID_stage extends Module{
     val rj_value = reg.io.rdata1
     val rkd_value = reg.io.rdata2
 
-    toes.alu_src1 := rj_value
-    toes.alu_src2 := rkd_value
+    val rf_waddr = Mux(inst_name === INST_B.U, 1.U(5.W), rd)//output
 
     //branch
-    //val beq_taken = inst_name === inst_beq
+    val rj_eq_rd  = rj_value === rkd_value
+    val rj_sub_rd = rj_value +& rkd_value + 1.U
+    val slt_res = rj_value(31) & ~rkd_value(31) | ~(rj_value(31) ^ rkd_value(31)) & rj_sub_rd(31)
+    val sltu_res = ~rj_sub_rd(32)
+    val br_taken =  inst_name === u(INST_BEQ)  & rj_eq_rd |
+                    inst_name === u(INST_BNE)  & ~rj_eq_rd |
+                    inst_name === u(INST_BLT)  & slt_res |
+                    inst_name === u(INST_BGE)  & ~slt_res |
+                    inst_name === u(INST_BLTU) & sltu_res |
+                    inst_name === u(INST_BGEU) & ~sltu_res |
+                    inst_name === u(INST_B) | inst_name === u(INST_BL) | inst_name === u(INST_JIRL)
+    val br_target = "1"
+
+    toes.alu_src1 := rj_value
+    toes.alu_src2 := rkd_value
 }

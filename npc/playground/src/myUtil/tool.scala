@@ -9,21 +9,37 @@ object myUtil{
         sign.asUInt
     }
 
-//    def NtoString(num: Int, width: Int): String = {
-
- //   }
-
-    def set_onehot(num: Int, width: Int, return_type: String) = {
-        val x = 1 << num
-        var string = x.toBinaryString
+    def set_num(num: Int, width: Int) = {
+        var string = num.toBinaryString
         val len = string.length()
         for(i <- len to (width - 1)){
-                string = "0" + string
+            string = "0" + string
         }
-        if(return_type == "UInt"){
-            string.U
-        }else if(return_type == "String"){
-            string
+        string
+    }
+
+    def set_onehot(num: Int, width: Int) = {
+        set_num(1 << num, width)
+    }
+
+    def creat_?(width: Int) = {
+        var a = ""
+        for(i <- 1 to width){
+            a = a + "?"
         }
+        a
+    }
+
+    def eq_list(input: UInt, list: UInt*) = {
+        var res = true.B
+        for(i <- list){
+            res = res & input === i
+        }
+        res
+    }
+
+    def u(input: String) = {
+        val c = "b"+input
+        c.U
     }
 }
