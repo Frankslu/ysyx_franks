@@ -9,6 +9,6 @@ module test(	// <stdin>:2:10
   assign imm = inst_type == 4'h2 ? {27'h0, inst[14:10]} : inst_type == 4'h3 ? {{20{inst[21]}},
                 inst[21:10]} : inst_type == 4'h8 ? {20'h0, inst[21:10]} : inst_type == 4'h4 ?
                 {{14{inst[25]}}, inst[25:10], 2'h0} : inst_type == 4'h5 ? {inst[24:5], 12'h0} : inst_type
-                == 4'h6 ? {6'h0, inst[9:0], inst[25:10]} : 32'h0;	// <stdin>:2:10, Cat.scala:33:92, Mux.scala:101:16, te.scala:14:18, :16:22, :18:11, :20:{11,22}, :21:26, :25:20, :26:20, :27:20, :28:20, :29:20, :30:20
+                == 4'h6 ? {6'h0, inst[9:0], inst[25:10]} : 32'h0;	// <stdin>:2:10, Cat.scala:33:92, Mux.scala:101:16, te.scala:15:18, :17:22, :19:38, :20:26, :24:20, :25:20, :26:20, :27:20, :28:20, :29:20, tool.scala:8:14
 endmodule
 

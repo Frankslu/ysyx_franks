@@ -5,6 +5,7 @@ import chisel3.util.Fill
 import chisel3.util.Cat
 import chisel3.util.Mux1H
 import cpucore.Config.Configs._
+import myUtil.myUtil._
 
 class ALU_io extends Bundle{
     val alu_op = Input(UInt(ALU_OP_NUM.W))//0:add, 1:sub, 2:and 4:or 5:xor 6:
@@ -80,14 +81,6 @@ class ALU extends Module{
 }
 
 object ALUOP{
-    def to_onehot(x: Int) = {
-        var string = x.toBinaryString
-        val len = string.length()
-        for(i <- len to (ALU_OP_NUM - 1)){
-            string = "0" + string
-        }
-        string
-    }
 
     def creat_? = {
         var a = ""
@@ -97,24 +90,26 @@ object ALUOP{
         a
     }
 
-    val add_   = 0 ;val OP_ADD  = to_onehot(1 << add_ )//"0000000000000000001"
-    val sub_   = 1 ;val OP_SUB  = to_onehot(1 << sub_ )//"0000000000000000010"
-    val slt_   = 2 ;val OP_SLT  = to_onehot(1 << slt_ )//"0000000000000000100"
-    val sltu_  = 3 ;val OP_SLTU = to_onehot(1 << sltu_)//"0000000000000001000"
-    val and_   = 4 ;val OP_AND  = to_onehot(1 << and_ )//"0000000000000010000"
-    val nor_   = 5 ;val OP_NOR  = to_onehot(1 << nor_ )//"0000000000000100000"
-    val or_    = 6 ;val OP_OR   = to_onehot(1 << or_  )//"0000000000001000000"
-    val xor_   = 7 ;val OP_XOR  = to_onehot(1 << xor_ )//"0000000000010000000"
-    val sll_   = 8 ;val OP_SLL  = to_onehot(1 << sll_ )//"0000000000100000000"
-    val srl_   = 9 ;val OP_SRL  = to_onehot(1 << srl_ )//"0000000001000000000"
-    val sra_   = 10;val OP_SRA  = to_onehot(1 << sra_ )//"0000000010000000000"
-    val lui_   = 11;val OP_LUI  = to_onehot(1 << lui_ )//"0000000100000000000"
-    val mul_   = 12;val OP_MUL  = to_onehot(1 << mul_ )//"0000001000000000000"
-    val mulh_  = 13;val OP_MULH = to_onehot(1 << mulh_)//"0000010000000000000"
-    val mulhu_ = 14;val OP_MULHU= to_onehot(1 << mulhu_)//"0000100000000000000"
-    val div_   = 15;val OP_DIV  = to_onehot(1 << div_ )//"0001000000000000000"
-    val divu_  = 16;val OP_DIVU = to_onehot(1 << divu_)//"0010000000000000000"
-    val mod_   = 17;val OP_MOD  = to_onehot(1 << mod_ )
-    val modu_  = 18;val OP_MODU = to_onehot(1 << modu_)
+    val to_onehot = set_onehot(_, ALU_OP_NUM, "String")
+
+    val add_   = 0 ;val OP_ADD  = to_onehot(add_ )//"0000000000000000001"
+    val sub_   = 1 ;val OP_SUB  = to_onehot(sub_ )//"0000000000000000010"
+    val slt_   = 2 ;val OP_SLT  = to_onehot(slt_ )//"0000000000000000100"
+    val sltu_  = 3 ;val OP_SLTU = to_onehot(sltu_)//"0000000000000001000"
+    val and_   = 4 ;val OP_AND  = to_onehot(and_ )//"0000000000000010000"
+    val nor_   = 5 ;val OP_NOR  = to_onehot(nor_ )//"0000000000000100000"
+    val or_    = 6 ;val OP_OR   = to_onehot(or_  )//"0000000000001000000"
+    val xor_   = 7 ;val OP_XOR  = to_onehot(xor_ )//"0000000000010000000"
+    val sll_   = 8 ;val OP_SLL  = to_onehot(sll_ )//"0000000000100000000"
+    val srl_   = 9 ;val OP_SRL  = to_onehot(srl_ )//"0000000001000000000"
+    val sra_   = 10;val OP_SRA  = to_onehot(sra_ )//"0000000010000000000"
+    val lui_   = 11;val OP_LUI  = to_onehot(lui_ )//"0000000100000000000"
+    val mul_   = 12;val OP_MUL  = to_onehot(mul_ )//"0000001000000000000"
+    val mulh_  = 13;val OP_MULH = to_onehot(mulh_)//"0000010000000000000"
+    val mulhu_ = 14;val OP_MULHU= to_onehot(mulhu_)//"0000100000000000000"
+    val div_   = 15;val OP_DIV  = to_onehot(div_ )//"0001000000000000000"
+    val divu_  = 16;val OP_DIVU = to_onehot(divu_)//"0010000000000000000"
+    val mod_   = 17;val OP_MOD  = to_onehot(mod_ )
+    val modu_  = 18;val OP_MODU = to_onehot(modu_)
     val OP_NONE = creat_?
 }
