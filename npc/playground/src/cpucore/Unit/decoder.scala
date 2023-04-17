@@ -8,6 +8,31 @@ import chisel3.util.BitPat
 import cpucore.Unit.ALUOP._
 
 object loongarch32r_inst{
+    //inst_type
+    val INV     = "0000"
+    val R3      = "0001"
+    val R2I5    = "0010"
+    val R2I12   = "0011"
+    val R2I16   = "0100"
+    val R1I20   = "0101"
+    val I26     = "0110"
+    val BRK_T    = "0111"
+//    val R2
+//    val R4
+//    val R2I8
+//    val R2I14
+//    val R1I21
+
+    //MEM
+    val MEM_EN = "0"
+    val MEM_UN = "1"
+    val MEM_NN = "?"
+
+    //special inst
+    val inst_ld_h
+    val inst_ld
+    
+
     //I26
     def B         = BitPat("b010100_????????????????_??????????"    ) 
     def BL        = BitPat("b010101_????????????????_??????????"    )
@@ -58,61 +83,60 @@ object loongarch32r_inst{
     def MOD_WU    = BitPat("b00000000001000011_?????_?????_?????"   ) 
     def SLLI_W    = BitPat("b00000000010000001_?????_?????_?????"   )//shift 
     def SRLI_W    = BitPat("b00000000010001001_?????_?????_?????"   )//shift
-    def SRAI_W    = BitPat("b00000000010010001_?????_?????_?????"   ) 
+    def SRAI_W    = BitPat("b00000000010010001_?????_?????_?????"   )//shift
     def BREAK     = BitPat("b0000_0000_0010_10100_?????_?????_?????") 
 
-    def signal = BitPat("b")
-    val inst_table = TruthTable(
-        Map(
-            B ->         BitPat("b" +OP_NONE ),
-            BL ->        BitPat("b" +OP_ADD  ),
-            JIRL ->      BitPat("b" +OP_ADD  ),
-            BEQ ->       BitPat("b" +OP_NONE ),
-            BNE ->       BitPat("b" +OP_NONE ),
-            BLT ->       BitPat("b" +OP_NONE ),
-            BGE ->       BitPat("b" +OP_NONE ),
-            BLTU ->      BitPat("b" +OP_NONE ),
-            BGEU ->      BitPat("b" +OP_NONE ),
-            LU12I_W ->   BitPat("b" +OP_LUI  ),
-            PCADDU12I -> BitPat("b" +OP_ADD  ),
-            SLTI ->      BitPat("b" +OP_SLT  ),
-            SLTUI ->     BitPat("b" +OP_SLTU ),
-            ADDI_W ->    BitPat("b" +OP_ADD  ),
-            ANDI ->      BitPat("b" +OP_AND  ),
-            ORI ->       BitPat("b" +OP_OR   ),
-            XORI ->      BitPat("b" +OP_XOR  ),
-            LD_B ->      BitPat("b" +OP_ADD  ),
-            LD_H ->      BitPat("b" +OP_ADD  ),
-            LD_W ->      BitPat("b" +OP_ADD  ),
-            ST_B ->      BitPat("b" +OP_ADD  ),
-            ST_H ->      BitPat("b" +OP_ADD  ),
-            ST_W ->      BitPat("b" +OP_ADD  ),
-            LD_BU ->     BitPat("b" +OP_ADD  ),
-            LD_HU ->     BitPat("b" +OP_ADD  ),
-            ADD_W ->     BitPat("b" +OP_ADD  ),
-            SUB_W ->     BitPat("b" +OP_SUB  ),
-            SLT ->       BitPat("b" +OP_SLT  ),
-            SLTU ->      BitPat("b" +OP_SLTU ),
-            NOR ->       BitPat("b" +OP_NOR  ),
-            AND ->       BitPat("b" +OP_AND  ),
-            MOVE ->      BitPat("b" +OP_OR   ),
-            XOR ->       BitPat("b" +OP_XOR  ),
-            SLL_W ->     BitPat("b" +OP_SLL  ),
-            SRL_W ->     BitPat("b" +OP_SRL  ),
-            SRA_W ->     BitPat("b" +OP_SRA  ),
-            MUL_W ->     BitPat("b" +OP_MUL  ),
-            MULH_W ->    BitPat("b" +OP_MULH ),
-            MULH_WU ->   BitPat("b" +OP_MULHU),
-            DIV_W ->     BitPat("b" +OP_DIV  ),
-            MOD_W ->     BitPat("b" +OP_MOD  ),
-            DIV_WU ->    BitPat("b" +OP_DIVU ),
-            MOD_WU ->    BitPat("b" +OP_MODU ),
-            SLLI_W ->    BitPat("b" +OP_SLL  ),
-            SRLI_W ->    BitPat("b" +OP_SRL  ),
-            SRAI_W ->    BitPat("b" +OP_SRA  ),
-            BREAK ->     BitPat("b" +OP_NONE )
-         ),
-         BitPat("b"+OP_NONE)
-     )
+    
+    val inst_table = TruthTable(Map(
+        //                      ALUOP   INSTTYPE   MEMEN  INST  WSTRB  RFWE 
+        B         -> BitPat("b" +OP_NONE  +I26   +MEM_UN ),
+        BL        -> BitPat("b" +OP_ADD   +I26   +MEM_UN ),
+        JIRL      -> BitPat("b" +OP_ADD   +R2I16 +MEM_UN ),
+        BEQ       -> BitPat("b" +OP_NONE  +R2I16 +MEM_UN ),
+        BNE       -> BitPat("b" +OP_NONE  +R2I16 +MEM_UN ),
+        BLT       -> BitPat("b" +OP_NONE  +R2I16 +MEM_UN ),
+        BGE       -> BitPat("b" +OP_NONE  +R2I16 +MEM_UN ),
+        BLTU      -> BitPat("b" +OP_NONE  +R2I16 +MEM_UN ),
+        BGEU      -> BitPat("b" +OP_NONE  +R2I16 +MEM_UN ),
+        LU12I_W   -> BitPat("b" +OP_LUI   +R1I20 +MEM_UN ),
+        PCADDU12I -> BitPat("b" +OP_ADD   +R1I20 +MEM_UN ),
+        SLTI      -> BitPat("b" +OP_SLT   +R2I12 +MEM_UN ),
+        SLTUI     -> BitPat("b" +OP_SLTU  +R2I12 +MEM_UN ),
+        ADDI_W    -> BitPat("b" +OP_ADD   +R2I12 +MEM_UN ),
+        ANDI      -> BitPat("b" +OP_AND   +R2I12 +MEM_UN ),
+        ORI       -> BitPat("b" +OP_OR    +R2I12 +MEM_UN ),
+        XORI      -> BitPat("b" +OP_XOR   +R2I12 +MEM_UN ),
+        LD_B      -> BitPat("b" +OP_ADD   +R2I12 +MEM_EN ),
+        LD_H      -> BitPat("b" +OP_ADD   +R2I12 +MEM_EN ),
+        LD_W      -> BitPat("b" +OP_ADD   +R2I12 +MEM_EN ),
+        ST_B      -> BitPat("b" +OP_ADD   +R2I12 +MEM_EN ),
+        ST_H      -> BitPat("b" +OP_ADD   +R2I12 +MEM_EN ),
+        ST_W      -> BitPat("b" +OP_ADD   +R2I12 +MEM_EN ),
+        LD_BU     -> BitPat("b" +OP_ADD   +R2I12 +MEM_EN ),
+        LD_HU     -> BitPat("b" +OP_ADD   +R2I12 +MEM_EN ),
+        ADD_W     -> BitPat("b" +OP_ADD   +R3    +MEM_UN ),
+        SUB_W     -> BitPat("b" +OP_SUB   +R3    +MEM_UN ),
+        SLT       -> BitPat("b" +OP_SLT   +R3    +MEM_UN ),
+        SLTU      -> BitPat("b" +OP_SLTU  +R3    +MEM_UN ),
+        NOR       -> BitPat("b" +OP_NOR   +R3    +MEM_UN ),
+        AND       -> BitPat("b" +OP_AND   +R3    +MEM_UN ),
+        MOVE      -> BitPat("b" +OP_OR    +R3    +MEM_UN ),
+        XOR       -> BitPat("b" +OP_XOR   +R3    +MEM_UN ),
+        SLL_W     -> BitPat("b" +OP_SLL   +R3    +MEM_UN ),
+        SRL_W     -> BitPat("b" +OP_SRL   +R3    +MEM_UN ),
+        SRA_W     -> BitPat("b" +OP_SRA   +R3    +MEM_UN ),
+        MUL_W     -> BitPat("b" +OP_MUL   +R3    +MEM_UN ),
+        MULH_W    -> BitPat("b" +OP_MULH  +R3    +MEM_UN ),
+        MULH_WU   -> BitPat("b" +OP_MULHU +R3    +MEM_UN ),
+        DIV_W     -> BitPat("b" +OP_DIV   +R3    +MEM_UN ),
+        MOD_W     -> BitPat("b" +OP_MOD   +R3    +MEM_UN ),
+        DIV_WU    -> BitPat("b" +OP_DIVU  +R3    +MEM_UN ),
+        MOD_WU    -> BitPat("b" +OP_MODU  +R3    +MEM_UN ),
+        SLLI_W    -> BitPat("b" +OP_SLL   +R2I5  +MEM_UN ),
+        SRLI_W    -> BitPat("b" +OP_SRL   +R2I5  +MEM_UN ),
+        SRAI_W    -> BitPat("b" +OP_SRA   +R2I5  +MEM_UN ),
+        BREAK     -> BitPat("b" +OP_NONE  +BRK_T +MEM_UN )),
+                     BitPat("b" +OP_NONE  +INV   +MEM_NN ))
+
     def loongarch32r_decoder(inst : UInt) = decoder(inst, inst_table)
 }
