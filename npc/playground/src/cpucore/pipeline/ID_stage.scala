@@ -9,10 +9,10 @@ import myUtil.myUtil._
 
 class ID_stage extends Module{
     val toes = IO(new ds2es)
-    val tofs = IO(Flipped(new fs2ds))
+    val fromfs = IO(Flipped(new fs2ds))
     val br   = IO(Flipped(new br_bus))
 
-    val inst = tofs.inst
+    val inst = fromfs.inst
     val rj = inst(9,5)
     val rd = inst(4,0)
     val rk = inst(14,10)
@@ -32,14 +32,14 @@ class ID_stage extends Module{
     val decode_res = Cat(toes.alu_op, mem_we, inst_type, inst_name, rf_we)
     decode_res := loongarch32r_decoder(inst)
 
-    val imm = Wire(UInt(32.W))
-    imm := MuxCase(0x0.U(32.W), Seq(
-        (inst_type === s"b${R2I5}".U)  -> imm5,
-        (inst_type === s"b${R2I12}".U) -> imm12,
-        (inst_type === s"b${R2I12U}".U) -> imm12u,
-        (inst_type === s"b${R2I16}".U) -> imm16,
-        (inst_type === s"b${R1I20}".U) -> imm20,
-        (inst_type === s"b${I26}".U)   -> imm26
+    val imm = Wire(UInt(DATA_WIDTH.W))
+    imm := MuxCase(0x0.U(DATA_WIDTH.W), Seq(
+        (inst_type === u(R2I5))  -> imm5,
+        (inst_type === u(R2I12)) -> imm12,
+        (inst_type === u(R2I12U)) -> imm12u,
+        (inst_type === u(R2I16)) -> 4.U,
+        (inst_type === u(R1I20)) -> imm20,
+        (inst_type === u(I26))   -> 4.U
     ))
 
     val rk_or_rd = Wire(Bool())////////////
@@ -67,8 +67,10 @@ class ID_stage extends Module{
                     inst_name === u(INST_BLTU) & sltu_res |
                     inst_name === u(INST_BGEU) & ~sltu_res |
                     inst_name === u(INST_B) | inst_name === u(INST_BL) | inst_name === u(INST_JIRL)
-    val br_target = "1"
+    val ds_pc = fromfs.pc
+    val br_target = Mux(inst_name === u(INST_JIRL), rj_value, ds_pc) + imm
 
-    toes.alu_src1 := rj_value
-    toes.alu_src2 := rkd_value
+    toes.pc := ds_pc
+    toes.alu_src1 := Mux(eq_list(inst_name, u(INST_JIRL), u(INST_PCAD), u(INST_BL)), ds_pc, rj_value)
+    toes.alu_src2 := Mux(inst_type === u(R3), rkd_value, imm)
 }

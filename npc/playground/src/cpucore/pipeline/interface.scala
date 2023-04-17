@@ -8,11 +8,17 @@ class br_bus extends Bundle{
     val target = Input(UInt(ADDR_WIDTH.W))
 }
 
+class pre2fs extends Bundle{
+    val pc = Output(UInt(ADDR_WIDTH.W))
+}
+
 class fs2ds extends Bundle{
+    val pc = Output(UInt(ADDR_WIDTH.W))
     val inst = Output(UInt(DATA_WIDTH.W))
 }
 
 class ds2es extends Bundle{
+    val pc = Output(UInt(ADDR_WIDTH.W))
     val alu_src1 = Output(UInt(DATA_WIDTH.W))
     val alu_src2 = Output(UInt(DATA_WIDTH.W))
     val alu_op = Output(UInt(ALU_OP_NUM.W))
