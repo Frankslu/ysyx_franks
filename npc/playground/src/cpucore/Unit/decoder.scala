@@ -29,8 +29,8 @@ object loongarch32r_inst{
     val MEM_NN = "?"
 
     //special inst
-    val inst_ld_h
-    val inst_ld
+    //val inst_ld_h
+    //val inst_ld
     
 
     //I26
