@@ -33,7 +33,7 @@ object myUtil{
     def eq_list(input: UInt, list: UInt*) = {
         var res = true.B
         for(i <- list){
-            res = res & input === i
+            res = res | input === i
         }
         res
     }
