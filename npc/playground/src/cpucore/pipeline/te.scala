@@ -5,9 +5,9 @@ import chisel3.util._
 import cpucore.Unit.loongarch32r_inst._
 
 class test extends Module{
-    val inst = Input(UInt(32.W))
-    val imm = Output(UInt(32.W))
-    val inst_type = Input(UInt(4.W))
+    val inst = IO(Input(UInt(32.W)))
+    val imm = IO(Output(UInt(32.W)))
+    val inst_type = IO(Input(UInt(4.W)))
 
     val rj = inst(9,5)
     val rd = inst(4,0)
