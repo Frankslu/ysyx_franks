@@ -1,11 +1,11 @@
 package cpucore.Unit
 
 import chisel3._
-import chisel3.util.experimental.decode.TruthTable
-import chisel3.util.experimental.decode.decoder
+import chisel3.util._
 import chisel3.util.BitPat
 
 import cpucore.Unit.ALUOP._
+import chisel3.util.experimental.decode._
 
 object loongarch32r_inst{
     //inst_type
@@ -16,7 +16,8 @@ object loongarch32r_inst{
     val R2I16   = "0100"
     val R1I20   = "0101"
     val I26     = "0110"
-    val BRK_T    = "0111"
+    val BRK_T   = "0111"
+    val R2I12U  = "1000" 
 //    val R2
 //    val R4
 //    val R2I8
@@ -86,7 +87,6 @@ object loongarch32r_inst{
     def SRAI_W    = BitPat("b00000000010010001_?????_?????_?????"   )//shift
     def BREAK     = BitPat("b0000_0000_0010_10100_?????_?????_?????") 
 
-    
     val inst_table = TruthTable(Map(
         //                      ALUOP   INSTTYPE   MEMEN  INST  WSTRB  RFWE 
         B         -> BitPat("b" +OP_NONE  +I26   +MEM_UN ),
@@ -103,9 +103,9 @@ object loongarch32r_inst{
         SLTI      -> BitPat("b" +OP_SLT   +R2I12 +MEM_UN ),
         SLTUI     -> BitPat("b" +OP_SLTU  +R2I12 +MEM_UN ),
         ADDI_W    -> BitPat("b" +OP_ADD   +R2I12 +MEM_UN ),
-        ANDI      -> BitPat("b" +OP_AND   +R2I12 +MEM_UN ),
-        ORI       -> BitPat("b" +OP_OR    +R2I12 +MEM_UN ),
-        XORI      -> BitPat("b" +OP_XOR   +R2I12 +MEM_UN ),
+        ANDI      -> BitPat("b" +OP_AND   +R2I12U +MEM_UN ),
+        ORI       -> BitPat("b" +OP_OR    +R2I12U +MEM_UN ),
+        XORI      -> BitPat("b" +OP_XOR   +R2I12U +MEM_UN ),
         LD_B      -> BitPat("b" +OP_ADD   +R2I12 +MEM_EN ),
         LD_H      -> BitPat("b" +OP_ADD   +R2I12 +MEM_EN ),
         LD_W      -> BitPat("b" +OP_ADD   +R2I12 +MEM_EN ),
