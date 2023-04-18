@@ -27,7 +27,6 @@ class ds2es extends Bundle{
 
 class es2ms extends Bundle{
     val pc = Output(UInt(ADDR_WIDTH.W))
-    val 
     val alu_res = Output(UInt(DATA_WIDTH.W))
 }
 
