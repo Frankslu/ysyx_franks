@@ -25,11 +25,18 @@ class ds2es extends Bundle{
     val rf_waddr = Output(UInt(REG_ADDR_LEN.W))
 }
 
+class es2ms extends Bundle{
+    val pc = Output(UInt(ADDR_WIDTH.W))
+    val 
+    val alu_res = Output(UInt(DATA_WIDTH.W))
+}
+
 class sram_io_1 extends Bundle{
     val en = Output(Bool())
     val we = Output(UInt(WSTRB_WIDTH.W))
     val addr = Output(UInt(ADDR_WIDTH.W))
     val wdata = Output(UInt(DATA_WIDTH.W))
+    val wstrb = Output(UInt(4.W))
 }
 
 class sram_io_2 extends Bundle{
