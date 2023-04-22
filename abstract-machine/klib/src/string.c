@@ -143,7 +143,7 @@ int memcmp(const void *s1, const void *s2, size_t n)
 	size_t i = 0;
 	char *a1 = (char *)s1;
 	char *a2 = (char *)s2;
-	for ( ; i < 3; i++){
+	for ( ; i < n; i++){
 		c = (int)a1[i] - (int)a2[i];
 		if (c != 0){
 			return c;
