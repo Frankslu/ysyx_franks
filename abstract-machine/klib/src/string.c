@@ -55,7 +55,7 @@ char *strcat(char *dst, const char *src)
 		i++;
 	}
 
-	for (; src[j] != '\0'; i++){
+	for (; src[j] != '\0'; j++){
 		dst[i + j] = src[j];
 	}
 	dst[i + j] = '\0';
