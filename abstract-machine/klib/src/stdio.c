@@ -8,50 +8,49 @@
 void int_to_char(int d, char s[]);
 
 int printf(const char *fmt, ...) {
-	// if (fmt == NULL){
-	// 	return -1;
-	// }
+	if (fmt == NULL){
+		return -1;
+	}
 
-	// va_list args;
-	// va_start(args, fmt);
-	// int len = 0;
+	va_list args;
+	va_start(args, fmt);
+	int len = 0;
 	// int d;
 	// char c;
 	// char s1[33];
 	// char *s;
 
-	// size_t i = 0;
-	// while (fmt[i] != '\0'){
-	// 	if (fmt[i] == '%'){
-	// 		i++;
-	// 		switch (fmt[i]){
-	// 			case 'd':
-	// 				d = va_arg(args, int);
-	// 				int_to_char(d, s1);
-	// 				putstr(s1);
-	// 				len += strlen(s1);
-	// 				break;
-	// 			case 's':
-	// 				s = va_arg(args, char *);
-	// 				putstr(s);
-	// 				len += strlen(s);
-	// 				break;
-	// 			case 'c':
-	// 				c = (char)va_arg(args, int);
-	// 				putch(c);
-	// 				len++;
-	// 				break;
-	// 		}
-	// 	}
-	// 	else {
-	// 		putch(fmt[i]);
-	// 		len++;
-	// 	}
-	// 	i++;
-	// }
+	size_t i = 0;
+	while (fmt[i] != '\0'){
+		if (fmt[i] == '%'){
+			i++;
+			switch (fmt[i]){
+				case 'd':
+					// d = va_arg(args, int);
+					// int_to_char(d, s1);
+					// putstr(s1);
+					// len += strlen(s1);
+					break;
+				case 's':
+					// s = va_arg(args, char *);
+					// putstr(s);
+					// len += strlen(s);
+					break;
+				case 'c':
+					// c = (char)va_arg(args, int);
+					// putch(c);
+					// len++;
+					break;
+			}
+		}
+		else {
+			// putch(fmt[i]);
+			// len++;
+		}
+		i++;
+	}
 
-	// return len;
-	return 0;
+	return len;
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
