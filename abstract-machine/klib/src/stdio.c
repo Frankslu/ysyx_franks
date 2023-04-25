@@ -26,7 +26,6 @@ int sprintf(char *out, const char *fmt, ...) {
 	int d;
 	char c;
 	char s1[33];
-	char string[2048];
 	char *s;
 
 	size_t i = 0;
@@ -37,27 +36,28 @@ int sprintf(char *out, const char *fmt, ...) {
 				case 'd':
 					d = va_arg(args, int);
 					itoa(s1, d, 10);
-					memcpy(string + len, s1, strlen(s1));
+					memcpy(out + len, s1, strlen(s1));
 					len += strlen(s1);
 					break;
 				case 's':
 					s = va_arg(args, char *);
-					memcpy(string + len, s, strlen(s));
+					memcpy(out + len, s, strlen(s));
 					len += strlen(s);
 					break;
 				case 'c':
 					c = (char)va_arg(args, int);
-					string[len] = c;
+					out[len] = c;
 					len++;
 					break;
 			}
 		}
 		else {
-			string[len] = fmt[i];
+			out[len] = fmt[i];
 			len++;
 		}
 		i++;
 	}
+	out[len] = '\0';
 
 	return len;
 }
