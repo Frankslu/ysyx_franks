@@ -35,7 +35,7 @@ void itoa(char *s, int num, int binary){
 
 	if (binary <= 10){
 		while (num != 0){
-			s[i] = (char)(num % binary - '0');
+			s[i] = (char)(num % binary + '0');
 			num /= binary;
 			i++;
 		}
