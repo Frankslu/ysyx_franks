@@ -53,13 +53,12 @@ void itoa(char *s, int num, int binary){
 			i++;
 		}
 	}
-	
 
 	s[i] = '\0';
 
-	for (int j=0; j < (i-1-j); j++){
-		tmp = s[i];
-		s[i] = s[i-1-j];
+	for (int j=0; j < i-1-j; j++){
+		tmp = s[j];
+		s[j] = s[i-1-j];
 		s[i-1-j] = tmp;
 	}
 }
