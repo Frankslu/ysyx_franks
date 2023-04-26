@@ -15,6 +15,7 @@
 
 #include <common.h>
 #include <stdio.h>
+#include <trace/trace.h>
 
 
 void init_monitor(int, char *[]);
@@ -22,7 +23,7 @@ void am_init_monitor();
 void engine_start();
 int is_exit_status_bad();
 void init_regex();
-extern void display_iring();
+void display_iring();
 
 #ifdef TEST
 word_t expr(char *e, bool *success);
