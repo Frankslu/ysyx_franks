@@ -40,6 +40,8 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 	if (g_print_step) { IFDEF(CONFIG_ITRACE, puts(_this->logbuf)); }
 	IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
 
+	// irtrace_write(_this->logbuf);
+
 #ifdef CONFIG_WATCHPOINT
 	int i=scan_wp();
 	if(i == 1 && nemu_state.state != NEMU_END){
@@ -80,7 +82,6 @@ static void exec_once(Decode *s, vaddr_t pc) {
 	strcpy(p, s->disas);
 	p += strlen(s->disas);
 	p[0] = '\0';
-	printf("%s\n",s->logbuf);
 #endif
 #endif
 }
