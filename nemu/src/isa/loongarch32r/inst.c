@@ -62,14 +62,15 @@ static int decode_exec(Decode *s) {
 	decode_operand(s, &rj, &rk, &rd, &src1, &src2, &imm, concat(TYPE_, type)); \
 	__VA_ARGS__ ; \
 }
+	int32_t simm = (signed)imm;
 
 	INSTPAT_START();
 	INSTPAT("010100 ???????????????? ??????????", b, OFFS26, s->dnpc = s->pc + imm,
-			IFDEF(CONFIG_ISA_loongarch32r, sprintf(as, "11")));
+			IFDEF(CONFIG_ISA_loongarch32r, sprintf(as, "b\t%d(0x%x) # %x", simm, imm, s->dnpc)));
 	INSTPAT("010101 ???????????????? ??????????", bl, OFFS26, s->dnpc = s->pc + imm, R(1) = s->snpc,
-			IFDEF(CONFIG_ISA_loongarch32r, sprintf(as, "11")));
+			IFDEF(CONFIG_ISA_loongarch32r, sprintf(as, "bl\t%d(0x%x) # %x", simm, imm, s->dnpc)));
 	INSTPAT("010011 ???????????????? ????? ?????", jirl, 2RO16, s->dnpc = src1 + imm, R(rd) = s->snpc,
-			IFDEF(CONFIG_ISA_loongarch32r, sprintf(as, "11")));
+			IFDEF(CONFIG_ISA_loongarch32r, sprintf(as, "jirl\t$r%d, $r%d, %d(%x)", rd, rj, simm, imm)));
 	INSTPAT("010110 ???????????????? ????? ?????", beq, 2RO16, s->dnpc = s->pc + (src1 == R(rd) ? imm : 4),
 			IFDEF(CONFIG_ISA_loongarch32r, sprintf(as, "11")));
 	INSTPAT("010111 ???????????????? ????? ?????", bne, 2RO16, s->dnpc = s->pc + (src1 != R(rd) ? imm : 4),
@@ -162,6 +163,7 @@ static int decode_exec(Decode *s) {
 	INSTPAT_END();
 
 	R(0) = 0; // reset $zero to 0
+	IFDEF(CONFIG_ISA_loongarch32r, printf("%s\n",as));
 
 	return 0;
 }
