@@ -70,9 +70,6 @@ int main(int argc, char *argv[]) {
 #else
   init_monitor(argc, argv);
 #endif
-	if(ITRACE_COND){
-		printf("1111\n");
-	}
 
   /* Start engine. */
   engine_start();
