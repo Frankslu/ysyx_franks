@@ -22,6 +22,7 @@ void init_mem();
 void init_difftest(char *ref_so_file, long img_size, int port);
 void init_device();
 void init_sdb();
+void init_trace();
 void init_disasm(const char *triple);
 
 static void welcome() {
@@ -129,6 +130,9 @@ void init_monitor(int argc, char *argv[]) {
 
   /* Initialize the simple debugger. */
   init_sdb();
+
+  /*Initialize tracer*/
+  init_trace();
 
 #ifndef CONFIG_ISA_loongarch32r
   IFDEF(CONFIG_ITRACE, init_disasm(

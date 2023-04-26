@@ -15,7 +15,6 @@
 
 #include <cpu/cpu.h>
 #include <cpu/decode.h>
-#include <cpu/difftest.h>
 #include <locale.h>
 
 /* The assembly code of instructions executed is only output to the screen
@@ -32,6 +31,7 @@ static bool g_print_step = false;
 
 void device_update();
 extern int scan_wp();
+void iring_write();
 
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_ITRACE_COND
@@ -40,7 +40,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 	if (g_print_step) { IFDEF(CONFIG_ITRACE, puts(_this->logbuf)); }
 	IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
 
-	// irtrace_write(_this->logbuf);
+	iring_write(_this->logbuf);
 
 #ifdef CONFIG_WATCHPOINT
 	int i=scan_wp();
