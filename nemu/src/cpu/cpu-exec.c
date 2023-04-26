@@ -31,7 +31,7 @@ static bool g_print_step = false;
 
 void device_update();
 extern int scan_wp();
-void iring_write();
+extern void iring_write();
 
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_ITRACE_COND
