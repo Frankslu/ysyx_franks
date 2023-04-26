@@ -23,7 +23,7 @@ void am_init_monitor();
 void engine_start();
 int is_exit_status_bad();
 void init_regex();
-void display_iring();
+// void display_iring();
 
 #ifdef TEST
 word_t expr(char *e, bool *success);
