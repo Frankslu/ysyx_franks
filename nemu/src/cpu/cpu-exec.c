@@ -34,7 +34,7 @@ void device_update();
 extern int scan_wp();
 
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
-#ifdef CONFIG_ITRACE_COND
+#ifdef ITRACE_COND
 	if (ITRACE_COND) { log_write("%s\n", _this->logbuf); }
 #endif
 	if (g_print_step) { IFDEF(CONFIG_ITRACE, puts(_this->logbuf)); }
@@ -106,31 +106,31 @@ void assert_fail_msg() {
 
 /* Simulate how the CPU works. */
 void cpu_exec(uint64_t n) {
-  g_print_step = (n < MAX_INST_TO_PRINT);
-  switch (nemu_state.state) {
-    case NEMU_END: case NEMU_ABORT:
-      printf("Program execution has ended. To restart the program, exit NEMU and run again.\n");
-      return;
-    default: nemu_state.state = NEMU_RUNNING;
-  }
+	g_print_step = (n < MAX_INST_TO_PRINT);
+	switch (nemu_state.state) {
+		case NEMU_END: case NEMU_ABORT:
+			printf("Program execution has ended. To restart the program, exit NEMU and run again.\n");
+			return;
+		default: nemu_state.state = NEMU_RUNNING;
+	}
 
-  uint64_t timer_start = get_time();
+	uint64_t timer_start = get_time();
 
-  execute(n);
+	execute(n);
 
-  uint64_t timer_end = get_time();
-  g_timer += timer_end - timer_start;
+	uint64_t timer_end = get_time();
+	g_timer += timer_end - timer_start;
 
-  switch (nemu_state.state) {
-    case NEMU_RUNNING: nemu_state.state = NEMU_STOP; break;
+	switch (nemu_state.state) {
+		case NEMU_RUNNING: nemu_state.state = NEMU_STOP; break;
 
-    case NEMU_END: case NEMU_ABORT:
-      Log("nemu: %s at pc = " FMT_WORD,
-          (nemu_state.state == NEMU_ABORT ? ANSI_FMT("ABORT", ANSI_FG_RED) :
-           (nemu_state.halt_ret == 0 ? ANSI_FMT("HIT GOOD TRAP", ANSI_FG_GREEN) :
-            ANSI_FMT("HIT BAD TRAP", ANSI_FG_RED))),
-          nemu_state.halt_pc);
-      // fall through
-    case NEMU_QUIT: statistic();
-  }
+		case NEMU_END: case NEMU_ABORT:
+						   Log("nemu: %s at pc = " FMT_WORD,
+								   (nemu_state.state == NEMU_ABORT ? ANSI_FMT("ABORT", ANSI_FG_RED) :
+									(nemu_state.halt_ret == 0 ? ANSI_FMT("HIT GOOD TRAP", ANSI_FG_GREEN) :
+									 ANSI_FMT("HIT BAD TRAP", ANSI_FG_RED))),
+								   nemu_state.halt_pc);
+						   // fall through
+		case NEMU_QUIT: statistic();
+	}
 }
