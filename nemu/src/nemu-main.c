@@ -76,7 +76,7 @@ int main(int argc, char *argv[]) {
 	/* Start engine. */
 	engine_start();
 
-	display_iring();
+	// display_iring();
 	return is_exit_status_bad();
 }
 #endif
