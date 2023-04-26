@@ -15,7 +15,7 @@
 
 #include <common.h>
 #include <stdio.h>
-#include <trace/trace.h>
+// #include <trace/trace.h>
 
 
 void init_monitor(int, char *[]);
@@ -23,7 +23,7 @@ void am_init_monitor();
 void engine_start();
 int is_exit_status_bad();
 void init_regex();
-// void display_iring();
+void display_iring();
 
 #ifdef TEST
 word_t expr(char *e, bool *success);
@@ -76,7 +76,7 @@ int main(int argc, char *argv[]) {
 	/* Start engine. */
 	engine_start();
 
-	// display_iring();
+	display_iring();
 	return is_exit_status_bad();
 }
 #endif
