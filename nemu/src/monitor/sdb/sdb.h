@@ -31,8 +31,8 @@ typedef struct watchpoint {
 typedef struct breakpoint {
 	int NO;
 	struct breakpoint *next;
-	uint32_t pc;
-	uint32_t inst;
+	vaddr_t pc;
+	word_t inst;
 } BP;
 
 
