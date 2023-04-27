@@ -23,10 +23,11 @@
 static int is_batch_mode = false;
 
 void init_regex();
-void init_wp_pool();
+void init_bp_pool();
 word_t expr(char *e, bool *success);
 
-extern void print_watchpoint();
+void print_watchpoint();
+void dispaly_iring();
 extern WP *new_wp(char *s);
 extern bool free_wp(int i);
 
@@ -85,8 +86,11 @@ static int cmd_info(char *args){
 	if(c[0] == 'r' && c[1] == '\0'){
 		isa_reg_display(NULL);
 	}
-	if(c[0] == 'w' && c[1] == '\0'){
+	else if(c[0] == 'w' && c[1] == '\0'){
 		print_watchpoint();
+	}
+	else if(strcmp(c, "ir") == 0){
+		dispaly_iring();
 	}
 	return 0;
 }
@@ -158,7 +162,7 @@ static struct {
 	{ "c", "Continue the execution of the program", cmd_c },
 	{ "q", "Exit NEMU", cmd_q },
 	{ "si", "Run N instructions in NEMU", cmd_si},
-	{ "info", "print the information in reg or watchpoint", cmd_info},
+	{ "info", "print the information in reg(r), watchpoint(w), breakpoint(b), iring(ir)", cmd_info},
 	{ "x", "scan memory", cmd_x},
 	{ "p", "print value of expression", cmd_p},
 	{ "w", "set watchpoint", cmd_w},
@@ -240,5 +244,5 @@ void init_sdb() {
 	init_regex();
 
 	/* Initialize the watchpoint pool. */
-	init_wp_pool();
+	init_bp_pool();
 }

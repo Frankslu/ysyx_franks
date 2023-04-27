@@ -17,73 +17,64 @@
 
 // #define NR_BP 16
 
-// static WP wp_pool[NR_BP] = {};
-// static WP *free_ = NULL;
-// WP *head = NULL;
+// static BP bp_pool[NR_BP] = {};
+// static BP *bp_free = NULL;
+// BP *bp_head = NULL;
 
-// void init_wp_pool() {
+// void init_bp_pool() {
 // 	int i;
 // 	for (i = 0; i < NR_BP; i ++) {
-// 		wp_pool[i].NO = i;
-// 		wp_pool[i].next = (i == NR_BP - 1 ? NULL : &wp_pool[i + 1]);
+// 		bp_pool[i].NO = i;
+// 		bp_pool[i].next = (i == NR_BP - 1 ? NULL : &bp_pool[i + 1]);
 // 	}
 
-// 	head = NULL;
-// 	free_ = wp_pool;
+// 	bp_head = NULL;
+// 	bp_free = bp_pool;
 // }
 
 // /* TODO: Implement the functionality of watchpoint */
-// WP *new_wp(char *s){
-// 	bool success = true;
-// 	word_t res = expr(s,&success);
-// 	if(success == true){
-// 		if(free_ != NULL){
-// 			WP *new = free_;
-// 			free_ = free_->next;
-// 			new->next = NULL;
-// 			WP *p = head;
-// 			if(head != NULL){
-// 				p = head;
-// 				if(p->NO >= new->NO){
-// 					new->next = p;
-// 					head = new;
-// 				}
-// 				else{
-// 					while(p->next != NULL && p->next->NO <= new->NO)
-// 						p = p->next;
-// 					if(p->next != NULL){
-// 						new->next = p->next;
-// 						p->next = new;
-// 					}
-// 					else{
-// 						//new->next = NULL;
-// 						p->next = new;
-// 					}
-// 				}
+// BP *new_bp(uint32_t pc){
+// 	if (bp_free != NULL){
+// 		BP *new = bp_free;
+// 		bp_free = bp_free->next;
+// 		new->next = NULL;
+// 		BP *p = bp_head;
+// 		if(bp_head != NULL){
+// 			p = bp_head;
+// 			if(p->NO >= new->NO){
+// 				new->next = p;
+// 				bp_head = new;
 // 			}
 // 			else{
-// 				//new->next = NULL;
-// 				head = new;
+// 				while(p->next != NULL && p->next->NO <= new->NO)
+// 					p = p->next;
+// 				if(p->next != NULL){
+// 					new->next = p->next;
+// 					p->next = new;
+// 				}
+// 				else{
+// 					//new->next = NULL;
+// 					p->next = new;
+// 				}
 // 			}
-// 			new->str = malloc(strlen(s)+1);
-// 			strcpy(new->str, s);
-// 			new->result = res;
-// 			printf("New watchpoint: %s = %u\n", s, res);
-// 			return new;
 // 		}
 // 		else{
-// 			printf("Watch_point pool is full!\n");
-// 			return NULL;
+// 			//new->next = NULL;
+// 			bp_head = new;
 // 		}
-// 		printf("Invalid expression\n");
+// 		new->pc = pc;
+// 		printf("New breakpoint %d: %x\n", new->NO, pc);
+// 		return new;
+// 	}
+// 	else{
+// 		printf("Breakpoint pool is full!\n");
 // 		return NULL;
 // 	}
-// 	return NULL;
 // }
 
-// bool free_wp(int NO){
-// 	WP *p = head;
-// 	WP *back = p;
+// bool bp_freebp(int NO){
+// 	BP *p = bp_head;
+// 	BP *back = p;
 // 	if(p != NULL && p->NO != NO){
 // 		while(p != NULL && p->NO != NO){
 // 			back = p;
@@ -92,20 +83,19 @@
 // 	}
 
 // 	if(p != NULL){
-// 		printf("delete watchpoint %d: %s value=%d\n", NO, p->str, p->result);
-// 		if(p == head){
-// 			head = p->next;
+// 		printf("delete watchpoint %d: %x\n", NO, p->pc);
+// 		if(p == bp_head){
+// 			bp_head = p->next;
 // 		}
 // 		back->next = p->next;
 // 		p->next = NULL;
-// 		free(p->str);
 		
-// 		back = free_;
-// 		if(free_ != NULL){
-// 			back = free_;
+// 		back = bp_free;
+// 		if(bp_free != NULL){
+// 			back = bp_free;
 // 			if(back->NO >= NO){
-// 				p->next = free_;
-// 				free_ = p;
+// 				p->next = bp_free;
+// 				bp_free = p;
 // 			}
 // 			else{
 // 				while(back->next != NULL && back->next->NO <= NO)
@@ -121,20 +111,19 @@
 // 			}
 // 		}
 // 		else{
-// 			free_ = p;
+// 			bp_free = p;
 // 		}
 // 	}
 // 	else{
-// 		printf("Watchpoint not found\n");
+// 		printf("Breakpoint not found\n");
 // 		return false;
 // 	}
 // 	return false;
 // }
 
-// void print_watchpoint(){
-// 	WP *p = head;
+// void display_breakpoint(){
+// 	BP *p = bp_head;
 // 	word_t res;
-// 	bool success = true;
 // 	int res_changed;
 // 	if(p==NULL){
 // 		printf("No watchpoint exist\n");
@@ -142,17 +131,13 @@
 // 	}
 // 	printf("           NO: expr                               pre_res    res        changed\n");
 // 	while(p != NULL){
-// 		res = expr(p->str, &success);
-// 		res_changed = p->result == res ? 0 : 1;
-// 		printf("watchpoint %02d: %-32s   %08x   %08x   %d\n", p->NO, p->str, p->result, res, res_changed);
-// 		p->result = res;
-// 		p = p->next;
+// 		printf("watchpoint %02d: %x\n", p->NO, p->pc);
 // 	}
 // 	return;
 // }
 
-// int scan_wp(){
-// 	WP *p = head;
+// int scan_bp(){
+// 	BP *p = bp_head;
 // 	word_t i=0;
 // 	int changed = 0;
 // 	bool success = true;
