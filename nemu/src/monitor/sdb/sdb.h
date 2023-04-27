@@ -18,6 +18,8 @@
 
 #include <common.h>
 
+#define NR_BP 16
+#define NR_WP 16
 
 typedef struct watchpoint {
 	int NO;

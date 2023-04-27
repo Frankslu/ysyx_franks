@@ -30,6 +30,8 @@ void print_watchpoint();
 void display_iring();
 extern WP *new_wp(char *s);
 extern bool free_wp(int i);
+extern BP *new_bp(vaddr_t pc);
+extern bool free_bp(int i);
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char* rl_gets() {
@@ -143,11 +145,51 @@ static int cmd_w(char *args){
 
 static int cmd_d(char *args){
 	int i;
-	if(sscanf(args, "%d", &i) == 0){
+	char c[8];
+	int argc;
+	if((argc = sscanf(args, "%s %d", c, &i)) == 0){
 		printf("command error\n");
 		return 0;
 	}
-	free_wp(i);
+	else if(argc == 1){
+		if(strcmp(c, "w") == 0){
+			printf("delete all watchpoint? (y,n)\n");
+			int sss = scanf("%s",c);//unused res
+			sss = sss+1;
+			if(strcmp(c, "y")){
+				for(int i=0; i < NR_WP; i++){
+					free_wp(i);
+				}
+			}
+		}
+		else if(strcmp(c, "b") == 0){
+			printf("delete all breakpoint? (y,n)\n");
+			int sss = scanf("%s",c);//unused res
+			sss = sss + 1;
+			if(strcmp(c, "y")){
+				for(int i=0; i < NR_BP; i++){
+					free_bp(i);
+				}
+			}
+		}
+	}
+	else if(argc == 2){
+		if(strcmp(c, "w") == 0){
+			free_wp(i);
+		}
+		else if(strcmp(c, "b")){
+			free_bp(i);
+		}
+	}
+	return 0;
+}
+
+static int cmd_b(char *args){
+	vaddr_t i;
+	if(sscanf(args, "%d", &i) == 0){
+		printf("command error\n");
+	}
+	new_bp(i);
 	return 0;
 }
 
@@ -166,7 +208,8 @@ static struct {
 	{ "x", "scan memory", cmd_x},
 	{ "p", "print value of expression", cmd_p},
 	{ "w", "set watchpoint", cmd_w},
-	{ "d", "delete watchpoint", cmd_d},
+	{ "d", "delete watchpoint or breakpoint", cmd_d},
+	{ "b", "set breakpoint", cmd_b}
 
 	/* TODO: Add more commands */
 

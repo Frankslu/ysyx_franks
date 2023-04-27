@@ -15,8 +15,6 @@
 
 #include "sdb.h"
 
-#define NR_BP 16
-
 static BP bp_pool[NR_BP] = {};
 static BP *bp_free = NULL;
 BP *bp_head = NULL;
@@ -75,7 +73,7 @@ BP *new_bp(vaddr_t pc){
 		}
 		new->pc = pc;
 		new->inst = get_inst;
-		vaddr_write(pc, 4, brk_inst);
+		// vaddr_write(pc, 4, brk_inst);
 		printf("New breakpoint %d: %x\n", new->NO, pc);
 		return new;
 	}
@@ -85,7 +83,7 @@ BP *new_bp(vaddr_t pc){
 	}
 }
 
-bool bp_freebp(int NO){
+bool free_bp(int NO){
 	BP *p = bp_head;
 	BP *back = p;
 	if(p != NULL && p->NO != NO){
@@ -96,7 +94,7 @@ bool bp_freebp(int NO){
 	}
 
 	if(p != NULL){
-		vaddr_write(p->pc, 4, p->inst);
+		// vaddr_write(p->pc, 4, p->inst);
 
 		printf("delete watchpoint %d: %x\n", NO, p->pc);
 		if(p == bp_head){
