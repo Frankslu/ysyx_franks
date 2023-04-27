@@ -76,7 +76,7 @@ static int decode_exec(Decode *s) {
 #define slti_sp(str) sprintf(as, "%s\t$r%d, $r%d:%d(%x), %d(%x) # %x", str, rd, rj, (signed)src1, src1, simm, imm, R(rd))
 
 #define exec_break() \
-	scan_bp(s->snpc - 4), \
+	scan_bp(s->snpc - 4); \
 	NEMUTRAP(s->pc, R(4))
 
 	INSTPAT_START();
