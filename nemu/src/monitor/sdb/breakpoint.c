@@ -85,6 +85,7 @@ BP *new_bp(vaddr_t pc){
 }
 
 bool free_bp(int NO){
+	printf("NOOO\n");
 	BP *p = bp_head;
 	BP *back = p;
 	if(p != NULL && p->NO != NO){
