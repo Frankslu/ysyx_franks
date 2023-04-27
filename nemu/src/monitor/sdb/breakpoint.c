@@ -35,6 +35,7 @@ void init_bp_pool() {
 
 /* TODO: Implement the functionality of watchpoint */
 BP *new_bp(vaddr_t pc){
+	printf("%d\n",pc);
 	word_t mask = 0xffff8000;
 	word_t brk_inst = 0x2a0000;
 	word_t get_inst = vaddr_ifetch(pc, 4);
