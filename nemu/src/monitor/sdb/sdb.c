@@ -158,7 +158,7 @@ static struct {
 	{ "c", "Continue the execution of the program", cmd_c },
 	{ "q", "Exit NEMU", cmd_q },
 	{ "si", "Run N instructions in NEMU", cmd_si},
-	{ "info", "print the information in reg or breakpoint", cmd_info},
+	{ "info", "print the information in reg or watchpoint", cmd_info},
 	{ "x", "scan memory", cmd_x},
 	{ "p", "print value of expression", cmd_p},
 	{ "w", "set watchpoint", cmd_w},

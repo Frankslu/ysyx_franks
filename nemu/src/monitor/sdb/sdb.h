@@ -28,6 +28,12 @@ typedef struct watchpoint {
 
 } WP;
 
+typedef struct breakpoint {
+	int NO;
+	struct breakpoint *next;
+	uint32_t pc;
+} BP;
+
 
 word_t expr(char *e, bool *success);
 
