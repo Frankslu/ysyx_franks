@@ -182,7 +182,7 @@ static int cmd_d(char *args){
 		if(strcmp(c, "w") == 0){
 			free_wp(i);
 		}
-		else if(strcmp(c, "b")){
+		else if(strcmp(c, "b") == 0){
 			free_bp(i);
 		}
 	}
