@@ -16,7 +16,9 @@
 #include <cpu/cpu.h>
 #include <cpu/decode.h>
 #include <cpu/difftest.h>
+// #include <trace/trace.h>
 #include <locale.h>
+#include "cpu-exec.h"
 
 /* The assembly code of instructions executed is only output to the screen
  * when the number of instructions executed is less than this value.
@@ -32,6 +34,8 @@ static bool g_print_step = false;
 
 void device_update();
 extern int scan_wp();
+void iring_write(char *buf);
+// void trace_log_write();
 
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_ITRACE_COND
@@ -39,6 +43,8 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #endif
 	if (g_print_step) { IFDEF(CONFIG_ITRACE, puts(_this->logbuf)); }
 	IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
+
+	iring_write(_this->logbuf);
 
 #ifdef CONFIG_WATCHPOINT
 	int i=scan_wp();
@@ -74,7 +80,12 @@ static void exec_once(Decode *s, vaddr_t pc) {
 	disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
 			MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);
 #else
-	p[0] = '\0'; // the upstream llvm does not support loongarch32r
+	// p[0] = '\0'; // the upstream llvm does not support loongarch32r
+	p[0] = '\t';
+	p++;
+	strcpy(p, s->disas);
+	p += strlen(s->disas);
+	p[0] = '\0';
 #endif
 #endif
 }
@@ -106,31 +117,33 @@ void assert_fail_msg() {
 
 /* Simulate how the CPU works. */
 void cpu_exec(uint64_t n) {
-  g_print_step = (n < MAX_INST_TO_PRINT);
-  switch (nemu_state.state) {
-    case NEMU_END: case NEMU_ABORT:
-      printf("Program execution has ended. To restart the program, exit NEMU and run again.\n");
-      return;
-    default: nemu_state.state = NEMU_RUNNING;
-  }
+	g_print_step = (n < MAX_INST_TO_PRINT);
+	switch (nemu_state.state) {
+		case NEMU_END: case NEMU_ABORT:
+			printf("Program execution has ended. To restart the program, exit NEMU and run again.\n");
+			return;
+		default: nemu_state.state = NEMU_RUNNING;
+	}
 
-  uint64_t timer_start = get_time();
+	uint64_t timer_start = get_time();
 
-  execute(n);
+	execute(n);
 
-  uint64_t timer_end = get_time();
-  g_timer += timer_end - timer_start;
+	uint64_t timer_end = get_time();
+	g_timer += timer_end - timer_start;
 
-  switch (nemu_state.state) {
-    case NEMU_RUNNING: nemu_state.state = NEMU_STOP; break;
+	switch (nemu_state.state) {
+		case NEMU_RUNNING: nemu_state.state = NEMU_STOP; break;
 
-    case NEMU_END: case NEMU_ABORT:
-      Log("nemu: %s at pc = " FMT_WORD,
-          (nemu_state.state == NEMU_ABORT ? ANSI_FMT("ABORT", ANSI_FG_RED) :
-           (nemu_state.halt_ret == 0 ? ANSI_FMT("HIT GOOD TRAP", ANSI_FG_GREEN) :
-            ANSI_FMT("HIT BAD TRAP", ANSI_FG_RED))),
-          nemu_state.halt_pc);
-      // fall through
-    case NEMU_QUIT: statistic();
-  }
+		case NEMU_END: case NEMU_ABORT:
+						   Log("nemu: %s at pc = " FMT_WORD,
+								   (nemu_state.state == NEMU_ABORT ? ANSI_FMT("ABORT", ANSI_FG_RED) :
+									(nemu_state.halt_ret == 0 ? ANSI_FMT("HIT GOOD TRAP", ANSI_FG_GREEN) :
+									 ANSI_FMT("HIT BAD TRAP", ANSI_FG_RED))),
+								   nemu_state.halt_pc);
+						   // fall through
+		case NEMU_QUIT: 
+			// trace_log_write();
+			statistic();
+	}
 }

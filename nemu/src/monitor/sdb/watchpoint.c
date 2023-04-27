@@ -15,11 +15,9 @@
 
 #include "sdb.h"
 
-#define NR_WP 16
-
 static WP wp_pool[NR_WP] = {};
 static WP *free_ = NULL;
-WP *head = NULL;
+WP *wp_head = NULL;
 
 void init_wp_pool() {
 	int i;
@@ -28,7 +26,7 @@ void init_wp_pool() {
 		wp_pool[i].next = (i == NR_WP - 1 ? NULL : &wp_pool[i + 1]);
 	}
 
-	head = NULL;
+	wp_head = NULL;
 	free_ = wp_pool;
 }
 
@@ -41,12 +39,12 @@ WP *new_wp(char *s){
 			WP *new = free_;
 			free_ = free_->next;
 			new->next = NULL;
-			WP *p = head;
-			if(head != NULL){
-				p = head;
+			WP *p = wp_head;
+			if(wp_head != NULL){
+				p = wp_head;
 				if(p->NO >= new->NO){
 					new->next = p;
-					head = new;
+					wp_head = new;
 				}
 				else{
 					while(p->next != NULL && p->next->NO <= new->NO)
@@ -63,7 +61,7 @@ WP *new_wp(char *s){
 			}
 			else{
 				//new->next = NULL;
-				head = new;
+				wp_head = new;
 			}
 			new->str = malloc(strlen(s)+1);
 			strcpy(new->str, s);
@@ -82,7 +80,7 @@ WP *new_wp(char *s){
 }
 
 bool free_wp(int NO){
-	WP *p = head;
+	WP *p = wp_head;
 	WP *back = p;
 	if(p != NULL && p->NO != NO){
 		while(p != NULL && p->NO != NO){
@@ -93,8 +91,8 @@ bool free_wp(int NO){
 
 	if(p != NULL){
 		printf("delete watchpoint %d: %s value=%d\n", NO, p->str, p->result);
-		if(p == head){
-			head = p->next;
+		if(p == wp_head){
+			wp_head = p->next;
 		}
 		back->next = p->next;
 		p->next = NULL;
@@ -132,7 +130,7 @@ bool free_wp(int NO){
 }
 
 void print_watchpoint(){
-	WP *p = head;
+	WP *p = wp_head;
 	word_t res;
 	bool success = true;
 	int res_changed;
@@ -152,7 +150,7 @@ void print_watchpoint(){
 }
 
 int scan_wp(){
-	WP *p = head;
+	WP *p = wp_head;
 	word_t i=0;
 	int changed = 0;
 	bool success = true;
