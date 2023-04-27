@@ -27,7 +27,7 @@ void init_wp_pool();
 word_t expr(char *e, bool *success);
 
 void print_watchpoint();
-void dispaly_iring();
+void display_iring();
 extern WP *new_wp(char *s);
 extern bool free_wp(int i);
 
@@ -90,7 +90,7 @@ static int cmd_info(char *args){
 		print_watchpoint();
 	}
 	else if(strcmp(c, "ir") == 0){
-		dispaly_iring();
+		display_iring();
 	}
 	return 0;
 }
