@@ -230,12 +230,13 @@ static int decode_exec(Decode *s) {
 
 int isa_exec_once(Decode *s) {
 	extern word_t replaced_inst;
-	if (break_flag == 1){
-		break_flag = 0;
-		s->isa.inst.val = replaced_inst;
+	if (break_flag == 0){
+		s->isa.inst.val = inst_fetch(&s->snpc, 4);
 	}
 	else {
-		s->isa.inst.val = inst_fetch(&s->snpc, 4);
+		break_flag = 0;
+		s->isa.inst.val = replaced_inst;
+		s->snpc += 4;
 	}
 
 	return decode_exec(s);
