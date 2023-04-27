@@ -161,7 +161,7 @@ static int cmd_d(char *args){
 			printf("delete all watchpoint? (y,n)\n");
 			int sss = scanf("%s",c);//unused res
 			sss = sss+1;
-			if(strcmp(c, "y")){
+			if(strcmp(c, "y") == 0){
 				for(int i=0; i < NR_WP; i++){
 					free_wp(i);
 				}
@@ -171,7 +171,7 @@ static int cmd_d(char *args){
 			printf("delete all breakpoint? (y,n)\n");
 			int sss = scanf("%s",c);//unused res
 			sss = sss + 1;
-			if(strcmp(c, "y")){
+			if(strcmp(c, "y") == 0){
 				for(int i=0; i < NR_BP; i++){
 					free_bp(i);
 				}
