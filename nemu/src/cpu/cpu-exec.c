@@ -34,7 +34,7 @@ static bool g_print_step = false;
 void device_update();
 extern int scan_wp();
 void iring_write();
-void trace_log_write();
+// void trace_log_write();
 
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_ITRACE_COND
@@ -142,7 +142,7 @@ void cpu_exec(uint64_t n) {
 								   nemu_state.halt_pc);
 						   // fall through
 		case NEMU_QUIT: 
-			trace_log_write();
+			// trace_log_write();
 			statistic();
 	}
 }
