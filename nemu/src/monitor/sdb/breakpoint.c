@@ -143,6 +143,7 @@ void display_breakpoint(){
 	printf("           NO: expr                               pre_res    res        changed\n");
 	while(p != NULL){
 		printf("watchpoint %02d: %x\n", p->NO, p->pc);
+		p = p->next;
 	}
 	return;
 }
