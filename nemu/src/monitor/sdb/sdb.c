@@ -27,7 +27,7 @@ void init_wp_pool();
 word_t expr(char *e, bool *success);
 
 void print_watchpoint();
-void dispaly_iring();
+extern void dispaly_iring();
 extern WP *new_wp(char *s);
 extern bool free_wp(int i);
 
