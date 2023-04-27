@@ -29,6 +29,7 @@ word_t expr(char *e, bool *success);
 
 void print_watchpoint();
 void display_iring();
+void display_breakpoint();
 extern WP *new_wp(char *s);
 extern bool free_wp(int i);
 extern BP *new_bp(vaddr_t pc);
@@ -94,6 +95,9 @@ static int cmd_info(char *args){
 	}
 	else if(strcmp(c, "ir") == 0){
 		display_iring();
+	}
+	else if(strcmp(c, "b")){
+		display_breakpoint();
 	}
 	return 0;
 }
