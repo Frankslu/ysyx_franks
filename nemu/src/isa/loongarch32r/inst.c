@@ -22,6 +22,8 @@
 #define Mr vaddr_read
 #define Mw vaddr_write
 
+int scan_bp(vaddr_t pc);
+
 enum {
 	TYPE_2RI12, TYPE_2RI12U,TYPE_1RI20, TYPE_3R, TYPE_OFFS26, TYPE_2RO16, TYPE_2RI5,	
 	TYPE_N, // none
@@ -65,7 +67,15 @@ static int decode_exec(Decode *s) {
 	int32_t simm = (signed)imm;
 #define br_sprintf(str) sprintf(as, "%s\t$r%d: %d(%x), $r%d: %d(%x), %d(%x) # %x", str, rd, (signed)R(rd), R(rd), rj, (signed)src1, src1, simm, imm, s->dnpc)
 #define ubr_sprintf(str) sprintf(as, "%s\t$r%d: %d(%x), $r%d: %d(%x), %d(%x) # %x", str, rd, R(rd), R(rd), rj, src1, src1, simm, imm, s->dnpc)
-#define R1I20_sp(str) sprintf(as, "%s\t$r%d, %d(%x)", str, rd, simm, imm)
+#define R1I20_sp(str) sprintf(as, "%s\t$r%d, %d(%x)", str, rd, simm, imm)			
+#define slt_sp(str) sprintf(as, "%s\t$r%d:(%x), $r%d:%d(%x), $r%d:%d(%x)", str, rd, R(rd), rj, (signed)src1, src1, rk,  (signed)src2, src2)			
+#define add_sp(str) sprintf(as, "%s\t$r%d:(%x), $r%d:(%x), $r%d:(%x)", str, rd, R(rd), rj, src1, rk, src2)			
+#define ls_sp(str) sprintf(as, "%s\t$r%d:(%x), $r%d:(%x) (%x) # %x", str, rd, R(rd), rj, src1, imm, src1 + imm)			
+#define addi_sp(str) sprintf(as, "%s\t$r%d, $r%d:(%x), (%x) # %x", str, rd, rj, src1, imm, R(rd))
+#define slli_sp(str) sprintf(as, "%s\t$r%d:(%x), $r%d:(%x), %x", str, rd, R(rd), rj, src1, src2)			
+#define slti_sp(str) sprintf(as, "%s\t$r%d, $r%d:%d(%x), %d(%x) # %x", str, rd, rj, (signed)src1, src1, simm, imm, R(rd))
+
+#define exec_break() NEMUTRAP(s->pc, R(4))
 
 	INSTPAT_START();
 	INSTPAT("010100 ???????????????? ??????????", b, OFFS26, s->dnpc = s->pc + imm,
@@ -100,13 +110,9 @@ static int decode_exec(Decode *s) {
 
 	INSTPAT("0001110 ????? ????? ????? ????? ?????", pcaddu12i, 1RI20, R(rd) = s->pc + imm,
 			IFDEF(CONFIG_ISA_loongarch32r, R1I20_sp("pcaddu12i.w")));
-			
-#define slti_sp(str) sprintf(as, "%s\t$r%d, $r%d:%d(%x), %d(%x) # %x", str, rd, rj, (signed)src1, src1, simm, imm, R(rd))
 
 	INSTPAT("0000001000 ???????????? ????? ?????", slti, 2RI12, R(rd) = (signed)src1 < (signed)imm ? 1 : 0,
 			IFDEF(CONFIG_ISA_loongarch32r, slti_sp("slti")));
-			
-#define addi_sp(str) sprintf(as, "%s\t$r%d, $r%d:(%x), (%x) # %x", str, rd, rj, src1, imm, R(rd))
 
 	INSTPAT("0000001001 ???????????? ????? ?????", sltui, 2RI12, R(rd) = (unsigned)src1 < (unsigned)imm ? 1 : 0,
 			IFDEF(CONFIG_ISA_loongarch32r, addi_sp("sltui")));
@@ -122,8 +128,6 @@ static int decode_exec(Decode *s) {
 
 	INSTPAT("0000001111 ???????????? ????? ?????", xori, 2RI12U, R(rd) = imm ^ src1,
 			IFDEF(CONFIG_ISA_loongarch32r, addi_sp("xori")));
-			
-#define ls_sp(str) sprintf(as, "%s\t$r%d:(%x), $r%d:(%x) (%x) # %x", str, rd, R(rd), rj, src1, imm, src1 + imm)
 
 	INSTPAT("0010100000 ???????????? ????? ?????", ld.b, 2RI12, R(rd) = (int8_t)Mr(src1 + imm, 1),
 			IFDEF(CONFIG_ISA_loongarch32r, ls_sp("ld.b")));
@@ -148,16 +152,12 @@ static int decode_exec(Decode *s) {
 
 	INSTPAT("0010101001 ???????????? ????? ?????", ld.hu, 2RI12, R(rd) = (uint16_t)Mr(src1 + imm, 2),
 			IFDEF(CONFIG_ISA_loongarch32r, ls_sp("ld.hu")));
-			
-#define add_sp(str) sprintf(as, "%s\t$r%d:(%x), $r%d:(%x), $r%d:(%x)", str, rd, R(rd), rj, src1, rk, src2)
 
 	INSTPAT("00000000000100000 ????? ????? ?????", add.w, 3R, R(rd) = src1 + src2,
 			IFDEF(CONFIG_ISA_loongarch32r, add_sp("add.w")));
 
 	INSTPAT("00000000000100010 ????? ????? ?????", sub.w, 3R, R(rd) = src1 - src2,
 			IFDEF(CONFIG_ISA_loongarch32r, add_sp("sub.w")));
-			
-#define slt_sp(str) sprintf(as, "%s\t$r%d:(%x), $r%d:%d(%x), $r%d:%d(%x)", str, rd, R(rd), rj, (signed)src1, src1, rk,  (signed)src2, src2)
 
 	INSTPAT("00000000000100100 ????? ????? ?????", slt, 3R, R(rd) = (signed)src1 < (signed)src2 ? 1 : 0,
 			IFDEF(CONFIG_ISA_loongarch32r, slt_sp("slt")));
@@ -207,8 +207,6 @@ static int decode_exec(Decode *s) {
 	INSTPAT("00000000001000011 ????? ????? ?????", mod.wu, 3R, R(rd) = (unsigned)src1 % (unsigned)src2,
 			IFDEF(CONFIG_ISA_loongarch32r, add_sp("mod.wu")));
 
-#define slli_sp(str) sprintf(as, "%s\t$r%d:(%x), $r%d:(%x), %x", str, rd, R(rd), rj, src1, src2)
-
 	INSTPAT("00000000010000001 ????? ????? ?????", slli.w, 2RI5, R(rd) = src1 << src2,
 			IFDEF(CONFIG_ISA_loongarch32r, slli_sp("slli.w")));
 
@@ -218,7 +216,7 @@ static int decode_exec(Decode *s) {
 	INSTPAT("00000000010010001 ????? ????? ?????", srai.w, 2RI5, R(rd) = (signed)src1 >> src2,
 			IFDEF(CONFIG_ISA_loongarch32r, slli_sp("srai.w")));
 
-	INSTPAT("0000 0000 0010 10100 ????? ????? ?????", break, N, NEMUTRAP(s->pc, R(4)), printf("break\n"),
+	INSTPAT("0000 0000 0010 10100 ????? ????? ?????", break, N, exec_break(), printf("break\n"),
 			IFDEF(CONFIG_ISA_loongarch32r, sprintf(as, "break"))); // R(4) is $a0
 	INSTPAT("????????????????? ????? ????? ?????", inv, N, INV(s->pc));
 	INSTPAT_END();

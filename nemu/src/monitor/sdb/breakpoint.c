@@ -140,7 +140,7 @@ void display_breakpoint(){
 		printf("No watchpoint exist\n");
 		return;
 	}
-	printf("           NO: expr                               pre_res    res        changed\n");
+	printf("           NO: expr\n");
 	while(p != NULL){
 		printf("watchpoint %02d: %x\n", p->NO, p->pc);
 		p = p->next;
@@ -148,15 +148,16 @@ void display_breakpoint(){
 	return;
 }
 
-int scan_bp(int pc){
+int scan_bp(vaddr_t pc){
 	BP *p = bp_head;
-	int changed = 0;
+	int found = 0;
 	while(p!=NULL){
 		if (pc == p->pc){
 			printf("break at %08x\n", pc);
-			changed = 1;
+			found = 1;
 			break;
 		}
+		p = p->next;
 	}
-	return changed;
+	return found;
 }
