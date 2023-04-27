@@ -23,6 +23,7 @@
 #define Mw vaddr_write
 
 int scan_bp(vaddr_t pc);
+static int break_flag = 0;
 
 enum {
 	TYPE_2RI12, TYPE_2RI12U,TYPE_1RI20, TYPE_3R, TYPE_OFFS26, TYPE_2RO16, TYPE_2RI5,	
@@ -56,6 +57,7 @@ static void decode_operand(Decode *s, int *rj, int *rk, int *rd_, word_t *src1, 
 static int decode_exec(Decode *s) {
 	int rj = 0, rk = 0, rd = 0;
 	word_t src1 = 0, src2 = 0, imm = 0;//imm also used as offset
+	vaddr_t old_pc = s->dnpc;
 	s->dnpc = s->snpc;
 	char *as = s->disas;
 
@@ -75,9 +77,7 @@ static int decode_exec(Decode *s) {
 #define slli_sp(str) sprintf(as, "%s\t$r%d:(%x), $r%d:(%x), %x", str, rd, R(rd), rj, src1, src2)			
 #define slti_sp(str) sprintf(as, "%s\t$r%d, $r%d:%d(%x), %d(%x) # %x", str, rd, rj, (signed)src1, src1, simm, imm, R(rd))
 
-#define exec_break() \
-	scan_bp(s->snpc - 4); \
-	NEMUTRAP(s->pc, R(4))
+#define exec_break (scan_bp(old_pc) == 1) ? (NEMUBREAK(s->pc), break_flag = 1) : NEMUTRAP(s->pc, R(4))
 
 	INSTPAT_START();
 	INSTPAT("010100 ???????????????? ??????????", b, OFFS26, s->dnpc = s->pc + imm,
@@ -110,10 +110,10 @@ static int decode_exec(Decode *s) {
 	INSTPAT("0001010 ????? ????? ????? ????? ?????", lu12i.w, 1RI20, R(rd) = imm,
 			IFDEF(CONFIG_ISA_loongarch32r, R1I20_sp("lu12i.w")));
 
-	INSTPAT("0001110 ????? ????? ????? ????? ?????", pcaddu12i, 1RI20, R(rd) = s->pc + imm;
+	INSTPAT("0001110 ????? ????? ????? ????? ?????", pcaddu12i, 1RI20, R(rd) = s->pc + imm,
 			IFDEF(CONFIG_ISA_loongarch32r, R1I20_sp("pcaddu12i.w")));
 
-	INSTPAT("0000001000 ???????????? ????? ?????", slti, 2RI12, R(rd) = (signed)src1 < (signed)imm ? 1 : 0;
+	INSTPAT("0000001000 ???????????? ????? ?????", slti, 2RI12, R(rd) = (signed)src1 < (signed)imm ? 1 : 0,
 			IFDEF(CONFIG_ISA_loongarch32r, slti_sp("slti")));
 
 	INSTPAT("0000001001 ???????????? ????? ?????", sltui, 2RI12, R(rd) = (unsigned)src1 < (unsigned)imm ? 1 : 0,
@@ -218,7 +218,7 @@ static int decode_exec(Decode *s) {
 	INSTPAT("00000000010010001 ????? ????? ?????", srai.w, 2RI5, R(rd) = (signed)src1 >> src2,
 			IFDEF(CONFIG_ISA_loongarch32r, slli_sp("srai.w")));
 
-	INSTPAT("0000 0000 0010 10100 ????? ????? ?????", break, N, exec_break(), printf("break\n"),
+	INSTPAT("0000 0000 0010 10100 ????? ????? ?????", break, N, exec_break, s->dnpc = old_pc,
 			IFDEF(CONFIG_ISA_loongarch32r, sprintf(as, "break"))); // R(4) is $a0
 	INSTPAT("????????????????? ????? ????? ?????", inv, N, INV(s->pc));
 	INSTPAT_END();
@@ -229,6 +229,14 @@ static int decode_exec(Decode *s) {
 }
 
 int isa_exec_once(Decode *s) {
-	s->isa.inst.val = inst_fetch(&s->snpc, 4);
+	extern word_t replaced_inst;
+	if (break_flag == 1){
+		break_flag = 0;
+		s->isa.inst.val = replaced_inst;
+	}
+	else {
+		s->isa.inst.val = inst_fetch(&s->snpc, 4);
+	}
+
 	return decode_exec(s);
 }

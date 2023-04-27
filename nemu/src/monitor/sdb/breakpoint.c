@@ -18,6 +18,7 @@
 static BP bp_pool[NR_BP] = {};
 static BP *bp_free = NULL;
 BP *bp_head = NULL;
+word_t replaced_inst;
 
 word_t vaddr_ifetch(vaddr_t addr, int len);
 void vaddr_write(vaddr_t addr, int len, word_t data);
@@ -73,7 +74,7 @@ BP *new_bp(vaddr_t pc){
 		}
 		new->pc = pc;
 		new->inst = get_inst;
-		// vaddr_write(pc, 4, brk_inst);
+		vaddr_write(pc, 4, brk_inst);
 		printf("New breakpoint %d: %x\n", new->NO, pc);
 		return new;
 	}
@@ -94,7 +95,7 @@ bool free_bp(int NO){
 	}
 
 	if(p != NULL){
-		// vaddr_write(p->pc, 4, p->inst);
+		vaddr_write(p->pc, 4, p->inst);
 
 		printf("delete watchpoint %d: %x\n", NO, p->pc);
 		if(p == bp_head){
@@ -118,7 +119,7 @@ bool free_bp(int NO){
 					back->next = p;
 				}
 				else{
-					//new->next = NULL;
+					// new->next = NULL;
 					back->next = p;
 				}
 			}
@@ -155,6 +156,7 @@ int scan_bp(vaddr_t pc){
 		if (pc == p->pc){
 			printf("break at %08x\n", pc);
 			found = 1;
+			replaced_inst = p->inst;
 			break;
 		}
 		p = p->next;
