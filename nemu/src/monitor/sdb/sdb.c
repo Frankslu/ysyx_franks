@@ -96,7 +96,7 @@ static int cmd_info(char *args){
 	else if(strcmp(c, "ir") == 0){
 		display_iring();
 	}
-	else if(strcmp(c, "b")){
+	else if(strcmp(c, "b") == 0){
 		display_breakpoint();
 	}
 	return 0;
