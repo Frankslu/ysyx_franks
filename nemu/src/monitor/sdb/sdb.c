@@ -186,7 +186,7 @@ static int cmd_d(char *args){
 
 static int cmd_b(char *args){
 	vaddr_t i;
-	if(sscanf(args, "%d", &i) == 0){
+	if(sscanf(args, "0x%x", &i) == 0){
 		printf("command error\n");
 	}
 	new_bp(i);
