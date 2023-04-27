@@ -1,31 +1,31 @@
-/***************************************************************************************
- * Copyright (c) 2014-2022 Zihao Yu, Nanjing University
- *
- * NEMU is licensed under Mulan PSL v2.
- * You can use this software according to the terms and conditions of the Mulan PSL v2.
- * You may obtain a copy of Mulan PSL v2 at:
- *          http://license.coscl.org.cn/MulanPSL2
- *
- * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND,
- * EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT,
- * MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
- *
- * See the Mulan PSL v2 for more details.
- ***************************************************************************************/
+// /***************************************************************************************
+//  * Copyright (c) 2014-2022 Zihao Yu, Nanjing University
+//  *
+//  * NEMU is licensed under Mulan PSL v2.
+//  * You can use this software according to the terms and conditions of the Mulan PSL v2.
+//  * You may obtain a copy of Mulan PSL v2 at:
+//  *          http://license.coscl.org.cn/MulanPSL2
+//  *
+//  * THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND,
+//  * EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT,
+//  * MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
+//  *
+//  * See the Mulan PSL v2 for more details.
+//  ***************************************************************************************/
 
 // #include "sdb.h"
 
 // #define NR_BP 16
 
-// static BP bp_pool[NR_BP] = {};
-// static BP *free_ = NULL;
+// static WP wp_pool[NR_BP] = {};
+// static WP *free_ = NULL;
 // WP *head = NULL;
 
 // void init_wp_pool() {
 // 	int i;
-// 	for (i = 0; i < NR_WP; i ++) {
+// 	for (i = 0; i < NR_BP; i ++) {
 // 		wp_pool[i].NO = i;
-// 		wp_pool[i].next = (i == NR_WP - 1 ? NULL : &wp_pool[i + 1]);
+// 		wp_pool[i].next = (i == NR_BP - 1 ? NULL : &wp_pool[i + 1]);
 // 	}
 
 // 	head = NULL;

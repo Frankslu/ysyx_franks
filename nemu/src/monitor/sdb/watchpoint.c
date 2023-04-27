@@ -18,7 +18,7 @@
 #define NR_WP 16
 
 static WP wp_pool[NR_WP] = {};
-static WP *wp_free = NULL;
+static WP *free_ = NULL;
 WP *head = NULL;
 
 void init_wp_pool() {
@@ -29,7 +29,7 @@ void init_wp_pool() {
 	}
 
 	head = NULL;
-	wp_free = wp_pool;
+	free_ = wp_pool;
 }
 
 /* TODO: Implement the functionality of watchpoint */
@@ -37,9 +37,9 @@ WP *new_wp(char *s){
 	bool success = true;
 	word_t res = expr(s,&success);
 	if(success == true){
-		if(wp_free != NULL){
-			WP *new = wp_free;
-			wp_free = wp_free->next;
+		if(free_ != NULL){
+			WP *new = free_;
+			free_ = free_->next;
 			new->next = NULL;
 			WP *p = head;
 			if(head != NULL){
@@ -100,12 +100,12 @@ bool free_wp(int NO){
 		p->next = NULL;
 		free(p->str);
 		
-		back = wp_free;
-		if(wp_free != NULL){
-			back = wp_free;
+		back = free_;
+		if(free_ != NULL){
+			back = free_;
 			if(back->NO >= NO){
-				p->next = wp_free;
-				wp_free = p;
+				p->next = free_;
+				free_ = p;
 			}
 			else{
 				while(back->next != NULL && back->next->NO <= NO)
@@ -121,7 +121,7 @@ bool free_wp(int NO){
 			}
 		}
 		else{
-			wp_free = p;
+			free_ = p;
 		}
 	}
 	else{
