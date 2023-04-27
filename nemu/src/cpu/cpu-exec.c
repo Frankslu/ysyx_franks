@@ -18,6 +18,7 @@
 #include <cpu/difftest.h>
 // #include <trace/trace.h>
 #include <locale.h>
+#include "cpu-exec.h"
 
 /* The assembly code of instructions executed is only output to the screen
  * when the number of instructions executed is less than this value.
@@ -33,7 +34,7 @@ static bool g_print_step = false;
 
 void device_update();
 extern int scan_wp();
-void iring_write();
+void iring_write(char *buf);
 // void trace_log_write();
 
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
