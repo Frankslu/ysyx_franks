@@ -24,6 +24,7 @@ static int is_batch_mode = false;
 
 void init_regex();
 void init_wp_pool();
+void init_bp_pool();
 word_t expr(char *e, bool *success);
 
 void print_watchpoint();
@@ -289,4 +290,7 @@ void init_sdb() {
 
 	/* Initialize the watchpoint pool. */
 	init_wp_pool();
+
+	/* Initialize the breakpoint pool. */
+	init_bp_pool();
 }
