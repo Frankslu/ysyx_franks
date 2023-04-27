@@ -20,8 +20,8 @@ static BP *bp_free = NULL;
 BP *bp_head = NULL;
 word_t replaced_inst;
 
-word_t vaddr_ifetch(vaddr_t addr, int len);
-void vaddr_write(vaddr_t addr, int len, word_t data);
+word_t break_ifetch(vaddr_t addr, int len);
+void break_write(vaddr_t addr, int len, word_t data);
 
 void init_bp_pool() {
 	int i;
@@ -38,7 +38,7 @@ void init_bp_pool() {
 BP *new_bp(vaddr_t pc){
 	word_t mask = 0xffff8000;
 	word_t brk_inst = 0x2a0000;
-	word_t get_inst = vaddr_ifetch(pc, 4);
+	word_t get_inst = break_ifetch(pc, 4);
 	if ((get_inst & mask) == brk_inst){
 		printf("The instruction is already break\n");
 		return NULL;
@@ -74,7 +74,7 @@ BP *new_bp(vaddr_t pc){
 		}
 		new->pc = pc;
 		new->inst = get_inst;
-		vaddr_write(pc, 4, brk_inst);
+		break_write(pc, 4, brk_inst);
 		printf("New breakpoint %d: %x\n", new->NO, pc);
 		return new;
 	}
@@ -95,7 +95,7 @@ bool free_bp(int NO){
 	}
 
 	if(p != NULL){
-		vaddr_write(p->pc, 4, p->inst);
+		break_write(p->pc, 4, p->inst);
 
 		printf("delete watchpoint %d: %x\n", NO, p->pc);
 		if(p == bp_head){
