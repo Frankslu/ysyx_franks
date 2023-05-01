@@ -21,7 +21,7 @@ ifeq ($(findstring $(MAKECMDGOALS),clean|clean-all|html),)
 $(info # Building $(NAME)-$(MAKECMDGOALS) [$(ARCH)])
 
 ### Check: environment variable `$AM_HOME` looks sane
-ifeq ($(wildcard $(AM_HOME)/am/include/am.h),)
+ifeq ($(AM_HOME)/am/include/am.h,)
   $(error $$AM_HOME must be an AbstractMachine repo)
 endif
 
