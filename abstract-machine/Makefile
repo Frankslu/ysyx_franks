@@ -19,8 +19,6 @@ ifeq ($(findstring $(MAKECMDGOALS),clean|clean-all|html),)
 ### Print build info message
 $(info # Building $(NAME)-$(MAKECMDGOALS) [$(ARCH)])
 
-$(info $(wildcard $(AM_HOME)/am/include/am.h))
-$(info $(AM_HOME)/am/include/am.h)
 ### Check: environment variable `$AM_HOME` looks sane
 ifeq ($(wildcard $(AM_HOME)/am/include/am.h),)
   $(error $$AM_HOME must be an AbstractMachine repo)
@@ -28,6 +26,7 @@ endif
 
 ### Check: environment variable `$ARCH` must be in the supported list
 ARCHS = $(basename $(notdir $(shell ls $(AM_HOME)/scripts/*.mk)))
+$(info $(ARCH) $(ARCHS))
 ifeq ($(filter $(ARCHS), $(ARCH)), )
   $(error Expected $$ARCH in {$(ARCHS)}, Got "$(ARCH)")
 endif
