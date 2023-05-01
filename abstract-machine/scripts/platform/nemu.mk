@@ -6,7 +6,7 @@ AM_SRCS := platform/nemu/trm.c \
            platform/nemu/ioe/audio.c \
            platform/nemu/ioe/disk.c \
            platform/nemu/mpe.c
-
+$(info forth)
 CFLAGS    += -fdata-sections -ffunction-sections
 LDFLAGS   += -T $(AM_HOME)/scripts/linker.ld \
              --defsym=_pmem_start=0x1C000000 --defsym=_entry_offset=0x0
