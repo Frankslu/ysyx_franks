@@ -26,7 +26,7 @@ endif
 
 ### Check: environment variable `$ARCH` must be in the supported list
 ARCHS = $(basename $(notdir $(shell ls $(AM_HOME)/scripts/*.mk)))
-ifeq ($(filter $(ARCHS), $(ARCH)), )
+ifeq ($(filter $(ARCHS), $(ARCH)),)
   $(error Expected $$ARCH in {$(ARCHS)}, Got "$(ARCH)")
 endif
 
