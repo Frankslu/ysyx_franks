@@ -39,7 +39,7 @@ $(OBJ_DIR)/%.o: %.cc
 	@echo + CXX $<
 	@mkdir -p $(dir $@)
 	@$(CXX) $(CFLAGS) $(CXXFLAGS) -c -g -o $@ $<
-	$(call call_fixdep, $(@:.o=.d), $@) || echo "yes"
+	$(call call_fixdep, $(@:.o=.d), $@) && echo "yes"
 
 # Depencies
 -include $(OBJS:.o=.d)
