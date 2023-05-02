@@ -125,7 +125,8 @@ $(DST_DIR)/%.o: %.S
 	@$(AS) $(ASFLAGS) -c -o $@ $(realpath $<)
 
 ### Rule (recursive make): build a dependent library (am, klib, ...)
-$(LIBS): %: 
+$(LIBS): %:
+	@echo $(AM_SRCS)
 	@$(MAKE) -s -C $(AM_HOME)/$* archive
 
 ### Rule (link): objects (`*.o`) and libraries (`*.a`) -> `IMAGE.elf`, the final ELF binary to be packed into image (ld)
