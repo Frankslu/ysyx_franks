@@ -7,7 +7,7 @@
 #define MRING_BUFSIZE 10
 
 typedef struct _iring_ {
-    char buf[IRING_BUFSIZE][56];
+    char buf[IRING_BUFSIZE][128];
     int pos;
 } Iring_t;
 
