@@ -57,7 +57,7 @@ static void decode_operand(Decode *s, int *rj, int *rk, int *rd_, word_t *src1, 
 static int decode_exec(Decode *s) {
 	int rj = 0, rk = 0, rd = 0;
 	word_t src1 = 0, src2 = 0, imm = 0;//imm also used as offset
-	vaddr_t old_pc = s->dnpc;
+	vaddr_t old_pc = s->pc;
 	s->dnpc = s->snpc;
 	char *as = s->disas;
 
