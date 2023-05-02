@@ -125,7 +125,7 @@ $(DST_DIR)/%.o: %.S
 	@$(AS) $(ASFLAGS) -c -o $@ $(realpath $<)
 
 ### Rule (recursive make): build a dependent library (am, klib, ...)
-$(LIBS): %:
+$(LIBS): %: %
 	@echo "@=$@ %=$% <=$< ?=$? ^=$^ +=$+ *=$*"
 	@$(MAKE) -s -C $(AM_HOME)/$* archive
 
