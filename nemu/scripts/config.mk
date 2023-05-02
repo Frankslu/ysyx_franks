@@ -30,7 +30,7 @@ silent := -s
 
 CONF   := $(KCONFIG_PATH)/build/conf
 MCONF  := $(KCONFIG_PATH)/build/mconf
-FIXDEP := $(FIXDEP_PATH)/build/fixdep
+FIXDEP := $(FIXDEP_PATH)/build/fixdep1
 
 $(CONF):
 	$(Q)$(MAKE) $(silent) -C $(KCONFIG_PATH) NAME=conf
