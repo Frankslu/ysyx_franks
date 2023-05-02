@@ -26,7 +26,7 @@ KCONFIG_PATH := $(NEMU_HOME)/tools/kconfig
 FIXDEP_PATH  := $(NEMU_HOME)/tools/fixdep
 Kconfig      := $(NEMU_HOME)/Kconfig
 rm-distclean += include/generated include/config .config .config.old
-silent := 
+silent := -s
 
 CONF   := $(KCONFIG_PATH)/build/conf
 MCONF  := $(KCONFIG_PATH)/build/mconf
@@ -65,7 +65,6 @@ distclean: clean
 .PHONY: help distclean
 
 define call_fixdep
-	echo "$(FIXDEP) 1111111111111111111111111111111111111111"
-	$(FIXDEP_PATH) $(1) $(2) unused > $(1).tmp
-	mv $(1).tmp $(1)
+	@$(FIXDEP) $(1) $(2) unused > $(1).tmp
+	@mv $(1).tmp $(1)
 endef
