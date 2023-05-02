@@ -32,14 +32,14 @@ $(OBJ_DIR)/%.o: %.c
 	@echo + CC $<
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c -g -o $@ $<
-	@echo "$(@:.o=.d)"
+	@echo "1111111111 $(@:.o=.d)"
 	$(call call_fixdep, $(@:.o=.d), $@)
 
 $(OBJ_DIR)/%.o: %.cc
 	@echo + CXX $<
 	@mkdir -p $(dir $@)
 	@$(CXX) $(CFLAGS) $(CXXFLAGS) -c -g -o $@ $<
-	$(call call_fixdep, $(@:.o=.d), $@)
+	$(call call_fixdep, $(@:.o=.d), $@) || echo "yes"
 
 # Depencies
 -include $(OBJS:.o=.d)
