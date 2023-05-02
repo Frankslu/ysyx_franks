@@ -65,6 +65,7 @@ distclean: clean
 .PHONY: help distclean
 
 define call_fixdep
-	@$(FIXDEP) $(1) $(2) unused > $(1).tmp
-	@mv $(1).tmp $(1)
+	echo "$(FIXDEP) 1111111111111111111111111111111111111111"
+	$(FIXDEP) $(1) $(2) unused > $(1).tmp
+	mv $(1).tmp $(1)
 endef
