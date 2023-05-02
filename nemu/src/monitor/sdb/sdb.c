@@ -195,6 +195,9 @@ static int cmd_b(char *args){
 		printf("command error\n");
 		return 0;
 	}
+	if(i%4 != 0){
+		printf("Invalid pc\n");
+	}
 	new_bp(i);
 	return 0;
 }
