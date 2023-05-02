@@ -1,12 +1,25 @@
 #ifndef _TRACE_H_
 #define _TRACE_H_
+#include <common.h>
+#include <isa.h>
+
+#define IRING_BUFSIZE 20
+#define MRING_BUFSIZE 40
+
 typedef struct _iring_ {
-    char buf[20][128];
+    char buf[IRING_BUFSIZE][20];
     int pos;
 } Iring_t;
 
-extern Iring_t iring;
+typedef struct _mring_ {
+    vaddr_t pc[MRING_BUFSIZE];
+    vaddr_t addr[MRING_BUFSIZE];
+    int wr[MRING_BUFSIZE];
+    int pos;
+} Mring_t;
 
-#define next_pos iring.pos == 19 ? 0 : iring.pos + 1
+#define INVALID 0
+#define READ 1
+#define WRITE 2
 
 #endif

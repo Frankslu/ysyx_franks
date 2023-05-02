@@ -30,6 +30,7 @@ word_t expr(char *e, bool *success);
 void print_watchpoint();
 void display_iring();
 void display_breakpoint();
+void display_wring();
 extern WP *new_wp(char *s);
 extern bool free_wp(int i);
 extern BP *new_bp(vaddr_t pc);
@@ -98,6 +99,9 @@ static int cmd_info(char *args){
 	}
 	else if(strcmp(c, "b") == 0){
 		display_breakpoint();
+	}
+	else if(strcmp(c, "wr") == 0){
+		display_wring();
 	}
 	return 0;
 }

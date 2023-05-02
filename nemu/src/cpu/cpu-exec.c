@@ -16,7 +16,6 @@
 #include <cpu/cpu.h>
 #include <cpu/decode.h>
 #include <cpu/difftest.h>
-// #include <trace/trace.h>
 #include <locale.h>
 #include "cpu-exec.h"
 
