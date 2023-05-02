@@ -32,7 +32,7 @@ void mring_init(){
 
 void iring_write(char *_buf){
     strcpy(iring.buf[iring.pos], _buf);
-    iring.pos = iring.pos == IRING_BUFSIZE - 1 ? 0 : iring.pos + 1;
+    iring.pos = iring.pos == (IRING_BUFSIZE - 1) ? 0 : (iring.pos + 1);
 }
 
 void display_iring(){
@@ -40,7 +40,7 @@ void display_iring(){
         if (iring.buf[iring.pos][0] != '\0'){
             printf("%s\n", iring.buf[iring.pos]);
         }
-        iring.pos = iring.pos == IRING_BUFSIZE - 1 ? 0 : iring.pos + 1;
+        iring.pos = iring.pos == (IRING_BUFSIZE - 1) ? 0 : (iring.pos + 1);
     }
 }
 
@@ -48,14 +48,14 @@ void record_read(vaddr_t addr){
     mring.pc[mring.pos] = cpu.pc;
     mring.addr[mring.pos] = addr;
     mring.wr[mring.pos] = READ;
-    mring.pos = mring.pos == MRING_BUFSIZE - 1 ? 0 : mring.pos + 1;
+    mring.pos = mring.pos == (MRING_BUFSIZE - 1) ? 0 : (mring.pos + 1);
 }
 
 void record_write(vaddr_t addr){
     mring.pc[mring.pos] = cpu.pc;
     mring.addr[mring.pos] = addr;
     mring.wr[mring.pos] = WRITE;
-    mring.pos = mring.pos == MRING_BUFSIZE - 1 ? 0 : mring.pos + 1;
+    mring.pos = mring.pos == (MRING_BUFSIZE - 1) ? 0 : (mring.pos + 1);
 }
 
 void display_wring(){
@@ -63,6 +63,6 @@ void display_wring(){
         if (mring.wr[mring.pos] == INVALID){
             printf("%x  %s %x\n", mring.pc[mring.pos], mring.wr[mring.pos] == READ ? "read" : "write", mring.addr[mring.pos]);
         }
-        mring.pos = mring.pos == MRING_BUFSIZE - 1 ? 0 : mring.pos + 1;
+        mring.pos = mring.pos == (MRING_BUFSIZE - 1) ? 0 : (mring.pos + 1);
     }
 }
