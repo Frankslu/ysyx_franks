@@ -30,7 +30,7 @@ silent := -s
 
 CONF   := $(KCONFIG_PATH)/build/conf
 MCONF  := $(KCONFIG_PATH)/build/mconf
-FIXDEP := $(FIXDEP_PATH)/build
+FIXDEP := $(FIXDEP_PATH)/build/fixdep
 
 $(CONF):
 	$(Q)$(MAKE) $(silent) -C $(KCONFIG_PATH) NAME=conf
@@ -66,6 +66,6 @@ distclean: clean
 
 define call_fixdep
 	echo "$(FIXDEP) 1111111111111111111111111111111111111111"
-	$(FIXDEP) $(1) $(2) unused > $(1).tmp
+	$(FIXDEP_PATH) $(1) $(2) unused > $(1).tmp
 	mv $(1).tmp $(1)
 endef
