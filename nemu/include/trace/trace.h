@@ -4,7 +4,7 @@
 #include <isa.h>
 
 #define IRING_BUFSIZE 20
-#define MRING_BUFSIZE 40
+#define MRING_BUFSIZE 10
 
 typedef struct _iring_ {
     char buf[IRING_BUFSIZE][20];
