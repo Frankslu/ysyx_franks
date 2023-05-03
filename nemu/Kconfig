@@ -149,6 +149,33 @@ config ITRACE_COND
   string "Only trace instructions when the condition is true"
   default "true"
 
+config IRING
+  depends on TRACE
+  bool "Enable Iring"
+  default n
+
+config MTRACE
+  depends on TRACE
+  bool "Enable mtrace"
+  default n
+
+menu "Mtrace condition"
+  depends on MTRACE
+
+config MTRACE_START
+  hex "Mtrace start"
+  default MBASE
+
+config MTRACE_END
+  hex "Mtrace end"
+  default MBASE
+
+endmenu
+
+config FTRACE
+  depends on TRACE
+  bool "Enable ftrace"
+  default n
 
 config DIFFTEST
   depends on TARGET_NATIVE_ELF
@@ -214,14 +241,6 @@ config RT_CHECK
 
 endmenu
 
-choice
-  prompt "Display watchponit every clock"
-  default NOWATCHPOINT
- 
 config WATCHPOINT
-  bool "enable"
- 
-config NOWATCHPOINT
-        bool "disable"
- 
-endchoice
+  bool "enable watchpoint"
+  default n

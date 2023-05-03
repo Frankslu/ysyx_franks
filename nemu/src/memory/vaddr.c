@@ -28,12 +28,12 @@ word_t break_ifetch(vaddr_t addr, int len) {
 }
 
 word_t vaddr_read(vaddr_t addr, int len) {
-    record_read(addr);
+    IFDEF(CONFIG_MTRACE, record_read(addr));
 	return paddr_read(addr, len);
 }
 
 void vaddr_write(vaddr_t addr, int len, word_t data) {
-    record_write(addr);
+    IFDEF(CONFIG_MTRACE, record_write(addr));
 	paddr_write(addr, len, data);
 }
 

@@ -36,6 +36,7 @@ void iring_write(char *_buf){
 }
 
 void display_iring(){
+    
     for (int i=0; i<IRING_BUFSIZE; i++){
         if (iring.buf[iring.pos][0] != '\0'){
             printf("%s\n", iring.buf[iring.pos]);
