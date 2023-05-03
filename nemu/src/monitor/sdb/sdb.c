@@ -83,7 +83,7 @@ static int cmd_si(char *args){
 
 static int cmd_info(char *args){
 	if(args == NULL){
-		printf("Invalid input\nUse info r or info w");
+		printf("Invalid input\nUse info r or info w\n");
 		return 0;
 	}
 	char c[3];

@@ -23,6 +23,11 @@ word_t replaced_inst;
 word_t break_ifetch(vaddr_t addr, int len);
 void break_write(vaddr_t addr, int len, word_t data);
 
+static inline bool in_pmem(paddr_t addr) {
+  return addr - CONFIG_MBASE < CONFIG_MSIZE;
+}
+
+
 void init_bp_pool() {
 	int i;
 	for (i = 0; i < NR_BP; i ++) {
@@ -38,6 +43,10 @@ void init_bp_pool() {
 BP *new_bp(vaddr_t pc){
 	word_t mask = 0xffff8000;
 	word_t brk_inst = 0x2a0000;
+	if (in_pmem(pc) == false){
+		printf("Out of memory bound\n");
+		return NULL;
+	}
 	word_t get_inst = break_ifetch(pc, 4);
 	if ((get_inst & mask) == brk_inst){
 		printf("The instruction is already break\n");
