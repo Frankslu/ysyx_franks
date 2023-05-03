@@ -146,7 +146,7 @@ static int cmd_p(char *args){
 	return 0;
 }
 
-static int cmd_w(char *args){
+__attribute__((unused)) static int cmd_w(char *args){
 	if(args == NULL){
 		printf("command error\n");
 		return 0;
@@ -204,7 +204,7 @@ static int cmd_d(char *args){
 	return 0;
 }
 
-static int cmd_b(char *args){
+__attribute__((unused)) static int cmd_b(char *args){
 	vaddr_t i;
 	if(sscanf(args, "0x%x", &i) == 0){
 		printf("command error\n");
