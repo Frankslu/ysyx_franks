@@ -59,7 +59,7 @@ void record_write(vaddr_t addr){
     mring.pos = mring.pos == (MRING_BUFSIZE - 1) ? 0 : (mring.pos + 1);
 }
 
-void display_wring(){
+void display_mring(){
     for (int i=0; i<MRING_BUFSIZE; i++){
         if (mring.wr[mring.pos] != INVALID){
             printf("%x  %s %x\n", mring.pc[mring.pos], mring.wr[mring.pos] == READ ? "read" : "write", mring.addr[mring.pos]);

@@ -132,7 +132,7 @@ void init_monitor(int argc, char *argv[]) {
   init_sdb();
 
   /*Initialize tracer*/
-  init_trace();
+  IFDEF(CONFIG_TRACE, init_trace());
 
 #ifndef CONFIG_ISA_loongarch32r
   IFDEF(CONFIG_ITRACE, init_disasm(

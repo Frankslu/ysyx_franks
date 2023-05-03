@@ -30,7 +30,7 @@ word_t expr(char *e, bool *success);
 void print_watchpoint();
 void display_iring();
 void display_breakpoint();
-void display_wring();
+void display_mring();
 extern WP *new_wp(char *s);
 extern bool free_wp(int i);
 extern BP *new_bp(vaddr_t pc);
@@ -91,17 +91,28 @@ static int cmd_info(char *args){
 	if(c[0] == 'r' && c[1] == '\0'){
 		isa_reg_display(NULL);
 	}
+#ifdef CONFIG_WATCHPOINT
 	else if(c[0] == 'w' && c[1] == '\0'){
 		print_watchpoint();
 	}
-	else if(strcmp(c, "ir") == 0){
-		display_iring();
-	}
+#endif
+#ifdef CONFIG_BREAKPOINT
 	else if(strcmp(c, "b") == 0){
 		display_breakpoint();
 	}
+#endif
+#ifdef CONFIG_MTRACE
 	else if(strcmp(c, "wr") == 0){
-		display_wring();
+		display_mring();
+	}
+#endif
+#ifdef CONFIG_IRING
+	else if(strcmp(c, "ir") == 0){
+		display_iring();
+	}
+#endif
+	else {
+		printf("Invalid Input\n");
 	}
 	return 0;
 }
@@ -301,8 +312,8 @@ void init_sdb() {
 	init_regex();
 
 	/* Initialize the watchpoint pool. */
-	init_wp_pool();
+	IFDEF(CONFIG_WATCHPOINT, init_wp_pool());
 
 	/* Initialize the breakpoint pool. */
-	init_bp_pool();
+	IFDEF(CONFIG_WATCHPOINT, init_bp_pool());
 }

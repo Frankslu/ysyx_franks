@@ -168,8 +168,7 @@ config MTRACE_START
 
 config MTRACE_END
   hex "Mtrace end"
-  default MBASE
-
+  default 0x24000000
 endmenu
 
 config FTRACE
@@ -241,6 +240,12 @@ config RT_CHECK
 
 endmenu
 
+menu "Sdb"
 config WATCHPOINT
   bool "enable watchpoint"
   default n
+
+config BREAKPOINT
+  bool "enable breakpoint"
+  default n
+endmenu
