@@ -91,26 +91,18 @@ static int cmd_info(char *args){
 	if(c[0] == 'r' && c[1] == '\0'){
 		isa_reg_display(NULL);
 	}
-#ifdef CONFIG_WATCHPOINT
 	else if(c[0] == 'w' && c[1] == '\0'){
-		print_watchpoint();
+		MUXDEF(CONFIG_WATCHPOINT, print_watchpoint(), printf("Watchpoint disabled\n"));
 	}
-#endif
-#ifdef CONFIG_BREAKPOINT
 	else if(strcmp(c, "b") == 0){
-		display_breakpoint();
+		MUXDEF(CONFIG_BREAKPOINT, display_breakpoint(), printf("Breakpoint disabled\n"));
 	}
-#endif
-#ifdef CONFIG_MTRACE
 	else if(strcmp(c, "wr") == 0){
-		display_mring();
+		MUXDEF(CONFIG_MTRACE, display_mring(), printf("Mtrace disabled\n"));
 	}
-#endif
-#ifdef CONFIG_IRING
 	else if(strcmp(c, "ir") == 0){
-		display_iring();
+		MUXDEF(CONFIG_IRING, display_iring(), printf("Iring disabled\n"));
 	}
-#endif
 	else {
 		printf("Invalid Input\n");
 	}
@@ -173,6 +165,7 @@ static int cmd_d(char *args){
 	}
 	else if(argc == 1){
 		if(strcmp(c, "w") == 0){
+#ifdef CONFIG_WATCHPOINT
 			printf("delete all watchpoint? (y,n)\n");
 			int sss = scanf("%s",c);//unused res
 			sss = sss+1;
@@ -181,8 +174,12 @@ static int cmd_d(char *args){
 					free_wp(i);
 				}
 			}
+#else		
+			printf("Watchpoint disabled\n");
+#endif
 		}
 		else if(strcmp(c, "b") == 0){
+#ifdef CONFIG_BREAKPOINT
 			printf("delete all breakpoint? (y,n)\n");
 			int sss = scanf("%s",c);//unused res
 			sss = sss + 1;
@@ -191,14 +188,17 @@ static int cmd_d(char *args){
 					free_bp(i);
 				}
 			}
+#else		
+			printf("Breakpoint disabled\n");
+#endif
 		}
 	}
 	else if(argc == 2){
 		if(strcmp(c, "w") == 0){
-			free_wp(i);
+			MUXDEF(CONFIG_WATCHPOINT, free_wp(i), printf("Watchpoint disabled\n"));
 		}
 		else if(strcmp(c, "b") == 0){
-			free_bp(i);
+			MUXDEF(CONFIG_BREAKPOINT, free_bp(i), printf("Breakpoint disabled\n"));
 		}
 	}
 	return 0;
@@ -232,9 +232,9 @@ static struct {
 	{ "info", "print the information in reg(r), watchpoint(w), breakpoint(b), iring(ir)", cmd_info},
 	{ "x", "scan memory", cmd_x},
 	{ "p", "print value of expression", cmd_p},
-	{ "w", "set watchpoint", cmd_w},
 	{ "d", "delete watchpoint or breakpoint", cmd_d},
-	{ "b", "set breakpoint", cmd_b}
+	IFDEF(CONFIG_WATCHPOINT, { "w", "set watchpoint", cmd_w}),
+	IFDEF(CONFIG_BREAKPOINT, { "b", "set breakpoint", cmd_b})
 
 	/* TODO: Add more commands */
 
@@ -315,5 +315,5 @@ void init_sdb() {
 	IFDEF(CONFIG_WATCHPOINT, init_wp_pool());
 
 	/* Initialize the breakpoint pool. */
-	IFDEF(CONFIG_WATCHPOINT, init_bp_pool());
+	IFDEF(CONFIG_BREAKPOINT, init_bp_pool());
 }

@@ -10,8 +10,8 @@ void iring_init();
 void mring_init();
 
 void init_trace(){
-    iring_init();
-    mring_init();
+    IFDEF(CONFIG_IRING, iring_init());
+    IFDEF(CONFIG_MTRACE, mring_init());
 }
 
 void iring_init(){
@@ -46,6 +46,8 @@ void display_iring(){
 }
 
 void record_read(vaddr_t addr){
+    if(addr < CONFIG_MTRACE_START || addr > CONFIG_MTRACE_END)
+        return;
     mring.pc[mring.pos] = cpu.pc;
     mring.addr[mring.pos] = addr;
     mring.wr[mring.pos] = READ;
@@ -53,6 +55,8 @@ void record_read(vaddr_t addr){
 }
 
 void record_write(vaddr_t addr){
+    if(addr < CONFIG_MTRACE_START || addr > CONFIG_MTRACE_END)
+        return;
     mring.pc[mring.pos] = cpu.pc;
     mring.addr[mring.pos] = addr;
     mring.wr[mring.pos] = WRITE;
