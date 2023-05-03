@@ -233,7 +233,7 @@ static struct {
 	{ "x", "scan memory", cmd_x},
 	{ "p", "print value of expression", cmd_p},
 	{ "d", "delete watchpoint or breakpoint", cmd_d},
-	IFDEF(CONFIG_WATCHPOINT, { "w", "set watchpoint", cmd_w}),
+	IFDEF(CONFIG_WATCHPOINT, { "w", "set watchpoint", cmd_w},)
 	IFDEF(CONFIG_BREAKPOINT, { "b", "set breakpoint", cmd_b})
 
 	/* TODO: Add more commands */
