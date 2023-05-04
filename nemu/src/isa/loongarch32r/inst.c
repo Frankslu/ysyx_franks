@@ -23,7 +23,7 @@
 #define Mw vaddr_write
 
 int scan_bp(vaddr_t pc);
-IFDEF(CONFIG_BREAK_POINT, static int break_flag = 0);
+IFDEF(CONFIG_BREAKPOINT, static int break_flag = 0);
 
 enum {
 	TYPE_2RI12, TYPE_2RI12U,TYPE_1RI20, TYPE_3R, TYPE_OFFS26, TYPE_2RO16, TYPE_2RI5,	
