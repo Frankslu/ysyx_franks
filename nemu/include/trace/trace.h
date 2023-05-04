@@ -1,5 +1,6 @@
 #ifndef _TRACE_H_
 #define _TRACE_H_
+
 #include <common.h>
 #include <isa.h>
 
@@ -17,6 +18,11 @@ typedef struct _mring_ {
     int wr[MRING_BUFSIZE];
     int pos;
 } Mring_t;
+
+typedef struct _fstack_ {
+    vaddr_t addr;
+    char func_name[64];
+} Fstack_t;
 
 #define INVALID 0
 #define READ 1

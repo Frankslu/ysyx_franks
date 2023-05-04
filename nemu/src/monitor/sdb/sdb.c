@@ -146,7 +146,8 @@ static int cmd_p(char *args){
 	return 0;
 }
 
-__attribute__((unused)) static int cmd_w(char *args){
+#ifdef CONFIG_WATCHPOINT
+static int cmd_w(char *args){
 	if(args == NULL){
 		printf("command error\n");
 		return 0;
@@ -154,6 +155,7 @@ __attribute__((unused)) static int cmd_w(char *args){
 	new_wp(args);
 	return 0;
 }
+#endif
 
 static int cmd_d(char *args){
 	int i;
@@ -204,7 +206,8 @@ static int cmd_d(char *args){
 	return 0;
 }
 
-__attribute__((unused)) static int cmd_b(char *args){
+#ifdef CONFIG_BREAKPOINT
+static int cmd_b(char *args){
 	vaddr_t i;
 	if(sscanf(args, "0x%x", &i) == 0){
 		printf("command error\n");
@@ -217,6 +220,7 @@ __attribute__((unused)) static int cmd_b(char *args){
 	new_bp(i);
 	return 0;
 }
+#endif
 
 static int cmd_help(char *args);
 

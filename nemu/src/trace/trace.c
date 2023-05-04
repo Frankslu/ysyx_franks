@@ -14,6 +14,7 @@ void mring_init();
 void init_trace(){
     IFDEF(CONFIG_IRING, iring_init());
     IFDEF(CONFIG_MTRACE, mring_init());
+    __attribute__((unused)) int i = system("touch ./mem_log.txt");
 }
 
 void iring_init(){
