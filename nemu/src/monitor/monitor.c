@@ -31,10 +31,12 @@ static void welcome() {
         "to record the trace. This may lead to a large log file. "
         "If it is not necessary, you can disable it in menuconfig"));
   char trace_enabled[256];
-  IFDEF(CONFIG_IRING, strcpy(trace_enabled, "Iring, "));
-  IFDEF(CONFIG_MTRACE, strcpy(trace_enabled, "Mtrace, "));
-  IFDEF(CONFIG_FTRACE, strcpy(trace_enabled, "Ftrace, "));
-  strcpy(trace_enabled, "are enabled");
+  IFDEF(CONFIG_IRING, strcat(trace_enabled, "Iring, "));
+  IFDEF(CONFIG_MTRACE, strcat(trace_enabled, "Mtrace, "));
+  IFDEF(CONFIG_FTRACE, strcat(trace_enabled, "Ftrace, "));
+  IFDEF(CONFIG_WATCHPOINT, strcat(trace_enabled, "Watchpoint, "));
+  IFDEF(CONFIG_BREAKPOINT, strcat(trace_enabled, "Breakpoint, "));
+  strcat(trace_enabled, "are enabled");
   Log("%s", trace_enabled);
   Log("Build time: %s, %s", __TIME__, __DATE__);
   printf("Welcome to %s-NEMU!\n", ANSI_FMT(str(__GUEST_ISA__), ANSI_FG_YELLOW ANSI_BG_RED));
