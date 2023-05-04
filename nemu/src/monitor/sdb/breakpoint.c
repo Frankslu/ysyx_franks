@@ -15,6 +15,7 @@
 
 #include "sdb.h"
 
+#ifdef CONFIG_BREAKPOINT
 static BP bp_pool[NR_BP] = {};
 static BP *bp_free = NULL;
 BP *bp_head = NULL;
@@ -172,3 +173,4 @@ int scan_bp(vaddr_t pc){
 	}
 	return found;
 }
+#endif

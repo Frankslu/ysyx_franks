@@ -30,6 +30,7 @@ static void welcome() {
   IFDEF(CONFIG_TRACE, Log("If trace is enabled, a log file will be generated "
         "to record the trace. This may lead to a large log file. "
         "If it is not necessary, you can disable it in menuconfig"));
+
   char trace_enabled[256] = {};
   IFDEF(CONFIG_IRING, strcat(trace_enabled, "Iring, "));
   IFDEF(CONFIG_MTRACE, strcat(trace_enabled, "Mtrace, "));
@@ -38,7 +39,9 @@ static void welcome() {
   IFDEF(CONFIG_BREAKPOINT, strcat(trace_enabled, "Breakpoint, "));
   strcat(trace_enabled, "are enabled");
   Log("%s", trace_enabled);
+
   Log("Build time: %s, %s", __TIME__, __DATE__);
+
   printf("Welcome to %s-NEMU!\n", ANSI_FMT(str(__GUEST_ISA__), ANSI_FG_YELLOW ANSI_BG_RED));
   printf("For help, type \"help\"\n");/*
   Log("Exercise: Please remove me in the source code and compile NEMU again.");

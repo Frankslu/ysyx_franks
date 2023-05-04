@@ -3,6 +3,8 @@
 #include <string.h>
 #include <stdlib.h>
 
+#ifdef CONFIG_TRACE
+
 Iring_t iring;
 Mring_t mring;
 
@@ -30,6 +32,8 @@ void mring_init(){
     mring.pos = 0;
 }
 
+
+#ifdef CONFIG_IRING
 void iring_write(char *_buf){
     strcpy(iring.buf[iring.pos], _buf);
     iring.pos = iring.pos == (IRING_BUFSIZE - 1) ? 0 : (iring.pos + 1);
@@ -44,12 +48,14 @@ void display_iring(){
         iring.pos = iring.pos == (IRING_BUFSIZE - 1) ? 0 : (iring.pos + 1);
     }
 }
+#endif
 
-void record_read(vaddr_t addr){
+
+
 #ifdef CONFIG_MTRACE
+void record_read(vaddr_t addr){
     if(addr < CONFIG_MTRACE_START || addr > CONFIG_MTRACE_END)
         return;
-#endif
     mring.pc[mring.pos] = cpu.pc;
     mring.addr[mring.pos] = addr;
     mring.wr[mring.pos] = READ;
@@ -57,10 +63,8 @@ void record_read(vaddr_t addr){
 }
 
 void record_write(vaddr_t addr){
-#ifdef CONFIG_MTRACE
     if(addr < CONFIG_MTRACE_START || addr > CONFIG_MTRACE_END)
         return;
-#endif
     mring.pc[mring.pos] = cpu.pc;
     mring.addr[mring.pos] = addr;
     mring.wr[mring.pos] = WRITE;
@@ -75,3 +79,7 @@ void display_mring(){
         mring.pos = mring.pos == (MRING_BUFSIZE - 1) ? 0 : (mring.pos + 1);
     }
 }
+#endif
+
+
+#endif
