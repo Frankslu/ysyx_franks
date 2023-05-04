@@ -89,11 +89,12 @@ void display_mring(){
 
 
 #ifdef CONFIG_FTRACE
+
 void ftrace_init(char *elf_file){
 typedef MUXDEF(CONFIG_ISA64, Elf64_Shdr, Elf32_Shdr) Elf_Shdr;
 typedef MUXDEF(CONFIG_ISA64, Elf64_Ehdr, Elf32_Ehdr) Elf_Ehdr;
 typedef MUXDEF(CONFIG_ISA64, Elf64_Sym , Elf32_Sym ) Elf_Sym;
-	int res;
+	
 	if(elf_file == NULL)
 		return;
 
@@ -101,6 +102,7 @@ typedef MUXDEF(CONFIG_ISA64, Elf64_Sym , Elf32_Sym ) Elf_Sym;
 	Assert(fp, "Can not open %s\n", elf_file);
 
 	Elf_Ehdr section_header;
+	__attribute__((unused)) int res;
 	res = fread(&section_header, sizeof(section_header), 1, fp);
 
 	Assert(section_header.e_ident[EI_MAG0] == ELFMAG0 &&
@@ -131,18 +133,17 @@ typedef MUXDEF(CONFIG_ISA64, Elf64_Sym , Elf32_Sym ) Elf_Sym;
 	} 
 	
 	for (int i=0; i < symtab->sh_size / sizeof(Elf_Sym); i++) {
-		char name[50];
 		Elf_Sym sym;
 		fseek(fp, symtab->sh_offset + i * sizeof(sym), SEEK_SET);
 		res = fread(&sym, sizeof(sym), 1, fp);
+		func->addr = sym.st_value;
 		fseek(fp, strtab->sh_offset + sym.st_name, SEEK_SET);
-		res = fread(name, 50, 1, fp);
+		res = fread(func->name, 50, 1, fp);
 		if (ELF32_ST_TYPE(sym.st_info) == STT_FUNC) {
-			printf("Function %s at address %x, %d\n", name, sym.st_value, sym.st_name);
+			printf("Function %s at address %x, %d\n", func->name, func->addr, sym.st_name);
 		}
 	}
 	fclose(fp);
-	res++;
 	return;
 }
 #endif
