@@ -23,7 +23,7 @@
 #define Mw vaddr_write
 
 int scan_bp(vaddr_t pc);
-static int break_flag = 0;
+IFDEF(CONFIG_BREAK_POINT, static int break_flag = 0);
 
 enum {
 	TYPE_2RI12, TYPE_2RI12U,TYPE_1RI20, TYPE_3R, TYPE_OFFS26, TYPE_2RO16, TYPE_2RI5,	
@@ -218,7 +218,8 @@ static int decode_exec(Decode *s) {
 	INSTPAT("00000000010010001 ????? ????? ?????", srai.w, 2RI5, R(rd) = (signed)src1 >> src2,
 			IFDEF(CONFIG_ISA_loongarch32r, slli_sp("srai.w")));
 
-	INSTPAT("0000 0000 0010 10100 ????? ????? ?????", break, N, exec_break, s->dnpc = old_pc,
+	INSTPAT("0000 0000 0010 10100 ????? ????? ?????", break, N, MUXDEF(CONFIG_BREAKPOINT, exec_break, NEMUTRAP(s->pc, R(4)))
+			, s->dnpc = old_pc,
 			IFDEF(CONFIG_ISA_loongarch32r, sprintf(as, "break"))); // R(4) is $a0
 	INSTPAT("????????????????? ????? ????? ?????", inv, N, INV(s->pc));
 	INSTPAT_END();
