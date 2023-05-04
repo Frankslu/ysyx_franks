@@ -103,10 +103,10 @@ typedef MUXDEF(CONFIG_ISA64, Elf64_Sym , Elf32_Sym ) Elf_Sym;
 	Elf_Ehdr section_header;
 	res = fread(&section_header, sizeof(section_header), 1, fp);
 
-	Assert(section_header.e_ident[EI_MAG0] != ELFMAG0 ||
-		section_header.e_ident[EI_MAG1] != ELFMAG1 ||
-		section_header.e_ident[EI_MAG2] != ELFMAG2 ||
-		section_header.e_ident[EI_MAG3] != ELFMAG3,
+	Assert(section_header.e_ident[EI_MAG0] == ELFMAG0 &&
+		section_header.e_ident[EI_MAG1] == ELFMAG1 &&
+		section_header.e_ident[EI_MAG2] == ELFMAG2 &&
+		section_header.e_ident[EI_MAG3] == ELFMAG3,
 		"%s is not elf\n", elf_file);
 
 	Elf_Shdr section_table[section_header.e_shnum];
