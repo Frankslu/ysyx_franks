@@ -2,11 +2,14 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <elf.h>
+#include <assert.h>
 
 #ifdef CONFIG_TRACE
 
 Iring_t iring;
 Mring_t mring;
+Func_t func[24];
 
 void iring_init();
 void mring_init();
@@ -14,7 +17,6 @@ void mring_init();
 void init_trace(){
     IFDEF(CONFIG_IRING, iring_init());
     IFDEF(CONFIG_MTRACE, mring_init());
-    __attribute__((unused)) int i = system("touch ./mem_log.txt");
 }
 
 void iring_init(){
@@ -82,5 +84,57 @@ void display_mring(){
 }
 #endif
 
+
+// #ifdef CONFIG_FTRACE
+// void init_ftrace(char elf_file){
+//     if (elf_file == NULL){
+//         Log("no input elf file");
+//         return;
+//     }
+
+//     int count;
+//     FILE *fp;
+//     fp = fopen(elf_file, "rb");
+//     Assert(fp, "Can not open %s", elf_file);
+
+//     char *buf;
+//     buf = (char *)malloc(9192 * sizeof(unsigned char));
+//     int ret = fread(buf, sizeof(unsigned char), 9192, fp);
+//     assert(ret == 1);
+
+//     Elf32_Ehdr *ehdr = (Elf32_Ehdr *)buf;
+//     Elf32_Shdr *shdr = (Elf32_Shdr *)(buf + ehdr->e_shoff);
+//     Elf32_Shdr *shdr_strtab = NULL;
+//     Elf32_Shdr *shdr_symtab = NULL;
+
+//     for (int i = 0; shdr_strtab == NULL || shdr_symtab == NULL; i++)
+//     {
+//         if (shdr[i].sh_type == SHT_SYMTAB)
+//         {
+//             shdr_symtab = &shdr[i];
+//         }
+//         else if (shdr[i].sh_type == SHT_STRTAB)
+//         {
+//             shdr_strtab = &shdr[i];
+//             break;
+//         }
+//     }
+
+//     Elf32_Sym *table_sym = (Elf32_Sym *)(buf + shdr_symtab->sh_offset);
+
+//     for (int i = 0; i <= shdr_symtab->sh_size / shdr_symtab->sh_entsize; i++)
+//     {
+//         if (ELF64_ST_TYPE(table_sym[i].st_info) == STT_FUNC)
+//         {
+//             func[count].addr = table_sym[i].st_value;
+//             strcpy(func[count].name, (char *)(buf + shdr_strtab->sh_offset + table_sym[i].st_name));
+//             count++;
+//         }
+//     }
+
+//     free(buf);
+//     return;
+// }
+// #endif
 
 #endif

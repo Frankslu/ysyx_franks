@@ -19,10 +19,10 @@ typedef struct _mring_ {
     int pos;
 } Mring_t;
 
-typedef struct _fstack_ {
+typedef struct _func_ {
     vaddr_t addr;
-    char func_name[64];
-} Fstack_t;
+    char name[64];
+} Func_t;
 
 #define INVALID 0
 #define READ 1
