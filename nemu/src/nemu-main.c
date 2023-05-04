@@ -71,7 +71,7 @@ int main(int argc, char *argv[]) {
 #else
 	init_monitor(argc, argv);
 #endif
-
+	printf("%s", ELF_NAME);
 	/* Start engine. */
 	engine_start();
 
