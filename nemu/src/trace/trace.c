@@ -10,6 +10,7 @@
 Iring_t iring;
 Mring_t mring;
 Func_t func[24];
+int func_cnt = 0;
 extern char* elf_file;
 
 void iring_init();
@@ -135,12 +136,13 @@ typedef MUXDEF(CONFIG_ISA64, Elf64_Sym , Elf32_Sym ) Elf_Sym;
 	for (int i=0; i < symtab->sh_size / sizeof(Elf_Sym); i++) {
 		Elf_Sym sym;
 		fseek(fp, symtab->sh_offset + i * sizeof(sym), SEEK_SET);
-		res = fread(&sym, sizeof(sym), 1, fp);
-		func->addr = sym.st_value;
-		fseek(fp, strtab->sh_offset + sym.st_name, SEEK_SET);
-		res = fread(func->name, 50, 1, fp);
 		if (ELF32_ST_TYPE(sym.st_info) == STT_FUNC) {
-			printf("Function %s at address %x, %d\n", func->name, func->addr, sym.st_name);
+			res = fread(&sym, sizeof(sym), 1, fp);
+			func[func_cnt].addr = sym.st_value;
+			fseek(fp, strtab->sh_offset + sym.st_name, SEEK_SET);
+			res = fread(func[func_cnt].name, 50, 1, fp);
+			printf("Function %s at address %x, %d\n", func[func_cnt].name, func[func_cnt].addr, sym.st_name);
+			func_cnt++;
 		}
 	}
 	fclose(fp);
