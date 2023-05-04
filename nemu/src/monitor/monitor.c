@@ -30,7 +30,7 @@ static void welcome() {
   IFDEF(CONFIG_TRACE, Log("If trace is enabled, a log file will be generated "
         "to record the trace. This may lead to a large log file. "
         "If it is not necessary, you can disable it in menuconfig"));
-  char trace_enabled[256];
+  char trace_enabled[256] = {};
   IFDEF(CONFIG_IRING, strcat(trace_enabled, "Iring, "));
   IFDEF(CONFIG_MTRACE, strcat(trace_enabled, "Mtrace, "));
   IFDEF(CONFIG_FTRACE, strcat(trace_enabled, "Ftrace, "));
