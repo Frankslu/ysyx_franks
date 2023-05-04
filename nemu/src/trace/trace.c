@@ -10,13 +10,16 @@
 Iring_t iring;
 Mring_t mring;
 Func_t func[24];
+extern char* elf_file;
 
 void iring_init();
 void mring_init();
+void ftrace_init(char *elf_file);
 
 void init_trace(){
 	IFDEF(CONFIG_IRING, iring_init());
 	IFDEF(CONFIG_MTRACE, mring_init());
+	IFDEF(CONFIG_FTRACE, ftrace_init(elf_file));
 }
 
 void iring_init(){
@@ -86,7 +89,7 @@ void display_mring(){
 
 
 #ifdef CONFIG_FTRACE
-void init_ftrace(char *elf_file){
+void ftrace_init(char *elf_file){
 typedef MUXDEF(CONFIG_ISA64, Elf64_Shdr, Elf32_Shdr) Elf_Shdr;
 typedef MUXDEF(CONFIG_ISA64, Elf64_Ehdr, Elf32_Ehdr) Elf_Ehdr;
 typedef MUXDEF(CONFIG_ISA64, Elf64_Sym , Elf32_Sym ) Elf_Sym;
