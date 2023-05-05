@@ -48,7 +48,7 @@ endif
 ### Create the destination directory (`build/$ARCH`)
 WORK_DIR  = $(shell pwd)
 DST_DIR   = $(WORK_DIR)/build/$(ARCH)
-$(shell mkdir -p $(DST_DIR))
+$(shell mkdir -p $(DST_DIR)/log)
 
 ### Compilation targets (a binary image or archive)
 IMAGE_REL = build/$(NAME)-$(ARCH)
