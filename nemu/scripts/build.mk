@@ -30,13 +30,13 @@ OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o) $(CXXSRC:%.cc=$(OBJ_DIR)/%.o)
 # Compilation patterns
 $(OBJ_DIR)/%.o: %.c
 	@echo + CC $<
-	@mkdir -p $(dir $@)/log
+	@mkdir -p $(dir $@)/log/
 	@$(CC) $(CFLAGS) -c -g -o $@ $<
 	$(call call_fixdep, $(@:.o=.d), $@)
 
 $(OBJ_DIR)/%.o: %.cc
 	@echo + CXX $<
-	@mkdir -p $(dir $@)/log
+	@mkdir -p $(dir $@)/log/
 	@$(CXX) $(CFLAGS) $(CXXFLAGS) -c -g -o $@ $<
 	$(call call_fixdep, $(@:.o=.d), $@)
 
