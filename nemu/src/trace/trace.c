@@ -7,10 +7,18 @@
 
 #ifdef CONFIG_TRACE
 
-Iring_t iring;
-Mring_t mring;
-Func_t func[24];
-int func_cnt = 0;
+static Iring_t iring;
+static Mring_t mring;
+
+static Func_t func[24] = {};
+static int func_cnt = 0;
+
+__attribute__((unused)) static Func_t *fstack[FSTACK_SIZE] = {};
+__attribute__((unused))static int fstack_pos = 0;
+
+__attribute__((unused))static Func_t *fring[FRING_SIZE] = {};
+__attribute__((unused))static int fring_pos = 0;
+
 extern char* elf_file;
 
 void iring_init();
@@ -40,6 +48,7 @@ void mring_init(){
 }
 
 
+
 #ifdef CONFIG_IRING
 void iring_write(char *_buf){
 	strcpy(iring.buf[iring.pos], _buf);
@@ -56,8 +65,6 @@ void display_iring(){
 	}
 }
 #endif
-
-
 
 #ifdef CONFIG_MTRACE
 void record_read(vaddr_t addr){
@@ -142,12 +149,44 @@ typedef MUXDEF(CONFIG_ISA64, Elf64_Sym , Elf32_Sym ) Elf_Sym;
 			func[func_cnt].size = sym.st_size;
 			fseek(fp, strtab->sh_offset + sym.st_name, SEEK_SET);
 			res = fread(func[func_cnt].name, 50, 1, fp);
-			printf("Function %s at address %x, %d\n", func[func_cnt].name, func[func_cnt].addr, func[func_cnt].size);
+			// printf("Function %s at address %x, %d\n", func[func_cnt].name, func[func_cnt].addr, func[func_cnt].size);
 			func_cnt++;
 		}
 	}
 	fclose(fp);
 	return;
+}
+
+// void func_call(vaddr_t next_pc){
+// 	for (int i=0; i < func_cnt; i++){
+// 		if (next_pc == func[i].addr){
+// 			Assert(fstack == FSTACK_SIZE, "Function stack overflow\n");
+// 			fstack[fstack_pos] = &func[i];
+// 			fstack_pos++;
+// 			fring[fring_pos] = &func[i];
+// 			fring_pos = fring_pos == FRING_SIZE - 1 ? 0 : fring_pos + 1;
+// 			return;
+// 		}
+// 	}
+// }
+
+// void func_ret(vaddr_t next_pc){
+// 	for (int i=0; i < func_cnt; i++){
+// 		if(next_pc >)
+// 	}
+// }
+
+void print_func(char s[], vaddr_t pc){
+	printf("%s\t%08x", s, pc);
+	for (int i=0; i < func_cnt; i++){
+		if (pc == func[i].addr){
+			printf("  call func:%s\n",func[i].name);
+		}
+		else if (pc > func[i].addr && pc < func[i].size + func[i].addr){
+			printf("  ret func:%s\n", func[i].name);
+		}
+		return;
+	}
 }
 #endif
 
