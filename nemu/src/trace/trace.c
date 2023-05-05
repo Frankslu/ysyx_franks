@@ -17,6 +17,7 @@ static int func_cnt = 0;
 // static int fring_pos = 0;
 
 extern char* elf_file;
+extern CPU_state cpu;
 
 void iring_init();
 void mring_init();
@@ -67,6 +68,7 @@ void display_iring(){
 void record_read(vaddr_t addr){
 	if(addr < CONFIG_MTRACE_START || addr > CONFIG_MTRACE_END)
 		return;
+	log_write("Mtrace: pc %08x read  %08x\n", cpu.pc, addr);
 	mring.pc[mring.pos] = cpu.pc;
 	mring.addr[mring.pos] = addr;
 	mring.wr[mring.pos] = READ;
@@ -76,6 +78,7 @@ void record_read(vaddr_t addr){
 void record_write(vaddr_t addr){
 	if(addr < CONFIG_MTRACE_START || addr > CONFIG_MTRACE_END)
 		return;
+	log_write("Mtrace: pc %08x wrtie %08x\n", cpu.pc, addr);
 	mring.pc[mring.pos] = cpu.pc;
 	mring.addr[mring.pos] = addr;
 	mring.wr[mring.pos] = WRITE;
