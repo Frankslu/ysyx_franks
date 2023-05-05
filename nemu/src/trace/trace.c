@@ -176,14 +176,14 @@ typedef MUXDEF(CONFIG_ISA64, Elf64_Sym , Elf32_Sym ) Elf_Sym;
 // 	}
 // }
 
-void print_func(char s[], vaddr_t npc, vaddr_t pc){
-	printf("%08x\t%s\t%08x", pc, s, npc);
+void print_func(char s[], vaddr_t npc, vaddr_t pc, word_t inst){
+	printf("%08x\t%s\t%08x\t%08x", pc, s, inst, npc);
 	for (int i=0; i < func_cnt; i++){
-		if (npc == func[i].addr){
+		/*if (npc == func[i].addr){
 			printf("  call func:%s\n",func[i].name);
 			return;
 		}
-		else if (npc > func[i].addr && npc < func[i].size + func[i].addr){
+		else*/ if (npc > func[i].addr && npc < func[i].size + func[i].addr){
 			printf("  ret func:%s\n", func[i].name);
 			return;
 		}

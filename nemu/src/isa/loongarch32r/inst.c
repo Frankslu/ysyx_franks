@@ -22,7 +22,7 @@
 #define Mr vaddr_read
 #define Mw vaddr_write
 
-void print_func(char s[], vaddr_t npc, vaddr_t pc);
+void print_func(char s[], vaddr_t npc, vaddr_t pc, word_t inst);
 
 int scan_bp(vaddr_t pc);
 IFDEF(CONFIG_BREAKPOINT, static int break_flag = 0);
@@ -87,11 +87,11 @@ static int decode_exec(Decode *s) {
 
 	INSTPAT("010101 ???????????????? ??????????", bl, OFFS26, s->dnpc = s->pc + imm, R(1) = s->snpc,
 			IFDEF(CONFIG_ISA_loongarch32r, sprintf(as, "bl\t%d(0x%x) # %x", simm, imm, s->dnpc)),
-			print_func("bl", s->dnpc, s->pc));
+			print_func("bl", s->dnpc, s->pc, s->isa.inst.val));
 
 	INSTPAT("010011 ???????????????? ????? ?????", jirl, 2RO16, s->dnpc = src1 + imm, R(rd) = s->snpc,
 			IFDEF(CONFIG_ISA_loongarch32r, sprintf(as, "jirl\t$r%d, $r%d:%x, %x # %x", rd, rj, src1, imm, s->dnpc)),
-			print_func("jirl", s->dnpc, s->pc));
+			print_func("jirl", s->dnpc, s->pc, s->isa.inst.val));
 
 	INSTPAT("010110 ???????????????? ????? ?????", beq, 2RO16, s->dnpc = s->pc + (src1 == R(rd) ? imm : 4),
 			IFDEF(CONFIG_ISA_loongarch32r, br_sprintf("beq")));
