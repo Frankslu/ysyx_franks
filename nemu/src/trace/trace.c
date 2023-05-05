@@ -139,9 +139,10 @@ typedef MUXDEF(CONFIG_ISA64, Elf64_Sym , Elf32_Sym ) Elf_Sym;
 		res = fread(&sym, sizeof(sym), 1, fp);
 		if (ELF32_ST_TYPE(sym.st_info) == STT_FUNC) {
 			func[func_cnt].addr = sym.st_value;
+			func[func_cnt].size = sym.st_size;
 			fseek(fp, strtab->sh_offset + sym.st_name, SEEK_SET);
 			res = fread(func[func_cnt].name, 50, 1, fp);
-			printf("Function %s at address %x, %d\n", func[func_cnt].name, func[func_cnt].addr, sym.st_name);
+			printf("Function %s at address %x, %d\n", func[func_cnt].name, func[func_cnt].addr, func[func_cnt].size);
 			func_cnt++;
 		}
 	}

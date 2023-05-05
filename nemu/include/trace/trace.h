@@ -21,6 +21,7 @@ typedef struct _mring_ {
 
 typedef struct _func_ {
     vaddr_t addr;
+    vaddr_t size;
     char name[64];
 } Func_t;
 
