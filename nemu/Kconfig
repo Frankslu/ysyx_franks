@@ -176,6 +176,11 @@ config FTRACE
   bool "Enable ftrace"
   default n
 
+config JIRL_RET
+  depends on FTRACE && ISA_loongarch32r
+  bool "See inst jirl $0 $1 0 as ret"
+  default y
+
 config DIFFTEST
   depends on TARGET_NATIVE_ELF
   bool "Enable differential testing"

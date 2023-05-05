@@ -13,8 +13,8 @@ static Mring_t mring;
 static Func_t func[24] = {};
 static int func_cnt = 0;
 
-// static Func_t *fring[FRING_SIZE] = {};
-// static int fring_pos = 0;
+static Fring_t fring[FRING_SIZE] = {};
+static int fring_pos = 0;
 
 extern char* elf_file;
 extern CPU_state cpu;
@@ -157,25 +157,52 @@ typedef MUXDEF(CONFIG_ISA64, Elf64_Sym , Elf32_Sym ) Elf_Sym;
 	return;
 }
 
-// void func_call(vaddr_t next_pc){
-// 	for (int i=0; i < func_cnt; i++){
-// 		if (next_pc == func[i].addr){
-// 			Assert(fstack == FSTACK_SIZE, "Function stack overflow\n");
-// 			fstack[fstack_pos] = &func[i];
-// 			fstack_pos++;
-// 			fring[fring_pos] = &func[i];
-// 			fring_pos = fring_pos == FRING_SIZE - 1 ? 0 : fring_pos + 1;
-// 			return;
-// 		}
-// 	}
-// }
+void func_call(vaddr_t next_pc, vaddr_t pc){
+	for (int i=0; i < func_cnt; i++){
+		if (next_pc == func[i].addr){
+			strcpy(fring[fring_pos].func_name, func[i].name);
+			fring[fring_pos].next_pc = func[i].addr;
+			fring[fring_pos].pc = pc;
+			fring_pos = fring_pos == FRING_SIZE - 1 ? 0 : fring_pos + 1;
+			log_write("Ftrace: PC %08x call %s\t%08x\n", pc, func[i].name, next_pc);
+			return;
+		}
+	}
+}
 
-//  void func_bl(vaddr_t next_pc){
-//  	for (int i=0; i < func_cnt; i++){
-//  		if(next_pc >)
-//  	}
-//  }
+void func_ret(vaddr_t next_pc, vaddr_t pc){
+	for (int i=0; i < func_cnt; i++){
+		if (next_pc > func[i].addr && next_pc < func[i].addr + func[i].size){
+			strcpy(fring[fring_pos].func_name, func[i].name);
+			fring[fring_pos].next_pc = func[i].addr;
+			fring[fring_pos].pc = pc;
+			fring_pos = fring_pos == FRING_SIZE - 1 ? 0 : fring_pos + 1;
+			log_write("Ftrace: PC %08x ret %s\t%08x\n", pc, func[i].name, next_pc);
+			return;
+		}
+	}
+}
 
+void func_call_ret(vaddr_t next_pc, vaddr_t pc){
+	for (int i=0; i < func_cnt; i++){
+		if (next_pc == func[i].addr){
+			strcpy(fring[fring_pos].func_name, func[i].name);
+			fring[fring_pos].next_pc = func[i].addr;
+			fring[fring_pos].pc = pc;
+			fring_pos = fring_pos == FRING_SIZE - 1 ? 0 : fring_pos + 1;
+			log_write("Ftrace: PC %08x call %s\t%08x\n", pc, func[i].name, next_pc);
+			return;
+		}
+		else if (next_pc > func[i].addr && next_pc < func[i].addr + func[i].size){
+			strcpy(fring[fring_pos].func_name, func[i].name);
+			fring[fring_pos].next_pc = func[i].addr;
+			fring[fring_pos].pc = pc;
+			fring_pos = fring_pos == FRING_SIZE - 1 ? 0 : fring_pos + 1;
+			log_write("Ftrace: PC %08x ret %s\t%08x\n", pc, func[i].name, next_pc);
+			return;
+		}
+	}
+}
 #endif
 
 #endif

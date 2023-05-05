@@ -23,8 +23,15 @@ typedef struct _mring_ {
 typedef struct _func_ {
     vaddr_t addr;
     vaddr_t size;
-    char name[64];
+    char name[24];
 } Func_t;
+
+typedef struct _fring_{
+    vaddr_t pc;
+    vaddr_t next_pc;
+    char func_name[24];
+} Fring_t;
+
 
 #define INVALID 0
 #define READ 1

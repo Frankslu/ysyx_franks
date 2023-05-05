@@ -23,6 +23,9 @@
 #define Mw vaddr_write
 
 void print_func(char s[], vaddr_t npc, vaddr_t pc, word_t inst);
+void func_call_ret(vaddr_t next_pc, vaddr_t pc);
+void func_call(vaddr_t next_pc, vaddr_t pc);
+void func_ret(vaddr_t next_pc, vaddr_t pc);
 
 int scan_bp(vaddr_t pc);
 IFDEF(CONFIG_BREAKPOINT, static int break_flag = 0);
@@ -87,10 +90,16 @@ static int decode_exec(Decode *s) {
 			IFDEF(CONFIG_ISA_loongarch32r, sprintf(as, "b\t%d(0x%x) # %x", simm, imm, s->dnpc)));
 
 	INSTPAT("010101 ???????????????? ??????????", bl, OFFS26, s->dnpc = s->pc + imm, R(1) = s->snpc,
-			IFDEF(CONFIG_ISA_loongarch32r, sprintf(as, "bl\t%d(0x%x) # %x", simm, imm, s->dnpc)));
+			IFDEF(CONFIG_ISA_loongarch32r, sprintf(as, "bl\t%d(0x%x) # %x", simm, imm, s->dnpc)),
+			MUXDEF(CONFIG_JIRL_RET, func_call(s->dnpc, s->pc), func_call_ret(s->dnpc, s->pc)));
+
+	INSTPAT("010011 0000000000000000 00001 00000", ret, 2RO16, s->dnpc = src1 + imm, R(rd) = s->snpc,
+			IFDEF(CONFIG_ISA_loongarch32r, sprintf(as, "ret\t$r%d, $r%d:%x, %x # %x", rd, rj, src1, imm, s->dnpc)),
+			MUXDEF(CONFIG_JIRL_RET, func_ret(s->dnpc, s->pc), func_call_ret(s->dnpc, s->pc)));
 
 	INSTPAT("010011 ???????????????? ????? ?????", jirl, 2RO16, s->dnpc = src1 + imm, R(rd) = s->snpc,
-			IFDEF(CONFIG_ISA_loongarch32r, sprintf(as, "jirl\t$r%d, $r%d:%x, %x # %x", rd, rj, src1, imm, s->dnpc)));
+			IFDEF(CONFIG_ISA_loongarch32r, sprintf(as, "jirl\t$r%d, $r%d:%x, %x # %x", rd, rj, src1, imm, s->dnpc)),
+			MUXDEF(CONFIG_JIRL_RET, func_call(s->dnpc, s->pc), func_call_ret(s->dnpc, s->pc)));
 
 	INSTPAT("010110 ???????????????? ????? ?????", beq, 2RO16, s->dnpc = s->pc + (src1 == R(rd) ? imm : 4),
 			IFDEF(CONFIG_ISA_loongarch32r, br_sprintf("beq")));
