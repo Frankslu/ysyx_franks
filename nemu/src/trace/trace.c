@@ -14,10 +14,10 @@ static Func_t func[24] = {};
 static int func_cnt = 0;
 
 __attribute__((unused)) static Func_t *fstack[FSTACK_SIZE] = {};
-__attribute__((unused))static int fstack_pos = 0;
+__attribute__((unused)) static int fstack_pos = 0;
 
-__attribute__((unused))static Func_t *fring[FRING_SIZE] = {};
-__attribute__((unused))static int fring_pos = 0;
+__attribute__((unused)) static Func_t *fring[FRING_SIZE] = {};
+__attribute__((unused)) static int fring_pos = 0;
 
 extern char* elf_file;
 
@@ -170,21 +170,22 @@ typedef MUXDEF(CONFIG_ISA64, Elf64_Sym , Elf32_Sym ) Elf_Sym;
 // 	}
 // }
 
-// void func_ret(vaddr_t next_pc){
-// 	for (int i=0; i < func_cnt; i++){
-// 		if(next_pc >)
-// 	}
-// }
+//  void func_bl(vaddr_t next_pc){
+//  	for (int i=0; i < func_cnt; i++){
+//  		if(next_pc >)
+//  	}
+//  }
 
 void print_func(char s[], vaddr_t npc, vaddr_t pc, word_t inst){
 	for (int i=0; i < func_cnt; i++){
-		/*if (npc == func[i].addr){
-			printf("  call func:%s\n",func[i].name);
+		if (npc == func[i].addr){
+			fstack_pos++;
+			printf("%d\n",fstack_pos);
 			return;
 		}
-		else*/ if (npc > func[i].addr && npc < func[i].size + func[i].addr){
-	printf("%08x\t%s\t%08x\t%08x", pc, s, inst, npc);
-			printf("  ret func:%s\n", func[i].name);
+		else if (npc > func[i].addr && npc < func[i].size + func[i].addr){
+			fstack_pos--;
+			printf("%d\n",fstack_pos);
 			return;
 		}
 	}
