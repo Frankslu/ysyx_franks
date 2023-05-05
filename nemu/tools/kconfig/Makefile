@@ -27,7 +27,7 @@ $(obj)/parser.tab.c $(obj)/parser.tab.h: parser.y
 	@bison -v $< --defines=$(obj)/parser.tab.h -o $(obj)/parser.tab.c
 
 conf:
-	@$(MAKE) -s
+	@$(MAKE) -s 
 
 mconf:
 	@$(MAKE) -s NAME=mconf

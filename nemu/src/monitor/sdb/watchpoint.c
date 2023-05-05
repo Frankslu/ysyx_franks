@@ -15,6 +15,7 @@
 
 #include "sdb.h"
 
+#ifdef CONFIG_WATCHPOINT
 static WP wp_pool[NR_WP] = {};
 static WP *free_ = NULL;
 WP *wp_head = NULL;
@@ -165,3 +166,4 @@ int scan_wp(){
 	}
 	return changed;
 }
+#endif

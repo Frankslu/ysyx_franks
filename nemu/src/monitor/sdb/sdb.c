@@ -30,6 +30,8 @@ word_t expr(char *e, bool *success);
 void print_watchpoint();
 void display_iring();
 void display_breakpoint();
+void display_mring();
+void display_fring();
 extern WP *new_wp(char *s);
 extern bool free_wp(int i);
 extern BP *new_bp(vaddr_t pc);
@@ -82,7 +84,7 @@ static int cmd_si(char *args){
 
 static int cmd_info(char *args){
 	if(args == NULL){
-		printf("Invalid input\nUse info r or info w");
+		printf("Invalid input\nUse info r or info w\n");
 		return 0;
 	}
 	char c[3];
@@ -91,13 +93,22 @@ static int cmd_info(char *args){
 		isa_reg_display(NULL);
 	}
 	else if(c[0] == 'w' && c[1] == '\0'){
-		print_watchpoint();
-	}
-	else if(strcmp(c, "ir") == 0){
-		display_iring();
+		MUXDEF(CONFIG_WATCHPOINT, print_watchpoint(), printf("Watchpoint disabled\n"));
 	}
 	else if(strcmp(c, "b") == 0){
-		display_breakpoint();
+		MUXDEF(CONFIG_BREAKPOINT, display_breakpoint(), printf("Breakpoint disabled\n"));
+	}
+	else if(strcmp(c, "wr") == 0){
+		MUXDEF(CONFIG_MTRACE, display_mring(), printf("Mtrace disabled\n"));
+	}
+	else if(strcmp(c, "ir") == 0){
+		MUXDEF(CONFIG_IRING, display_iring(), printf("Iring disabled\n"));
+	}
+	else if(strcmp(c, "fr") == 0){
+		MUXDEF(CONFIG_FTRACE, display_fring(), printf("Fring disabled\n"));
+	}
+	else {
+		printf("Invalid Input\n");
 	}
 	return 0;
 }
@@ -139,6 +150,7 @@ static int cmd_p(char *args){
 	return 0;
 }
 
+#ifdef CONFIG_WATCHPOINT
 static int cmd_w(char *args){
 	if(args == NULL){
 		printf("command error\n");
@@ -147,6 +159,7 @@ static int cmd_w(char *args){
 	new_wp(args);
 	return 0;
 }
+#endif
 
 static int cmd_d(char *args){
 	int i;
@@ -158,6 +171,7 @@ static int cmd_d(char *args){
 	}
 	else if(argc == 1){
 		if(strcmp(c, "w") == 0){
+#ifdef CONFIG_WATCHPOINT
 			printf("delete all watchpoint? (y,n)\n");
 			int sss = scanf("%s",c);//unused res
 			sss = sss+1;
@@ -166,8 +180,12 @@ static int cmd_d(char *args){
 					free_wp(i);
 				}
 			}
+#else		
+			printf("Watchpoint disabled\n");
+#endif
 		}
 		else if(strcmp(c, "b") == 0){
+#ifdef CONFIG_BREAKPOINT
 			printf("delete all breakpoint? (y,n)\n");
 			int sss = scanf("%s",c);//unused res
 			sss = sss + 1;
@@ -176,28 +194,37 @@ static int cmd_d(char *args){
 					free_bp(i);
 				}
 			}
+#else		
+			printf("Breakpoint disabled\n");
+#endif
 		}
 	}
 	else if(argc == 2){
 		if(strcmp(c, "w") == 0){
-			free_wp(i);
+			MUXDEF(CONFIG_WATCHPOINT, free_wp(i), printf("Watchpoint disabled\n"));
 		}
 		else if(strcmp(c, "b") == 0){
-			free_bp(i);
+			MUXDEF(CONFIG_BREAKPOINT, free_bp(i), printf("Breakpoint disabled\n"));
 		}
 	}
 	return 0;
 }
 
+#ifdef CONFIG_BREAKPOINT
 static int cmd_b(char *args){
 	vaddr_t i;
 	if(sscanf(args, "0x%x", &i) == 0){
 		printf("command error\n");
 		return 0;
 	}
+	if(i%4 != 0){
+		printf("Invalid pc\n");
+		return 0;
+	}
 	new_bp(i);
 	return 0;
 }
+#endif
 
 static int cmd_help(char *args);
 
@@ -213,9 +240,9 @@ static struct {
 	{ "info", "print the information in reg(r), watchpoint(w), breakpoint(b), iring(ir)", cmd_info},
 	{ "x", "scan memory", cmd_x},
 	{ "p", "print value of expression", cmd_p},
-	{ "w", "set watchpoint", cmd_w},
 	{ "d", "delete watchpoint or breakpoint", cmd_d},
-	{ "b", "set breakpoint", cmd_b}
+	IFDEF(CONFIG_WATCHPOINT, { "w", "set watchpoint", cmd_w},)
+	IFDEF(CONFIG_BREAKPOINT, { "b", "set breakpoint", cmd_b})
 
 	/* TODO: Add more commands */
 
@@ -293,8 +320,8 @@ void init_sdb() {
 	init_regex();
 
 	/* Initialize the watchpoint pool. */
-	init_wp_pool();
+	IFDEF(CONFIG_WATCHPOINT, init_wp_pool());
 
 	/* Initialize the breakpoint pool. */
-	init_bp_pool();
+	IFDEF(CONFIG_BREAKPOINT, init_bp_pool());
 }

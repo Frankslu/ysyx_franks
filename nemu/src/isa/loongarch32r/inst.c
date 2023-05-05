@@ -22,8 +22,13 @@
 #define Mr vaddr_read
 #define Mw vaddr_write
 
+void print_func(char s[], vaddr_t npc, vaddr_t pc, word_t inst);
+void func_call_ret(vaddr_t next_pc, vaddr_t pc);
+void func_call(vaddr_t next_pc, vaddr_t pc);
+void func_ret(vaddr_t next_pc, vaddr_t pc);
+
 int scan_bp(vaddr_t pc);
-static int break_flag = 0;
+IFDEF(CONFIG_BREAKPOINT, static int break_flag = 0);
 
 enum {
 	TYPE_2RI12, TYPE_2RI12U,TYPE_1RI20, TYPE_3R, TYPE_OFFS26, TYPE_2RO16, TYPE_2RI5,	
@@ -57,16 +62,17 @@ static void decode_operand(Decode *s, int *rj, int *rk, int *rd_, word_t *src1, 
 static int decode_exec(Decode *s) {
 	int rj = 0, rk = 0, rd = 0;
 	word_t src1 = 0, src2 = 0, imm = 0;//imm also used as offset
-	vaddr_t old_pc = s->dnpc;
+	vaddr_t old_pc = s->pc;
 	s->dnpc = s->snpc;
 	char *as = s->disas;
+	int32_t simm = (signed)imm;
 
 #define INSTPAT_INST(s) ((s)->isa.inst.val)
 #define INSTPAT_MATCH(s, name, type, ... /* execute body */ ) { \
 	decode_operand(s, &rj, &rk, &rd, &src1, &src2, &imm, concat(TYPE_, type)); \
 	__VA_ARGS__ ; \
 }
-	int32_t simm = (signed)imm;
+
 #define br_sprintf(str) sprintf(as, "%s\t$r%d: %d(%x), $r%d: %d(%x), %d(%x) # %x", str, rd, (signed)R(rd), R(rd), rj, (signed)src1, src1, simm, imm, s->dnpc)
 #define ubr_sprintf(str) sprintf(as, "%s\t$r%d: %d(%x), $r%d: %d(%x), %d(%x) # %x", str, rd, R(rd), R(rd), rj, src1, src1, simm, imm, s->dnpc)
 #define R1I20_sp(str) sprintf(as, "%s\t$r%d, %d(%x)", str, rd, simm, imm)			
@@ -84,10 +90,16 @@ static int decode_exec(Decode *s) {
 			IFDEF(CONFIG_ISA_loongarch32r, sprintf(as, "b\t%d(0x%x) # %x", simm, imm, s->dnpc)));
 
 	INSTPAT("010101 ???????????????? ??????????", bl, OFFS26, s->dnpc = s->pc + imm, R(1) = s->snpc,
-			IFDEF(CONFIG_ISA_loongarch32r, sprintf(as, "bl\t%d(0x%x) # %x", simm, imm, s->dnpc)));
+			IFDEF(CONFIG_ISA_loongarch32r, sprintf(as, "bl\t%d(0x%x) # %x", simm, imm, s->dnpc)),
+			MUXDEF(CONFIG_JIRL_RET, func_call(s->dnpc, s->pc), func_call_ret(s->dnpc, s->pc)));
+
+	INSTPAT("010011 0000000000000000 00001 00000", ret, 2RO16, s->dnpc = src1 + imm, R(rd) = s->snpc,
+			IFDEF(CONFIG_ISA_loongarch32r, sprintf(as, "ret\t$r%d, $r%d:%x, %x # %x", rd, rj, src1, imm, s->dnpc)),
+			MUXDEF(CONFIG_JIRL_RET, func_ret(s->dnpc, s->pc), func_call_ret(s->dnpc, s->pc)));
 
 	INSTPAT("010011 ???????????????? ????? ?????", jirl, 2RO16, s->dnpc = src1 + imm, R(rd) = s->snpc,
-			IFDEF(CONFIG_ISA_loongarch32r, sprintf(as, "jirl\t$r%d, $r%d:%x, %x # %x", rd, rj, src1, imm, s->dnpc)));
+			IFDEF(CONFIG_ISA_loongarch32r, sprintf(as, "jirl\t$r%d, $r%d:%x, %x # %x", rd, rj, src1, imm, s->dnpc)),
+			MUXDEF(CONFIG_JIRL_RET, func_call(s->dnpc, s->pc), func_call_ret(s->dnpc, s->pc)));
 
 	INSTPAT("010110 ???????????????? ????? ?????", beq, 2RO16, s->dnpc = s->pc + (src1 == R(rd) ? imm : 4),
 			IFDEF(CONFIG_ISA_loongarch32r, br_sprintf("beq")));
@@ -218,7 +230,8 @@ static int decode_exec(Decode *s) {
 	INSTPAT("00000000010010001 ????? ????? ?????", srai.w, 2RI5, R(rd) = (signed)src1 >> src2,
 			IFDEF(CONFIG_ISA_loongarch32r, slli_sp("srai.w")));
 
-	INSTPAT("0000 0000 0010 10100 ????? ????? ?????", break, N, exec_break, s->dnpc = old_pc,
+	INSTPAT("0000 0000 0010 10100 ????? ????? ?????", break, N, MUXDEF(CONFIG_BREAKPOINT, exec_break, NEMUTRAP(s->pc, R(4)))
+			, s->dnpc = old_pc,
 			IFDEF(CONFIG_ISA_loongarch32r, sprintf(as, "break"))); // R(4) is $a0
 	INSTPAT("????????????????? ????? ????? ?????", inv, N, INV(s->pc));
 	INSTPAT_END();
@@ -229,6 +242,7 @@ static int decode_exec(Decode *s) {
 }
 
 int isa_exec_once(Decode *s) {
+#ifdef CONFIG_BREAKPOINT
 	extern word_t replaced_inst;
 	if (break_flag == 0){
 		s->isa.inst.val = inst_fetch(&s->snpc, 4);
@@ -238,6 +252,9 @@ int isa_exec_once(Decode *s) {
 		s->isa.inst.val = replaced_inst;
 		s->snpc += 4;
 	}
+#else
+	s->isa.inst.val = inst_fetch(&s->snpc, 4);
+#endif
 
 	return decode_exec(s);
 }

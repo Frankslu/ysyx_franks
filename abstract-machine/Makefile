@@ -26,7 +26,7 @@ endif
 
 ### Check: environment variable `$ARCH` must be in the supported list
 ARCHS = $(basename $(notdir $(shell ls $(AM_HOME)/scripts/*.mk)))
-ifeq ($(filter $(ARCHS), $(ARCH)), )
+ifeq ($(filter $(ARCHS), $(ARCH)),)
   $(error Expected $$ARCH in {$(ARCHS)}, Got "$(ARCH)")
 endif
 
@@ -109,17 +109,17 @@ $(DST_DIR)/%.o: %.c
 
 ### Rule (compile): a single `.cc` -> `.o` (g++)
 $(DST_DIR)/%.o: %.cc
-	@mkdir -p $(dir $@) && echo + CXX $<
+	@mkdir -p $(dir $@)/log && echo + CXX $<
 	@$(CXX) -std=c++17 $(CXXFLAGS) -c -o $@ $(realpath $<)
 
 ### Rule (compile): a single `.cpp` -> `.o` (g++)
 $(DST_DIR)/%.o: %.cpp
-	@mkdir -p $(dir $@) && echo + CXX $<
+	@mkdir -p $(dir $@)/log && echo + CXX $<
 	@$(CXX) -std=c++17 $(CXXFLAGS) -c -o $@ $(realpath $<)
 
 ### Rule (compile): a single `.S` -> `.o` (gcc, which preprocesses and calls as)
 $(DST_DIR)/%.o: %.S
-	@mkdir -p $(dir $@) && echo + AS $<
+	@mkdir -p $(dir $@)/log && echo + AS $<
 	@$(AS) $(ASFLAGS) -c -o $@ $(realpath $<)
 
 ### Rule (recursive make): build a dependent library (am, klib, ...)
