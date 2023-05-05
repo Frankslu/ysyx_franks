@@ -54,12 +54,12 @@ void iring_write(char *_buf){
 }
 
 void display_iring(){
-	
+	int pos = iring.pos;
 	for (int i=0; i<IRING_BUFSIZE; i++){
-		if (iring.buf[iring.pos][0] != '\0'){
-			printf("%s\n", iring.buf[iring.pos]);
+		if (iring.buf[pos][0] != '\0'){
+			printf("%s\n", iring.buf[pos]);
 		}
-		iring.pos = iring.pos == (IRING_BUFSIZE - 1) ? 0 : (iring.pos + 1);
+		pos = pos == (IRING_BUFSIZE - 1) ? 0 : (pos + 1);
 	}
 }
 #endif
@@ -86,11 +86,12 @@ void record_write(vaddr_t addr){
 }
 
 void display_mring(){
+	int pos = mring.pos;
 	for (int i=0; i<MRING_BUFSIZE; i++){
-		if (mring.wr[mring.pos] != INVALID){
-			printf("%x  %s %x\n", mring.pc[mring.pos], mring.wr[mring.pos] == READ ? "read" : "write", mring.addr[mring.pos]);
+		if (mring.wr[pos] != INVALID){
+			printf("%x  %s %x\n", mring.pc[pos], mring.wr[pos] == READ ? "read" : "write", mring.addr[pos]);
 		}
-		mring.pos = mring.pos == (MRING_BUFSIZE - 1) ? 0 : (mring.pos + 1);
+		pos = pos == (MRING_BUFSIZE - 1) ? 0 : (pos + 1);
 	}
 }
 #endif
@@ -201,6 +202,15 @@ void func_call_ret(vaddr_t next_pc, vaddr_t pc){
 			log_write("Ftrace: PC %08x ret %s\t%08x\n", pc, func[i].name, next_pc);
 			return;
 		}
+	}
+}
+
+void display_fring(){
+	int pos = fring_pos;
+	for (int i=0; i < FRING_SIZE; i++){
+		if(fring[pos].func_name[0] != '\0')
+			printf("Ftrace: PC %08x call %s\t%08x\n", fring[pos].pc, fring[pos].func_name, fring[pos].next_pc);
+		pos = pos == FRING_SIZE ? 0 : pos + 1;
 	}
 }
 #endif

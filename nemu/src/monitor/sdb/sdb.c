@@ -31,6 +31,7 @@ void print_watchpoint();
 void display_iring();
 void display_breakpoint();
 void display_mring();
+void display_fring();
 extern WP *new_wp(char *s);
 extern bool free_wp(int i);
 extern BP *new_bp(vaddr_t pc);
@@ -102,6 +103,9 @@ static int cmd_info(char *args){
 	}
 	else if(strcmp(c, "ir") == 0){
 		MUXDEF(CONFIG_IRING, display_iring(), printf("Iring disabled\n"));
+	}
+	else if(strcmp(c, "fr")){
+		MUXDEF(CONFIG_FTRACE, display_fring(), printf("Fring disabled\n"));
 	}
 	else {
 		printf("Invalid Input\n");
