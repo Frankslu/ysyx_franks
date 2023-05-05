@@ -133,7 +133,7 @@ typedef MUXDEF(CONFIG_ISA64, Elf64_Sym , Elf32_Sym ) Elf_Sym;
 			a++;
 		}
 		if (section_table[i].sh_type == SHT_STRTAB) {
-			strtab = &section_table[i] + symtab->sh_offset;
+			strtab = &section_table[i];
 			a++;
 		}
 		if (a == 2){
