@@ -181,11 +181,12 @@ void print_func(char s[], vaddr_t pc){
 	for (int i=0; i < func_cnt; i++){
 		if (pc == func[i].addr){
 			printf("  call func:%s\n",func[i].name);
+			return;
 		}
 		else if (pc > func[i].addr && pc < func[i].size + func[i].addr){
 			printf("  ret func:%s\n", func[i].name);
+			return;
 		}
-		return;
 	}
 	printf("\n");
 }
