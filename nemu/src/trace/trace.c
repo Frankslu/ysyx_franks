@@ -187,6 +187,7 @@ void print_func(char s[], vaddr_t pc){
 		}
 		return;
 	}
+	printf("\n");
 }
 #endif
 
