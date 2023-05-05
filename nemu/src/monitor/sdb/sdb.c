@@ -104,7 +104,7 @@ static int cmd_info(char *args){
 	else if(strcmp(c, "ir") == 0){
 		MUXDEF(CONFIG_IRING, display_iring(), printf("Iring disabled\n"));
 	}
-	else if(strcmp(c, "fr")){
+	else if(strcmp(c, "fr") == 0){
 		MUXDEF(CONFIG_FTRACE, display_fring(), printf("Fring disabled\n"));
 	}
 	else {
