@@ -299,8 +299,8 @@ void sdb_mainloop() {
 		}
 
 #ifdef CONFIG_DEVICE
-		extern void sdl_clear_event_queue();
-		sdl_clear_event_queue();
+		// extern void sdl_clear_event_queue();
+		// sdl_clear_event_queue();
 #endif
 
 		int i;
