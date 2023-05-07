@@ -7,16 +7,21 @@
 
 int printf(const char *fmt, ...) {
 #define BUF_SIZE 4096
-	putch('c');
 	char printf_buffer[BUF_SIZE];
 	va_list args;
 	va_start(args, fmt);
 
-	int printf_len = vsprintf(printf_buffer, fmt, args);
-	for (int i=0; i <= printf_len && i < BUF_SIZE; i++){
-		putch(printf_buffer[i]);
+	int printf_len = vsnprintf(printf_buffer, BUF_SIZE, fmt, args);
+	if (printf_len + 1 <= BUF_SIZE){
+		for (int i=0; i <= printf_len && i < BUF_SIZE; i++){
+			putch(printf_buffer[i]);
+		}
 	}
-
+	else {
+		char realloc_buffer[printf_len+1];
+		vsprintf(realloc_buffer, fmt, args);
+	}
+	
 	return printf_len;
 }
 
