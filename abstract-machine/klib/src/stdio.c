@@ -7,6 +7,7 @@
 
 int printf(const char *fmt, ...) {
 #define BUF_SIZE 4096
+	putch('c');
 	char printf_buffer[BUF_SIZE];
 	va_list args;
 	va_start(args, fmt);
