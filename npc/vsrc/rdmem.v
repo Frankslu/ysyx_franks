@@ -51,5 +51,3 @@ endmodule
 	
 
 // ----- 8< ----- FILE "firrtl_black_box_resource_files.f" ----- 8< -----
-
-vsrc/vsrc/memory.v
