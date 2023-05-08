@@ -2,7 +2,7 @@ import circt.stage._
 import chisel3.getVerilogString
 import chisel3._
 
-import cpucore.pipeline._
+// import cpucore.pipeline._
 import cpucore.Unit._
 import cpucore.memory._
 
