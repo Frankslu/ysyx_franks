@@ -2,6 +2,7 @@ package cpucore.memory
 
 import chisel3._
 import chisel3.util._
+import cpucore.pipeline
 
 class dmem extends BlackBox with HasBlackBoxInline {
 	val read_io = IO(new sram_io_1)
