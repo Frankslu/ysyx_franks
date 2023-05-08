@@ -3,25 +3,36 @@ package cpucore.memory
 import chisel3._
 import chisel3.util._
 import cpucore.pipeline._
-
-class ioo extends  Bundle {
+class mem extends Module {
+    val io = IO(new Bundle {
     var Raddr=Input(UInt(64.W))
     var Rdata=Output(UInt(64.W))
     var Waddr=Input(UInt(64.W))
     var Wdata=Input(UInt(64.W))
     var Wmask=Input(UInt(8.W))
     var MemWrite=Input(UInt(1.W))
-  }
+  })
+    val pmem = Module(new Memory())
+    pmem.io <> io
+    
+}
 
-class mem extends HasBlackBoxInline {
-	val io = IO(new ioo)
-    setInline("Mem.v",
-    s"""
+class Memory extends HasBlackBoxInline {
+  val io = IO(new Bundle {
+    var Raddr=Input(UInt(64.W))
+    var Rdata=Output(UInt(64.W))
+    var Waddr=Input(UInt(64.W))
+    var Wdata=Input(UInt(64.W))
+    var Wmask=Input(UInt(8.W))
+    var MemWrite=Input(UInt(1.W))
+  })
+    setInline("Memory.v",
+    """
     |import "DPI-C" function void pmem_read(
     |  input longint Raddr, output longint Rdata);
     |import "DPI-C" function void pmem_write(
     |  input longint Waddr, input longint Wdata, input byte Wmask);
-    |module Mem (Raddr,Rdata,Waddr,Wdata,Wmask,MemWrite);
+    |module Memory (Raddr,Rdata,Waddr,Wdata,Wmask,MemWrite);
     | input [63:0] Raddr,Waddr,Wdata;
     | input [7:0] Wmask;
     | input MemWrite;
