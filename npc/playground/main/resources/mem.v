@@ -1,5 +1,3 @@
-// ----- 8< ----- FILE "./vsrc/memory.v" ----- 8< -----
-
 module mem(
 	input r_en,
 	input r_wr,
