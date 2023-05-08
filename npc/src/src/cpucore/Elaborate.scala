@@ -7,8 +7,7 @@ import cpucore.Unit._
 import cpucore.memory._
 
 object Elaborate extends App {
-  val dmem = Module(new mem())
-  def top = dmem
+  def top = new Mem()
   
   val useMFC = true // use MLIR-based firrtl compiler
   val generator = Seq(chisel3.stage.ChiselGeneratorAnnotation(() => top))
