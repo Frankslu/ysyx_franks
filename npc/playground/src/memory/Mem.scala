@@ -4,7 +4,7 @@ import chisel3._
 import chisel3.util._
 import cpucore.pipeline._
 
-class dmem extends BlackBox with HasBlackBoxPath {
+class dmem extends BlackBox with HasBlackBoxResource {
 	val io = IO(new Bundle{
 		val r = new sram_io_1
 		val w = new sram_io_2}
@@ -36,5 +36,5 @@ class dmem extends BlackBox with HasBlackBoxPath {
 	// 	|
 	// 	|endmodule
 	// """.stripMargin)
-	addPath("/mem.v")
+	addResource("/mem.v")
 }
