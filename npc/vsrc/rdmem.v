@@ -11,7 +11,7 @@ module rdmem(	// <stdin>:7:10
                 mem_io_r_wdata,
   output [3:0]  mem_io_r_wstrb);
 
-  dmem mem (	// Mem.scala:41:25
+  dmem mem (	// Mem1.scala:8:25
     .w_rdata (mem_io_w_rdata),
     .r_en    (mem_io_r_en),
     .r_wr    (mem_io_r_wr),
@@ -50,5 +50,3 @@ end
 	
 
 // ----- 8< ----- FILE "firrtl_black_box_resource_files.f" ----- 8< -----
-
-vsrc/vsrc/memory.v
