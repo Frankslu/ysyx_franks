@@ -11,7 +11,7 @@ module rdmem(	// <stdin>:7:10
                 mem_io_r_wdata,
   output [3:0]  mem_io_r_wstrb);
 
-  dmem mem (	// Mem.scala:39:25
+  dmem mem (	// Mem.scala:41:25
     .w_rdata (mem_io_w_rdata),
     .r_en    (mem_io_r_en),
     .r_wr    (mem_io_r_wr),
@@ -25,8 +25,8 @@ endmodule
 // ----- 8< ----- FILE "./vsrc/memory.v" ----- 8< -----
 
 module mem(
-	input en,
-	input [3:0]   r_we,
+	input r_en,
+	input r_wr,
 	input [31:0]  r_addr,
 	input [31:0]  r_wdata,
 	input [4:0]   r_wstrb,
@@ -39,10 +39,12 @@ import "DPI-C" function void pmem_write(
 wire [63:0] rdata;
 always @(*) begin
 	if(en) begin
-		if()
-	pmem_read(raddr, rdata);
-	pmem_write(waddr, wdata, wmask);
-end
+		if(r_wr) begin
+			pmem_read(r_addr, w_rdata);
+		end else begin
+			pmem_write(r_addr, r_wdata, r_wstrb);
+		end
+	end
 end
 
 	

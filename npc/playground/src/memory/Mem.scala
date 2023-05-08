@@ -36,13 +36,3 @@ class dmem extends BlackBox with HasBlackBoxInline {
 		|
 	""".stripMargin)
 }
-
-class rdmem extends Module {
-	val mem = Module(new dmem)
-	val mem_io = IO(new Bundle{
-		val r = new sram_io_1
-		val w = new sram_io_2
-	})
-	mem.io <> mem_io
-	
-}
