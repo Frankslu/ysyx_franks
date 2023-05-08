@@ -12,8 +12,8 @@ class dmem extends BlackBox with HasBlackBoxInline {
 
 	setInline("memory.v",
 	"""module mem(
-		|	input en,
-		|	input [3:0]   r_we,
+		|	input r_en,
+		|	input r_wr,
 		|	input [31:0]  r_addr,
 		|	input [31:0]  r_wdata,
 		|	input [4:0]   r_wstrb,
@@ -26,20 +26,23 @@ class dmem extends BlackBox with HasBlackBoxInline {
 		|wire [63:0] rdata;
 		|always @(*) begin
 		|	if(en) begin
-		|		if()
-		|	pmem_read(raddr, rdata);
-		|	pmem_write(waddr, wdata, wmask);
+		|		if(r_wr) begin
+		|			pmem_read(r_addr, w_rdata);
+		|		end else begin
+		|			pmem_write(r_addr, r_wdata, r_wstrb);
+		|		end
+		|	end
 		|end
 		|
 	""".stripMargin)
 }
 
 class rdmem extends Module {
-
 	val mem = Module(new dmem)
 	val mem_io = IO(new Bundle{
 		val r = new sram_io_1
 		val w = new sram_io_2
 	})
 	mem.io <> mem_io
+	
 }
