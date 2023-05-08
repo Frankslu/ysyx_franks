@@ -4,7 +4,7 @@ import chisel3._
 import chisel3.util._
 import cpucore.pipeline._
 
-class Mem extends HasBlackBoxInline {
+class mem extends HasBlackBoxInline {
   val io = IO(new Bundle {
     var Raddr=Input(UInt(64.W))
     var Rdata=Output(UInt(64.W))
