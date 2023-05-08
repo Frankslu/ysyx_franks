@@ -22,7 +22,7 @@ module rdmem(	// <stdin>:7:10
 endmodule
 
 
-// ----- 8< ----- FILE "./vsrc/memory.v" ----- 8< -----
+// ----- 8< ----- FILE "./vsrc/mem.v" ----- 8< -----
 
 module mem(
 	input r_en,
@@ -48,6 +48,7 @@ always @(*) begin
 end
 
 endmodule
-	
 
 // ----- 8< ----- FILE "firrtl_black_box_resource_files.f" ----- 8< -----
+
+vsrc/vsrc/mem.v
