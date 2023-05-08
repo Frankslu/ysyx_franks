@@ -36,5 +36,5 @@ class dmem extends BlackBox with HasBlackBoxResource {
 	// 	|
 	// 	|endmodule
 	// """.stripMargin)
-	addResource("mem.v")
+	addResource("/mem.v")
 }
