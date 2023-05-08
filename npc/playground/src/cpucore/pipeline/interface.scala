@@ -35,7 +35,7 @@ class sram_io_1 extends Bundle{
     val we = Output(UInt(WSTRB_WIDTH.W))
     val addr = Output(UInt(ADDR_WIDTH.W))
     val wdata = Output(UInt(DATA_WIDTH.W))
-    val wstrb = Output(UInt(4.W))
+    val wstrb = Output(UInt(WSTRB_WIDTH.W))
 }
 
 class sram_io_2 extends Bundle{
