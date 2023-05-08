@@ -36,4 +36,5 @@ class dmem extends BlackBox with HasBlackBoxInline {
 		|
 		|endmodule
 	""".stripMargin)
+	setVerilogName("mem")
 }
