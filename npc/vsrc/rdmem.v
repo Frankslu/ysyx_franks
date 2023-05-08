@@ -4,20 +4,20 @@
 module rdmem(	// <stdin>:7:10
   input         clock,
                 reset,
-  input  [31:0] w_io_rdata,
-  output        r_io_en,
-  output [3:0]  r_io_we,
-  output [31:0] r_io_addr,
-                r_io_wdata,
-  output [3:0]  r_io_wstrb);
+  input  [31:0] mem_io_wio_rdata,
+  output        mem_io_rio_en,
+  output [3:0]  mem_io_rio_we,
+  output [31:0] mem_io_rio_addr,
+                mem_io_rio_wdata,
+  output [3:0]  mem_io_rio_wstrb);
 
-  dmem mem (	// Mem.scala:39:25
-    .w_io_rdata (w_io_rdata),
-    .r_io_en    (r_io_en),
-    .r_io_we    (r_io_we),
-    .r_io_addr  (r_io_addr),
-    .r_io_wdata (r_io_wdata),
-    .r_io_wstrb (r_io_wstrb)
+  dmem mem (	// Mem.scala:41:25
+    .wio_rdata (mem_io_wio_rdata),
+    .rio_en    (mem_io_rio_en),
+    .rio_we    (mem_io_rio_we),
+    .rio_addr  (mem_io_rio_addr),
+    .rio_wdata (mem_io_rio_wdata),
+    .rio_wstrb (mem_io_rio_wstrb)
   );
 endmodule
 
