@@ -36,5 +36,5 @@ class dmem extends BlackBox with HasBlackBoxPath {
 	// 	|
 	// 	|endmodule
 	// """.stripMargin)
-	addPath("~/ysyx-workbench/npc/playground/src/memory/mem.v")
+	addPath("/mem.v")
 }
