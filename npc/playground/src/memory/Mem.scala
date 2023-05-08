@@ -5,8 +5,10 @@ import chisel3.util._
 import cpucore.pipeline._
 
 class dmem extends BlackBox with HasBlackBoxInline {
-	val read_io = IO(new sram_io_1)
-	val write_io = IO(new sram_io_2)
+	val io = IO(new Bundle{
+		val r_io = new sram_io_1
+		val w_io = new sram_io_2}
+	)
 
 	setInline("memory.v",
 	"""module mem(
@@ -35,6 +37,6 @@ class rdmem extends Module {
 	val w_io = IO(new sram_io_2)
 
 	val mem = Module(new dmem)
-	mem.read_io <> r_io
-	mem.write_io <> w_io
+	mem.io.r_io <> r_io
+	mem.io.w_io <> w_io
 }
