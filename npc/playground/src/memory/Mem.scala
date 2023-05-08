@@ -37,6 +37,9 @@ class rdmem extends Module {
 	val w_io = IO(new sram_io_2)
 
 	val mem = Module(new dmem)
-	mem.io.r_io <> r_io
-	mem.io.w_io <> w_io
+	val mem_io = new Bundle{
+		r_io
+		w_io
+	}
+	mem.io. <> mem_io
 }
