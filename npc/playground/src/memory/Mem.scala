@@ -41,5 +41,5 @@ class rdmem extends Module {
 		r_io
 		w_io
 	})
-	mem.io. <> mem_io
+	mem.io <> mem_io
 }
