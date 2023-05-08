@@ -13,7 +13,7 @@ class preIF extends Module{
     pc := Mux(br.taken, br.target ,pc)
 
     inst_sram.en := 1.B
-    inst_sram.we := 4.U
+    inst_sram.wr := 0.B
     inst_sram.addr := pc
     inst_sram.wdata := 0.U
     inst_sram.wstrb := 0.U
