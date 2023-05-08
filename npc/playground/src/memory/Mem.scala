@@ -6,8 +6,8 @@ import cpucore.pipeline._
 
 class dmem extends BlackBox with HasBlackBoxInline {
 	val io = IO(new Bundle{
-		val r_io = new sram_io_1
-		val w_io = new sram_io_2}
+		val rio = new sram_io_1
+		val wio = new sram_io_2}
 	)
 
 	setInline("memory.v",
@@ -33,13 +33,11 @@ class dmem extends BlackBox with HasBlackBoxInline {
 }
 
 class rdmem extends Module {
-	val r_io = new sram_io_1
-	val w_io = new sram_io_2
+	val mem_io = IO(new Bundle{
+		val rio = new sram_io_1
+		val wio = new sram_io_2
+	})
 
 	val mem = Module(new dmem)
-	val mem_io = IO(new Bundle{
-		val rio = r_io
-		val wio = w_io
-	})
 	mem.io <> mem_io
 }
