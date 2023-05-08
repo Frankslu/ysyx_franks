@@ -6,10 +6,7 @@ import cpucore.pipeline._
 
 class rdmem extends Module {
 	val mem = Module(new mem)
-	val mem_io = IO(new Bundle{
-		val r = new sram_io_1
-		val w = new sram_io_2
-	})
+	val mem_io = IO(new ioo)
 	mem.io <> mem_io
 	
 }

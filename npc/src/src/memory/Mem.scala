@@ -4,15 +4,17 @@ import chisel3._
 import chisel3.util._
 import cpucore.pipeline._
 
-class mem extends HasBlackBoxInline {
-  val io = IO(new Bundle {
+val ioo = new Bundle {
     var Raddr=Input(UInt(64.W))
     var Rdata=Output(UInt(64.W))
     var Waddr=Input(UInt(64.W))
     var Wdata=Input(UInt(64.W))
     var Wmask=Input(UInt(8.W))
     var MemWrite=Input(UInt(1.W))
-  })
+  }
+
+class mem extends HasBlackBoxInline {
+	val io = IO(new ioo)
     setInline("Mem.v",
     s"""
     |import "DPI-C" function void pmem_read(
