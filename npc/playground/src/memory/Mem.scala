@@ -34,5 +34,6 @@ class dmem extends BlackBox with HasBlackBoxInline {
 		|	end
 		|end
 		|
+		|endmodule
 	""".stripMargin)
 }
