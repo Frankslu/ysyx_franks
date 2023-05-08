@@ -36,5 +36,5 @@ class dmem extends BlackBox with HasBlackBoxResource {
 	// 	|
 	// 	|endmodule
 	// """.stripMargin)
-	addResource("/src/memory/mem.v")
+	addPath("~/ysyx-workbench/npc/playground/src/memory/mem.v")
 }
