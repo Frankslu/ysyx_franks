@@ -4,7 +4,7 @@ import chisel3._
 import chisel3.util._
 import cpucore.pipeline._
 
-class mem extends Module with BlackBox with HasBlackBoxInline {
+class mem extends BlackBox with HasBlackBoxInline {
 	val io = IO(new Bundle{
 		val r = new sram_io_1
 		val w = new sram_io_2}
