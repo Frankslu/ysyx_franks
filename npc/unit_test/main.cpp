@@ -9,7 +9,9 @@
 #include <verilated.h>
 
 // Include model header, generated from Verilating "top.v"
-#include "Vtop.h"
+#include "Vmem.h"
+
+
 
 int main(int argc, char** argv) {
     // See a similar example walkthrough in the verilator manpage.
@@ -26,7 +28,7 @@ int main(int argc, char** argv) {
     contextp->commandArgs(argc, argv);
 
     // Construct the Verilated model, from Vtop.h generated from Verilating "top.v"
-    Vtop* top = new Vtop{contextp};
+    Vmem* mem = new Vmem{contextp};
 
     // Simulate until $finish
     while (!contextp->gotFinish()) {
