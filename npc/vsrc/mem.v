@@ -38,7 +38,7 @@ module Memory(
  input longint waddr, input longint wdata, input byte wmask);
  wire [63:0] rdata;
  always @(*) begin
-   if(en) begin
+   if(r_en) begin
      if(r_wr) begin
        pmem_read(r_addr, w_rdata);
      end else begin
