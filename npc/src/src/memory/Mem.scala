@@ -9,8 +9,8 @@ class mem extends Module {
     val r = new sram_io_1
     val w = new sram_io_2
   })
-    val pmem = Module(new Memory())
-    pmem.io <> io
+    val Memory = Module(new Memory())
+    Memory.io <> io
     
 }
 
@@ -19,8 +19,8 @@ class Memory extends HasBlackBoxInline {
     val r = new sram_io_1
     val w = new sram_io_2
   })
-    setInline("Mem.v",
-    """module mem(
+    setInline("Memory.v",
+    """module Memory(
 	    | input  r_en,
 	    | input  r_wr,
 	    | input  [31:0]  r_addr,
