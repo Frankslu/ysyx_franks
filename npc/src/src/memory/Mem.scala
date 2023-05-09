@@ -15,7 +15,7 @@ class mem extends Module {
 	
 }
 
-class Memory extends Module with HasBlackBoxInline {
+class Memory extends HasBlackBoxInline {
   val io = IO(Flipped(new Bundle{
 	val r = new sram_io_1
 	val w = new sram_io_2
