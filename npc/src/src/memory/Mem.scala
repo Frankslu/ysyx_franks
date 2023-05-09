@@ -19,7 +19,7 @@ class Memory extends HasBlackBoxInline {
     val r = new sram_io_1
     val w = new sram_io_2
   })
-    setInline("Memory.v",
+    setInline("Mem.v",
     """module mem(
 	    | input  r_en,
 	    | input  r_wr,
