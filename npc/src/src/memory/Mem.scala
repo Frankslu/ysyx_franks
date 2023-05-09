@@ -5,20 +5,20 @@ import chisel3.util._
 import cpucore.pipeline._
 
 class mem extends Module {
-    val io = IO(new Bundle{
+    val io = IO(Flipped(new Bundle{
     val r = new sram_io_1
     val w = new sram_io_2
-  })
+  }))
     val Memory = Module(new Memory())
     Memory.io <> io
     
 }
 
 class Memory extends HasBlackBoxInline {
-  val io = IO(new Bundle{
+  val io = IO(Flipped(new Bundle{
     val r = new sram_io_1
     val w = new sram_io_2
-  })
+  }))
     setInline("Memory.v",
     """module Memory(
 	    | input  r_en,
