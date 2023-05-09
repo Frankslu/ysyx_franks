@@ -3,14 +3,11 @@ package cpucore.memory
 import chisel3._
 import chisel3.util._
 import cpucore.pipeline._
+
 class mem extends Module {
-    val io = IO(new Bundle {
-    var Raddr=Input(UInt(64.W))
-    var Rdata=Output(UInt(64.W))
-    var Waddr=Input(UInt(64.W))
-    var Wdata=Input(UInt(64.W))
-    var Wmask=Input(UInt(8.W))
-    var MemWrite=Input(UInt(1.W))
+    val io = IO(new Bundle{
+    val r = new sram_io_1
+    val w = new sram_io_2
   })
     val pmem = Module(new Memory())
     pmem.io <> io
@@ -18,30 +15,34 @@ class mem extends Module {
 }
 
 class Memory extends HasBlackBoxInline {
-  val io = IO(new Bundle {
-    var Raddr=Input(UInt(64.W))
-    var Rdata=Output(UInt(64.W))
-    var Waddr=Input(UInt(64.W))
-    var Wdata=Input(UInt(64.W))
-    var Wmask=Input(UInt(8.W))
-    var MemWrite=Input(UInt(1.W))
+  val io = IO(new Bundle{
+    val r = new sram_io_1
+    val w = new sram_io_2
   })
     setInline("Memory.v",
-    """
-    |import "DPI-C" function void pmem_read(
-    |  input longint Raddr, output longint Rdata);
-    |import "DPI-C" function void pmem_write(
-    |  input longint Waddr, input longint Wdata, input byte Wmask);
-    |module Memory (Raddr,Rdata,Waddr,Wdata,Wmask,MemWrite);
-    | input [63:0] Raddr,Waddr,Wdata;
-    | input [7:0] Wmask;
-    | input MemWrite;
-    | output [63:0] Rdata;
-    | always @(*) begin
-    | pmem_read(Raddr, Rdata);
-    | if(MemWrite)
-    |  pmem_write(Waddr, Wdata, Wmask);
-    | end
-    |endmodule
+    """module mem(
+	    | input  r_en,
+	    | input  r_wr,
+	    | input  [31:0]  r_addr,
+	    | input  [31:0]  r_wdata,
+	    | input  [3:0]   r_wstrb,
+	    | output [31:0] w_rdata
+      | );
+      | import "DPI-C" function void pmem_read(
+	    | input longint raddr, output longint rdata);
+      | import "DPI-C" function void pmem_write(
+	    | input longint waddr, input longint wdata, input byte wmask);
+      | wire [63:0] rdata;
+      | always @(*) begin
+	    |   if(en) begin
+		  |     if(r_wr) begin
+			|       pmem_read(r_addr, w_rdata);
+		  |     end else begin
+			|       pmem_write(r_addr, r_wdata, r_wstrb);
+		  |     end
+	    |   end
+      |end
+      |
+      |endmodule
     """.stripMargin)
 }

@@ -1,9 +1,9 @@
 module mem(
-	input r_en,
-	input r_wr,
-	input [31:0]  r_addr,
-	input [31:0]  r_wdata,
-	input [4:0]   r_wstrb,
+	input  r_en,
+	input  r_wr,
+	input  [31:0]  r_addr,
+	input  [31:0]  r_wdata,
+	input  [3:0]   r_wstrb,
 	output [31:0] w_rdata
 );
 import "DPI-C" function void pmem_read(
