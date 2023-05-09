@@ -4,20 +4,20 @@
 module mem(	// <stdin>:7:10
   input         clock,
                 reset,
-  input  [31:0] io_w_rdata,
-  output        io_r_en,
+                io_r_en,
                 io_r_wr,
-  output [31:0] io_r_addr,
+  input  [31:0] io_r_addr,
                 io_r_wdata,
-  output [3:0]  io_r_wstrb);
+  input  [3:0]  io_r_wstrb,
+  output [31:0] io_w_rdata);
 
   Memory Memory (	// Mem.scala:12:24
-    .w_rdata (io_w_rdata),
     .r_en    (io_r_en),
     .r_wr    (io_r_wr),
     .r_addr  (io_r_addr),
     .r_wdata (io_r_wdata),
-    .r_wstrb (io_r_wstrb)
+    .r_wstrb (io_r_wstrb),
+    .w_rdata (io_w_rdata)
   );
 endmodule
 
@@ -33,9 +33,9 @@ module Memory(
  output [31:0] w_rdata
  );
  import "DPI-C" function void pmem_read(
- input longint raddr, output longint rdata);
+ input int raddr, output int rdata);
  import "DPI-C" function void pmem_write(
- input longint waddr, input longint wdata, input byte wmask);
+ input int waddr, input int wdata, input byte wmask);
  wire [63:0] rdata;
  always @(*) begin
    if(r_en) begin

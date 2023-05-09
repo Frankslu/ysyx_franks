@@ -5,20 +5,20 @@
 // The class here is then constructed to instantiate the design.
 // See the Verilator manual for examples.
 
-#ifndef VERILATED_VRDMEM_H_
-#define VERILATED_VRDMEM_H_  // guard
+#ifndef VERILATED_VMEM_H_
+#define VERILATED_VMEM_H_  // guard
 
 #include "verilated.h"
 #include "svdpi.h"
 
-class Vrdmem__Syms;
-class Vrdmem___024root;
+class Vmem__Syms;
+class Vmem___024root;
 
 // This class is the main interface to the Verilated model
-class Vrdmem VL_NOT_FINAL : public VerilatedModel {
+class Vmem VL_NOT_FINAL : public VerilatedModel {
   private:
     // Symbol table holding complete model state (owned by this class)
-    Vrdmem__Syms* const vlSymsp;
+    Vmem__Syms* const vlSymsp;
 
   public:
 
@@ -27,12 +27,12 @@ class Vrdmem VL_NOT_FINAL : public VerilatedModel {
     // propagate new values into/out from the Verilated model.
     VL_IN8(&clock,0,0);
     VL_IN8(&reset,0,0);
-    VL_IN8(&mem_io_r_en,0,0);
-    VL_IN8(&mem_io_r_wr,0,0);
-    VL_IN8(&mem_io_r_wstrb,3,0);
-    VL_OUT(&mem_io_w_rdata,31,0);
-    VL_IN(&mem_io_r_addr,31,0);
-    VL_IN(&mem_io_r_wdata,31,0);
+    VL_IN8(&io_r_en,0,0);
+    VL_IN8(&io_r_wr,0,0);
+    VL_IN8(&io_r_wstrb,3,0);
+    VL_IN(&io_r_addr,31,0);
+    VL_IN(&io_r_wdata,31,0);
+    VL_OUT(&io_w_rdata,31,0);
 
     // CELLS
     // Public to allow access to /* verilator public */ items.
@@ -40,19 +40,19 @@ class Vrdmem VL_NOT_FINAL : public VerilatedModel {
 
     // Root instance pointer to allow access to model internals,
     // including inlined /* verilator public_flat_* */ items.
-    Vrdmem___024root* const rootp;
+    Vmem___024root* const rootp;
 
     // CONSTRUCTORS
     /// Construct the model; called by application code
     /// If contextp is null, then the model will use the default global context
     /// If name is "", then makes a wrapper with a
     /// single model invisible with respect to DPI scope names.
-    explicit Vrdmem(VerilatedContext* contextp, const char* name = "TOP");
-    explicit Vrdmem(const char* name = "TOP");
+    explicit Vmem(VerilatedContext* contextp, const char* name = "TOP");
+    explicit Vmem(const char* name = "TOP");
     /// Destroy the model; called (often implicitly) by application code
-    virtual ~Vrdmem();
+    virtual ~Vmem();
   private:
-    VL_UNCOPYABLE(Vrdmem);  ///< Copying not allowed
+    VL_UNCOPYABLE(Vmem);  ///< Copying not allowed
 
   public:
     // API METHODS

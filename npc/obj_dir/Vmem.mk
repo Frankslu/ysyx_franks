@@ -2,9 +2,9 @@
 # DESCRIPTION: Verilator output: Makefile for building Verilated archive or executable
 #
 # Execute this makefile from the object directory:
-#    make -f Vrdmem.mk
+#    make -f Vmem.mk
 
-default: Vrdmem__ALL.a
+default: Vmem__ALL.a
 
 ### Constants...
 # Perl executable (from $PERL)
@@ -30,9 +30,9 @@ VM_SC_TARGET_ARCH = linux
 
 ### Vars...
 # Design prefix (from --prefix)
-VM_PREFIX = Vrdmem
+VM_PREFIX = Vmem
 # Module prefix (from --prefix)
-VM_MODPREFIX = Vrdmem
+VM_MODPREFIX = Vmem
 # User CFLAGS (from -CFLAGS on Verilator command line)
 VM_USER_CFLAGS = \
 
@@ -48,7 +48,7 @@ VM_USER_DIR = \
 
 ### Default rules...
 # Include list of all generated classes
-include Vrdmem_classes.mk
+include Vmem_classes.mk
 # Include global rules
 include $(VERILATOR_ROOT)/include/verilated.mk
 
