@@ -33,7 +33,7 @@ clean:
 .PHONY: test verilog help compile bsp reformat checkformat clean
 
 c:
-	verilator --top-module rdmem -cc vsrc/*.v
+	verilator --top-module mem -cc vsrc/*.v
 
 sim:
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
