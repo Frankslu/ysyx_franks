@@ -1,3 +1,4 @@
+package cpucore.Config
 
 object Configs {
     //Rrgfile

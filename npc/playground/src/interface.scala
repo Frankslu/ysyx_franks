@@ -1,4 +1,6 @@
 import chisel3._
+import cpucore.Config.Configs._
+
 class br_bus extends Bundle{
     val taken = Input(Bool())
     val target = Input(UInt(ADDR_WIDTH.W))
