@@ -8,8 +8,8 @@ test:
 	mill -i __.test
 
 verilog:
-	$(call git_commit, "generate verilog")
-	mkdir -p $(VERILOG_DIR)
+#	$(call git_commit, "generate verilog")
+#	mkdir -p $(VERILOG_DIR)
 	mill -i __.test.runMain Elaborate -td $(VERILOG_DIR)
 
 help:
