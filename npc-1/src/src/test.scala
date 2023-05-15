@@ -7,14 +7,14 @@ class add extends Module{
 		val in2 = Input(UInt(64.W))
 		val out = Output(UInt(64.W))
 	})
-	val my = Module(new Add)
+	val my = Module(new Add1)
 	my.io.in1 := io.in1
 	my.io.in2 := io.in2
 	io.out := my.io.out
 
 }
 
-class Add extends BlackBox with HasBlackBoxInline {
+class Add1 extends BlackBox with HasBlackBoxInline {
 	val io = IO(new Bundle {
 		val in1 = Input(UInt(64.W))
 		val in2 = Input(UInt(64.W))
