@@ -4,20 +4,20 @@
 module mem(	// <stdin>:11:10
   input         clock,
                 reset,
-                io_r_en,
-                io_r_wr,
-  input  [31:0] io_r_addr,
-                io_r_wdata,
-  input  [3:0]  io_r_wstrb,
-  output [31:0] io_w_rdata);
+                io_en,
+                io_wr,
+  input  [31:0] io_addr,
+                io_wdata,
+  input  [3:0]  io_wstrb,
+  output [31:0] io_rdata);
 
   Memory Memory (	// Mem.scala:22:28
-    .r_en    (io_r_en),
-    .r_wr    (io_r_wr),
-    .r_addr  (io_r_addr),
-    .r_wdata (io_r_wdata),
-    .r_wstrb (io_r_wstrb),
-    .w_rdata (io_w_rdata)
+    .en    (io_en),
+    .wr    (io_wr),
+    .addr  (io_addr),
+    .wdata (io_wdata),
+    .wstrb (io_wstrb),
+    .rdata (io_rdata)
   );
 endmodule
 
