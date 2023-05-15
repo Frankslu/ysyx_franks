@@ -8,9 +8,10 @@ test:
 	mill -i __.test
 
 verilog:
-#	$(call git_commit, "generate verilog")
-#	mkdir -p $(VERILOG_DIR)
+	$(call git_commit, "generate verilog")
+	mkdir -p $(VERILOG_DIR)
 	mill -i __.test.runMain Elaborate -td $(VERILOG_DIR)
+	find . -name "*.v" | xargs sed -i -E "/^(\w+\/)+\w+\.v/d"
 
 help:
 	mill -i __.test.runMain Elaborate --help
