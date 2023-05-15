@@ -5,12 +5,12 @@ import chisel3.util._
 import cpucore.pipeline._
 
 class io1 extends Bundle{
-  val r_en = Input(Bool())
-  val r_wr = Input(Bool())
-  val r_addr = Input(UInt(32.W))
-  val r_wdata = Input(UInt(32.W))
-  val r_wstrb = Input(UInt(4.W))
-  val w_rdata = Output(UInt(32.W))
+  val en = Input(Bool())
+  val wr = Input(Bool())
+  val addr = Input(UInt(32.W))
+  val wdata = Input(UInt(32.W))
+  val wstrb = Input(UInt(4.W))
+  val rdata = Output(UInt(32.W))
 }
 
 class mem extends Module {
