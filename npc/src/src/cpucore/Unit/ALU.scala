@@ -16,7 +16,8 @@ class ALU_io extends Bundle{
 class ALU extends Module{
     val io = IO(new ALU_io)
 
-    val op_add   = io.alu_op === ALUOP.add_
+    // val op_add   = io.alu_op === ALUOP.add_
+    val op_add   = io.alu_op === 1.U
     val op_sub   = io.alu_op === ALUOP.sub_  
     val op_slt   = io.alu_op === ALUOP.slt_  
     val op_sltu  = io.alu_op === ALUOP.sltu_ 
@@ -82,5 +83,4 @@ object ALUOP extends ChiselEnum {
     val none_ = Value(0.U)
     val add_, sub_, slt_, sltu_, and_, nor_, or_, xor_, sll_, srl_, sra_, lui_, mul_, mulh_, mulhu_, div_, divu_, mod_, modu_ = Value
     val aluop_n = Value
-    val aluop_num = aluop_n.toInt
 }
