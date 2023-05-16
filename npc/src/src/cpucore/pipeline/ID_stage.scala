@@ -26,7 +26,8 @@ class ID_stage extends Module{
 
     
     //val decode_res = Cat(toes.alu_op, mem_we, inst_type, inst_name, rf_we)
-    val decode_res = loongarch32r_decoder(inst)
+    // val decode_res = loongarch32r_decoder(inst)
+    val decode_res = 0.U
 
     toes.alu_op := decode_res(29,11)
     val inst_type = decode_res(10,7)
