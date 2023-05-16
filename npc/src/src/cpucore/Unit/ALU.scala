@@ -17,9 +17,10 @@ class ALU extends Module{
     val io = IO(new ALU_io)
 
     // val op_add   = io.alu_op === ALUOP.add_
-    val op_add   = io.alu_op === 1.U
-    val op_sub   = io.alu_op === ALUOP.sub_  
-    val op_slt   = io.alu_op === ALUOP.slt_  
+    val op_add   = io.alu_op.asUInt === 1.U
+    // val op_sub   = io.alu_op === ALUOP.sub_
+    val op_sub   = io.alu_op === ALUOP(2.U)
+    val op_slt   = io.alu_op === ALUOP.slt_ 
     val op_sltu  = io.alu_op === ALUOP.sltu_ 
     val op_and   = io.alu_op === ALUOP.and_  
     val op_nor   = io.alu_op === ALUOP.nor_  
