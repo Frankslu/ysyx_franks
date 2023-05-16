@@ -22,6 +22,7 @@ class Vmem___024root final : public VerilatedModule {
     VL_IN(io_r_addr,31,0);
     VL_IN(io_r_wdata,31,0);
     VL_OUT(io_w_rdata,31,0);
+    IData/*31:0*/ mem__DOT__Memory_w_rdata;
     IData/*31:0*/ __Vtask_mem__DOT__Memory__DOT__pmem_read__0__rdata;
     IData/*31:0*/ __VstlIterCount;
     IData/*31:0*/ __VicoIterCount;
