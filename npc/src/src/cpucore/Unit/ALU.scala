@@ -8,35 +8,34 @@ import cpucore.Config.Configs._
 import myUtil.myUtil._
 
 class ALU_io extends Bundle{
-    val alu_op = Input(UInt(ALU_OP_NUM.W))//0:add, 1:sub, 2:and 4:or 5:xor 6:
+    val alu_op = Input(ALUOP)//0:add, 1:sub, 2:and 4:or 5:xor 6:
     val src1   = Input(UInt(DATA_WIDTH.W))
     val src2   = Input(UInt(DATA_WIDTH.W))
     val res    = Output(UInt(DATA_WIDTH.W))
 }
 
 class ALU extends Module{
-    import cpucore.Unit.ALUOP._
     val io = IO(new ALU_io)
 
-    val op_add   = io.alu_op(add_  )
-    val op_sub   = io.alu_op(sub_  )
-    val op_slt   = io.alu_op(slt_  )
-    val op_sltu  = io.alu_op(sltu_ )
-    val op_and   = io.alu_op(and_  )
-    val op_nor   = io.alu_op(nor_  )
-    val op_or    = io.alu_op(or_   )
-    val op_xor   = io.alu_op(xor_  )
-    val op_sll   = io.alu_op(sll_  )
-    val op_srl   = io.alu_op(srl_  )
-    val op_sra   = io.alu_op(sra_  )
-    val op_lui   = io.alu_op(lui_  )
-    val op_mul   = io.alu_op(mul_  )
-    val op_mulh  = io.alu_op(mulh_ )
-    val op_mulhu = io.alu_op(mulhu_)
-    val op_div   = io.alu_op(div_  )
-    val op_mod   = io.alu_op(mod_  )
-    val op_divu  = io.alu_op(divu_ )
-    val op_modu  = io.alu_op(modu_ )
+    val op_add   = io.alu_op.is(ALUOP.add_  )
+    val op_sub   = io.alu_op.is(ALUOP.sub_  )
+    val op_slt   = io.alu_op.is(ALUOP.slt_  )
+    val op_sltu  = io.alu_op.is(ALUOP.sltu_ )
+    val op_and   = io.alu_op.is(ALUOP.and_  )
+    val op_nor   = io.alu_op.is(ALUOP.nor_  )
+    val op_or    = io.alu_op.is(ALUOP.or_   )
+    val op_xor   = io.alu_op.is(ALUOP.xor_  )
+    val op_sll   = io.alu_op.is(ALUOP.sll_  )
+    val op_srl   = io.alu_op.is(ALUOP.srl_  )
+    val op_sra   = io.alu_op.is(ALUOP.sra_  )
+    val op_lui   = io.alu_op.is(ALUOP.lui_  )
+    val op_mul   = io.alu_op.is(ALUOP.mul_  )
+    val op_mulh  = io.alu_op.is(ALUOP.mulh_ )
+    val op_mulhu = io.alu_op.is(ALUOP.mulhu_)
+    val op_div   = io.alu_op.is(ALUOP.div_  )
+    val op_mod   = io.alu_op.is(ALUOP.mod_  )
+    val op_divu  = io.alu_op.is(ALUOP.divu_ )
+    val op_modu  = io.alu_op.is(ALUOP.modu_ )
 
     val add_sub = (op_sub | op_slt | op_sltu).asBool
     val add_res = io.src1 +& Mux(add_sub, ~io.src2, io.src2) + Mux(add_sub, 1.U, 0.U)
@@ -59,7 +58,8 @@ class ALU extends Module{
     val div_res = (io.src1.asSInt / io.src2.asSInt).asUInt
     val mod_res = (io.src1.asSInt % io.src2.asSInt).asUInt
 
-    io.res := Mux1H(Seq(
+    io.res := MuxCase(0xdeadbeef.U,
+        Array(
         (op_add | op_sub) -> add_res,
         op_slt      -> slt_res,
         op_sltu     -> sltu_res,
@@ -80,30 +80,7 @@ class ALU extends Module{
     ))
 }
 
-object ALUOP{
-
-    
-
-    val to_onehot = set_onehot(_, ALU_OP_NUM)
-
-    val add_   = 0 ;val OP_ADD  = to_onehot(add_ )//"0000000000000000001"
-    val sub_   = 1 ;val OP_SUB  = to_onehot(sub_ )//"0000000000000000010"
-    val slt_   = 2 ;val OP_SLT  = to_onehot(slt_ )//"0000000000000000100"
-    val sltu_  = 3 ;val OP_SLTU = to_onehot(sltu_)//"0000000000000001000"
-    val and_   = 4 ;val OP_AND  = to_onehot(and_ )//"0000000000000010000"
-    val nor_   = 5 ;val OP_NOR  = to_onehot(nor_ )//"0000000000000100000"
-    val or_    = 6 ;val OP_OR   = to_onehot(or_  )//"0000000000001000000"
-    val xor_   = 7 ;val OP_XOR  = to_onehot(xor_ )//"0000000000010000000"
-    val sll_   = 8 ;val OP_SLL  = to_onehot(sll_ )//"0000000000100000000"
-    val srl_   = 9 ;val OP_SRL  = to_onehot(srl_ )//"0000000001000000000"
-    val sra_   = 10;val OP_SRA  = to_onehot(sra_ )//"0000000010000000000"
-    val lui_   = 11;val OP_LUI  = to_onehot(lui_ )//"0000000100000000000"
-    val mul_   = 12;val OP_MUL  = to_onehot(mul_ )//"0000001000000000000"
-    val mulh_  = 13;val OP_MULH = to_onehot(mulh_)//"0000010000000000000"
-    val mulhu_ = 14;val OP_MULHU= to_onehot(mulhu_)//"0000100000000000000"
-    val div_   = 15;val OP_DIV  = to_onehot(div_ )//"0001000000000000000"
-    val divu_  = 16;val OP_DIVU = to_onehot(divu_)//"0010000000000000000"
-    val mod_   = 17;val OP_MOD  = to_onehot(mod_ )
-    val modu_  = 18;val OP_MODU = to_onehot(modu_)
-    val OP_NONE = creat_?(ALU_OP_NUM)
+object ALUOP extends ChiselEnum{
+    val none_, add_, sub_, slt_, sltu_, and_, nor_, or_, xor_, sll_, srl_, sra_,
+    lui_, mul_, mulh_, mulhu_, div_, divu_, mod_, modu_ = Value
 }

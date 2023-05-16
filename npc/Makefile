@@ -31,7 +31,7 @@ checkformat:
 	mill -i __.checkFormat
 
 clean:
-	-rm -rf $(BUILD_DIR)
+	-rm -rf $(BUILD_DIR) $(VERILOG_DIR)
 
 .PHONY: test verilog help compile bsp reformat checkformat clean
 
@@ -46,8 +46,8 @@ unit:
 sim:
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
 	verilator -Wall --trace --cc vsrc/*.v --top-module $(TOP) --exe csrc/*.cpp
-	make -C $(BUILD_DIR) -f VGCD.mk VGCD
-	./$(BUILD_DIR)/VGCD
+	make -C $(BUILD_DIR) -f V$(TOP).mk V$(TOP)
+	./$(BUILD_DIR)/V$(TOP)
 	
 
 include ../Makefile

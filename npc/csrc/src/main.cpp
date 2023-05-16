@@ -22,10 +22,14 @@
 
 // 	return 0;
 // }
+
+void init_monitor(int, char *[]);
+void engine_start();
+
 int main(int argc, char *argv[]){
 	init_monitor(argc, argv);
 
 	engine_start();
-	
+
 	return 0;
 }

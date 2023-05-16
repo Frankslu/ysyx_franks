@@ -7,6 +7,10 @@ import chisel3.util.experimental.decode._
 import cpucore.Unit.ALUOP._
 import myUtil.myUtil._
 
+object inst_type extends ChiselEnum{
+    val 
+}
+
 object loongarch32r_inst{
     //inst_type
     val set_inst_type = set_num(_, 4)
