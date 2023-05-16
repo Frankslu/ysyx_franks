@@ -1,4 +1,8 @@
-BUILD_DIR = ./build
+VERILOG_DIR = ./vsrc
+CPP_DIR = ./csrc
+BUILD_DIR = ./obj_dir
+
+TOP = main
 
 export PATH := $(PATH):$(abspath ./utils)
 
@@ -7,8 +11,9 @@ test:
 
 verilog:
 	$(call git_commit, "generate verilog")
-	mkdir -p $(BUILD_DIR)
-	mill -i __.test.runMain Elaborate -td $(BUILD_DIR)
+	mkdir -p $(VERILOG_DIR)
+	mill -i __.test.runMain Elaborate -td $(VERILOG_DIR)
+# 	find . -name "*.v" | xargs sed -i -E "/^(\w+\/)+\w+\.v/d"
 
 help:
 	mill -i __.test.runMain Elaborate --help
@@ -30,8 +35,19 @@ clean:
 
 .PHONY: test verilog help compile bsp reformat checkformat clean
 
+c:
+	verilator --top-module $(TOP) -cc vsrc/*.v
+
+unit:
+	verilator -Wall --trace --cc vsrc/*.v --top-module $(TOP) --exe unit_test/*.cpp
+	make -C $(BUILD_DIR) -f V$(TOP).mk V$(TOP)
+	./$(BUILD_DIR)/V$(TOP)
+
 sim:
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
-	@echo "Write this Makefile by yourself."
+	verilator -Wall --trace --cc vsrc/*.v --top-module $(TOP) --exe csrc/*.cpp
+	make -C $(BUILD_DIR) -f VGCD.mk VGCD
+	./$(BUILD_DIR)/VGCD
+	
 
 include ../Makefile
