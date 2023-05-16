@@ -2,7 +2,7 @@ package cpucore.Unit
 
 import chisel3._
 import chisel3.util._
-// import chisel3.experimental._
+import chisel3.experimental._
 import cpucore.Config.Configs._
 import myUtil.myUtil._
 
@@ -57,8 +57,7 @@ class ALU extends Module{
     val div_res = (io.src1.asSInt / io.src2.asSInt).asUInt
     val mod_res = (io.src1.asSInt % io.src2.asSInt).asUInt
 
-    io.res := MuxCase(0xdeadbeef.U,
-        Array(
+    io.res := MuxCase(0xdeadbeef.U, Array(
         (op_add | op_sub) -> add_res,
         op_slt      -> slt_res,
         op_sltu     -> sltu_res,
