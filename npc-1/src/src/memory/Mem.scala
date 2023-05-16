@@ -4,32 +4,32 @@ import chisel3._
 import chisel3.util._
 import cpucore.pipeline._
 
-class io1 extends Bundle{
-  val en = Input(Bool())
-  val wr = Input(Bool())
-  val addr = Input(UInt(32.W))
-  val wdata = Input(UInt(32.W))
-  val wstrb = Input(UInt(4.W))
-  val rdata = Output(UInt(32.W))
-}
+// class io1 extends Bundle{
+//   val en = Input(Bool())
+//   val wr = Input(Bool())
+//   val addr = Input(UInt(32.W))
+//   val wdata = Input(UInt(32.W))
+//   val wstrb = Input(UInt(4.W))
+//   val rdata = Output(UInt(32.W))
+// }
 
 class mem extends Module {
-  //   val io = IO(Flipped(new Bundle{
-  //   val r = new sram_io_1
-  //   val w = new sram_io_2
-  // }))
-	val io = IO(new io1)
+    val io = IO(Flipped(new Bundle{
+    	val r = new sram_io_1
+    	val w = new sram_io_2
+	}))
+	// val io = IO(new io1)
 	val Memory = Module(new Memory())
 	Memory.io <> io
 	
 }
 
 class Memory extends BlackBox with HasBlackBoxInline {
-//   val io = IO(Flipped(new Bundle{
-// 	val r = new sram_io_1
-// 	val w = new sram_io_2
-//   }))
-	val io = IO(new io1)
+	val io = IO(Flipped(new Bundle{
+		val r = new sram_io_1
+		val w = new sram_io_2
+	}))
+	// val io = IO(new io1)
 	setInline("Memory.v",
 	"""module Memory(
 		| input  r_en,
