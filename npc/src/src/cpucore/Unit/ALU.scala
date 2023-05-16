@@ -17,25 +17,25 @@ class ALU_io extends Bundle{
 class ALU extends Module{
     val io = IO(new ALU_io)
 
-    val op_add   = io.alu_op.is(ALUOP.add_  )
-    val op_sub   = io.alu_op.is(ALUOP.sub_  )
-    val op_slt   = io.alu_op.is(ALUOP.slt_  )
-    val op_sltu  = io.alu_op.is(ALUOP.sltu_ )
-    val op_and   = io.alu_op.is(ALUOP.and_  )
-    val op_nor   = io.alu_op.is(ALUOP.nor_  )
-    val op_or    = io.alu_op.is(ALUOP.or_   )
-    val op_xor   = io.alu_op.is(ALUOP.xor_  )
-    val op_sll   = io.alu_op.is(ALUOP.sll_  )
-    val op_srl   = io.alu_op.is(ALUOP.srl_  )
-    val op_sra   = io.alu_op.is(ALUOP.sra_  )
-    val op_lui   = io.alu_op.is(ALUOP.lui_  )
-    val op_mul   = io.alu_op.is(ALUOP.mul_  )
-    val op_mulh  = io.alu_op.is(ALUOP.mulh_ )
-    val op_mulhu = io.alu_op.is(ALUOP.mulhu_)
-    val op_div   = io.alu_op.is(ALUOP.div_  )
-    val op_mod   = io.alu_op.is(ALUOP.mod_  )
-    val op_divu  = io.alu_op.is(ALUOP.divu_ )
-    val op_modu  = io.alu_op.is(ALUOP.modu_ )
+    val op_add   = io.alu_op === ALUOP.add_
+    val op_sub   = io.alu_op === ALUOP.sub_  
+    val op_slt   = io.alu_op === ALUOP.slt_  
+    val op_sltu  = io.alu_op === ALUOP.sltu_ 
+    val op_and   = io.alu_op === ALUOP.and_  
+    val op_nor   = io.alu_op === ALUOP.nor_  
+    val op_or    = io.alu_op === ALUOP.or_   
+    val op_xor   = io.alu_op === ALUOP.xor_  
+    val op_sll   = io.alu_op === ALUOP.sll_  
+    val op_srl   = io.alu_op === ALUOP.srl_  
+    val op_sra   = io.alu_op === ALUOP.sra_  
+    val op_lui   = io.alu_op === ALUOP.lui_  
+    val op_mul   = io.alu_op === ALUOP.mul_  
+    val op_mulh  = io.alu_op === ALUOP.mulh_ 
+    val op_mulhu = io.alu_op === ALUOP.mulhu_
+    val op_div   = io.alu_op === ALUOP.div_  
+    val op_mod   = io.alu_op === ALUOP.mod_  
+    val op_divu  = io.alu_op === ALUOP.divu_ 
+    val op_modu  = io.alu_op === ALUOP.modu_ 
 
     val add_sub = (op_sub | op_slt | op_sltu).asBool
     val add_res = io.src1 +& Mux(add_sub, ~io.src2, io.src2) + Mux(add_sub, 1.U, 0.U)
@@ -81,6 +81,7 @@ class ALU extends Module{
 }
 
 object ALUOP extends ChiselEnum{
-    val none_, add_, sub_, slt_, sltu_, and_, nor_, or_, xor_, sll_, srl_, sra_,
+    val none_ = Value(0.U)
+    val add_, sub_, slt_, sltu_, and_, nor_, or_, xor_, sll_, srl_, sra_,
     lui_, mul_, mulh_, mulhu_, div_, divu_, mod_, modu_ = Value
 }
