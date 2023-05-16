@@ -1,9 +1,7 @@
 package cpucore.Unit
 
 import chisel3._
-import chisel3.util.Fill
-import chisel3.util.Cat
-import chisel3.util.Mux1H
+import chisel3.util._
 import cpucore.Config.Configs._
 import myUtil.myUtil._
 
