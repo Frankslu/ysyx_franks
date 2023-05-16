@@ -2,12 +2,13 @@ package cpucore.Unit
 
 import chisel3._
 import chisel3.util._
+import chisel3.experimental._
 import circt.stage.ChiselStage
 import cpucore.Config.Configs._
 import myUtil.myUtil._
 
 class ALU_io extends Bundle{
-    val alu_op = Input(ALUOP())//0:add, 1:sub, 2:and 4:or 5:xor 6:
+    val alu_op = Input(ALUOP())
     val src1   = Input(UInt(DATA_WIDTH.W))
     val src2   = Input(UInt(DATA_WIDTH.W))
     val res    = Output(UInt(DATA_WIDTH.W))
