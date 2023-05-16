@@ -2,6 +2,8 @@ VERILOG_DIR = ./vsrc
 CPP_DIR = ./csrc
 BUILD_DIR = ./obj_dir
 
+TOP = main
+
 export PATH := $(PATH):$(abspath ./utils)
 
 test:
@@ -34,11 +36,15 @@ clean:
 .PHONY: test verilog help compile bsp reformat checkformat clean
 
 c:
-	verilator --top-module mem -cc vsrc/*.v
+	verilator --top-module TOP -cc vsrc/*.v
+
+unit:
+	verilator -Wall --trace --cc vsrc/*.v --top-module TOP --exe csrc/*.cpp
+	make -C $(BUILD_DIR) -f VGCD.mk VGCD
 
 sim:
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
-	verilator -Wall --trace --cc vsrc/*.v --top-module mycpu_top --exe  csrc/*.cpp
+	verilator -Wall --trace --cc vsrc/*.v --top-module TOP --exe csrc/*.cpp
 	make -C $(BUILD_DIR) -f VGCD.mk VGCD
 	./$(BUILD_DIR)/VGCD
 	
