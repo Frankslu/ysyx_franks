@@ -4,8 +4,8 @@ import chisel3._
 
 // import cpucore.pipeline._
 import cpucore.Unit._
-import cpucore.memory._
-import cpucore.pipeline._
+// import cpucore.memory._
+// import cpucore.pipeline._
 
 object Elaborate extends App {
   def top = new ALU()
