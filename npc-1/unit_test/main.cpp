@@ -5,13 +5,48 @@
 // SPDX-License-Identifier: CC0-1.0
 //======================================================================
 
+#include <stdint.h>
+#include <stdio.h>
+
 // Include common routines
 #include <verilated.h>
 
 // Include model header, generated from Verilating "top.v"
 #include "Vmem.h"
+#include "Vmem__Dpi.h"
 
+int Mem[8];
 
+void mem_init(){
+    for(int i=0; i<8; i++){
+        Mem[i] = i * 0x11111111;
+    }
+}
+
+void pmem_read(int raddr, int *rdata){
+    *rdata = Mem[raddr];
+}
+
+void pmem_write(int waddr, int wdata, char wstrb, int *rdata){
+    uint8_t mask = (uint8_t)wstrb;
+    switch (mask){
+    case 1:
+        Mem[waddr] = wdata & 0xf;
+        break;
+    
+    case 2:
+        Mem[waddr] = wdata & 0xff;
+        break;
+
+    case 3:
+        Mem[waddr] = wdata;
+        break;
+
+    default:
+        break;
+    }
+    *rdata = 0xdeadbeef;
+}
 
 int main(int argc, char** argv) {
     // See a similar example walkthrough in the verilator manpage.
@@ -28,13 +63,33 @@ int main(int argc, char** argv) {
     contextp->commandArgs(argc, argv);
 
     // Construct the Verilated model, from Vtop.h generated from Verilating "top.v"
-    Vmem* mem = new Vmem{contextp};
+    Vmem* top = new Vmem{contextp};
 
-    // Simulate until $finish
-    while (!contextp->gotFinish()) {
-
-        // Evaluate model
+    mem_init();
+    for(int i=0; i<8; i++){
+        top->io_r_en = 1;
+        top->io_r_wr = 0;
+        top->io_r_addr = i;
         top->eval();
+        if(top->io_w_rdata != Mem[i])
+            printf("1 false in %d\n",i);
+    }
+    // Simulate until $finish
+
+    for(int i=0; i<8; i++){
+        top->io_r_en = 1;
+        top->io_r_wr = 1;
+        top->io_r_addr = 7-i;
+        top->io_r_wdata = 2*i;
+        top->io_r_wstrb = 2;
+        top->eval();
+        printf("%x\n", top->io_w_rdata);
+        top->io_r_en = 1;
+        top->io_r_wr = 0;
+        top->io_r_addr = 7-i;
+        top->eval();
+        if(top->io_w_rdata != Mem[7-i])
+            printf("2 false in %d\n",7-i);
     }
 
     // Final model cleanup

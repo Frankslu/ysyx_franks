@@ -16,10 +16,10 @@ extern "C" {
 
 
     // DPI IMPORTS
-    // DPI import at vsrc/Memory.v:9:31
+    // DPI import at vsrc/Memory.v:13:31
     extern void pmem_read(int raddr, int* rdata);
-    // DPI import at vsrc/Memory.v:11:31
-    extern void pmem_write(int waddr, int wdata, char wmask);
+    // DPI import at vsrc/Memory.v:15:31
+    extern void pmem_write(int waddr, int wdata, char wmask, int* rdata);
 
 #ifdef __cplusplus
 }

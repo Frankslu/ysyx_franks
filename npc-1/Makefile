@@ -39,8 +39,9 @@ c:
 	verilator --top-module $(TOP) -cc vsrc/*.v
 
 unit:
-	verilator -Wall --trace --cc vsrc/*.v --top-module TOP --exe csrc/*.cpp
-	make -C $(BUILD_DIR) -f VGCD.mk VGCD
+	verilator -Wall --trace --cc vsrc/*.v --top-module $(TOP) --exe unit_test/*.cpp
+	make -C $(BUILD_DIR) -f V$(TOP).mk V$(TOP)
+	./$(BUILD_DIR)/V$(TOP)
 
 sim:
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!

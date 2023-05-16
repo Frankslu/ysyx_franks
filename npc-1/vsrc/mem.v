@@ -1,3 +1,4 @@
+/* verilator lint_off UNUSEDSIGNAL */
 module mem(
   input         clock,
   input         reset,
