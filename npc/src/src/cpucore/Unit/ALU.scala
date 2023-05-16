@@ -57,7 +57,7 @@ class ALU extends Module{
     val div_res = (io.src1.asSInt / io.src2.asSInt).asUInt
     val mod_res = (io.src1.asSInt % io.src2.asSInt).asUInt
 
-    io.res := MuxCase(0xdeadbeef.U(32.W), 
+    io.res := MuxCase("hdeadbeef".U(32.W), 
     Array((op_add | op_sub).asBool -> add_res,
         op_slt.asBool      -> slt_res,
         op_sltu.asBool     -> sltu_res,
