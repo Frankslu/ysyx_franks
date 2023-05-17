@@ -12,42 +12,8 @@
 #include <verilated.h>
 
 // Include model header, generated from Verilating "top.v"
-#include "Vmem.h"
-#include "Vmem__Dpi.h"
-
-#include 
-int Mem[8];
-
-void mem_init(){
-    for(int i=0; i<8; i++){
-        Mem[i] = i * 0x11111111;
-    }
-}
-
-void pmem_read(int raddr, int *rdata){
-    *rdata = Mem[raddr];
-}
-
-void pmem_write(int waddr, int wdata, char wstrb, int *rdata){
-    uint8_t mask = (uint8_t)wstrb;
-    switch (mask){
-    case 1:
-        Mem[waddr] = wdata & 0xf;
-        break;
-    
-    case 2:
-        Mem[waddr] = wdata & 0xff;
-        break;
-
-    case 3:
-        Mem[waddr] = wdata;
-        break;
-
-    default:
-        break;
-    }
-    *rdata = 0xdeadbeef;
-}
+#include "VALU.h"
+#include "VALU__Dpi.h"
 
 int main(int argc, char** argv) {
     // See a similar example walkthrough in the verilator manpage.

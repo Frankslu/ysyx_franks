@@ -6,7 +6,6 @@ import chisel3.util.experimental.decode._
 
 import cpucore.Unit.ALUOP._
 import myUtil.myUtil._
-
 // object inst_type extends ChiselEnum{
 //     val 
 // }

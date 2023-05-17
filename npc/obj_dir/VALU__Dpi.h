@@ -5,8 +5,8 @@
 // Manually include this file where DPI .c import functions are declared to ensure
 // the C functions match the expectations of the DPI imports.
 
-#ifndef VERILATED_VMEM__DPI_H_
-#define VERILATED_VMEM__DPI_H_  // guard
+#ifndef VERILATED_VALU__DPI_H_
+#define VERILATED_VALU__DPI_H_  // guard
 
 #include "svdpi.h"
 
@@ -14,12 +14,6 @@
 extern "C" {
 #endif
 
-
-    // DPI IMPORTS
-    // DPI import at vsrc/Memory.v:13:31
-    extern void pmem_read(int raddr, int* rdata);
-    // DPI import at vsrc/Memory.v:15:31
-    extern void pmem_write(int waddr, int wdata, char wmask, int* rdata);
 
 #ifdef __cplusplus
 }

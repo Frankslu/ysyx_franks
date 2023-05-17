@@ -58,7 +58,7 @@ class ALU extends Module{
     val div_res = (io.src1.asSInt / io.src2.asSInt).asUInt
     val mod_res = (io.src1.asSInt % io.src2.asSInt).asUInt
 
-    io.res := MuxCase("hdeadbeef".U(32.W), 
+    io.res := MuxCase("hdeadbeef".U(32.W),
     Array((op_add | op_sub).asBool -> add_res,
         op_slt.asBool      -> slt_res,
         op_sltu.asBool     -> sltu_res,
@@ -76,11 +76,10 @@ class ALU extends Module{
         op_mod.asBool      -> mod_res,
         op_divu.asBool     -> divu_res,
         op_modu.asBool     -> modu_res
-    ))
+    ).toIndexedSeq)
 }
 
 object ALUOP extends ChiselEnum {
     val none_ = Value(0.U)
     val add_, sub_, slt_, sltu_, and_, nor_, or_, xor_, sll_, srl_, sra_, lui_, mul_, mulh_, mulhu_, div_, divu_, mod_, modu_ = Value
-    val aluop_n = Value.asUInt.toInt
 }
