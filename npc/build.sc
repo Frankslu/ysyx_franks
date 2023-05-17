@@ -13,7 +13,7 @@ object src extends ScalaModule with ScalafmtModule { m =>
     "-deprecation",
     "-feature",
     "-Xcheckinit",
-    "-P:chiselplugin:genBundleElements"
+    // "-P:chiselplugin:genBundleElements"
   )
   override def ivyDeps = Agg(
     ivy"edu.berkeley.cs::chisel3:3.6.0",
