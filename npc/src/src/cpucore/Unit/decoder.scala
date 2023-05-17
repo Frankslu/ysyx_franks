@@ -16,47 +16,31 @@ class deco extends Module{
 }
 
 object loongarch32r_inst{
-    // //alu_op
-    // val OP_NONE = ALUOP.none_.toString
-    // val OP_ADD = ALUOP.add_.toString
-    // val OP_SUB = ALUOP.sub_.toString
-    // val OP_SLT = ALUOP.slt_.toString
-    // val OP_SLTU = ALUOP.sltu_.toString
-    // val OP_AND = ALUOP.and_.toString
-    // val OP_NOR = ALUOP.nor_.toString
-    // val OP_OR = ALUOP.or_.toString
-    // val OP_XOR = ALUOP.xor_.toString
-    // val OP_SLL = ALUOP.sll_.toString
-    // val OP_SRL = ALUOP.srl_.toString
-    // val OP_SRA = ALUOP.sra_.toString
-    // val OP_LUI = ALUOP.lui_.toString
-    // val OP_MUL = ALUOP.mul_.toString
-    // val OP_MULH = ALUOP.mulh_.toString
-    // val OP_MULHU = ALUOP.mulhu_.toString
-    // val OP_DIV = ALUOP.div_.toString
-    // val OP_DIVU = ALUOP.divu_.toString
-    // val OP_MOD = ALUOP.mod_.toString
-    // val OP_MODU = "00000"
-    val OP_NONE = "00001"
-    val OP_ADD = "00010"
-    val OP_SUB = "00011"
-    val OP_SLT = "00100"
-    val OP_SLTU = "00101"
-    val OP_AND = "00110"
-    val OP_NOR = "00111"
-    val OP_OR = "01000"
-    val OP_XOR = "01001"
-    val OP_SLL = "01010"
-    val OP_SRL = "01011"
-    val OP_SRA = "01100"
-    val OP_LUI = "01101"
-    val OP_MUL = "01110"
-    val OP_MULH = "01111"
-    val OP_MULHU = "10000"
-    val OP_DIV = "10001"
-    val OP_DIVU = "10010"
-    val OP_MOD = "10011"
-    val OP_MODU = "10100"
+    //transport ChiselEnum to BinaryString
+    def trans(num: UInt, width: Int) = {num.litValue.toString(2).reverse.padTo(width, '0').reverse}
+    //alu_op
+
+    def trans1(num: UInt) = trans(num, ALUOP.all.length)
+    val OP_NONE = trans1(ALUOP.none_.asUInt)
+    val OP_ADD = trans1(ALUOP.add_.asUInt)
+    val OP_SUB = trans1(ALUOP.sub_.asUInt)
+    val OP_SLT = trans1(ALUOP.slt_.asUInt)
+    val OP_SLTU = trans1(ALUOP.sltu_.asUInt)
+    val OP_AND = trans1(ALUOP.and_.asUInt)
+    val OP_NOR = trans1(ALUOP.nor_.asUInt)
+    val OP_OR = trans1(ALUOP.or_.asUInt)
+    val OP_XOR = trans1(ALUOP.xor_.asUInt)
+    val OP_SLL = trans1(ALUOP.sll_.asUInt)
+    val OP_SRL = trans1(ALUOP.srl_.asUInt)
+    val OP_SRA = trans1(ALUOP.sra_.asUInt)
+    val OP_LUI = trans1(ALUOP.lui_.asUInt)
+    val OP_MUL = trans1(ALUOP.mul_.asUInt)
+    val OP_MULH = trans1(ALUOP.mulh_.asUInt)
+    val OP_MULHU = trans1(ALUOP.mulhu_.asUInt)
+    val OP_DIV = trans1(ALUOP.div_.asUInt)
+    val OP_DIVU = trans1(ALUOP.divu_.asUInt)
+    val OP_MOD = trans1(ALUOP.mod_.asUInt)
+    val OP_MODU = trans1(ALUOP.modu_.asUInt)
 
     //inst_type
     val set_inst_type = set_num(_, 4)
