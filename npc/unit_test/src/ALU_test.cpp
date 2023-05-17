@@ -7,13 +7,25 @@
 
 #include <stdint.h>
 #include <stdio.h>
+#include <assert.h>
 
 // Include common routines
 #include <verilated.h>
 
 // Include model header, generated from Verilating "top.v"
 #include "VALU.h"
-#include "VALU__Dpi.h"
+VerilatedContext *contextp;
+VALU *top;
+
+void test(int aluop, int num[][3]){
+    for (int i = 0; i < 4; i++){
+        top->io_alu_op = aluop;
+        top->io_src1 = num[i][0];
+        top->io_src2 = num[i][1];
+        top->eval();
+        assert(top->io_res == num[i][2]);
+    }
+}
 
 int main(int argc, char **argv){
     // See a similar example walkthrough in the verilator manpage.
@@ -23,42 +35,31 @@ int main(int argc, char **argv){
     // e.g. examples/c_tracing.
 
     // Construct a VerilatedContext to hold simulation time, etc.
-    VerilatedContext *contextp = new VerilatedContext;
+    contextp = new VerilatedContext;
 
     // Pass arguments so Verilated code can see them, e.g. $value$plusargs
     // This needs to be called before you create any model
     contextp->commandArgs(argc, argv);
 
     // Construct the Verilated model, from Vtop.h generated from Verilating "top.v"
-    Vmem *top = new Vmem{ contextp };
+    top = new VALU{ contextp };
 
-    mem_init();
-    for (int i = 0; i < 8; i++) {
-        top->io_r_en = 1;
-        top->io_r_wr = 0;
-        top->io_r_addr = i;
-        top->eval();
-        if (top->io_w_rdata != Mem[i])
-            printf("1 false in %d\n", i);
-    }
-    // Simulate until $finish
+    int test1[4][3] = {
+        {0x1111, 0x8888, 0x9999},
+        {0xffffffff, 0x1, 0x0},
+        (0xf0000000, 0xf0000010, 0x10),
+        (0x12345678, 0x87654321, 0x99999999)
+    };
+    test(1, test1);
 
-    for (int i = 0; i < 8; i++){
-        int *p = i;
-        top->io_r_en = 1;
-        top->io_r_wr = 1;
-        top->io_r_addr = 7 - i;
-        top->io_r_wdata = 2 * i;
-        top->io_r_wstrb = 2;
-        top->eval();
-        printf("%x\n", top->io_w_rdata);
-        top->io_r_en = 1;
-        top->io_r_wr = 0;
-        top->io_r_addr = 7 - i;
-        top->eval();
-        if (top->io_w_rdata != Mem[7 - i])
-            printf("2 false in %d\n", 7 - i);
-    }
+    int test2[4][3] = {
+        {0x1, 0x10, 0x1 - 0x10},
+        {0xffffffff, 0xfffffff0, 0xffffffff-0xfffffff0},
+        (0xf0000000, 0xf0000010, 0xf0000000-0xf0000010),
+        (0xaabbcc, 0xaaaabb, 0xaabbcc-0xaaaabb)
+    };
+    test(2, test2);
+
 
     // Final model cleanup
     top->final();
