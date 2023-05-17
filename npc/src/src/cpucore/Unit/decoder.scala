@@ -16,6 +16,7 @@ class deco extends Module{
 }
 
 object loongarch32r_inst{
+    import cpucore.Unit.ALUOP
     //transport ChiselEnum to BinaryString
     def trans(num: UInt, width: Int) = {num.litValue.toString(2).reverse.padTo(width, '0').reverse}
     //alu_op
