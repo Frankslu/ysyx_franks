@@ -16,32 +16,32 @@ class deco extends Module{
 }
 
 object loongarch32r_inst{
-    import cpucore.Unit.ALUOP
+    import cpucore.Unit.ALUOP._
     //transport ChiselEnum to BinaryString
     def trans(num: UInt, width: Int) = {num.litValue.toString(2).reverse.padTo(width, '0').reverse}
     //alu_op
 
     def trans1(num: UInt) = trans(num, 5)
-    val OP_NONE = trans1(ALUOP.NONE_)
-    val OP_ADD = trans1(ALUOP.ADD_)
-    val OP_SUB = trans1(ALUOP.SUB_)
-    val OP_SLT = trans1(ALUOP.SLT_)
-    val OP_SLTU = trans1(ALUOP.SLTU_)
-    val OP_AND = trans1(ALUOP.AND_)
-    val OP_NOR = trans1(ALUOP.NOR_)
-    val OP_OR = trans1(ALUOP.OR_)
-    val OP_XOR = trans1(ALUOP.XOR_)
-    val OP_SLL = trans1(ALUOP.SLL_)
-    val OP_SRL = trans1(ALUOP.SRL_)
-    val OP_SRA = trans1(ALUOP.SRA_)
-    val OP_LUI = trans1(ALUOP.LUI_)
-    val OP_MUL = trans1(ALUOP.MUL_)
-    val OP_MULH = trans1(ALUOP.MULH_)
-    val OP_MULHU = trans1(ALUOP.MULHU_)
-    val OP_DIV = trans1(ALUOP.DIV_)
-    val OP_DIVU = trans1(ALUOP.DIVU_)
-    val OP_MOD = trans1(ALUOP.MOD_)
-    val OP_MODU = trans1(ALUOP.MODU_)
+    val OP_NONE = trans1(NONE_)
+    val OP_ADD = trans1(ADD_)
+    val OP_SUB = trans1(SUB_)
+    val OP_SLT = trans1(SLT_)
+    val OP_SLTU = trans1(SLTU_)
+    val OP_AND = trans1(AND_)
+    val OP_NOR = trans1(NOR_)
+    val OP_OR = trans1(OR_)
+    val OP_XOR = trans1(XOR_)
+    val OP_SLL = trans1(SLL_)
+    val OP_SRL = trans1(SRL_)
+    val OP_SRA = trans1(SRA_)
+    val OP_LUI = trans1(LUI_)
+    val OP_MUL = trans1(MUL_)
+    val OP_MULH = trans1(MULH_)
+    val OP_MULHU = trans1(MULHU_)
+    val OP_DIV = trans1(DIV_)
+    val OP_DIVU = trans1(DIVU_)
+    val OP_MOD = trans1(MOD_)
+    val OP_MODU = trans1(MODU_)
 
     //inst_type
     val set_inst_type = set_num(_, 4)
