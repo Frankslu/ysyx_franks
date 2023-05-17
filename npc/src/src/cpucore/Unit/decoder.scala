@@ -10,7 +10,7 @@ import myUtil.myUtil._
 // }
 class deco extends Module{
     val in = IO(Input(UInt(32.W)))
-    val out = IO(Output(UInt(32.W)))
+    val out = IO(Output(UInt(16.W)))
 
     out := loongarch32r_inst.loongarch32r_decoder(in)
 }
