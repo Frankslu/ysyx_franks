@@ -43,50 +43,54 @@ VL_INLINE_OPT void VALU___024root___ico_sequent__TOP__0(VALU___024root* vlSelf) 
                                                           : 0U))) 
                                         << 0x20U) | (QData)((IData)(vlSelf->io_src1))) 
                                       >> (0x1fU & vlSelf->io_src2))
-                                   : (0x1ffffffffULL 
-                                      & ((0xcU == (IData)(vlSelf->io_alu_op))
-                                          ? (QData)((IData)(vlSelf->io_src2))
-                                          : ((0xdU 
-                                              == (IData)(vlSelf->io_alu_op))
-                                              ? (QData)((IData)(vlSelf->ALU__DOT__mul_pre))
-                                              : ((0xeU 
-                                                  == (IData)(vlSelf->io_alu_op))
-                                                  ? (QData)((IData)(
-                                                                    (VL_MULS_QQQ(64, 
+                                   : (QData)((IData)(
+                                                     ((0xcU 
+                                                       == (IData)(vlSelf->io_alu_op))
+                                                       ? vlSelf->io_src2
+                                                       : 
+                                                      ((0xdU 
+                                                        == (IData)(vlSelf->io_alu_op))
+                                                        ? (IData)(vlSelf->ALU__DOT__mul_pre)
+                                                        : 
+                                                       ((0xeU 
+                                                         == (IData)(vlSelf->io_alu_op))
+                                                         ? (IData)(
+                                                                   (VL_MULS_QQQ(64, 
                                                                                 VL_EXTENDS_QI(64,32, vlSelf->io_src1), 
                                                                                 VL_EXTENDS_QI(64,32, vlSelf->io_src2)) 
-                                                                     >> 0x20U)))
-                                                  : 
-                                                 ((0xfU 
-                                                   == (IData)(vlSelf->io_alu_op))
-                                                   ? (QData)((IData)(
-                                                                     (vlSelf->ALU__DOT__mul_pre 
-                                                                      >> 0x20U)))
-                                                   : 
-                                                  ((0x10U 
-                                                    == (IData)(vlSelf->io_alu_op))
-                                                    ? 
-                                                   VL_DIVS_QQQ(33, 
-                                                               (0x1ffffffffULL 
-                                                                & VL_EXTENDS_QI(33,32, vlSelf->io_src1)), 
-                                                               (0x1ffffffffULL 
-                                                                & VL_EXTENDS_QI(33,32, vlSelf->io_src2)))
-                                                    : (QData)((IData)(
-                                                                      ((0x12U 
-                                                                        == (IData)(vlSelf->io_alu_op))
-                                                                        ? 
-                                                                       VL_MODDIVS_III(32, vlSelf->io_src1, vlSelf->io_src2)
-                                                                        : 
-                                                                       ((0x11U 
-                                                                         == (IData)(vlSelf->io_alu_op))
-                                                                         ? 
-                                                                        VL_DIV_III(32, vlSelf->io_src1, vlSelf->io_src2)
-                                                                         : 
-                                                                        ((0x13U 
-                                                                          == (IData)(vlSelf->io_alu_op))
-                                                                          ? 
-                                                                         VL_MODDIV_III(32, vlSelf->io_src1, vlSelf->io_src2)
-                                                                          : 0xdeadbeefU)))))))))))));
+                                                                    >> 0x20U))
+                                                         : 
+                                                        ((0xfU 
+                                                          == (IData)(vlSelf->io_alu_op))
+                                                          ? (IData)(
+                                                                    (vlSelf->ALU__DOT__mul_pre 
+                                                                     >> 0x20U))
+                                                          : 
+                                                         ((0x10U 
+                                                           == (IData)(vlSelf->io_alu_op))
+                                                           ? (IData)(
+                                                                     (0x1ffffffffULL 
+                                                                      & VL_DIVS_QQQ(33, 
+                                                                                (0x1ffffffffULL 
+                                                                                & VL_EXTENDS_QI(33,32, vlSelf->io_src1)), 
+                                                                                (0x1ffffffffULL 
+                                                                                & VL_EXTENDS_QI(33,32, vlSelf->io_src2)))))
+                                                           : 
+                                                          ((0x12U 
+                                                            == (IData)(vlSelf->io_alu_op))
+                                                            ? 
+                                                           VL_MODDIVS_III(32, vlSelf->io_src1, vlSelf->io_src2)
+                                                            : 
+                                                           ((0x11U 
+                                                             == (IData)(vlSelf->io_alu_op))
+                                                             ? 
+                                                            VL_DIV_III(32, vlSelf->io_src1, vlSelf->io_src2)
+                                                             : 
+                                                            ((0x13U 
+                                                              == (IData)(vlSelf->io_alu_op))
+                                                              ? 
+                                                             VL_MODDIV_III(32, vlSelf->io_src1, vlSelf->io_src2)
+                                                              : 0xdeadbeefU))))))))))));
     vlSelf->io_res = (IData)((((1U == (IData)(vlSelf->io_alu_op)) 
                                | (2U == (IData)(vlSelf->io_alu_op)))
                                ? vlSelf->ALU__DOT__add_res
@@ -186,7 +190,7 @@ void VALU___024root___eval(VALU___024root* vlSelf) {
 #ifdef VL_DEBUG
                 VALU___024root___dump_triggers__ico(vlSelf);
 #endif
-                VL_FATAL_MT("vsrc/ALU.v", 1, "", "Input combinational region did not converge.");
+                VL_FATAL_MT("vsrc/ALU.v", 2, "", "Input combinational region did not converge.");
             }
             vlSelf->__VicoIterCount = ((IData)(1U) 
                                        + vlSelf->__VicoIterCount);
@@ -209,7 +213,7 @@ void VALU___024root___eval(VALU___024root* vlSelf) {
 #ifdef VL_DEBUG
                     VALU___024root___dump_triggers__act(vlSelf);
 #endif
-                    VL_FATAL_MT("vsrc/ALU.v", 1, "", "Active region did not converge.");
+                    VL_FATAL_MT("vsrc/ALU.v", 2, "", "Active region did not converge.");
                 }
                 vlSelf->__VactIterCount = ((IData)(1U) 
                                            + vlSelf->__VactIterCount);
@@ -224,7 +228,7 @@ void VALU___024root___eval(VALU___024root* vlSelf) {
 #ifdef VL_DEBUG
                 VALU___024root___dump_triggers__nba(vlSelf);
 #endif
-                VL_FATAL_MT("vsrc/ALU.v", 1, "", "NBA region did not converge.");
+                VL_FATAL_MT("vsrc/ALU.v", 2, "", "NBA region did not converge.");
             }
             __VnbaIterCount = ((IData)(1U) + __VnbaIterCount);
             VALU___024root___eval_nba(vlSelf);

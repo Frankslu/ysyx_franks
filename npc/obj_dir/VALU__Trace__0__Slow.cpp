@@ -60,8 +60,8 @@ VL_ATTR_COLD void VALU___024root__trace_init_sub__TOP__0(VALU___024root* vlSelf,
     tracep->declBus(c+45,"mulh_res", false,-1, 31,0);
     tracep->declBus(c+46,"divu_res", false,-1, 31,0);
     tracep->declBus(c+47,"modu_res", false,-1, 31,0);
-    tracep->declQuad(c+48,"div_res", false,-1, 32,0);
-    tracep->declBus(c+50,"mod_res", false,-1, 31,0);
+    tracep->declBus(c+48,"mod_res", false,-1, 31,0);
+    tracep->declBus(c+49,"div_res", false,-1, 31,0);
     tracep->popNamePrefix(1);
 }
 
@@ -176,10 +176,11 @@ VL_ATTR_COLD void VALU___024root__trace_full_sub_0(VALU___024root* vlSelf, Veril
                                       >> 0x20U))),32);
     bufp->fullIData(oldp+46,(VL_DIV_III(32, vlSelf->io_src1, vlSelf->io_src2)),32);
     bufp->fullIData(oldp+47,(VL_MODDIV_III(32, vlSelf->io_src1, vlSelf->io_src2)),32);
-    bufp->fullQData(oldp+48,((0x1ffffffffULL & VL_DIVS_QQQ(33, 
-                                                           (0x1ffffffffULL 
-                                                            & VL_EXTENDS_QI(33,32, vlSelf->io_src1)), 
-                                                           (0x1ffffffffULL 
-                                                            & VL_EXTENDS_QI(33,32, vlSelf->io_src2))))),33);
-    bufp->fullIData(oldp+50,(VL_MODDIVS_III(32, vlSelf->io_src1, vlSelf->io_src2)),32);
+    bufp->fullIData(oldp+48,(VL_MODDIVS_III(32, vlSelf->io_src1, vlSelf->io_src2)),32);
+    bufp->fullIData(oldp+49,((IData)((0x1ffffffffULL 
+                                      & VL_DIVS_QQQ(33, 
+                                                    (0x1ffffffffULL 
+                                                     & VL_EXTENDS_QI(33,32, vlSelf->io_src1)), 
+                                                    (0x1ffffffffULL 
+                                                     & VL_EXTENDS_QI(33,32, vlSelf->io_src2)))))),32);
 }

@@ -14,9 +14,9 @@
 #include <verilated_vcd_c.h>
 
 // Include model header, generated from Verilating "top.v"
-#include "VALU.h"
+#include "Vleft.h"
 VerilatedContext *contextp;
-VALU *top;
+Vleft *top;
 
 // void test(int aluop, uint32_t num[][3]){
 //     for (int i = 0; i < 4; i++){
@@ -46,21 +46,17 @@ int main(int argc, char **argv){
     contextp->commandArgs(argc, argv);
 
     // Construct the Verilated model, from Vtop.h generated from Verilating "top.v"
-    top = new VALU{ contextp };
-    top->trace(tfp, 5);
+    top = new Vleft{ contextp };
     tfp->open("wave.vcd");
-    top->clock = 0;
-    top->reset = 0;
     int a, b, c;
     int sim_time = 0;
 
-    while (scanf("%x, %x, %x", &a, &b, &c) == 3){
-        top->io_alu_op = a;
-        top->io_src1 = b;
-        top->io_src2 = c;
+    while (scanf("%x, %x", &a, &b) == 2){
+        top->a = a;
+        top->b = b;
         top->eval();
         tfp->dump(sim_time++);
-        printf("a=%x, b=%x, c=%x\n", b, c, top->io_res);
+        printf("a=%x, b=%x, c=%x\n", a, b, top->c);
     }
 
     // Final model cleanup

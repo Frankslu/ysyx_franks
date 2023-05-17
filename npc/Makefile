@@ -39,8 +39,8 @@ c:
 	verilator --top-module $(TOP) -cc vsrc/*.v
 
 unit:
-	verilator -Wall --trace --cc vsrc/*.v --top-module $(TOP) --exe unit_test/$(TOP)_test.cpp
-	make -C $(BUILD_DIR) -f V$(TOP).mk V$(TOP)
+	verilator -Wall --trace --cc vsrc/*.v --top-module $(TOP) --exe unit_test/src/$(TOP)_test.cpp
+	make -j -C $(BUILD_DIR) -f V$(TOP).mk V$(TOP)
 	./$(BUILD_DIR)/V$(TOP)
 
 sim:

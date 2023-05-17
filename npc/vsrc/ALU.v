@@ -1,3 +1,4 @@
+/* verilator lint_off UNUSEDSIGNAL */
 module ALU(
   input         clock,
   input         reset,
@@ -6,6 +7,7 @@ module ALU(
   input  [31:0] io_src2, // @[src/src/cpucore/Unit/ALU.scala 16:16]
   output [31:0] io_res // @[src/src/cpucore/Unit/ALU.scala 16:16]
 );
+/* verilator lint_off WIDTHEXPAND */
   wire  op_add = io_alu_op == 5'h1; // @[src/src/cpucore/Unit/ALU.scala 19:37]
   wire  op_sub = io_alu_op == 5'h2; // @[src/src/cpucore/Unit/ALU.scala 21:30]
   wire  op_slt = io_alu_op == 5'h3; // @[src/src/cpucore/Unit/ALU.scala 22:30]
@@ -49,19 +51,20 @@ module ALU(
   wire [31:0] mulh_res = _mulh_res_T_2[63:32]; // @[src/src/cpucore/Unit/ALU.scala 55:53]
   wire [31:0] divu_res = io_src1 / io_src2; // @[src/src/cpucore/Unit/ALU.scala 56:28]
   wire [31:0] modu_res = io_src1 % io_src2; // @[src/src/cpucore/Unit/ALU.scala 57:28]
-  wire [32:0] div_res = $signed(io_src1) / $signed(io_src2); // @[src/src/cpucore/Unit/ALU.scala 58:53]
-  wire [31:0] mod_res = $signed(io_src1) % $signed(io_src2); // @[src/src/cpucore/Unit/ALU.scala 59:53]
-  wire  _io_res_T = op_add | op_sub; // @[src/src/cpucore/Unit/ALU.scala 62:19]
-  wire  _io_res_T_9 = op_sra | op_srl; // @[src/src/cpucore/Unit/ALU.scala 70:17]
+  wire [32:0] _div_res_T_3 = $signed(io_src1) / $signed(io_src2); // @[src/src/cpucore/Unit/ALU.scala 59:50]
+  wire [31:0] mod_res = $signed(io_src1) % $signed(io_src2); // @[src/src/cpucore/Unit/ALU.scala 60:53]
+  wire  _io_res_T = op_add | op_sub; // @[src/src/cpucore/Unit/ALU.scala 63:19]
+  wire  _io_res_T_9 = op_sra | op_srl; // @[src/src/cpucore/Unit/ALU.scala 71:17]
   wire [31:0] _io_res_T_19 = op_modu ? modu_res : 32'hdeadbeef; // @[src/main/scala/chisel3/util/Mux.scala 141:16]
   wire [31:0] _io_res_T_20 = op_divu ? divu_res : _io_res_T_19; // @[src/main/scala/chisel3/util/Mux.scala 141:16]
   wire [31:0] _io_res_T_21 = op_mod ? mod_res : _io_res_T_20; // @[src/main/scala/chisel3/util/Mux.scala 141:16]
-  wire [32:0] _io_res_T_22 = op_div ? div_res : {{1'd0}, _io_res_T_21}; // @[src/main/scala/chisel3/util/Mux.scala 141:16]
-  wire [32:0] _io_res_T_23 = op_mulhu ? {{1'd0}, mulhu_res} : _io_res_T_22; // @[src/main/scala/chisel3/util/Mux.scala 141:16]
-  wire [32:0] _io_res_T_24 = op_mulh ? {{1'd0}, mulh_res} : _io_res_T_23; // @[src/main/scala/chisel3/util/Mux.scala 141:16]
-  wire [32:0] _io_res_T_25 = op_mul ? {{1'd0}, mul_res} : _io_res_T_24; // @[src/main/scala/chisel3/util/Mux.scala 141:16]
-  wire [32:0] _io_res_T_26 = op_lui ? {{1'd0}, io_src2} : _io_res_T_25; // @[src/main/scala/chisel3/util/Mux.scala 141:16]
-  wire [63:0] _io_res_T_27 = _io_res_T_9 ? sr_res : {{31'd0}, _io_res_T_26}; // @[src/main/scala/chisel3/util/Mux.scala 141:16]
+  wire [31:0] div_res = _div_res_T_3[31:0]; // @[src/src/cpucore/Unit/ALU.scala 58:23 59:13]
+  wire [31:0] _io_res_T_22 = op_div ? div_res : _io_res_T_21; // @[src/main/scala/chisel3/util/Mux.scala 141:16]
+  wire [31:0] _io_res_T_23 = op_mulhu ? mulhu_res : _io_res_T_22; // @[src/main/scala/chisel3/util/Mux.scala 141:16]
+  wire [31:0] _io_res_T_24 = op_mulh ? mulh_res : _io_res_T_23; // @[src/main/scala/chisel3/util/Mux.scala 141:16]
+  wire [31:0] _io_res_T_25 = op_mul ? mul_res : _io_res_T_24; // @[src/main/scala/chisel3/util/Mux.scala 141:16]
+  wire [31:0] _io_res_T_26 = op_lui ? io_src2 : _io_res_T_25; // @[src/main/scala/chisel3/util/Mux.scala 141:16]
+  wire [63:0] _io_res_T_27 = _io_res_T_9 ? sr_res : {{32'd0}, _io_res_T_26}; // @[src/main/scala/chisel3/util/Mux.scala 141:16]
   wire [63:0] _io_res_T_28 = op_sll ? {{1'd0}, sll_res} : _io_res_T_27; // @[src/main/scala/chisel3/util/Mux.scala 141:16]
   wire [63:0] _io_res_T_29 = op_xor ? {{32'd0}, xor_res} : _io_res_T_28; // @[src/main/scala/chisel3/util/Mux.scala 141:16]
   wire [63:0] _io_res_T_30 = op_nor ? {{32'd0}, nor_res} : _io_res_T_29; // @[src/main/scala/chisel3/util/Mux.scala 141:16]
@@ -70,5 +73,5 @@ module ALU(
   wire [63:0] _io_res_T_33 = op_sltu ? {{63'd0}, sltu_res} : _io_res_T_32; // @[src/main/scala/chisel3/util/Mux.scala 141:16]
   wire [63:0] _io_res_T_34 = op_slt ? {{63'd0}, slt_res} : _io_res_T_33; // @[src/main/scala/chisel3/util/Mux.scala 141:16]
   wire [63:0] _io_res_T_35 = _io_res_T ? {{31'd0}, add_res} : _io_res_T_34; // @[src/main/scala/chisel3/util/Mux.scala 141:16]
-  assign io_res = _io_res_T_35[31:0]; // @[src/src/cpucore/Unit/ALU.scala 61:12]
+  assign io_res = _io_res_T_35[31:0]; // @[src/src/cpucore/Unit/ALU.scala 62:12]
 endmodule

@@ -96,12 +96,13 @@ void VALU___024root__trace_chg_sub_0(VALU___024root* vlSelf, VerilatedVcd::Buffe
                                      >> 0x20U))),32);
     bufp->chgIData(oldp+45,(VL_DIV_III(32, vlSelf->io_src1, vlSelf->io_src2)),32);
     bufp->chgIData(oldp+46,(VL_MODDIV_III(32, vlSelf->io_src1, vlSelf->io_src2)),32);
-    bufp->chgQData(oldp+47,((0x1ffffffffULL & VL_DIVS_QQQ(33, 
-                                                          (0x1ffffffffULL 
-                                                           & VL_EXTENDS_QI(33,32, vlSelf->io_src1)), 
-                                                          (0x1ffffffffULL 
-                                                           & VL_EXTENDS_QI(33,32, vlSelf->io_src2))))),33);
-    bufp->chgIData(oldp+49,(VL_MODDIVS_III(32, vlSelf->io_src1, vlSelf->io_src2)),32);
+    bufp->chgIData(oldp+47,(VL_MODDIVS_III(32, vlSelf->io_src1, vlSelf->io_src2)),32);
+    bufp->chgIData(oldp+48,((IData)((0x1ffffffffULL 
+                                     & VL_DIVS_QQQ(33, 
+                                                   (0x1ffffffffULL 
+                                                    & VL_EXTENDS_QI(33,32, vlSelf->io_src1)), 
+                                                   (0x1ffffffffULL 
+                                                    & VL_EXTENDS_QI(33,32, vlSelf->io_src2)))))),32);
 }
 
 void VALU___024root__trace_cleanup(void* voidSelf, VerilatedVcd* /*unused*/) {

@@ -82,5 +82,23 @@ class ALU extends Module{
 
 object ALUOP extends ChiselEnum {
     val none_ = Value(0.U)
-    val add_, sub_, slt_, sltu_, and_, nor_, or_, xor_, sll_, srl_, sra_, lui_, mul_, mulh_, mulhu_, div_, divu_, mod_, modu_ = Value
+    val add_,//1 
+    sub_, //2
+    slt_, //3
+    sltu_, //4
+    and_, //5
+    nor_, //6
+    or_, //7
+    xor_, //8
+    sll_, //9
+    srl_, //a
+    sra_, //b
+    lui_, //c
+    mul_, //d
+    mulh_, //e
+    mulhu_, //f
+    div_, //10
+    divu_, //11
+    mod_, //12
+    modu_ = Value
 }
