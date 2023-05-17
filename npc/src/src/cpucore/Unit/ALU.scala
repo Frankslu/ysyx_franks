@@ -101,4 +101,25 @@ object ALUOP extends ChiselEnum {
     divu_, //11
     mod_, //12
     modu_ = Value
+
+    val NONE_ = none_.asUInt
+    val ADD_ = add_.asUInt
+    val SUB_ = sub_.asUInt //2
+    val SLT_ = slt_.asUInt //3
+    val SLTU_ = sltu_.asUInt //4
+    val AND_ = and_.asUInt //5
+    val NOR_ = nor_.asUInt //6
+    val OR_ = or_.asUInt //7
+    val XOR_ = xor_.asUInt //8
+    val SLL_ = sll_.asUInt //9
+    val SRL_ = srl_.asUInt //a
+    val SRA_ = sra_.asUInt //b
+    val LUI_ = lui_.asUInt //c
+    val MUL_ = mul_.asUInt //d
+    val MULH_ = mulh_.asUInt //e
+    val MULHU_ = mulhu_.asUInt //f
+    val DIV_ = div_.asUInt //10
+    val DIVU_ = divu_.asUInt //11
+    val MOD_ = mod_.asUInt //12
+    val MODU_ = modu_.asUInt
 }
