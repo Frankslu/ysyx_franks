@@ -20,8 +20,9 @@ object loongarch32r_inst{
     def trans(num: UInt, width: Int) = {num.litValue.toString(2).reverse.padTo(width, '0').reverse}
     //alu_op
 
-    def trans1(num: UInt) = trans(num, ALUOP.all.length)
+    def trans1(num: UInt) = trans(num, 5)
     val OP_NONE = trans1(ALUOP.none_.asUInt)
+    print(OP_NONE)
     val OP_ADD = trans1(ALUOP.add_.asUInt)
     val OP_SUB = trans1(ALUOP.sub_.asUInt)
     val OP_SLT = trans1(ALUOP.slt_.asUInt)
