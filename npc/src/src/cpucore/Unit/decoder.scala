@@ -16,27 +16,47 @@ class deco extends Module{
 }
 
 object loongarch32r_inst{
-    //alu_op
-    val OP_NONE = ALUOP.none_.toString
-    val OP_ADD = ALUOP.add_.toString
-    val OP_SUB = ALUOP.sub_.toString
-    val OP_SLT = ALUOP.slt_.toString
-    val OP_SLTU = ALUOP.sltu_.toString
-    val OP_AND = ALUOP.and_.toString
-    val OP_NOR = ALUOP.nor_.toString
-    val OP_OR = ALUOP.or_.toString
-    val OP_XOR = ALUOP.xor_.toString
-    val OP_SLL = ALUOP.sll_.toString
-    val OP_SRL = ALUOP.srl_.toString
-    val OP_SRA = ALUOP.sra_.toString
-    val OP_LUI = ALUOP.lui_.toString
-    val OP_MUL = ALUOP.mul_.toString
-    val OP_MULH = ALUOP.mulh_.toString
-    val OP_MULHU = ALUOP.mulhu_.toString
-    val OP_DIV = ALUOP.div_.toString
-    val OP_DIVU = ALUOP.divu_.toString
-    val OP_MOD = ALUOP.mod_.toString
-    val OP_MODU = ALUOP.modu_.toString
+    // //alu_op
+    // val OP_NONE = ALUOP.none_.toString
+    // val OP_ADD = ALUOP.add_.toString
+    // val OP_SUB = ALUOP.sub_.toString
+    // val OP_SLT = ALUOP.slt_.toString
+    // val OP_SLTU = ALUOP.sltu_.toString
+    // val OP_AND = ALUOP.and_.toString
+    // val OP_NOR = ALUOP.nor_.toString
+    // val OP_OR = ALUOP.or_.toString
+    // val OP_XOR = ALUOP.xor_.toString
+    // val OP_SLL = ALUOP.sll_.toString
+    // val OP_SRL = ALUOP.srl_.toString
+    // val OP_SRA = ALUOP.sra_.toString
+    // val OP_LUI = ALUOP.lui_.toString
+    // val OP_MUL = ALUOP.mul_.toString
+    // val OP_MULH = ALUOP.mulh_.toString
+    // val OP_MULHU = ALUOP.mulhu_.toString
+    // val OP_DIV = ALUOP.div_.toString
+    // val OP_DIVU = ALUOP.divu_.toString
+    // val OP_MOD = ALUOP.mod_.toString
+    // val OP_MODU = "00000"
+    val OP_NONE = "00001"
+    val OP_ADD = "00010"
+    val OP_SUB = "00011"
+    val OP_SLT = "00100"
+    val OP_SLTU = "00101"
+    val OP_AND = "00110"
+    val OP_NOR = "00111"
+    val OP_OR = "01000"
+    val OP_XOR = "01001"
+    val OP_SLL = "01010"
+    val OP_SRL = "01011"
+    val OP_SRA = "01100"
+    val OP_LUI = "01101"
+    val OP_MUL = "01110"
+    val OP_MULH = "01111"
+    val OP_MULHU = "10000"
+    val OP_DIV = "10001"
+    val OP_DIVU = "10010"
+    val OP_MOD = "10011"
+    val OP_MODU = "10100"
 
     //inst_type
     val set_inst_type = set_num(_, 4)
