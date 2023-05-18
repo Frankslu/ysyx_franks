@@ -14,10 +14,12 @@ import cpucore.pipeline._
 // }
 
 class mem extends Module {
-    val io = IO(Flipped(new sram_io))
+    val io1 = IO(Flipped(new sram_io_1))
+    val io2 = IO(Flipped(new sram_io_2))
 	// val io = IO(new io1)
 	val Memory = Module(new Memory())
-	Memory.io <> io
+	Memory.io <> io1
+    Memory.io <> io2
 	
 }
 
