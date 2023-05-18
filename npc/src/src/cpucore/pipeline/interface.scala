@@ -50,3 +50,8 @@ class sram_io extends Bundle{
     val wstrb = Output(UInt(WSTRB_WIDTH.W))
     val rdata = Input(UInt(DATA_WIDTH.W))
 }
+
+class sram_io1 extends Bundle{
+    val r = new sram_io_1
+    val w = new sram_io_2
+}
