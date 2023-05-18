@@ -14,7 +14,7 @@ import cpucore.pipeline._
 // }
 
 class mem1 extends Module {
-    val io = IO(new sram_io)
+    val io = IO(Flipped(new sram_io))
 	// val io = IO(new io1)
 	val Memory = Module(new d_mem())
 	Memory.io <> io
