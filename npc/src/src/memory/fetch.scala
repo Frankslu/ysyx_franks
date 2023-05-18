@@ -13,15 +13,15 @@ import cpucore.pipeline._
 //   val rdata = Output(UInt(32.W))
 // }
 
-class mem1 extends Module {
+class mem2 extends Module {
     val io = IO(new sram_io)
 	// val io = IO(new io1)
-	val Memory = Module(new d_mem())
+	val Memory = Module(new i_mem())
 	Memory.io <> io
 
 }
 
-class d_mem extends BlackBox with HasBlackBoxInline {
+class i_mem extends BlackBox with HasBlackBoxInline {
 	val io = IO(Flipped(new sram_io))
 	// val io = IO(new io1)
 	setInline("Memory.v",
