@@ -1,8 +1,8 @@
 module deco(
   input         clock,
   input         reset,
-  input  [31:0] in, // @[src/src/cpucore/Unit/decoder.scala 12:16]
-  output [15:0] out // @[src/src/cpucore/Unit/decoder.scala 13:17]
+  input  [31:0] in, // @[src/src/cpucore/Unit/decoder.scala 12:20]
+  output [15:0] out // @[src/src/cpucore/Unit/decoder.scala 13:21]
 );
   wire [31:0] out_invInputs = ~in; // @[src/main/scala/chisel3/util/pla.scala 78:21]
   wire  out_andMatrixInput_0 = out_invInputs[15]; // @[src/main/scala/chisel3/util/pla.scala 91:29]
