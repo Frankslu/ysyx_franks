@@ -14,7 +14,7 @@ import cpucore.pipeline._
 // }
 
 class mem2 extends Module {
-    val io = IO(new sram_io)
+    val io = IO(Flipped(new sram_io))
 	// val io = IO(new io1)
 	val Memory = Module(new i_mem())
 	Memory.io <> io
@@ -36,20 +36,15 @@ class i_mem extends BlackBox with HasBlackBoxInline {
    | );
    | /* verilator lint_off WIDTHEXPAND */
    | /* verilator lint_off LATCH */
-   | import "DPI-C" function void pmem_read(
+   | import "DPI-C" function void pmem_fetch(
    | input int raddr, output int rdata);
-   | import "DPI-C" function void pmem_write(
-   | input int waddr, input int wdata, input byte wmask, output int rdata);
    | always @(*) begin
    |   if(en) begin
-   |     if(wr == 1'b0) begin
-   |       pmem_read(addr, rdata);
-   |     end else begin
-   |       pmem_write(addr, wdata, wstrb, rdata);
-   |     end
+   |       pmem_fetch(addr, rdata);
    |   end
    |end
    |
    |endmodule
+   |
 	""".stripMargin)
 }
