@@ -9,6 +9,7 @@ class IF_stage extends Module{
     val inst_sram = IO(new sram_io)
     val frompre = IO(Flipped(Decoupled(new pre2fs)))
 
+    inst_sram := DontCare
     tods.bits.inst := inst_sram.rdata
     tods.bits.pc := frompre.bits.pc
     tods.valid := 1.U
