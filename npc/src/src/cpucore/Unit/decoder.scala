@@ -22,7 +22,7 @@ object loongarch32r_inst{
 	//alu_op
 
 	def trans1(num: UInt) = trans(num, 5)
-	val OP_NONE 	= trans1(ALUOP.NONE_)
+	val OP_NONE 	= trans1(0.U)
 	val OP_ADD 		= trans1(1.U)
 	val OP_SUB 		= trans1(2.U)
 	val OP_SLT		= trans1(3.U)
