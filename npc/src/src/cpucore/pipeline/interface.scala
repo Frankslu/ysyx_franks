@@ -21,7 +21,7 @@ class ds2es extends Bundle{
     val pc = Output(UInt(ADDR_WIDTH.W))
     val alu_src1 = Output(UInt(DATA_WIDTH.W))
     val alu_src2 = Output(UInt(DATA_WIDTH.W))
-    val alu_op = Output(UInt(ALU_OP_NUM.W))
+    val alu_op = Output(UInt(ALUOP_WIDTH.W))
     val rf_waddr = Output(UInt(REG_ADDR_LEN.W))
     val rf_we = Output(Bool())
     val mem_we = Output(Bool())
