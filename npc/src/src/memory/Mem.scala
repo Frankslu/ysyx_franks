@@ -14,10 +14,12 @@ import cpucore.pipeline._
 // }
 
 class mem1 extends Module {
-    val io1 = IO(Flipped(new sram_io(1,1)))
+    val io1 = IO(Flipped(new sram_io(1,0)))
+    val io2 = IO(Flipped(new sram_io(0,1)))
 	// val io = IO(new io1)
 	val Memory = Module(new d_mem())
 	(Memory.io: Data).waiveAll :<>= (io1: Data).waiveAll
+    (Memory.io: Data).waiveAll :<>= (io2: Data).waiveAll
 }
 
 class d_mem extends BlackBox with HasBlackBoxInline {
