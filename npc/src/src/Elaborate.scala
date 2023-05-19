@@ -6,10 +6,11 @@ import chisel3._
 import cpucore.Unit._
 import cpucore.memory._
 import cpucore.pipeline.preIF
+import cpucore.pipeline.IF_stage
 // import cpucore.pipeline._
 
 object Elaborate extends App {
-  def top = new preIF()
+  def top = new IF_stage()
   
   val useMFC = false // use MLIR-based firrtl compiler
   val generator = Seq(chisel3.stage.ChiselGeneratorAnnotation(() => top))
