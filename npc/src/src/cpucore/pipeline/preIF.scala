@@ -6,7 +6,7 @@ import Config.Configs._
 
 class preIF extends Module{
     val br = IO(new br_bus)
-    val inst_sram = IO(new sram_io_1)
+    val inst_sram = IO(new sram_io)
     val tofs = IO(Decoupled(new pre2fs))
 
     val pc = RegInit(PC_INIT.U)
