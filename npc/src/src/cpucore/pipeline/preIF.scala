@@ -20,4 +20,6 @@ class preIF extends Module{
     inst_sram.wstrb := 0.U
 
     tofs.bits.pc := pc
+    tofs.ready := 1.B
+    tofs.valid := 1.B
 }
