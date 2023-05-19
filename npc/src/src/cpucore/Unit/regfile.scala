@@ -32,9 +32,13 @@ class regfile extends Module{
         val waddr = Input(UInt(REG_ADDR_LEN.W))
         val wdata = Input(UInt(DATA_WIDTH.W))
         val wen = Input(Bool())
+        val rf_pc = Input(UInt(ADDR_WIDTH.W))
     })
     val rf = Mem(REG_NUM ,UInt(DATA_WIDTH.W))
     when(io.wen) {rf(io.waddr) := io.wdata}
     io.rdata1 := Mux(io.raddr1 === 0.U, 0.U, rf(io.raddr1))
     io.rdata2 := Mux(io.raddr2 === 0.U, 0.U, rf(io.raddr2))
+
+    //for test
+    val pc = RegNext(io.rf_pc)
 }

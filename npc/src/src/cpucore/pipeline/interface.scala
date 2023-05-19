@@ -38,7 +38,14 @@ class es2ms extends Bundle{
     val rf_waddr = Output(UInt(REG_ADDR_LEN.W))
 }
 
-class ms2ds extends Bundle{
+class ms2ws extends Bundle{
+    val pc = Output(UInt(ADDR_WIDTH.W))
+    val rf_we = Output(Bool())
+    val rf_waddr = Output(UInt(REG_ADDR_LEN.W))
+    val rf_wdata = Output(UInt(DATA_WIDTH.W))
+}
+
+class ws2rf extends Bundle{
     val pc = Output(UInt(ADDR_WIDTH.W))
     val rf_we = Output(Bool())
     val rf_waddr = Output(UInt(REG_ADDR_LEN.W))

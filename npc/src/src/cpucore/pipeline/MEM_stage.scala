@@ -8,7 +8,7 @@ import myUtil.myUtil._
 
 class MEM_stage extends Module{
 	val ms = IO(Flipped(Decoupled(new es2ms)))
-	val tows = IO(Decoupled(new ms2ds))
+	val tows = IO(Decoupled(new ms2ws))
 	val data_sram = IO(new sram_io)
 
 	data_sram := DontCare
