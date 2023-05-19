@@ -15,8 +15,8 @@ class EX_stage extends Module{
     val data_sram = IO(new sram_io)
 
     val alu = Module(new ALU)
-    val alu_op = es.bits.alu_op
-    alu.io.alu_op := ALUOP.safe(alu_op)
+    val (alu_op, valid) = ALUOP.safe(es.bits.alu_op)
+    alu.io.alu_op := alu_op
     alu.io.src1 := es.bits.alu_src1
     alu.io.src2 := es.bits.alu_src2
 
