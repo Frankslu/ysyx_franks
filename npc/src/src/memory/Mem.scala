@@ -20,8 +20,8 @@ class mem1 extends Module {
 	val Memory = Module(new d_mem())
 	// (Memory.io: Data).waiveAll :<>= (io1: Data).waiveAll
     // (Memory.io: Data).waiveAll :<>= (io2: Data).waiveAll
-    Memory.io <> io1
-    Memory.io <> io2
+    Memory.io :<>= io1
+    Memory.io :<>= io2
 }
 
 class d_mem extends BlackBox with HasBlackBoxInline {
