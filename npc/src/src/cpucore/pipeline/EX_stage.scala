@@ -24,6 +24,7 @@ class EX_stage extends Module{
     toms.bits.inst_name := es.bits.inst_name
     toms.bits.res_from_mem := es.bits.mem_we === u(MEM_RD)
     toms.bits.pc := es.bits.pc
+    toms.bits.rf_waddr := es.bits.rf_waddr
 
     data_sram.en := es.bits.mem_we =/= u(MEM_UN)
     data_sram.wr := es.bits.mem_we === u(MEM_WR)

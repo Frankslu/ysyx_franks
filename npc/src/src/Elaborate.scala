@@ -10,7 +10,7 @@ import cpucore.pipeline.IF_stage
 import cpucore.pipeline._
 
 object Elaborate extends App {
-  def top = new EX_stage()
+  def top = new MEM_stage()
   
   val useMFC = false // use MLIR-based firrtl compiler
   val generator = Seq(chisel3.stage.ChiselGeneratorAnnotation(() => top))
