@@ -52,19 +52,15 @@ class sram_io_2 extends Bundle{
 // }
 
 class sram_io(send: Int, receive: Int) extends Bundle{
-    if(send == 1){
-        val en = Some(Output(Bool()))
-        val wr = Some(Output(Bool()))
-        val addr = Some(Output(UInt(ADDR_WIDTH.W)))
-        val wdata = Some(Output(UInt(DATA_WIDTH.W)))
-        val wstrb = Some(Output(UInt(WSTRB_WIDTH.W)))
-    }
-    else 
-        None
+    if(send == 1) Some{
+        val en = Output(Bool())
+        val wr = Output(Bool())
+        val addr = Output(UInt(ADDR_WIDTH.W))
+        val wdata = Output(UInt(DATA_WIDTH.W))
+        val wstrb = Output(UInt(WSTRB_WIDTH.W))
+    } else None
 
-    if(receive == 1){
-        val rdata = Some(Input(UInt(DATA_WIDTH.W)))
-    }
-    else
-        None
+    if(receive == 1) Some{
+        val rdata = Input(UInt(DATA_WIDTH.W))
+    } else None
 }
