@@ -17,7 +17,7 @@ class mem1 extends Module {
     val io1 = IO(Flipped(new sram_io(1,1)))
 	// val io = IO(new io1)
 	val Memory = Module(new d_mem())
-	Memory.io :<>= io1
+	Memory.io <> io1
 }
 
 class d_mem extends BlackBox with HasBlackBoxInline {
