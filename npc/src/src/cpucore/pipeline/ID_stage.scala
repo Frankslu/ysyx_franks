@@ -10,6 +10,7 @@ import myUtil.myUtil._
 class ID_stage extends Module{
     val toes = IO(Decoupled(new ds2es))
     val ds = IO(Flipped(Decoupled(new fs2ds)))
+    val torf = IO(Flipped(new ws2rf))
     val br   = IO(Flipped(new br_bus))
 
     val inst = ds.bits.inst
@@ -50,9 +51,10 @@ class ID_stage extends Module{
     val reg = Module(new regfile)
     reg.io.raddr1 := rj
     reg.io.raddr2 := Mux(rk_or_rd, rk, rd)
-    reg.io.waddr := 0.U
-    reg.io.wdata := 0.U
-    reg.io.wen := 1.U
+    reg.io.waddr := torf.rf_waddr
+    reg.io.wdata := torf.rf_wdata
+    reg.io.wen := torf.rf_we
+    reg.io.rf_pc := torf.pc
 
     val rj_value = reg.io.rdata1
     val rkd_value = reg.io.rdata2
