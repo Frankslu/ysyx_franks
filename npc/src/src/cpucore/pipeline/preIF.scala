@@ -7,7 +7,7 @@ import cpucore.Config.Configs._
 class preIF extends Module{
     val br = IO(new br_bus)
     val inst_sram = IO(new sram_io_1)
-    val tofs = DecoupledIO(new pre2fs)
+    val tofs = IO(Decoupled(new pre2fs))
 
     val pc = RegInit(PC_INIT.U)
     val snpc = pc + 4.U
@@ -19,5 +19,5 @@ class preIF extends Module{
     inst_sram.wdata := 0.U
     inst_sram.wstrb := 0.U
 
-    tofs.bits := pc
+    tofs.bits.pc := pc
 }
