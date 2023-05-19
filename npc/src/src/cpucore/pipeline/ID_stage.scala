@@ -29,7 +29,7 @@ class ID_stage extends Module{
     val decode_res = loongarch32r_decoder(inst)
 
     val inst_type = decode_res(11,8)
-    val mem_we = decode_res(6,7)
+    val mem_we = decode_res(7,6)
     val inst_name = decode_res(5,1)
     val rf_we = decode_res(0)
 
