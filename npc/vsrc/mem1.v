@@ -6,26 +6,33 @@ module mem1(
   input  [31:0] io1_addr, // @[src/src/memory/Mem.scala 17:17]
   input  [31:0] io1_wdata, // @[src/src/memory/Mem.scala 17:17]
   input  [3:0]  io1_wstrb, // @[src/src/memory/Mem.scala 17:17]
+  output [31:0] io1_rdata, // @[src/src/memory/Mem.scala 17:17]
+  input         io2_en, // @[src/src/memory/Mem.scala 18:17]
+  input         io2_wr, // @[src/src/memory/Mem.scala 18:17]
+  input  [31:0] io2_addr, // @[src/src/memory/Mem.scala 18:17]
+  input  [31:0] io2_wdata, // @[src/src/memory/Mem.scala 18:17]
+  input  [3:0]  io2_wstrb, // @[src/src/memory/Mem.scala 18:17]
   output [31:0] io2_rdata // @[src/src/memory/Mem.scala 18:17]
 );
-  wire  Memory_en; // @[src/src/memory/Mem.scala 20:28]
-  wire  Memory_wr; // @[src/src/memory/Mem.scala 20:28]
-  wire [31:0] Memory_addr; // @[src/src/memory/Mem.scala 20:28]
-  wire [31:0] Memory_wdata; // @[src/src/memory/Mem.scala 20:28]
-  wire [3:0] Memory_wstrb; // @[src/src/memory/Mem.scala 20:28]
-  wire [31:0] Memory_rdata; // @[src/src/memory/Mem.scala 20:28]
-  d_mem Memory ( // @[src/src/memory/Mem.scala 20:28]
-    .en(Memory_en),
-    .wr(Memory_wr),
-    .addr(Memory_addr),
-    .wdata(Memory_wdata),
-    .wstrb(Memory_wstrb),
-    .rdata(Memory_rdata)
+  wire  memm_en; // @[src/src/memory/Mem.scala 19:22]
+  wire  memm_wr; // @[src/src/memory/Mem.scala 19:22]
+  wire [31:0] memm_addr; // @[src/src/memory/Mem.scala 19:22]
+  wire [31:0] memm_wdata; // @[src/src/memory/Mem.scala 19:22]
+  wire [3:0] memm_wstrb; // @[src/src/memory/Mem.scala 19:22]
+  wire [31:0] memm_rdata; // @[src/src/memory/Mem.scala 19:22]
+  d_mem memm ( // @[src/src/memory/Mem.scala 19:22]
+    .en(memm_en),
+    .wr(memm_wr),
+    .addr(memm_addr),
+    .wdata(memm_wdata),
+    .wstrb(memm_wstrb),
+    .rdata(memm_rdata)
   );
-  assign io2_rdata = Memory_rdata; // @[src/src/memory/Mem.scala 22:32]
-  assign Memory_en = io1_en; // @[src/src/memory/Mem.scala 21:36]
-  assign Memory_wr = io1_wr; // @[src/src/memory/Mem.scala 21:36]
-  assign Memory_addr = io1_addr; // @[src/src/memory/Mem.scala 21:36]
-  assign Memory_wdata = io1_wdata; // @[src/src/memory/Mem.scala 21:36]
-  assign Memory_wstrb = io1_wstrb; // @[src/src/memory/Mem.scala 21:36]
+  assign io1_rdata = memm_rdata; // @[src/src/memory/Mem.scala 20:9]
+  assign io2_rdata = memm_rdata; // @[src/src/memory/Mem.scala 21:9]
+  assign memm_en = io2_en; // @[src/src/memory/Mem.scala 21:9]
+  assign memm_wr = io2_wr; // @[src/src/memory/Mem.scala 21:9]
+  assign memm_addr = io2_addr; // @[src/src/memory/Mem.scala 21:9]
+  assign memm_wdata = io2_wdata; // @[src/src/memory/Mem.scala 21:9]
+  assign memm_wstrb = io2_wstrb; // @[src/src/memory/Mem.scala 21:9]
 endmodule
