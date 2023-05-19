@@ -14,14 +14,14 @@ import cpucore.pipeline._
 // }
 
 class mem1 extends Module {
-    val io1 = IO(Flipped(new sram_io("sr")))
+    val io1 = IO(Flipped(new sram_io(1,1)))
 	// val io = IO(new io1)
 	val Memory = Module(new d_mem())
 	Memory.io :<>= io1
 }
 
 class d_mem extends BlackBox with HasBlackBoxInline {
-	val io = IO(Flipped(new sram_io("sr")))
+	val io = IO(Flipped(new sram_io(1,1)))
 	// val io = IO(new io1)
 	setInline("Memory.v",
 	"""/* verilator lint_off UNUSEDSIGNAL */

@@ -42,15 +42,11 @@ class sram_io_2 extends Bundle{
     val rdata = Input(UInt(DATA_WIDTH.W))
 }
 
-class sram_io(send_receive: String) extends Bundle{
-    if (send_receive == "s" || send_receive == "sr"){
-        val en = Output(Bool())
-        val wr = Output(Bool())
-        val addr = Output(UInt(ADDR_WIDTH.W))
-        val wdata = Output(UInt(DATA_WIDTH.W))
-        val wstrb = Output(UInt(WSTRB_WIDTH.W))
-    }
-    if (send_receive == "r" || send_receive == "sr"){
-        val rdata = Input(UInt(DATA_WIDTH.W))
-    }
+class sram_io(send: Int, receive: Int) extends Bundle{
+        val en = if(send == 1) Output(Bool()) else None
+        val wr = if(send == 1) Output(Bool()) else None
+        val addr = if(send == 1) Output(UInt(ADDR_WIDTH.W)) else None
+        val wdata = if(send == 1) Output(UInt(DATA_WIDTH.W)) else None
+        val wstrb = if(send == 1) Output(UInt(WSTRB_WIDTH.W)) else None
+        val rdata = if(receive == 1) Input(UInt(DATA_WIDTH.W)) else None
 }
