@@ -1,17 +1,38 @@
 package cpucore.pipeline
 
 import chisel3._
-import cpucore.Config.Configs
+import chisel3.util._
+
+import Config.Configs
 import cpucore.Unit._
+import cpucore.Unit.loongarch32r_inst._
+import myUtil.myUtil._
 
 class EX_stage extends Module{
-    val a = IO(Flipped(new ds2es))
-    val b = IO(Output(UInt(32.W)))
+    val es = IO(Flipped(Decoupled(new ds2es)))
+    val toms = IO(Decoupled(new es2ms))
+    val data_sram = IO(new sram_io)
 
-    val alu_u = Module(new ALU)
-    alu_u.io.alu_op := a.alu_op
-    alu_u.io.src1 := a.alu_src1
-    alu_u.io.src2 := a.alu_src2
-    val alu_res = alu_u.io.res
-    b := alu_res
+    val alu = Module(new ALU)
+    alu.io.alu_op := es.bits.alu_op
+    alu.io.src1 := es.bits.alu_src1
+    alu.io.src2 := es.bits.alu_src2
+
+    toms.bits.alu_res := alu.io.res
+    toms.bits.inst_name := es.bits.inst_name
+    toms.bits.res_from_mem := es.bits.mem_we === u(MEM_RD)
+    toms.bits.pc := es.bits.pc
+
+    data_sram.en := es.bits.mem_we =/= u(MEM_UN)
+    data_sram.wr := es.bits.mem_we === u(MEM_WR)
+    data_sram.addr := alu.io.res
+    data_sram.wdata := es.bits.mem_wdata
+    data_sram.wstrb := MuxLookup(es.bits.inst_name, "hdead".U)(Array(
+        u(INST_STB) -> 1.U,
+        u(INST_STH) -> 2.U,
+        u(INST_STW) -> 4.U
+    ).toIndexedSeq)
+
+    es.ready := true.B
+    toms.valid := true.B
 }

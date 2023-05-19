@@ -1,4 +1,4 @@
-package cpucore.Config
+package Config
 
 object Configs {
     //Rrgfile
@@ -13,4 +13,5 @@ object Configs {
     val PC_INIT = 0x1c000000
 
     val WSTRB_WIDTH = 4
+    val INST_NAME_WIDTH = 5
 }

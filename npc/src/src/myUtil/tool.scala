@@ -18,10 +18,6 @@ object myUtil{
         string
     }
 
-    def set_onehot(num: Int, width: Int) = {
-        set_num(1 << num, width)
-    }
-
     def creat_?(width: Int) = {
         var a = ""
         for(i <- 1 to width){

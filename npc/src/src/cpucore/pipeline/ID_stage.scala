@@ -1,18 +1,18 @@
 package cpucore.pipeline
 
 import chisel3._
-import cpucore.Config.Configs._
+import Config.Configs._
 import chisel3.util._
 import cpucore.Unit._
 import cpucore.Unit.loongarch32r_inst._
 import myUtil.myUtil._
 
 class ID_stage extends Module{
-    val toes = IO(new ds2es())
-    val fromfs = IO(Flipped(new fs2ds()))
-    val br   = IO(Flipped(new br_bus()))
+    val toes = IO(Decoupled(new ds2es))
+    val ds = IO(Flipped(Decoupled(new fs2ds)))
+    val br   = IO(Flipped(new br_bus))
 
-    val inst = fromfs.inst
+    val inst = ds.bits.inst
     val rj = inst(9,5)
     val rd = inst(4,0)
     val rk = inst(14,10)
@@ -24,15 +24,15 @@ class ID_stage extends Module{
     val imm26  = Cat(rj, rd, inst(25,10))
 
 
-    
-    //val decode_res = Cat(toes.alu_op, mem_we, inst_type, inst_name, rf_we)
+
     val decode_res = loongarch32r_decoder(inst)
 
-    toes.alu_op := decode_res(29,11)
-    val inst_type = decode_res(10,7)
-    val mem_we = decode_res(6)
+    val inst_type = decode_res(11,8)
+    val mem_we = decode_res(6,7)
     val inst_name = decode_res(5,1)
     val rf_we = decode_res(0)
+
+
 
     val imm = Wire(UInt(DATA_WIDTH.W))
     imm := MuxCase(0x0.U(DATA_WIDTH.W), Seq(
@@ -44,7 +44,9 @@ class ID_stage extends Module{
         (inst_type === u(I26))   -> 4.U
     ))
 
-    val rk_or_rd = inst_name =/= u(INST_JIRL) & inst_type === u(R2I16)
+
+
+    val rk_or_rd = (inst_name =/= u(INST_JIRL) & inst_type === u(R2I16)) | mem_we === u(MEM_WR)
     val reg = Module(new regfile)
     reg.io.raddr1 := rj
     reg.io.raddr2 := Mux(rk_or_rd, rk, rd)
@@ -56,6 +58,8 @@ class ID_stage extends Module{
     val rkd_value = reg.io.rdata2
 
     val rf_waddr = Mux(inst_name === u(INST_B), 1.U(5.W), rd)//output
+
+
 
     //branch
     val rj_eq_rd  = rj_value === rkd_value
@@ -69,11 +73,21 @@ class ID_stage extends Module{
                     inst_name === u(INST_BLTU) & sltu_res |
                     inst_name === u(INST_BGEU) & ~sltu_res |
                     inst_name === u(INST_B) | inst_name === u(INST_BL) | inst_name === u(INST_JIRL)
-    val ds_pc = fromfs.pc
+    val ds_pc = ds.bits.pc
     br.target := Mux(inst_name === u(INST_JIRL), rj_value, ds_pc) + imm
 
-    toes.pc := ds_pc
-    toes.alu_src1 := Mux(eq_list(inst_name, u(INST_JIRL), u(INST_PCAD), u(INST_BL)), ds_pc, rj_value)
-    toes.alu_src2 := Mux(inst_type === u(R3), rkd_value, imm)
-    toes.rf_waddr := rf_waddr
+
+
+    toes.bits.alu_op := decode_res(29,11)
+    toes.bits.pc := ds_pc
+    toes.bits.alu_src1 := Mux(eq_list(inst_name, u(INST_JIRL), u(INST_PCAD), u(INST_BL)), ds_pc, rj_value)
+    toes.bits.alu_src2 := Mux(inst_type === u(R3), rkd_value, imm)
+    toes.bits.rf_waddr := rf_waddr
+    toes.bits.inst_name := inst_name
+    toes.bits.mem_we := mem_we
+    toes.bits.rf_we := rf_we
+    toes.bits.mem_wdata := rkd_value
+
+    ds.ready := 1.B
+    toes.valid := 1.B
 }

@@ -1,6 +1,6 @@
 package cpucore.Unit
 
-import cpucore.Config.Configs._
+import Config.Configs._
 import chisel3._
 /*
 class regfile extends Module{

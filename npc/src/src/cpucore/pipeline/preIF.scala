@@ -2,7 +2,7 @@ package cpucore.pipeline
 
 import chisel3._
 import chisel3.util._
-import cpucore.Config.Configs._
+import Config.Configs._
 
 class preIF extends Module{
     val br = IO(new br_bus)

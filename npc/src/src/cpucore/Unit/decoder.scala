@@ -5,15 +5,8 @@ import chisel3.util._
 import chisel3.util.experimental.decode._
 
 import myUtil.myUtil._
-// object inst_type extends ChiselEnum{
-//     val 
-// }
-class deco extends Module{
-	val in = IO(Input(UInt(32.W)))
-	val out = IO(Output(UInt(16.W)))
+import Config.Configs._
 
-	out := loongarch32r_inst.loongarch32r_decoder(in)
-}
 
 object loongarch32r_inst{
 	import cpucore.Unit.ALUOP._
@@ -61,11 +54,12 @@ object loongarch32r_inst{
 //    val R1I21
 
 	//MEM
-	val MEM_EN = "0"
-	val MEM_UN = "1"
+	val MEM_WR = "00"
+	val MEM_RD = "01"
+	val MEM_UN = "10"
 
 	//inst name
-	val set_inst_name = set_num(_, 5)
+	val set_inst_name = set_num(_, INST_NAME_WIDTH)
 	val INST_BEQ  = set_inst_name(0)
 	val INST_BNE  = set_inst_name(1)
 	val INST_BLT  = set_inst_name(2)
@@ -165,14 +159,14 @@ object loongarch32r_inst{
 		ANDI      -> BitPat("b" +OP_AND   +R2I12U +MEM_UN +INST_NNNN +RF_WE),
 		ORI       -> BitPat("b" +OP_OR    +R2I12U +MEM_UN +INST_NNNN +RF_WE),
 		XORI      -> BitPat("b" +OP_XOR   +R2I12U +MEM_UN +INST_NNNN +RF_WE),
-		LD_B      -> BitPat("b" +OP_ADD   +R2I12  +MEM_EN +INST_LDB  +RF_WE),
-		LD_H      -> BitPat("b" +OP_ADD   +R2I12  +MEM_EN +INST_LDH  +RF_WE),
-		LD_W      -> BitPat("b" +OP_ADD   +R2I12  +MEM_EN +INST_LDW  +RF_WE),
-		ST_B      -> BitPat("b" +OP_ADD   +R2I12  +MEM_EN +INST_STB  +RF_UN),
-		ST_H      -> BitPat("b" +OP_ADD   +R2I12  +MEM_EN +INST_STH  +RF_UN),
-		ST_W      -> BitPat("b" +OP_ADD   +R2I12  +MEM_EN +INST_STW  +RF_UN),
-		LD_BU     -> BitPat("b" +OP_ADD   +R2I12  +MEM_EN +INST_LDBU +RF_WE),
-		LD_HU     -> BitPat("b" +OP_ADD   +R2I12  +MEM_EN +INST_LDHU +RF_WE),
+		LD_B      -> BitPat("b" +OP_ADD   +R2I12  +MEM_RD +INST_LDB  +RF_WE),
+		LD_H      -> BitPat("b" +OP_ADD   +R2I12  +MEM_RD +INST_LDH  +RF_WE),
+		LD_W      -> BitPat("b" +OP_ADD   +R2I12  +MEM_RD +INST_LDW  +RF_WE),
+		ST_B      -> BitPat("b" +OP_ADD   +R2I12  +MEM_WR +INST_STB  +RF_UN),
+		ST_H      -> BitPat("b" +OP_ADD   +R2I12  +MEM_WR +INST_STH  +RF_UN),
+		ST_W      -> BitPat("b" +OP_ADD   +R2I12  +MEM_WR +INST_STW  +RF_UN),
+		LD_BU     -> BitPat("b" +OP_ADD   +R2I12  +MEM_WR +INST_LDBU +RF_WE),
+		LD_HU     -> BitPat("b" +OP_ADD   +R2I12  +MEM_WR +INST_LDHU +RF_WE),
 		ADD_W     -> BitPat("b" +OP_ADD   +R3     +MEM_UN +INST_NNNN +RF_WE),
 		SUB_W     -> BitPat("b" +OP_SUB   +R3     +MEM_UN +INST_NNNN +RF_WE),
 		SLT       -> BitPat("b" +OP_SLT   +R3     +MEM_UN +INST_NNNN +RF_WE),
@@ -196,6 +190,7 @@ object loongarch32r_inst{
 		SRAI_W    -> BitPat("b" +OP_SRA   +R2I5   +MEM_UN +INST_NNNN +RF_WE),
 		BREAK     -> BitPat("b" +OP_NONE  +BRK_T  +MEM_UN +INST_NNNN +RF_UN)),
 					 BitPat("b" +OP_NONE  +INV    +MEM_UN +INST_NNNN +RF_UN))
+//									5		4		2			5		1
 
 	def loongarch32r_decoder(inst : UInt) = decoder(inst, inst_table)
 }

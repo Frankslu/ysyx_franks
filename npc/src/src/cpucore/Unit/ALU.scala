@@ -2,7 +2,7 @@ package cpucore.Unit
 
 import chisel3._
 import chisel3.util._
-import cpucore.Config.Configs._
+import Config.Configs._
 import myUtil.myUtil._
 
 class ALU_io extends Bundle{
@@ -79,6 +79,7 @@ class ALU extends Module{
         op_modu.asBool     -> modu_res
     ).toIndexedSeq)
 }
+
 
 object ALUOP extends ChiselEnum {
     val none_ = Value(0.U)

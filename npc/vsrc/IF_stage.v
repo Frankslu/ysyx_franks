@@ -15,13 +15,13 @@ module IF_stage(
   input         frompre_valid, // @[src/src/cpucore/pipeline/IF_stage.scala 10:21]
   input  [31:0] frompre_bits_pc // @[src/src/cpucore/pipeline/IF_stage.scala 10:21]
 );
-  assign tods_valid = 1'h1; // @[src/src/cpucore/pipeline/IF_stage.scala 15:16]
-  assign tods_bits_pc = frompre_bits_pc; // @[src/src/cpucore/pipeline/IF_stage.scala 14:18]
-  assign tods_bits_inst = inst_sram_rdata; // @[src/src/cpucore/pipeline/IF_stage.scala 13:20]
+  assign tods_valid = 1'h1; // @[src/src/cpucore/pipeline/IF_stage.scala 16:16]
+  assign tods_bits_pc = frompre_bits_pc; // @[src/src/cpucore/pipeline/IF_stage.scala 15:18]
+  assign tods_bits_inst = inst_sram_rdata; // @[src/src/cpucore/pipeline/IF_stage.scala 14:20]
   assign inst_sram_en = 1'h0;
   assign inst_sram_wr = 1'h0;
-  assign inst_sram_addr = 32'h0;
+  assign inst_sram_addr = 32'hb; // @[src/src/cpucore/pipeline/IF_stage.scala 13:20]
   assign inst_sram_wdata = 32'h0;
   assign inst_sram_wstrb = 4'h0;
-  assign frompre_ready = 1'h1; // @[src/src/cpucore/pipeline/IF_stage.scala 16:19]
+  assign frompre_ready = 1'h1; // @[src/src/cpucore/pipeline/IF_stage.scala 17:19]
 endmodule

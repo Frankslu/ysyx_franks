@@ -1,7 +1,7 @@
 package cpucore.pipeline
 
 import chisel3._
-import cpucore.Config.Configs._
+import Config.Configs._
 
 class br_bus extends Bundle{
     val taken = Input(Bool())
@@ -23,11 +23,17 @@ class ds2es extends Bundle{
     val alu_src2 = Output(UInt(DATA_WIDTH.W))
     val alu_op = Output(UInt(ALU_OP_NUM.W))
     val rf_waddr = Output(UInt(REG_ADDR_LEN.W))
+    val rf_we = Output(Bool())
+    val mem_we = Output(Bool())
+    val inst_name = Output(UInt(INST_NAME_WIDTH.W))
+    val mem_wdata = Output(UInt(DATA_WIDTH.W))
 }
 
 class es2ms extends Bundle{
     val pc = Output(UInt(ADDR_WIDTH.W))
     val alu_res = Output(UInt(DATA_WIDTH.W))
+    val inst_name = Output(UInt(INST_NAME_WIDTH.W))
+    val res_from_mem = Output(Bool())
 }
 
 class sram_io_1 extends Bundle{
