@@ -24,7 +24,7 @@ class ds2es extends Bundle{
     val alu_op = Output(UInt(ALUOP_WIDTH.W))
     val rf_waddr = Output(UInt(REG_ADDR_LEN.W))
     val rf_we = Output(Bool())
-    val mem_we = Output(Bool())
+    val mem_we = Output(UInt(2.W))
     val inst_name = Output(UInt(INST_NAME_WIDTH.W))
     val mem_wdata = Output(UInt(DATA_WIDTH.W))
 }

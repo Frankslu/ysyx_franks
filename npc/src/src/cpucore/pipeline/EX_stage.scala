@@ -6,6 +6,7 @@ import chisel3.util._
 import Config.Configs
 import cpucore.Unit._
 import cpucore.Unit.loongarch32r_inst._
+import cpucore.Unit.ALUOP
 import myUtil.myUtil._
 
 class EX_stage extends Module{
@@ -14,7 +15,8 @@ class EX_stage extends Module{
     val data_sram = IO(new sram_io)
 
     val alu = Module(new ALU)
-    alu.io.alu_op := ALUOP(es.bits.alu_op)
+    val alu_op = es.bits.alu_op
+    alu.io.alu_op := ALUOP.safe(alu_op)
     alu.io.src1 := es.bits.alu_src1
     alu.io.src2 := es.bits.alu_src2
 
