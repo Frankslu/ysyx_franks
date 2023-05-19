@@ -19,5 +19,5 @@ class preIF extends Module{
     inst_sram.wdata := 0.U
     inst_sram.wstrb := 0.U
 
-    tofs.bits.pc := 1.U
+    tofs.bits.pc := pc
 }
