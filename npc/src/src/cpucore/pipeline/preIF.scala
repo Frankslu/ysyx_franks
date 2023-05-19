@@ -21,5 +21,4 @@ class preIF extends Module{
 
     tofs.bits.pc := pc
     tofs.ready := 1.B
-    tofs.valid := 1.B
 }
