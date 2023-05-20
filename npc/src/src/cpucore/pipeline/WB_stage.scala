@@ -3,6 +3,7 @@ package cpucore.pipeline
 import chisel3._
 import chisel3.util._
 import cpucore.pipeline._
+import cpucore.Unit._
 
 class WB_stage extends Module{
 	val ws = IO(Flipped(Decoupled(new ms2ws)))
@@ -14,4 +15,7 @@ class WB_stage extends Module{
 	torf.rf_wdata := ws.bits.rf_wdata
 
 	ws.ready := 1.U
+
+	val npc_break = Module(new Break)
+	npc_break.io.is_break := ws.bits.is_break
 }

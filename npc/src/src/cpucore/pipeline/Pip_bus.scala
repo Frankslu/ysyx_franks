@@ -27,6 +27,7 @@ class ds2es extends Bundle{
     val mem_we = Output(UInt(2.W))
     val inst_name = Output(UInt(INST_NAME_WIDTH.W))
     val mem_wdata = Output(UInt(DATA_WIDTH.W))
+    val is_break = Output(Bool())
 }
 
 class es2ms extends Bundle{
@@ -36,6 +37,7 @@ class es2ms extends Bundle{
     val res_from_mem = Output(Bool())
     val rf_we = Output(Bool())
     val rf_waddr = Output(UInt(REG_ADDR_LEN.W))
+    val is_break = Output(Bool())
 }
 
 class ms2ws extends Bundle{
@@ -43,6 +45,7 @@ class ms2ws extends Bundle{
     val rf_we = Output(Bool())
     val rf_waddr = Output(UInt(REG_ADDR_LEN.W))
     val rf_wdata = Output(UInt(DATA_WIDTH.W))
+    val is_break = Output(Bool())
 }
 
 class ws2rf extends Bundle{

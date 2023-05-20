@@ -35,10 +35,16 @@ class regfile extends Module{
         val rf_pc = Input(UInt(ADDR_WIDTH.W))
     })
     val rf = Mem(REG_NUM ,UInt(DATA_WIDTH.W))
-    when(io.wen) {rf(io.waddr) := io.wdata}
+    when(io.wen) {rf.write(io.waddr, io.wdata)}
     io.rdata1 := Mux(io.raddr1 === 0.U, 0.U, rf(io.raddr1))
     io.rdata2 := Mux(io.raddr2 === 0.U, 0.U, rf(io.raddr2))
 
     //for test
     val pc = RegNext(io.rf_pc)
+
+    val difftest = Module(new Difftest)
+    difftest.io.pc := pc
+    for(i <- 0 to 31){
+        difftest.io.rf(i) := rf(i)
+    }
 }

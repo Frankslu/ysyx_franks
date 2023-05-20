@@ -90,6 +90,7 @@ class ID_stage extends Module{
     toes.bits.mem_we := mem_we
     toes.bits.rf_we := rf_we
     toes.bits.mem_wdata := rkd_value
+    toes.bits.is_break := inst_type === u(BRK_T)
 
     ds.ready := 1.B
     toes.valid := 1.B
