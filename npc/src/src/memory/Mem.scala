@@ -2,7 +2,6 @@ package memory
 
 import chisel3._
 import chisel3.util._
-import cpucore.pipeline._
 
 // class io1 extends Bundle{
 //   val en = Input(Bool())

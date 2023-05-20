@@ -2,9 +2,10 @@ package cpucore
 
 import chisel3._
 import chisel3.util._
+
 import cpucore.pipeline._
 import cpucore.Unit._
-import memory._
+import _root_.memory._
 
 object StageConnect {
 	def apply[T <: Data] (left: DecoupledIO[T], right: DecoupledIO[T]) = {

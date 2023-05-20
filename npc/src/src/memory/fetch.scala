@@ -2,7 +2,6 @@ package memory
 
 import chisel3._
 import chisel3.util._
-import cpucore.pipeline._
 
 class i_mem extends BlackBox with HasBlackBoxInline {
 	val io = IO(Flipped(new sram_io))
