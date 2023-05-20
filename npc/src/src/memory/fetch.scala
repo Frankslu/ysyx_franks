@@ -8,7 +8,7 @@ class i_mem extends BlackBox with HasBlackBoxInline {
 	// val io = IO(new io1)
 	setInline("Inst.v",
 	"""/* verilator lint_off UNUSEDSIGNAL */
-   | module Memory(
+   | module Memory_inst(
    | input wire  en,
    | input wire  wr,
    | input wire  [31:0]  addr,

@@ -8,6 +8,7 @@ CPP_DIR = ./csrc
 endif
 BUILD_DIR = ./obj_dir
 
+VSRC = $(shell find $(VERILOG_DIR) -name "*.v")
 CSRC = $(shell find $(CPP_DIR) -name "*.cpp" -o -name "*.c")
 INC = $(shell find $(CPP_DIR) -name "*.h")
 
@@ -43,10 +44,10 @@ clean:
 .PHONY: test verilog help compile bsp reformat checkformat clean
 
 c: $(VERILOG_DIR)/*.v
-	@verilator --top-module $(TOP) -cc $(VERILOG_DIR)/*.v
+	@verilator --top-module $(TOP) -cc $(VSRC)
 
 V$(TOP): $(VERILOG_DIR)/*.v
-	@verilator -Wall --trace --cc $(VERILOG_DIR)/*.v --top-module $(TOP) \
+	@verilator -Wall --trace --cc $(VSRC) --top-module $(TOP) \
 	--exe $(CSRC) \
 	-CFLAGS "-I $(INC)"
 	@make -C $(BUILD_DIR) -f V$(TOP).mk V$(TOP)

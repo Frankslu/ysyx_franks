@@ -1,4 +1,4 @@
-module is_break(
+module npc_break(
 	input wire is_break
 );
 
