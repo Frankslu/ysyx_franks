@@ -78,7 +78,8 @@ object loongarch32r_inst{
 	val INST_BL   = set_inst_name(15)
 	val INST_JIRL = set_inst_name(16)
 	val INST_PCAD = set_inst_name(17)
-	val INST_NNNN = set_inst_name(18)
+	val INST_BRK  = set_inst_name(18)
+	val INST_NNNN = set_inst_name(19)
 
 	//reg_we
 	val RF_WE = "1"
