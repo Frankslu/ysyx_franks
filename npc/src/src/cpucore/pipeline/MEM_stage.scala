@@ -5,6 +5,8 @@ import chisel3.util._
 
 import cpucore.Unit.loongarch32r_inst._
 import myUtil.myUtil._
+import cpucore.pipeline._
+import memory._
 
 class MEM_stage extends Module{
 	val ms = IO(Flipped(Decoupled(new es2ms)))

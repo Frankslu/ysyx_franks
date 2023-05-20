@@ -1,8 +1,15 @@
+TOP ?= Main
+
 VERILOG_DIR = ./vsrc
+ifeq ($(MAKECMDGOALS),unit)
+CPP_DIR = ./unit_test/$(TOP)_src
+else
 CPP_DIR = ./csrc
+endif
 BUILD_DIR = ./obj_dir
 
-TOP = main
+CSRC = $(shell find $(CPP_DIR) -name "*.cpp" -o -name "*.c")
+INC = $(shell find $(CPP_DIR) -name "*.h")
 
 export PATH := $(PATH):$(abspath ./utils)
 
@@ -10,9 +17,9 @@ test:
 	mill -i __.test
 
 verilog:
-	$(call git_commit, "generate verilog")
-	mkdir -p $(VERILOG_DIR)
-	mill -i __.test.runMain Elaborate -td $(VERILOG_DIR)
+	@$(call git_commit, "generate verilog")
+	@mkdir -p $(VERILOG_DIR)
+	@mill -i __.test.runMain Elaborate -td $(VERILOG_DIR)
 # 	find . -name "*.v" | xargs sed -i -E "/^(\w+\/)+\w+\.v/d"
 
 help:
@@ -35,19 +42,22 @@ clean:
 
 .PHONY: test verilog help compile bsp reformat checkformat clean
 
-c:
-	verilator --top-module $(TOP) -cc vsrc/*.v
+c: $(VERILOG_DIR)/*.v
+	@verilator --top-module $(TOP) -cc $(VERILOG_DIR)/*.v
 
-unit:
-	verilator -Wall --trace --cc vsrc/*.v --top-module $(TOP) --exe unit_test/src/$(TOP)_test.cpp
-	make -j -C $(BUILD_DIR) -f V$(TOP).mk V$(TOP)
-	./$(BUILD_DIR)/V$(TOP)
+V$(TOP): $(VERILOG_DIR)/*.v
+	@verilator -Wall --trace --cc $(VERILOG_DIR)/*.v --top-module $(TOP) \
+	--exe $(CSRC) \
+	-CFLAGS "-I $(INC)"
+	@make -C $(BUILD_DIR) -f V$(TOP).mk V$(TOP)
 
-sim:
-	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
-	verilator -Wall --trace --cc vsrc/*.v --top-module $(TOP) --exe csrc/*.cpp
-	make -C $(BUILD_DIR) -f V$(TOP).mk V$(TOP)
-	./$(BUILD_DIR)/V$(TOP)
+unit: V$(TOP)
+	echo $(CSRC) $(INC)
+	@./$(BUILD_DIR)/V$(TOP)
+
+sim: V$(TOP)
+	@$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
+	@./$(BUILD_DIR)/V$(TOP)
 	
 
 include ../Makefile

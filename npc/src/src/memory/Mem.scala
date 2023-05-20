@@ -1,4 +1,4 @@
-package cpucore.memory
+package memory
 
 import chisel3._
 import chisel3.util._
@@ -13,13 +13,13 @@ import cpucore.pipeline._
 //   val rdata = Output(UInt(32.W))
 // }
 
-class mem1 extends Module{
-    val io1 = IO(Flipped(new sram_io))
-    val io2 = IO(Flipped(new sram_io))
-    val memm = Module(new d_mem)
-    io2 <> memm.io
-    io1 <> memm.io
-}
+// class mem1 extends Module{
+//     val io1 = IO(Flipped(new sram_io))
+//     val io2 = IO(Flipped(new sram_io))
+//     val memm = Module(new d_mem)
+//     io2 <> memm.io
+//     io1 <> memm.io
+// }
 
 class d_mem extends BlackBox with HasBlackBoxInline {
 	val io = IO(Flipped(new sram_io))

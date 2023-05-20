@@ -2,6 +2,7 @@ package cpucore.pipeline
 
 import chisel3._
 import chisel3.util._
+import cpucore.pipeline._
 
 class WB_stage extends Module{
 	val ws = IO(Flipped(Decoupled(new ms2ws)))

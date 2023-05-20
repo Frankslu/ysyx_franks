@@ -8,6 +8,8 @@ import cpucore.Unit._
 import cpucore.Unit.loongarch32r_inst._
 import cpucore.Unit.ALUOP
 import myUtil.myUtil._
+import cpucore.pipeline._
+import memory._
 
 class EX_stage extends Module{
     val es = IO(Flipped(Decoupled(new ds2es)))

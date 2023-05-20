@@ -5,19 +5,8 @@
 // SPDX-License-Identifier: CC0-1.0
 //======================================================================
 
-#include <stdint.h>
-#include <stdio.h>
-#include <assert.h>
-
-// Include common routines
-#include <verilated.h>
-#include <verilated_vcd_c.h>
-
 // Include model header, generated from Verilating "top.v"
-#include "Vleft.h"
-VerilatedContext *contextp;
-Vleft *top;
-
+#include "include/ALU_test.h"
 // void test(int aluop, uint32_t num[][3]){
 //     for (int i = 0; i < 4; i++){
 //         top->io_alu_op = aluop;
@@ -28,7 +17,8 @@ Vleft *top;
 //         printf("aluop %d, num %d pass\n", aluop, i);
 //     }
 // }
-
+VerilatedContext *contextp;
+VALU *top;
 int main(int argc, char **argv){
     // See a similar example walkthrough in the verilator manpage.
 
@@ -46,17 +36,21 @@ int main(int argc, char **argv){
     contextp->commandArgs(argc, argv);
 
     // Construct the Verilated model, from Vtop.h generated from Verilating "top.v"
-    top = new Vleft{ contextp };
+    top = new VALU{ contextp };
+    top->trace(tfp, 5);
     tfp->open("wave.vcd");
+    top->clock = 0;
+    top->reset = 0;
     int a, b, c;
     int sim_time = 0;
 
-    while (scanf("%x, %x", &a, &b) == 2){
-        top->a = a;
-        top->b = b;
+    while (scanf("%x, %x, %x", &a, &b, &c) == 3){
+        top->io_alu_op = a;
+        top->io_src1 = b;
+        top->io_src2 = c;
         top->eval();
         tfp->dump(sim_time++);
-        printf("a=%x, b=%x, c=%x\n", a, b, top->c);
+        printf("a=%x, b=%x, c=%x\n", b, c, top->io_res);
     }
 
     // Final model cleanup
