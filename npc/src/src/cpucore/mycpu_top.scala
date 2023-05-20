@@ -36,9 +36,9 @@ class mycpu_top extends Module{
 	pIF.br <> ID.br
 	ID.torf <> WB.torf
 
-	// IF.inst_sram <> inst_sram
-	// pIF.inst_sram <> inst_sram
+	IF.inst_sram <> inst_sram
+	pIF.inst_sram <> inst_sram
 
-	// MEM.data_sram <> data_sram
-	// EXE.data_sram <> data_sram
+	MEM.data_sram <> data_sram
+	EXE.data_sram <> data_sram
 }
