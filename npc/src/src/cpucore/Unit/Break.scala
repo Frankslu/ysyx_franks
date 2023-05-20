@@ -9,7 +9,7 @@ class Break extends HasBlackBoxInline{
 	})
 
 	setInline("Break.v",
-	"""module break(
+	"""module npc_break(
 	|	input wire is_break
 	|);
 	|

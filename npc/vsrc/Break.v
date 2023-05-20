@@ -1,4 +1,4 @@
-module break(
+module is_break(
 	input wire is_break
 );
 

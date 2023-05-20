@@ -13,7 +13,7 @@ class Difftest extends HasBlackBoxInline {
 
 	setInline("Difftest.v",
 	"""module difftest(
-	|	imput wire [31:0] pc,
+	|	input wire [31:0] pc,
 	|	input wire [31:0] rf_0,
 	|	input wire [31:0] rf_1,
 	|	input wire [31:0] rf_2,
@@ -46,7 +46,7 @@ class Difftest extends HasBlackBoxInline {
 	|	input wire [31:0] rf_29,
 	|	input wire [31:0] rf_30,
 	|	input wire [31:0] rf_31,
-	|)
+	|);
 	|
 	|import "DPI-C" function void set_gpr_ptr(imput int pc, input logic [31:0] regs[]);
 	|
