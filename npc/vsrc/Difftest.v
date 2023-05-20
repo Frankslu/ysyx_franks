@@ -1,4 +1,4 @@
-module difftest(
+module Difftest(
 	input wire [31:0] pc,
 	input wire [31:0] rf_0,
 	input wire [31:0] rf_1,
@@ -36,7 +36,7 @@ module difftest(
 
 import "DPI-C" function void set_gpr_ptr(input int pc, input logic [31:0] regs[]);
 
-wire [63:0] regs [32];
+wire [31:0] regs [32];
 assign regs[0] = rf_0;
 assign regs[1] = rf_1;
 assign regs[2] = rf_2;

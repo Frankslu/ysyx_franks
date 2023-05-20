@@ -46,7 +46,10 @@ clean:
 c: $(VERILOG_DIR)/*.v
 	@verilator --top-module $(TOP) -cc $(VSRC)
 
-V$(TOP): $(VERILOG_DIR)/*.v
+insert:
+	@sed -i '1s/^/\/* verilator lint_off WIDTHEXPAND *\/\n/' $(VERILOG_DIR)/$(TOP).v
+
+V$(TOP): $(VSRC)
 	@verilator -Wall --trace --cc $(VSRC) --top-module $(TOP) \
 	--exe $(CSRC) \
 	-CFLAGS "-I $(INC)"
