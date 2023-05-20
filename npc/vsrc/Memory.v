@@ -1,5 +1,5 @@
 /* verilator lint_off UNUSEDSIGNAL */
- module Memory(
+ module Memory_data(
  input wire  en,
  input wire  wr,
  input wire  [31:0]  addr,

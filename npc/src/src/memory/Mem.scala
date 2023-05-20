@@ -25,7 +25,7 @@ class d_mem extends BlackBox with HasBlackBoxInline {
 	// val io = IO(new io1)
 	setInline("Memory.v",
 	"""/* verilator lint_off UNUSEDSIGNAL */
-   | module Memory_data(
+   | module d_mem(
    | input wire  en,
    | input wire  wr,
    | input wire  [31:0]  addr,

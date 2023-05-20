@@ -16,6 +16,6 @@ class WB_stage extends Module{
 
 	ws.ready := 1.U
 
-	val npc_break = Module(new Break)
-	npc_break.io.is_break := ws.bits.is_break
+	val npc_brk = Module(new npc_break)
+	npc_brk.io.is_break := ws.bits.is_break
 }

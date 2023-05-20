@@ -12,7 +12,7 @@ class Difftest extends HasBlackBoxInline {
 	})
 
 	setInline("Difftest.v",
-	"""module difftest(
+	"""module Difftest(
 	|	input wire [31:0] pc,
 	|	input wire [31:0] rf_0,
 	|	input wire [31:0] rf_1,

@@ -3,7 +3,7 @@ package cpucore.Unit
 import chisel3._
 import chisel3.util._
 
-class Break extends HasBlackBoxInline{
+class npc_break extends HasBlackBoxInline{
 	val io = IO(new Bundle{
 		val is_break = Input(Bool())
 	})
