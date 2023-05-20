@@ -10,7 +10,7 @@ class Break extends HasBlackBoxInline{
 
 	setInline("Break.v",
 	"""module break(
-	|	input is_break
+	|	input wire is_break
 	|);
 	|
 	|import "DPI-C" function void npc_break();
