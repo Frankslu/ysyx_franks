@@ -4,7 +4,6 @@ import chisel3._
 
 import cpucore._
 import cpucore.Unit._
-import cpucore.memory._
 import cpucore.pipeline.preIF
 import cpucore.pipeline.IF_stage
 import cpucore.pipeline._
