@@ -988,7 +988,7 @@ void VMain___024root___eval(VMain___024root* vlSelf) {
 #ifdef VL_DEBUG
                     VMain___024root___dump_triggers__act(vlSelf);
 #endif
-                    VL_FATAL_MT("vsrc/Main.v", 1305, "", "Active region did not converge.");
+                    VL_FATAL_MT("vsrc/Main.v", 1306, "", "Active region did not converge.");
                 }
                 vlSelf->__VactIterCount = ((IData)(1U) 
                                            + vlSelf->__VactIterCount);
@@ -1003,7 +1003,7 @@ void VMain___024root___eval(VMain___024root* vlSelf) {
 #ifdef VL_DEBUG
                 VMain___024root___dump_triggers__nba(vlSelf);
 #endif
-                VL_FATAL_MT("vsrc/Main.v", 1305, "", "NBA region did not converge.");
+                VL_FATAL_MT("vsrc/Main.v", 1306, "", "NBA region did not converge.");
             }
             __VnbaIterCount = ((IData)(1U) + __VnbaIterCount);
             VMain___024root___eval_nba(vlSelf);

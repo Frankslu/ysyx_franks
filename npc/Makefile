@@ -41,7 +41,7 @@ checkformat:
 clean:
 	-rm -rf $(BUILD_DIR) $(VERILOG_DIR)
 
-.PHONY: test verilog help compile bsp reformat checkformat clean
+.PHONY: test verilog help compile bsp reformat checkformat clean insert unit sim
 
 c: $(VERILOG_DIR)/*.v
 	@verilator --top-module $(TOP) -cc $(VSRC)

@@ -1,12 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-
-
-#include <verilated.h>
-#include <verilated_vcd_c.h>
-#include "Vtop.h"
-#include "Vmem__Dpi.h"
-
 // int main(){
 // 	VGCD *top = new mycpu_top;
 
