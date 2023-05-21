@@ -281,7 +281,7 @@ word_t eval(int p, int q, int *err){
 		case NEG:
 			return (word_t)(-((int)val2));
 		case POINTER:
-			return vaddr_read(val2, 4);
+			return sdb_vaddr_read(val2, 4);
 	}
 	return 1;
 }

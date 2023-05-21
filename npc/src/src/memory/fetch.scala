@@ -18,11 +18,11 @@ class i_mem extends BlackBox with HasBlackBoxInline {
    | );
    | /* verilator lint_off WIDTHEXPAND */
    | /* verilator lint_off LATCH */
-   | import "DPI-C" function void pmem_fetch(
+   | import "DPI-C" function void vaddr_fetch(
    | input int raddr, output int rdata);
    | always @(*) begin
    |   if(en) begin
-   |       pmem_fetch(addr, rdata);
+   |       vaddr_fetch(addr, rdata);
    |   end
    |end
    |

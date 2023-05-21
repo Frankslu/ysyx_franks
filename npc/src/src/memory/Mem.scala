@@ -35,16 +35,16 @@ class d_mem extends BlackBox with HasBlackBoxInline {
    | );
    | /* verilator lint_off WIDTHEXPAND */
    | /* verilator lint_off LATCH */
-   | import "DPI-C" function void pmem_read(
+   | import "DPI-C" function void vaddr_read(
    | input int raddr, output int rdata);
-   | import "DPI-C" function void pmem_write(
+   | import "DPI-C" function void vaddr_write(
    | input int waddr, input int wdata, input byte wmask, output int rdata);
    | always @(*) begin
    |   if(en) begin
    |     if(wr == 1'b0) begin
-   |       pmem_read(addr, rdata);
+   |       vaddr_read(addr, rdata);
    |     end else begin
-   |       pmem_write(addr, wdata, wstrb, rdata);
+   |       vaddr_write(addr, wdata, wstrb, rdata);
    |     end
    |   end
    |end
