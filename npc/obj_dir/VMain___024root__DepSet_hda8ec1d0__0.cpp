@@ -8,17 +8,15 @@
 #include "VMain__Syms.h"
 #include "VMain___024root.h"
 
-extern "C" void set_gpr_ptr(int pc, const svOpenArrayHandle regs);
+extern "C" void set_gpr_ptr(const svOpenArrayHandle regs);
 
-VL_INLINE_OPT void VMain___024root____Vdpiimwrap_Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__difftest__DOT__set_gpr_ptr__Vdpioc2_TOP(IData/*31:0*/ pc, const VlUnpacked<IData/*31:0*/, 32> &regs) {
+VL_INLINE_OPT void VMain___024root____Vdpiimwrap_Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__difftest__DOT__set_gpr_ptr__Vdpioc2_TOP(const VlUnpacked<IData/*31:0*/, 32> &regs) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    VMain___024root____Vdpiimwrap_Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__difftest__DOT__set_gpr_ptr__Vdpioc2_TOP\n"); );
     // Body
-    int pc__Vcvt;
-    for (size_t pc__Vidx = 0; pc__Vidx < 1; ++pc__Vidx) pc__Vcvt = pc;
     static const int regs__Vopenprops__ulims[2] = {0, 31};
     static const VerilatedVarProps regs__Vopenprops(VLVT_UINT32, VLVD_IN, VerilatedVarProps::Packed(), 31, 0, VerilatedVarProps::Unpacked(), 1, regs__Vopenprops__ulims);
     VerilatedDpiOpenVar regs__Vopenarray (&regs__Vopenprops, &regs);
-    set_gpr_ptr(pc__Vcvt, &regs__Vopenarray);
+    set_gpr_ptr(&regs__Vopenarray);
 }
 
 extern "C" void npc_break(char is_break);
@@ -31,16 +29,18 @@ VL_INLINE_OPT void VMain___024root____Vdpiimwrap_Main__DOT__cpucore__DOT__ID__DO
     npc_break(is_break__Vcvt);
 }
 
-extern "C" void inst_exec_once(char valid, int inst);
+extern "C" void inst_exec_once(char valid, int inst, int pc);
 
-VL_INLINE_OPT void VMain___024root____Vdpiimwrap_Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__inst_exec_once__DOT__inst_exec_once_TOP(CData/*7:0*/ valid, IData/*31:0*/ inst) {
+VL_INLINE_OPT void VMain___024root____Vdpiimwrap_Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__inst_exec_once__DOT__inst_exec_once_TOP(CData/*7:0*/ valid, IData/*31:0*/ inst, IData/*31:0*/ pc) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    VMain___024root____Vdpiimwrap_Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__inst_exec_once__DOT__inst_exec_once_TOP\n"); );
     // Body
     char valid__Vcvt;
     for (size_t valid__Vidx = 0; valid__Vidx < 1; ++valid__Vidx) valid__Vcvt = valid;
     int inst__Vcvt;
     for (size_t inst__Vidx = 0; inst__Vidx < 1; ++inst__Vidx) inst__Vcvt = inst;
-    inst_exec_once(valid__Vcvt, inst__Vcvt);
+    int pc__Vcvt;
+    for (size_t pc__Vidx = 0; pc__Vidx < 1; ++pc__Vidx) pc__Vcvt = pc;
+    inst_exec_once(valid__Vcvt, inst__Vcvt, pc__Vcvt);
 }
 
 extern "C" void vaddr_read(int raddr, int* rdata);

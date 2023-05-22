@@ -69,6 +69,6 @@ assign regs[29] = rf_29;
 assign regs[30] = rf_30;
 assign regs[31] = rf_31;
 
-initial set_gpr_ptr(pc, regs);
+initial set_gpr_ptr(regs);
 
 endmodule

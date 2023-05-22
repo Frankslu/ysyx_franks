@@ -37,8 +37,8 @@ class EX_stage extends Module{
     data_sram.wdata := es.bits.mem_wdata
     data_sram.wstrb := MuxLookup(es.bits.inst_name, "hdead".U)(Array(
         u(INST_STB) -> 1.U,
-        u(INST_STH) -> 2.U,
-        u(INST_STW) -> 4.U
+        u(INST_STH) -> 3.U,
+        u(INST_STW) -> 7.U
     ).toIndexedSeq)
 
     es.ready := true.B

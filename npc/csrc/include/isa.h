@@ -2,11 +2,7 @@
 #define __ISA_H__
 
 #include <stdbool.h>
-
-typedef struct {
-  word_t *gpr;
-  vaddr_t *pc;
-} CPU_state;
+#include "common.h"
 
 // decode
 typedef struct {
@@ -14,6 +10,14 @@ typedef struct {
     uint32_t val;
   } inst;
 } ISADecodeInfo;
+
+typedef struct {
+  word_t *gpr;
+  vaddr_t pc;
+  bool valid;
+  word_t inst;
+  bool is_break;
+} CPU_state;
 
 #define isa_mmu_check(vaddr, len, type) (MMU_DIRECT)
 
@@ -25,8 +29,6 @@ typedef struct {
 extern CPU_state cpu;
 
 // exec
-struct Decode;
-int isa_exec_once(struct Decode *s);
 
 // memory
 enum { MMU_DIRECT, MMU_TRANSLATE, MMU_FAIL };

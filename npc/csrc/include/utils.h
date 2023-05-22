@@ -11,9 +11,9 @@ typedef struct {
   int state;
   vaddr_t halt_pc;
   uint32_t halt_ret;
-} NEMUState;
+} NPCState;
 
-extern NEMUState nemu_state;
+extern NPCState npc_state;
 
 // ----------- timer -----------
 

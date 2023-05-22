@@ -1,6 +1,6 @@
 #include <dlfcn.h>
 
-#include "isa.h"
+#include "decode.h"
 #include "cpu/cpu.h"
 #include "paddr.h"
 #include "utils.h"
@@ -78,8 +78,8 @@ void init_difftest(const char *ref_so_file, int img_size){
 
 static void checkregs(CPU_state *ref, vaddr_t pc) {
   if (!isa_difftest_checkregs(ref, pc)) {
-    nemu_state.state = NPC_ABORT;
-    nemu_state.halt_pc = pc;
+    npc_state.state = NPC_ABORT;
+    npc_state.halt_pc = pc;
 //    isa_reg_display();
   }
 }

@@ -28,6 +28,8 @@ typedef struct Decode {
   char disas[128];
 } Decode;
 
+int npc_exec_once(Decode *s);
+
 // --- pattern matching mechanism ---
 __attribute__((always_inline))
 static inline void pattern_decode(const char *str, int len,
