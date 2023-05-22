@@ -11,7 +11,6 @@ __attribute__((unused)) VerilatedVcd *tfp = NULL;
 int decode_exec(Decode * s);
 
 extern "C" void set_gpr_ptr(const svOpenArrayHandle regs){
-	printf("hello3\n");
 	cpu.gpr = (word_t *)(((VerilatedDpiOpenVar *)regs)->datap());
 }
 
@@ -69,6 +68,6 @@ int npc_exec_once(Decode *s){
 	if (cpu.is_break == true){
 		set_npc_state(NPC_STOP, cpu.pc, 0);
 	}
-	printf("%u\n", cpu.pc);
+	printf("%x\n", cpu.pc);
 	return 0;
 }
