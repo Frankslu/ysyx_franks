@@ -1,3 +1,4 @@
+/* verilator lint_off WIDTHEXPAND */
 module npc_break(
 	input wire is_break
 );

@@ -1,3 +1,4 @@
+/* verilator lint_off WIDTHEXPAND */
 module preIF(
   input         clock,
   input         reset,
