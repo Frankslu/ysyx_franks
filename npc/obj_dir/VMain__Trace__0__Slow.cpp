@@ -602,8 +602,8 @@ VL_ATTR_COLD void VMain___024root__trace_full_sub_0(VMain___024root* vlSelf, Ver
     bufp->fullIData(oldp+5,((IData)(vlSelf->Main__DOT__cpucore__DOT__EXE__DOT__alu__DOT___io_res_T_18)),32);
     bufp->fullIData(oldp+6,(vlSelf->Main__DOT__cpucore__DOT__ID__DOT__reg___05Fio_rdata2),32);
     bufp->fullCData(oldp+7,(((0xdU == (IData)(vlSelf->Main__DOT__cpucore__DOT__ID__DOT__inst_name))
-                              ? 4U : ((0xcU == (IData)(vlSelf->Main__DOT__cpucore__DOT__ID__DOT__inst_name))
-                                       ? 2U : ((0xbU 
+                              ? 7U : ((0xcU == (IData)(vlSelf->Main__DOT__cpucore__DOT__ID__DOT__inst_name))
+                                       ? 3U : ((0xbU 
                                                 == (IData)(vlSelf->Main__DOT__cpucore__DOT__ID__DOT__inst_name))
                                                 ? 1U
                                                 : 0xdU)))),4);

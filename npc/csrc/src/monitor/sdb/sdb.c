@@ -15,7 +15,7 @@
 
 #include "vaddr.h"
 #include "isa.h"
-#include "cpu/cpu.h"
+#include "cpu.h"
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "sdb.h"

@@ -14,9 +14,9 @@
  ***************************************************************************************/
 
 #include "reg.h"
-#include "cpu/cpu.h"
-#include "cpu/ifetch.h"
-#include "cpu/decode.h"
+#include "cpu.h"
+#include "ifetch.h"
+#include "decode.h"
 
 #define R(i) gpr(i)
 #define Mr vaddr_read

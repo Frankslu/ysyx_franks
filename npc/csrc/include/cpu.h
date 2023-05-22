@@ -13,12 +13,18 @@
 * See the Mulan PSL v2 for more details.
 ***************************************************************************************/
 
-#ifndef __DEVICE_MMIO_H__
-#define __DEVICE_MMIO_H__
+#ifndef __CPU_CPU_H__
+#define __CPU_CPU_H__
 
-#include <common.h>
+#include "common.h"
 
-word_t mmio_read(paddr_t addr, int len);
-void mmio_write(paddr_t addr, int len, word_t data);
+void cpu_exec(uint64_t n);
+
+void set_npc_state(int state, vaddr_t pc, int halt_ret);
+void invalid_inst(vaddr_t thispc);
+
+#define NEMUTRAP(thispc, code) set_npc_state(NEMU_END, thispc, code)
+#define NEMUBREAK(thispc) set_npc_state(NEMU_STOP, thispc, 0)
+#define INV(thispc) invalid_inst(thispc)
 
 #endif

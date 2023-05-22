@@ -1,16 +1,19 @@
 TOP ?= Main
 
-VERILOG_DIR = ./vsrc
+VERILOG_DIR = $(NPC_HOME)/vsrc
 ifeq ($(MAKECMDGOALS),unit)
-CPP_DIR = ./unit_test/$(TOP)_src
-else
-CPP_DIR = ./csrc
-endif
-BUILD_DIR = ./obj_dir
-
-VSRC = $(shell find $(VERILOG_DIR) -name "*.v")
+CPP_DIR = $(NPC_HOME)/unit_test/$(TOP)_src
 CSRC = $(shell find $(CPP_DIR) -name "*.cpp" -o -name "*.c")
 INC = $(shell find $(CPP_DIR) -name "*.h")
+else
+CPP_DIR = $(NPC_HOME)/csrc
+CSRC = $(shell find $(CPP_DIR)/src -name "*.cpp" -o -name "*.c")
+# INC = $(shell find $(CPP_DIR)/include -name "*.h")
+INC = $(CPP_DIR)/include
+endif
+BUILD_DIR = obj_dir
+
+VSRC = $(shell find $(VERILOG_DIR) -name "*.v")
 
 export PATH := $(PATH):$(abspath ./utils)
 
@@ -48,11 +51,17 @@ c: $(VERILOG_DIR)/*.v
 
 insert:
 	@sed -i '1s/^/\/* verilator lint_off WIDTHEXPAND *\/\n/' $(VERILOG_DIR)/$(TOP).v
+	@sed -i '1s/^/\/* verilator lint_off DECLFILENAME *\/\n/' $(VERILOG_DIR)/$(TOP).v
+	@sed -i '1s/^/\/* verilator lint_off UNUSEDSIGNAL *\/\n/' $(VERILOG_DIR)/$(TOP).v
 
 V$(TOP): $(VSRC)
 	@verilator -Wall --trace --cc $(VSRC) --top-module $(TOP) \
 	--exe $(CSRC) \
 	-CFLAGS "-I $(INC)"
+	echo "finish"
+	@make -C $(BUILD_DIR) -f V$(TOP).mk V$(TOP)
+
+d:
 	@make -C $(BUILD_DIR) -f V$(TOP).mk V$(TOP)
 
 unit: V$(TOP)

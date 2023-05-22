@@ -1,4 +1,5 @@
 /* verilator lint_off UNUSEDSIGNAL */
+/* verilator lint_off EOFNEWLINE */
  module i_mem(
  input wire  en,
  input wire  wr,

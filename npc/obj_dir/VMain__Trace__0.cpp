@@ -31,8 +31,8 @@ void VMain___024root__trace_chg_sub_0(VMain___024root* vlSelf, VerilatedVcd::Buf
         bufp->chgIData(oldp+4,((IData)(vlSelf->Main__DOT__cpucore__DOT__EXE__DOT__alu__DOT___io_res_T_18)),32);
         bufp->chgIData(oldp+5,(vlSelf->Main__DOT__cpucore__DOT__ID__DOT__reg___05Fio_rdata2),32);
         bufp->chgCData(oldp+6,(((0xdU == (IData)(vlSelf->Main__DOT__cpucore__DOT__ID__DOT__inst_name))
-                                 ? 4U : ((0xcU == (IData)(vlSelf->Main__DOT__cpucore__DOT__ID__DOT__inst_name))
-                                          ? 2U : ((0xbU 
+                                 ? 7U : ((0xcU == (IData)(vlSelf->Main__DOT__cpucore__DOT__ID__DOT__inst_name))
+                                          ? 3U : ((0xbU 
                                                    == (IData)(vlSelf->Main__DOT__cpucore__DOT__ID__DOT__inst_name))
                                                    ? 1U
                                                    : 0xdU)))),4);

@@ -1,3 +1,8 @@
+/* verilator lint_off UNUSEDSIGNAL */
+/* verilator lint_off DECLFILENAME */
+/* verilator lint_off WIDTHEXPAND */
+/* verilator lint_off DECLFILENAME */
+/* verilator lint_off WIDTHEXPAND */
 /* verilator lint_off WIDTHEXPAND */
 module preIF(
   input         clock,
@@ -1097,8 +1102,8 @@ module EX_stage(
   wire [31:0] alu_io_src2; // @[src/src/cpucore/pipeline/EX_stage.scala 19:21]
   wire [31:0] alu_io_res; // @[src/src/cpucore/pipeline/EX_stage.scala 19:21]
   wire [15:0] _data_sram_wstrb_T_1 = 5'hb == es_bits_inst_name ? 16'h1 : 16'hdead; // @[src/src/cpucore/pipeline/EX_stage.scala 38:63]
-  wire [15:0] _data_sram_wstrb_T_3 = 5'hc == es_bits_inst_name ? 16'h2 : _data_sram_wstrb_T_1; // @[src/src/cpucore/pipeline/EX_stage.scala 38:63]
-  wire [15:0] _data_sram_wstrb_T_5 = 5'hd == es_bits_inst_name ? 16'h4 : _data_sram_wstrb_T_3; // @[src/src/cpucore/pipeline/EX_stage.scala 38:63]
+  wire [15:0] _data_sram_wstrb_T_3 = 5'hc == es_bits_inst_name ? 16'h3 : _data_sram_wstrb_T_1; // @[src/src/cpucore/pipeline/EX_stage.scala 38:63]
+  wire [15:0] _data_sram_wstrb_T_5 = 5'hd == es_bits_inst_name ? 16'h7 : _data_sram_wstrb_T_3; // @[src/src/cpucore/pipeline/EX_stage.scala 38:63]
   ALU alu ( // @[src/src/cpucore/pipeline/EX_stage.scala 19:21]
     .io_alu_op(alu_io_alu_op),
     .io_src1(alu_io_src1),

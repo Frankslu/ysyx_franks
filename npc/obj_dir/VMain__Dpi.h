@@ -16,17 +16,17 @@ extern "C" {
 
 
     // DPI IMPORTS
-    // DPI import at vsrc/Exec.v:8:30
+    // DPI import at /home/franks/ysyx-workbench/npc/vsrc/Exec.v:8:30
     extern void inst_exec_once(char valid, int inst, int pc);
-    // DPI import at vsrc/npc_break.v:6:30
+    // DPI import at /home/franks/ysyx-workbench/npc/vsrc/npc_break.v:6:30
     extern void npc_break(char is_break);
-    // DPI import at vsrc/Difftest.v:36:30
+    // DPI import at /home/franks/ysyx-workbench/npc/vsrc/Difftest.v:36:30
     extern void set_gpr_ptr(const svOpenArrayHandle regs);
-    // DPI import at vsrc/i_mem.v:12:31
+    // DPI import at /home/franks/ysyx-workbench/npc/vsrc/i_mem.v:13:31
     extern void vaddr_fetch(int raddr, int* rdata);
-    // DPI import at vsrc/d_mem.v:12:31
+    // DPI import at /home/franks/ysyx-workbench/npc/vsrc/d_mem.v:12:31
     extern void vaddr_read(int raddr, int* rdata);
-    // DPI import at vsrc/d_mem.v:14:31
+    // DPI import at /home/franks/ysyx-workbench/npc/vsrc/d_mem.v:14:31
     extern void vaddr_write(int waddr, int wdata, char wmask, int* rdata);
 
 #ifdef __cplusplus

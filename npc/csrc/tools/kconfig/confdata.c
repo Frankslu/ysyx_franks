@@ -1081,7 +1081,7 @@ int conf_write_autoconf(int overwrite)
 
 	name = getenv("KCONFIG_AUTOHEADER");
 	if (!name)
-		name = "csrc/include/generated/autoconf.h";
+		name = "csrc/include/autoconf.h";
 	if (make_parent_dir(name))
 		return 1;
 	if (rename(".tmpconfig.h", name))

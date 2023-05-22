@@ -1,7 +1,7 @@
 #include <dlfcn.h>
 
 #include "decode.h"
-#include "cpu/cpu.h"
+#include "cpu.h"
 #include "paddr.h"
 #include "utils.h"
 #include "difftest-def.h"

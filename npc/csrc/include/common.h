@@ -6,7 +6,7 @@
 #include <stdbool.h>
 #include <string.h>
 
-#include "generated/autoconf.h"
+#include "autoconf.h"
 #include "macro.h"
 
 #include <assert.h>
