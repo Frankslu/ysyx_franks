@@ -11,7 +11,8 @@ class Exec extends HasBlackBoxInline{
 	})
 
 	setInline("Exec.v",
-	"""module Exec(
+	"""/* verilator lint_off WIDTHEXPAND */
+	|module Exec(
 	|	input wire valid,
 	|	input wire [31:0] inst
 	|);
