@@ -17,7 +17,6 @@ extern "C" void set_gpr_ptr(const svOpenArrayHandle regs){
 
 //verilator dpi-c
 extern "C" void inst_exec_once(char valid, int inst, int pc){
-	printf("hello1\n");
 	if ((int)valid == 1){
 		cpu.valid = true;
 		cpu.pc = (vaddr_t)pc;
@@ -29,7 +28,6 @@ extern "C" void inst_exec_once(char valid, int inst, int pc){
 }
 
 extern "C" void npc_break(char is_break){
-	printf("hello2\n");
 	cpu.is_break = (int)is_break == 1 ? 1 : 0;
 }
 
@@ -71,5 +69,6 @@ int npc_exec_once(Decode *s){
 	if (cpu.is_break == true){
 		set_npc_state(NPC_STOP, cpu.pc, 0);
 	}
+	printf("%u\n", cpu.pc);
 	return 0;
 }
