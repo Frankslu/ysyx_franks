@@ -16,10 +16,5 @@ extern VerilatedContext *contextp;
 extern VMain *top;
 extern VerilatedVcd *tfp;
 
-#define EXEC_CLOCK do{ \
-	top->clock = 0; \
-	top->eval(); \
-	top->clock = 1; \
-	top->eval(); \
-	}while(0)
+
 #endif

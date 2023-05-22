@@ -53,7 +53,6 @@ __attribute__((unused)) static void trace_and_difftest(Decode *_this, vaddr_t dn
 }
 
 static void exec_once(Decode *s) {
-	
 // 	s->pc = pc;
 // 	s->snpc = pc;
 	npc_exec_once(s);

@@ -7,15 +7,18 @@ void record_read(vaddr_t addr);
 void record_write(vaddr_t addr);
 
 extern "C" void vaddr_fetch(int raddr, int *rdata){
+	printf("hello4\n");
 	*rdata = paddr_read(raddr, 4);
 }
 
 extern "C" void vaddr_read(int raddr, int *rdata){
-    IFDEF(CONFIG_MTRACE, record_read(raddr));
+	printf("hello5\n");
+	IFDEF(CONFIG_MTRACE, record_read(raddr));
 	*rdata = paddr_read(raddr, 4);
 }
 extern "C" void vaddr_write(int waddr, int wdata, char wmask, int *rdata){
-    IFDEF(CONFIG_MTRACE, record_write(waddr));
+	printf("hello6\n");
+	IFDEF(CONFIG_MTRACE, record_write(waddr));
 	*rdata = 0xbeef;
 	uint32_t mask = (uint32_t)wmask;
 	int len;
