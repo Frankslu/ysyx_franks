@@ -16,7 +16,7 @@ extern "C" {
 
 
     // DPI IMPORTS
-    // DPI import at vsrc/Exec.v:6:30
+    // DPI import at vsrc/Exec.v:7:30
     extern void inst_exec_once(char valid, int inst);
     // DPI import at vsrc/Break.v:5:30
     extern void npc_break(char is_break);

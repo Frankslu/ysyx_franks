@@ -1,3 +1,4 @@
+/* verilator lint_off WIDTHEXPAND */
 module Exec(
 	input wire valid,
 	input wire [31:0] inst

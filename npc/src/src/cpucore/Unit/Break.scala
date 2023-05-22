@@ -9,7 +9,8 @@ class npc_break extends HasBlackBoxInline{
 	})
 
 	setInline("Break.v",
-	"""module npc_break(
+	"""/* verilator lint_off WIDTHEXPAND */
+	|module npc_break(
 	|	input wire is_break
 	|);
 	|
