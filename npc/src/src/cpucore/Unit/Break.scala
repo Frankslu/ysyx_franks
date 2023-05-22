@@ -13,12 +13,10 @@ class npc_break extends HasBlackBoxInline{
 	|	input wire is_break
 	|);
 	|
-	|import "DPI-C" function void npc_break();
+	|import "DPI-C" function void npc_break(input byte is_break);
 	|
 	|always @(*) begin
-	|	if(is_break) begin
-	|		npc_break();
-	|	end
+	|	npc_break(is_break);
 	|end
 	|
 	|endmodule
