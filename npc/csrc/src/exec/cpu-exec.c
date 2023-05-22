@@ -13,10 +13,10 @@
  * See the Mulan PSL v2 for more details.
  ***************************************************************************************/
 
+#include <locale.h>
+#include "isa.h"
 #include "cpu.h"
 #include "decode.h"
-#include "difftest.h"
-#include <locale.h>
 
  /* The assembly code of instructions executed is only output to the screen
  * when the number of instructions executed is less than this value.
