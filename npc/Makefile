@@ -42,7 +42,10 @@ checkformat:
 	mill -i __.checkFormat
 
 clean:
-	-rm -rf $(BUILD_DIR) $(VERILOG_DIR)
+	-rm -rf $(BUILD_DIR)
+
+cleanv:
+	-rm -rf $(VERILOG_DIR)
 
 .PHONY: test verilog help compile bsp reformat checkformat clean insert unit sim
 
@@ -57,7 +60,8 @@ insert:
 V$(TOP): $(VSRC)
 	@verilator -Wall --trace --cc $(VSRC) --top-module $(TOP) \
 	--exe $(CSRC) \
-	-CFLAGS "-I $(INC)"
+	-CFLAGS "-I $(INC)" \
+	-LDFLAGS "-l readline"
 	echo "finish"
 	@make -s -C $(BUILD_DIR) -f V$(TOP).mk V$(TOP)
 	echo "finish2"
