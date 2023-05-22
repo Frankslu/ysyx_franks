@@ -15,6 +15,11 @@ BUILD_DIR = obj_dir
 
 VSRC = $(shell find $(VERILOG_DIR) -name "*.v")
 
+GDB =
+ifeq ($(MAKECMDGOALS), gdb)
+GDB := --debug
+endif
+
 export PATH := $(PATH):$(abspath ./utils)
 
 test:
@@ -50,15 +55,13 @@ cleanv:
 .PHONY: test verilog help compile bsp reformat checkformat clean insert unit sim
 
 c: $(VERILOG_DIR)/*.v
-	@verilator --top-module $(TOP) -cc $(VSRC)
-
-insert:
 	@sed -i '1s/^/\/* verilator lint_off WIDTHEXPAND *\/\n/' $(VERILOG_DIR)/$(TOP).v
 	@sed -i '1s/^/\/* verilator lint_off DECLFILENAME *\/\n/' $(VERILOG_DIR)/$(TOP).v
 	@sed -i '1s/^/\/* verilator lint_off UNUSEDSIGNAL *\/\n/' $(VERILOG_DIR)/$(TOP).v
+	@verilator --top-module $(TOP) -cc $(VSRC)
 
 V$(TOP): $(VSRC)
-	@verilator -Wall --trace --debug --cc $(VSRC) --top-module $(TOP) \
+	@verilator -Wall --trace $(GDB) --cc $(VSRC) --top-module $(TOP) \
 	--exe $(CSRC) \
 	-CFLAGS "-I $(INC)" \
 	-LDFLAGS "-l readline"
