@@ -12,7 +12,8 @@ class Exec extends HasBlackBoxInline{
 
 	setInline("Exec.v",
 	"""module Exec(
-	|	input wire valid
+	|	input wire valid,
+	|	input wire [31:0] inst
 	|);
 	|
 	|import "DPI-C" function void inst_exec_once(input byte valid, input int inst);
