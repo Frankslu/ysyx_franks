@@ -14,7 +14,7 @@ class preIF extends Module{
 
     val pc = RegInit(PC_INIT.U)
     val snpc = pc + 4.U
-    pc := Mux(br.taken, br.target ,pc)
+    pc := Mux(br.taken, br.target, snpc)
 
     inst_sram.en := 1.B
     inst_sram.wr := 0.B
