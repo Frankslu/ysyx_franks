@@ -61,4 +61,5 @@ int npc_exec_once(Decode *s){
 	if (cpu.is_break == true){
 		set_npc_state(NPC_STOP, cpu.pc, 0);
 	}
+	return 0;
 }

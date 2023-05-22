@@ -48,4 +48,6 @@ vaddr_t isa_raise_intr(word_t NO, vaddr_t epc);
 bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc);
 void isa_difftest_attach();
 
+void isa_reg_display();
+
 #endif

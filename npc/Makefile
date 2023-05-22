@@ -59,7 +59,8 @@ V$(TOP): $(VSRC)
 	--exe $(CSRC) \
 	-CFLAGS "-I $(INC)"
 	echo "finish"
-	@make -C $(BUILD_DIR) -f V$(TOP).mk V$(TOP)
+	@make -s -C $(BUILD_DIR) -f V$(TOP).mk V$(TOP)
+	echo "finish2"
 
 d:
 	@make -C $(BUILD_DIR) -f V$(TOP).mk V$(TOP)

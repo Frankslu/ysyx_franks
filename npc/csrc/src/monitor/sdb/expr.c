@@ -21,6 +21,8 @@
  */
 #include <regex.h>
 
+word_t isa_reg_str2val(const char *s, bool *success);
+
 enum {
 	TK_NOTYPE = 256, TK_EQ = 257, TK_NE = 258, NUM = 259, HEXNUM = 260, 
 	REG = 261, LAND = 262, NEG = 263, POINTER = 264,

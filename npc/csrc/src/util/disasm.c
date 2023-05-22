@@ -12,6 +12,7 @@
  *
  * See the Mulan PSL v2 for more details.
  ***************************************************************************************/
+#ifdef FUCK_GCC
 
 #include "reg.h"
 #include "cpu.h"
@@ -237,3 +238,5 @@ int decode_exec(Decode *s) {
 
 	return 0;
 }
+
+#endif

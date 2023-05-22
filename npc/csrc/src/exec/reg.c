@@ -29,7 +29,7 @@ const char *regs[2][32] = { {
 	}
 };
 
-void isa_reg_display(char *args) {
+void isa_reg_display() {
 	for (int i = 0; i < 32; i++){
 		printf("%02d %s  0x%08x\n", i, regs[1][i], cpu.gpr[i]);
 	}

@@ -90,7 +90,7 @@ static int cmd_info(char *args){
 	char c[3];
 	sscanf(args, "%s", c);
 	if(c[0] == 'r' && c[1] == '\0'){
-		isa_reg_display(NULL);
+		isa_reg_display();
 	}
 	else if(c[0] == 'w' && c[1] == '\0'){
 		MUXDEF(CONFIG_WATCHPOINT, print_watchpoint(), printf("Watchpoint disabled\n"));
@@ -114,7 +114,7 @@ static int cmd_info(char *args){
 }
 
 static int cmd_x(char *args){
-	char *e = malloc(128*sizeof(char));
+	char *e = (char *)malloc(128*sizeof(char));
 	int n;
 	bool success = true;
 	if(sscanf(args, "%d %[^\n]", &n, e) != 2){
@@ -132,7 +132,7 @@ static int cmd_x(char *args){
 }
 
 static int cmd_p(char *args){
-	char *e = malloc(128*sizeof(char));
+	char *e = (char *)malloc(128*sizeof(char));
 	if(args == NULL){
 		printf("command error\n");
 		free(e);

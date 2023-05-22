@@ -8,7 +8,7 @@ static char *diff_so_file = NULL;
 static char *elf_file = NULL;
 static char *img_file = NULL;
 
-void set_batch_mode();
+void sdb_set_batch_mode();
 void init_rand();
 void init_log(const char *log_file);
 void init_mem();
@@ -30,7 +30,7 @@ static int parse_args(int argc, char *argv[]) {
 	volatile int o;
 	while ( (o = getopt_long(argc, argv, "-bhl:d:p:e:", table, NULL)) != -1) {
 	switch (o) {
-		case 'b': set_batch_mode(); break;
+		case 'b': sdb_set_batch_mode(); break;
 		case 'l': npc_log_file = optarg; break;
 		case 'd': diff_so_file = optarg; break;
 		case 'e': elf_file = optarg; break;
@@ -92,7 +92,7 @@ void init_monitor(int argc, char *argv[]){
 	long img_size = load_img();
 
 	/* Initialize differential testing. */
-	init_difftest(diff_so_file, img_size);
+	IFDEF(CONFIG_DIFFTEST ,init_difftest(diff_so_file, img_size));
 
 	/* Initialize the simple debugger. */
 	init_sdb();
