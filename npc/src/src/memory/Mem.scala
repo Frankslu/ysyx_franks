@@ -23,7 +23,7 @@ import chisel3.util._
 class d_mem extends BlackBox with HasBlackBoxInline {
 	val io = IO(Flipped(new sram_io))
 	// val io = IO(new io1)
-	setInline("Memory.v",
+	setInline("d_mem.v",
 	"""/* verilator lint_off UNUSEDSIGNAL */
    | module d_mem(
    | input wire  en,
@@ -50,5 +50,5 @@ class d_mem extends BlackBox with HasBlackBoxInline {
    |end
    |
    |endmodule
-	""".stripMargin)
+	|""".stripMargin)
 }

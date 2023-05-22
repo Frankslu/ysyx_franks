@@ -8,7 +8,7 @@ class npc_break extends HasBlackBoxInline{
 		val is_break = Input(Bool())
 	})
 
-	setInline("Break.v",
+	setInline("npc_break.v",
 	"""/* verilator lint_off WIDTHEXPAND */
 	|module npc_break(
 	|	input wire is_break

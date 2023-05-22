@@ -6,7 +6,7 @@ import chisel3.util._
 class i_mem extends BlackBox with HasBlackBoxInline {
 	val io = IO(Flipped(new sram_io))
 	// val io = IO(new io1)
-	setInline("Inst.v",
+	setInline("i_mem.v",
 	"""/* verilator lint_off UNUSEDSIGNAL */
    | module i_mem(
    | input wire  en,
