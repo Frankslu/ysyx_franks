@@ -3,33 +3,39 @@
 #include "paddr.h"
 #include "ve.h"
 
+extern VMain *top;
+
 void record_read(vaddr_t addr);
 void record_write(vaddr_t addr);
 
 extern "C" void vaddr_fetch(int raddr, int *rdata){
-	*rdata = paddr_read(raddr, 4);
+	if(top->reset == 0)
+		*rdata = paddr_read(raddr, 4);
 }
 
 extern "C" void vaddr_read(int raddr, int *rdata){
-	IFDEF(CONFIG_MTRACE, record_read(raddr));
-	*rdata = paddr_read(raddr, 4);
+	if(top->reset == 0){
+		IFDEF(CONFIG_MTRACE, record_read(raddr));
+		*rdata = paddr_read(raddr, 4);}
 }
 extern "C" void vaddr_write(int waddr, int wdata, char wmask, int *rdata){
-	IFDEF(CONFIG_MTRACE, record_write(waddr));
-	*rdata = 0xbeef;
-	uint32_t mask = (uint32_t)wmask;
-	int len;
-	if (mask == 1){
-		len = 1;
+	if(top->reset == 0){
+		IFDEF(CONFIG_MTRACE, record_write(waddr));
+		*rdata = 0xbeef;
+		uint32_t mask = (uint32_t)wmask;
+		int len;
+		if (mask == 1){
+			len = 1;
+		}
+		else if (mask == 3){
+			len = 2;
+		}
+		else if (mask == 7){
+			len = 4;
+		}
+		
+		paddr_write(waddr, len, wdata);
 	}
-	else if (mask == 3){
-		len = 2;
-	}
-	else if (mask == 7){
-		len = 4;
-	}
-	
-	paddr_write(waddr, len, wdata);
 }
 
 word_t vaddr_ifetch(vaddr_t addr, int len) {
