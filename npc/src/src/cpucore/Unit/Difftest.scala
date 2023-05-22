@@ -7,13 +7,11 @@ import Config.Configs._
 
 class Difftest extends HasBlackBoxInline {
 	val io = IO(new Bundle{
-    	val pc = Input(UInt(32.W))
     	val rf = Input(Vec(32, UInt(32.W)))
 	})
 
 	setInline("Difftest.v",
 	"""module Difftest(
-	|	input wire [31:0] pc,
 	|	input wire [31:0] rf_0,
 	|	input wire [31:0] rf_1,
 	|	input wire [31:0] rf_2,
@@ -48,7 +46,7 @@ class Difftest extends HasBlackBoxInline {
 	|	input wire [31:0] rf_31
 	|);
 	|
-	|import "DPI-C" function void set_gpr_ptr(input int pc, input logic [31:0] regs[]);
+	|import "DPI-C" function void set_gpr_ptr(input logic [31:0] regs[]);
 	|
 	|wire [31:0] regs [32];
 	|assign regs[0] = rf_0;

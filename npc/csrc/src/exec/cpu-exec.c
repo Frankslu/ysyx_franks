@@ -51,39 +51,39 @@ __attribute__((unused)) static void trace_and_difftest(Decode *_this, vaddr_t dn
 #endif
 }
 
-static void exec_once(Decode *s, vaddr_t pc) {
-	s->pc = pc;
-	s->snpc = pc;
-	isa_exec_once(s);
-	cpu.pc = s->dnpc;
-#ifdef CONFIG_ITRACE
-	char *p = s->logbuf;
-	p += snprintf(p, sizeof(s->logbuf), FMT_WORD ":", s->pc);
-	int ilen = s->snpc - s->pc;
-	int i;
-	uint8_t *inst = (uint8_t *)&s->isa.inst.val;
-	for (i = ilen - 1; i >= 0; i --) {
-		p += snprintf(p, 4, " %02x", inst[i]);
-	}
-	int ilen_max = MUXDEF(CONFIG_ISA_x86, 8, 4);
-	int space_len = ilen_max - ilen;
-	if (space_len < 0) space_len = 0;
-	space_len = space_len * 3 + 1;
-	memset(p, ' ', space_len);
-	p += space_len;
+static void exec_once(vaddr_t pc) {
+	
+// 	s->pc = pc;
+// 	s->snpc = pc;
+// 	npc_exec_once(s);
+// 	cpu.pc = s->dnpc;
+// #ifdef CONFIG_ITRACE
+// 	char *p = s->logbuf;
+// 	p += snprintf(p, sizeof(s->logbuf), FMT_WORD ":", s->pc);
+// 	int ilen = s->snpc - s->pc;
+// 	int i;
+// 	uint8_t *inst = (uint8_t *)&s->isa.inst.val;
+// 	for (i = ilen - 1; i >= 0; i --) {
+// 		p += snprintf(p, 4, " %02x", inst[i]);
+// 	}
+// 	int ilen_max = MUXDEF(CONFIG_ISA_x86, 8, 4);
+// 	int space_len = ilen_max - ilen;
+// 	if (space_len < 0) space_len = 0;
+// 	space_len = space_len * 3 + 1;
+// 	memset(p, ' ', space_len);
+// 	p += space_len;
 
-	p[0] = '\t';
-	p++;
-	strcpy(p, s->disas);
-	p += strlen(s->disas);
-	p[0] = '\0';
-#endif
+// 	p[0] = '\t';
+// 	p++;
+// 	strcpy(p, s->disas);
+// 	p += strlen(s->disas);
+// 	p[0] = '\0';
+// #endif
 }
 
 static void execute(uint64_t n) {
-	Decode s;
 	for (;n > 0; n --) {
-		exec_once(&s, cpu.pc);
+		exec_once(cpu.pc);
 		g_nr_guest_inst ++;
 
 #ifdef CONFIG_TRACE
