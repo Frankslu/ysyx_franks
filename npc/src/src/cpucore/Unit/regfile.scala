@@ -2,8 +2,6 @@ package cpucore.Unit
 
 import Config.Configs._
 import chisel3._
-import org.apache.commons.lang3.builder.Diff
-import scala.util.control.Breaks
 /*
 class regfile extends Module{
     val io = IO(new Bundle {
@@ -37,6 +35,7 @@ class regfile extends Module{
         val rf_pc = Input(UInt(ADDR_WIDTH.W))
         val is_break = Input(Bool())
         val valid = Input(Bool())
+        val inst = Input(UInt(DATA_WIDTH.W))
     })
     val rf = Mem(REG_NUM ,UInt(DATA_WIDTH.W))
     when(io.wen) {rf.write(io.waddr, io.wdata)}
@@ -59,6 +58,8 @@ class regfile extends Module{
 
     val valid = RegInit(false.B)
     valid := io.valid
+    val inst = RegNext(io.inst)
     val inst_exec_once = Module(new Exec)
     inst_exec_once.io.valid := valid
+    inst_exec_once.io.inst := inst
 }

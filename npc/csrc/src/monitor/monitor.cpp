@@ -40,7 +40,6 @@ static int parse_args(int argc, char *argv[]) {
 		printf("\t-b,--batch              run with batch mode\n");
 		printf("\t-l,--log=FILE           output log to FILE\n");
 		printf("\t-d,--diff=REF_SO        run DiffTest with reference REF_SO\n");
-		printf("\t-p,--port=PORT          run DiffTest with port PORT\n");
 		printf("\t-e,--elf=ELF_FILE       READ ELF FILE");
 		printf("\n");
 		exit(0);

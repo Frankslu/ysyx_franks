@@ -15,6 +15,7 @@ class WB_stage extends Module{
 	torf.rf_wdata := ws.bits.rf_wdata
 	torf.is_break := ws.bits.is_break
 	torf.valid := ws.valid
+	torf.inst := ws.bits.inst
 
 	ws.ready := 1.U
 }
