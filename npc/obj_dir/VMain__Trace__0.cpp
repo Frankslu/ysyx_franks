@@ -732,9 +732,10 @@ void VMain___024root__trace_chg_sub_0(VMain___024root* vlSelf, VerilatedVcd::Buf
                                                    | (0xffU 
                                                       & vlSelf->Main__DOT__dram_rdata))
                                                    : 0xdeadU)))))),32);
+        bufp->chgIData(oldp+225,(((IData)(4U) + vlSelf->Main__DOT__cpucore__DOT__pIF__DOT__pc)),32);
     }
-    bufp->chgBit(oldp+225,(vlSelf->clock));
-    bufp->chgBit(oldp+226,(vlSelf->reset));
+    bufp->chgBit(oldp+226,(vlSelf->clock));
+    bufp->chgBit(oldp+227,(vlSelf->reset));
 }
 
 void VMain___024root__trace_cleanup(void* voidSelf, VerilatedVcd* /*unused*/) {

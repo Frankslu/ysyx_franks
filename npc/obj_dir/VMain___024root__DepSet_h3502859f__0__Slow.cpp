@@ -64,7 +64,7 @@ VL_ATTR_COLD void VMain___024root___eval_settle(VMain___024root* vlSelf) {
 #ifdef VL_DEBUG
                 VMain___024root___dump_triggers__stl(vlSelf);
 #endif
-                VL_FATAL_MT("/home/franks/ysyx-workbench/npc/vsrc/Main.v", 1395, "", "Settle region did not converge.");
+                VL_FATAL_MT("/home/franks/ysyx-workbench/npc/vsrc/Main.v", 1398, "", "Settle region did not converge.");
             }
             vlSelf->__VstlIterCount = ((IData)(1U) 
                                        + vlSelf->__VstlIterCount);
@@ -101,6 +101,8 @@ VL_ATTR_COLD void VMain___024root___stl_sequent__TOP__0(VMain___024root* vlSelf)
     // Body
     VMain___024root____Vdpiimwrap_Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__npc_brk__DOT__npc_break_TOP(vlSelf->Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__is_break);
     VMain___024root____Vdpiimwrap_Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__inst_exec_once__DOT__inst_exec_once_TOP(vlSelf->Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__valid, vlSelf->Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__inst, vlSelf->Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__pc);
+    vlSelf->Main__DOT__cpucore__DOT__pIF__DOT__snpc 
+        = ((IData)(4U) + vlSelf->Main__DOT__cpucore__DOT__pIF__DOT__pc);
     vlSelf->Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__difftest__DOT__regs[0U] 
         = vlSelf->Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__rf
         [0U];
@@ -1209,6 +1211,7 @@ VL_ATTR_COLD void VMain___024root___ctor_var_reset(VMain___024root* vlSelf) {
     vlSelf->Main__DOT__dram_rdata = VL_RAND_RESET_I(32);
     vlSelf->Main__DOT__iram_rdata = VL_RAND_RESET_I(32);
     vlSelf->Main__DOT__cpucore__DOT__pIF__DOT__pc = VL_RAND_RESET_I(32);
+    vlSelf->Main__DOT__cpucore__DOT__pIF__DOT__snpc = VL_RAND_RESET_I(32);
     vlSelf->Main__DOT__cpucore__DOT__ID__DOT__reg___05Fio_rdata1 = VL_RAND_RESET_I(32);
     vlSelf->Main__DOT__cpucore__DOT__ID__DOT__reg___05Fio_rdata2 = VL_RAND_RESET_I(32);
     vlSelf->Main__DOT__cpucore__DOT__ID__DOT___decode_res_T = VL_RAND_RESET_I(15);

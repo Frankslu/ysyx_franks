@@ -116,6 +116,7 @@ class VMain___024root final : public VerilatedModule {
         IData/*31:0*/ Main__DOT__dram_rdata;
         IData/*31:0*/ Main__DOT__iram_rdata;
         IData/*31:0*/ Main__DOT__cpucore__DOT__pIF__DOT__pc;
+        IData/*31:0*/ Main__DOT__cpucore__DOT__pIF__DOT__snpc;
         IData/*31:0*/ Main__DOT__cpucore__DOT__ID__DOT__reg___05Fio_rdata1;
         IData/*31:0*/ Main__DOT__cpucore__DOT__ID__DOT__reg___05Fio_rdata2;
         IData/*16:0*/ Main__DOT__cpucore__DOT__ID__DOT___decode_res_T_52;

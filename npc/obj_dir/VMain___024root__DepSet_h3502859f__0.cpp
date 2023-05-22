@@ -179,29 +179,46 @@ VL_INLINE_OPT void VMain___024root___nba_sequent__TOP__0(VMain___024root* vlSelf
         [0x1fU];
     VMain___024root____Vdpiimwrap_Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__npc_brk__DOT__npc_break_TOP(vlSelf->Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__is_break);
     VMain___024root____Vdpiimwrap_Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__inst_exec_once__DOT__inst_exec_once_TOP(vlSelf->Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__valid, vlSelf->Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__inst, vlSelf->Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__pc);
-    if (vlSelf->reset) {
-        vlSelf->Main__DOT__cpucore__DOT__pIF__DOT__pc = 0x1c000000U;
-    } else if ((((((((((0U == (IData)(vlSelf->Main__DOT__cpucore__DOT__ID__DOT__inst_name)) 
-                       & (IData)(vlSelf->Main__DOT__cpucore__DOT__ID__DOT__rj_eq_rd)) 
-                      | ((~ (IData)(vlSelf->Main__DOT__cpucore__DOT__ID__DOT__rj_eq_rd)) 
-                         & (1U == (IData)(vlSelf->Main__DOT__cpucore__DOT__ID__DOT__inst_name)))) 
-                     | ((2U == (IData)(vlSelf->Main__DOT__cpucore__DOT__ID__DOT__inst_name)) 
-                        & (IData)(vlSelf->Main__DOT__cpucore__DOT__ID__DOT__slt_res))) 
-                    | ((~ (IData)(vlSelf->Main__DOT__cpucore__DOT__ID__DOT__slt_res)) 
-                       & (3U == (IData)(vlSelf->Main__DOT__cpucore__DOT__ID__DOT__inst_name)))) 
-                   | ((~ (IData)((1ULL & ((1ULL + vlSelf->Main__DOT__cpucore__DOT__ID__DOT___rj_sub_rd_T) 
-                                          >> 0x20U)))) 
-                      & (4U == (IData)(vlSelf->Main__DOT__cpucore__DOT__ID__DOT__inst_name)))) 
-                  | ((IData)((1ULL & ((1ULL + vlSelf->Main__DOT__cpucore__DOT__ID__DOT___rj_sub_rd_T) 
-                                      >> 0x20U))) & 
-                     (5U == (IData)(vlSelf->Main__DOT__cpucore__DOT__ID__DOT__inst_name)))) 
-                 | (0xeU == (IData)(vlSelf->Main__DOT__cpucore__DOT__ID__DOT__inst_name))) 
-                | ((0xfU == (IData)(vlSelf->Main__DOT__cpucore__DOT__ID__DOT__inst_name)) 
-                   | (0x10U == (IData)(vlSelf->Main__DOT__cpucore__DOT__ID__DOT__inst_name))))) {
-        vlSelf->Main__DOT__cpucore__DOT__pIF__DOT__pc 
-            = (vlSelf->Main__DOT__cpucore__DOT__ID__DOT___br_target_T_1 
-               + vlSelf->Main__DOT__cpucore__DOT__ID__DOT__imm);
-    }
+    vlSelf->Main__DOT__cpucore__DOT__pIF__DOT__pc = 
+        ((IData)(vlSelf->reset) ? 0x1c000000U : (((
+                                                   (((((((0U 
+                                                          == (IData)(vlSelf->Main__DOT__cpucore__DOT__ID__DOT__inst_name)) 
+                                                         & (IData)(vlSelf->Main__DOT__cpucore__DOT__ID__DOT__rj_eq_rd)) 
+                                                        | ((~ (IData)(vlSelf->Main__DOT__cpucore__DOT__ID__DOT__rj_eq_rd)) 
+                                                           & (1U 
+                                                              == (IData)(vlSelf->Main__DOT__cpucore__DOT__ID__DOT__inst_name)))) 
+                                                       | ((2U 
+                                                           == (IData)(vlSelf->Main__DOT__cpucore__DOT__ID__DOT__inst_name)) 
+                                                          & (IData)(vlSelf->Main__DOT__cpucore__DOT__ID__DOT__slt_res))) 
+                                                      | ((~ (IData)(vlSelf->Main__DOT__cpucore__DOT__ID__DOT__slt_res)) 
+                                                         & (3U 
+                                                            == (IData)(vlSelf->Main__DOT__cpucore__DOT__ID__DOT__inst_name)))) 
+                                                     | ((~ (IData)(
+                                                                   (1ULL 
+                                                                    & ((1ULL 
+                                                                        + vlSelf->Main__DOT__cpucore__DOT__ID__DOT___rj_sub_rd_T) 
+                                                                       >> 0x20U)))) 
+                                                        & (4U 
+                                                           == (IData)(vlSelf->Main__DOT__cpucore__DOT__ID__DOT__inst_name)))) 
+                                                    | ((IData)(
+                                                               (1ULL 
+                                                                & ((1ULL 
+                                                                    + vlSelf->Main__DOT__cpucore__DOT__ID__DOT___rj_sub_rd_T) 
+                                                                   >> 0x20U))) 
+                                                       & (5U 
+                                                          == (IData)(vlSelf->Main__DOT__cpucore__DOT__ID__DOT__inst_name)))) 
+                                                   | (0xeU 
+                                                      == (IData)(vlSelf->Main__DOT__cpucore__DOT__ID__DOT__inst_name))) 
+                                                  | ((0xfU 
+                                                      == (IData)(vlSelf->Main__DOT__cpucore__DOT__ID__DOT__inst_name)) 
+                                                     | (0x10U 
+                                                        == (IData)(vlSelf->Main__DOT__cpucore__DOT__ID__DOT__inst_name))))
+                                                  ? 
+                                                 (vlSelf->Main__DOT__cpucore__DOT__ID__DOT___br_target_T_1 
+                                                  + vlSelf->Main__DOT__cpucore__DOT__ID__DOT__imm)
+                                                  : vlSelf->Main__DOT__cpucore__DOT__pIF__DOT__snpc));
+    vlSelf->Main__DOT__cpucore__DOT__pIF__DOT__snpc 
+        = ((IData)(4U) + vlSelf->Main__DOT__cpucore__DOT__pIF__DOT__pc);
     VMain___024root____Vdpiimwrap_Main__DOT__iram__DOT__vaddr_fetch_TOP(vlSelf->Main__DOT__cpucore__DOT__pIF__DOT__pc, vlSelf->__Vtask_Main__DOT__iram__DOT__vaddr_fetch__5__rdata);
     vlSelf->Main__DOT__iram_rdata = vlSelf->__Vtask_Main__DOT__iram__DOT__vaddr_fetch__5__rdata;
     vlSelf->Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__rf_io_rdata1_MPORT_data 
@@ -1206,7 +1223,7 @@ void VMain___024root___eval(VMain___024root* vlSelf) {
 #ifdef VL_DEBUG
                     VMain___024root___dump_triggers__act(vlSelf);
 #endif
-                    VL_FATAL_MT("/home/franks/ysyx-workbench/npc/vsrc/Main.v", 1395, "", "Active region did not converge.");
+                    VL_FATAL_MT("/home/franks/ysyx-workbench/npc/vsrc/Main.v", 1398, "", "Active region did not converge.");
                 }
                 vlSelf->__VactIterCount = ((IData)(1U) 
                                            + vlSelf->__VactIterCount);
@@ -1221,7 +1238,7 @@ void VMain___024root___eval(VMain___024root* vlSelf) {
 #ifdef VL_DEBUG
                 VMain___024root___dump_triggers__nba(vlSelf);
 #endif
-                VL_FATAL_MT("/home/franks/ysyx-workbench/npc/vsrc/Main.v", 1395, "", "NBA region did not converge.");
+                VL_FATAL_MT("/home/franks/ysyx-workbench/npc/vsrc/Main.v", 1398, "", "NBA region did not converge.");
             }
             __VnbaIterCount = ((IData)(1U) + __VnbaIterCount);
             VMain___024root___eval_nba(vlSelf);

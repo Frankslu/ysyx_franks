@@ -13,6 +13,7 @@ module preIF(
   reg [31:0] _RAND_0;
 `endif // RANDOMIZE_REG_INIT
   reg [31:0] pc; // @[src/src/cpucore/pipeline/preIF.scala 15:21]
+  wire [31:0] snpc = pc + 32'h4; // @[src/src/cpucore/pipeline/preIF.scala 16:19]
   assign inst_sram_addr = pc; // @[src/src/cpucore/pipeline/preIF.scala 21:20]
   assign tofs_bits_pc = pc; // @[src/src/cpucore/pipeline/preIF.scala 25:18]
   always @(posedge clock) begin
@@ -20,6 +21,8 @@ module preIF(
       pc <= 32'h1c000000; // @[src/src/cpucore/pipeline/preIF.scala 15:21]
     end else if (br_taken) begin // @[src/src/cpucore/pipeline/preIF.scala 17:14]
       pc <= br_target;
+    end else begin
+      pc <= snpc;
     end
   end
 // Register and memory initialization
