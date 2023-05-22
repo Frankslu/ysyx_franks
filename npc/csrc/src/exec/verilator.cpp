@@ -62,25 +62,14 @@ void init_verilator(int argc, char *argv[]){
 }
 
 int npc_exec_once(Decode *s){
-	printf("2\n");
-	top->reset = 0;
-	printf("1\n");
 	top->clock = 0;
-	printf("1\n");
 	top->eval();
-	printf("1\n");
-	top->reset = 0;
-	printf("1\n");
 	top->clock = 1;
-	printf("1\n");
 	top->eval();
-	printf("2\n");
 	s->isa.inst.val = cpu.inst;
-	printf("3\n");
 	// decode_exec(s);
 	if (cpu.is_break == true){
 		set_npc_state(NPC_STOP, cpu.pc, 0);
-	printf("4\n");
 	}
 	return 0;
 }
