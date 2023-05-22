@@ -13,9 +13,8 @@ class WB_stage extends Module{
 	torf.rf_we := ws.bits.rf_we
 	torf.rf_waddr := ws.bits.rf_waddr
 	torf.rf_wdata := ws.bits.rf_wdata
+	torf.is_break := ws.bits.is_break
+	torf.valid := ws.valid
 
 	ws.ready := 1.U
-
-	val npc_brk = Module(new npc_break)
-	npc_brk.io.is_break := ws.bits.is_break
 }

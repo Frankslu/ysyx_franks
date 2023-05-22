@@ -15,12 +15,12 @@
 // }
 
 void init_monitor(int, char *[]);
-void engine_start();
+void sdb_mainloop();
 
 int main(int argc, char *argv[]){
 	init_monitor(argc, argv);
 
-	engine_start();
+	sdb_mainloop();
 
 	return 0;
 }

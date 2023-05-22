@@ -65,3 +65,4 @@ sim: V$(TOP)
 	
 
 include ../Makefile
+include csrc/scripts/config.mk

@@ -53,6 +53,8 @@ class ws2rf extends Bundle{
     val rf_we = Output(Bool())
     val rf_waddr = Output(UInt(REG_ADDR_LEN.W))
     val rf_wdata = Output(UInt(DATA_WIDTH.W))
+    val is_break = Output(Bool())
+    val valid = Output(Bool())
 }
 
 

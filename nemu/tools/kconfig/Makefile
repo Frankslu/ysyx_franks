@@ -18,11 +18,14 @@ endif
 include $(NEMU_HOME)/scripts/build.mk
 
 $(obj)/lexer.lex.o: $(obj)/parser.tab.h
+	echo "hellllllllo1"
 $(obj)/lexer.lex.c: lexer.l $(obj)/parser.tab.h
+	echo "hellllllllo2"
 	@echo + LEX $@
 	@flex -o $@ $<
 
 $(obj)/parser.tab.c $(obj)/parser.tab.h: parser.y
+	echo "hellllllllo3"
 	@echo + YACC $@
 	@bison -v $< --defines=$(obj)/parser.tab.h -o $(obj)/parser.tab.c
 
