@@ -58,7 +58,7 @@ insert:
 	@sed -i '1s/^/\/* verilator lint_off UNUSEDSIGNAL *\/\n/' $(VERILOG_DIR)/$(TOP).v
 
 V$(TOP): $(VSRC)
-	@verilator -Wall --trace --cc $(VSRC) --top-module $(TOP) \
+	@verilator -Wall --trace --debug --cc $(VSRC) --top-module $(TOP) \
 	--exe $(CSRC) \
 	-CFLAGS "-I $(INC)" \
 	-LDFLAGS "-l readline"
@@ -66,8 +66,6 @@ V$(TOP): $(VSRC)
 	@make -s -C $(BUILD_DIR) -f V$(TOP).mk V$(TOP)
 	echo "finish2"
 
-d:
-	@make -C $(BUILD_DIR) -f V$(TOP).mk V$(TOP)
 
 unit: V$(TOP)
 	echo $(CSRC) $(INC)
@@ -76,6 +74,9 @@ unit: V$(TOP)
 sim: V$(TOP)
 	@$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
 	@./$(BUILD_DIR)/V$(TOP)
+
+gdb: V$(TOP)
+	@gdb $(BUILD_DIR)/V$(TOP)
 	
 
 include ../Makefile
