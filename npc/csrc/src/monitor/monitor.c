@@ -17,6 +17,7 @@ static long load_img();
 void init_difftest(const char *diff_so_file, int img_size);
 void init_sdb();
 void init_trace();
+void init_verilator(int argc, char *argv[]);
 
 static int parse_args(int argc, char *argv[]) {
 	const struct option table[] = {
@@ -99,4 +100,6 @@ void init_monitor(int argc, char *argv[]){
 
 	/*Initialize tracer*/
 	IFDEF(CONFIG_TRACE, init_trace());
+
+	init_verilator(argc, argv);
 }
