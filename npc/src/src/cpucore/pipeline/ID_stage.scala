@@ -56,6 +56,8 @@ class ID_stage extends Module{
     reg.io.wdata := torf.rf_wdata
     reg.io.wen := torf.rf_we
     reg.io.rf_pc := torf.pc
+    reg.io.valid := torf.valid
+    reg.io.is_break := torf.is_break
 
     val rj_value = reg.io.rdata1
     val rkd_value = reg.io.rdata2
