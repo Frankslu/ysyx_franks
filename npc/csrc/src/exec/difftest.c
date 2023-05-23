@@ -4,7 +4,7 @@
 #include "cpu.h"
 #include "paddr.h"
 #include "utils.h"
-#include "difftest-def.h"
+#include "difftest.h"
 
 #ifdef CONFIG_DIFFTEST
 

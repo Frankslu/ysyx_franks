@@ -61,7 +61,7 @@ c: $(VERILOG_DIR)/*.v
 	@verilator --top-module $(TOP) -cc $(VSRC)
 
 V$(TOP): $(VSRC)
-	@verilator -Wall --trace $(GDB) --cc $(VSRC) --top-module $(TOP) \
+	@verilator -Wall --trace $(GDB) -O3 --cc $(VSRC) --top-module $(TOP) \
 	--exe $(CSRC) \
 	-CFLAGS "-I $(INC)" \
 	-LDFLAGS "-l readline"
