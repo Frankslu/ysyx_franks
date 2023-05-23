@@ -51,9 +51,7 @@ void difftest_skip_dut(int nr_ref, int nr_dut) {
 	}
 }
 
-void init_difftest(const char *_so_file, int img_size){
-	char ref_so_file[] = "/home/franks/ysyx-workbench/nemu/build/loongarch32r-nemu-interpreter-so";
-	printf("%s\n", ref_so_file);
+void init_difftest(const char *ref_so_file, int img_size){
 	assert(ref_so_file != NULL);
 
 	void *handle;
