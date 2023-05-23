@@ -7,8 +7,9 @@
 VerilatedContext *contextp = NULL;
 VMain *top = NULL;
 __attribute__((unused)) VerilatedVcd *tfp = NULL;
+static uint64_t sim_time = 0;
 
-int decode_exec(Decode * s);
+int decode_exec(Decode *s);
 
 extern "C" void set_gpr_ptr(const svOpenArrayHandle regs){
 	cpu.gpr = (word_t *)(((VerilatedDpiOpenVar *)regs)->datap());
@@ -40,19 +41,21 @@ void init_verilator(int argc, char *argv[]){
     // Construct the Verilated model, from Vtop.h generated from Verilating "top.v"
 	top = new VMain{ contextp };
 
-#ifdef CONFIG_WAVETRACE
+#ifdef CONFIG_CC_WAVE
 	VerilatedVcdC *tfp = new VerilatedVcdC;
     contextp->traceEverOn(true);
 	top->trace(tfp, 99);
 	tfp->open("wave.vcd");
 #endif
 	
-	for (int i = 0; i < 10; i++){
+	for (int i = 0; i < 4; i++){
 		top->reset = 1;
 		top->clock = 0;
 		top->eval();
+    	tfp->dump(sim_time++);
 		top->clock = 1;
 		top->eval();
+    	tfp->dump(sim_time++);
 	}
 	top->reset = 0;
 
@@ -61,8 +64,10 @@ void init_verilator(int argc, char *argv[]){
 int npc_exec_once(Decode *s){
 	top->clock = 0;
 	top->eval();
+    tfp->dump(sim_time++);
 	top->clock = 1;
 	top->eval();
+    tfp->dump(sim_time++);
 	s->isa.inst.val = cpu.inst;
 	// decode_exec(s);
 	if (cpu.is_break == true){
