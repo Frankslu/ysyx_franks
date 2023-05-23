@@ -18,6 +18,8 @@
 #include <difftest-def.h>
 #include <memory/paddr.h>
 
+extern CPU_state cpu;
+
 void init_mem();
 void init_rand();
 
@@ -71,7 +73,7 @@ void difftest_regcpy(void *dut, bool direction) {
 	if (direction == DIFFTEST_TO_DUT){
 		for (int i = 0; i < 32; i++)
 			((CPU_state *)dut)->gpr[i] = cpu.gpr[i];
-		((CPU_state *)dut)->pc = cpu.pc;
+		((CPU_state *)dut)->pc = cpu.ref_pc;
 	}
 	else {
 		for (int i = 0; i < 32; i++){
@@ -96,7 +98,7 @@ bool difftest_regcmp(void *dut){
 	for (int i = 0; i < 32; i++){
 		if (((CPU_state *)dut)->gpr[i] != cpu.gpr[i]){
 			printf("$r");
-			printf(ANSI_FMT("0x%d", ANSI_FG_GREEN), i);
+			printf(ANSI_FMT("%d", ANSI_FG_GREEN), i);
 			printf(" wrong: ref = ");
 			printf(ANSI_FMT("0x%x", ANSI_FG_GREEN), cpu.gpr[i]);
 			printf("dut = ");

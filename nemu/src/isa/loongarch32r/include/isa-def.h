@@ -21,6 +21,7 @@
 typedef struct {
   word_t gpr[32];
   vaddr_t pc;
+  vaddr_t ref_pc;
 } loongarch32r_CPU_state;
 
 // decode
