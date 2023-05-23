@@ -53,10 +53,10 @@ __attribute__((unused)) static void trace_and_difftest(Decode *_this, vaddr_t dn
 }
 
 static void exec_once(Decode *s) {
-	npc_exec_once();
-	s->isa.inst.val = cpu.inst;
 	s->pc = cpu.pc;
 	s->snpc = s->pc + 4;
+	npc_exec_once();
+	s->isa.inst.val = cpu.inst;
 
 #ifdef CONFIG_ITRACE
 	char *p = s->logbuf;
