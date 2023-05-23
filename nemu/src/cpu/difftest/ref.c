@@ -18,8 +18,6 @@
 #include <difftest-def.h>
 #include <memory/paddr.h>
 
-
-
 void init_mem();
 void init_rand();
 
