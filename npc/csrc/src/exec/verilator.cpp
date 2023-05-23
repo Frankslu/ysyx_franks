@@ -7,7 +7,7 @@
 VerilatedContext *contextp = NULL;
 VMain *top = NULL;
 __attribute__((unused)) VerilatedVcd *tfp = NULL;
-static uint64_t sim_time = 0;
+static unsigned long sim_time = 0;
 
 int decode_exec(Decode *s);
 
@@ -47,7 +47,8 @@ void init_verilator(int argc, char *argv[]){
 	top->trace(tfp, 99);
 	tfp->open("wave.vcd");
 #endif
-	
+	printf("success\n");
+
 	for (int i = 0; i < 4; i++){
 		top->reset = 1;
 		top->clock = 0;
