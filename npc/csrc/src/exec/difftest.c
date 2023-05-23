@@ -8,11 +8,16 @@
 
 #ifdef CONFIG_DIFFTEST
 
-void (*ref_difftest_memcpy)(paddr_t addr, void *buf, size_t n, bool direction) = NULL;
-void (*ref_difftest_regcpy)(void *dut, bool direction) = NULL;
-void (*ref_difftest_exec)(uint64_t n) = NULL;
-void (*ref_difftest_raise_intr)(uint64_t NO) = NULL;
-bool (*ref_difftest_regcmp)(void *dut) = NULL;
+typedef void (*ref_difftest_memcpy_t)(paddr_t, void *, size_t, bool);
+ref_difftest_memcpy_t ref_difftest_memcpy = NULL;
+typedef void (*ref_difftest_regcpy_t)(void *, bool);
+ref_difftest_regcpy_t ref_difftest_regcpy = NULL;
+typedef void (*ref_difftest_exec_t)(uint64_t);
+ref_difftest_exec_t ref_difftest_exec = NULL;
+typedef void (*ref_difftest_raise_intr_t)(uint64_t);
+ref_difftest_raise_intr_t ref_difftest_raise_intr = NULL;
+typedef bool (*ref_difftest_regcmp_t)(void *);
+ref_difftest_regcmp_t ref_difftest_regcmp = NULL;
 
 static bool is_skip_ref = false;
 static int skip_dut_nr_inst = 0;
@@ -52,22 +57,22 @@ void init_difftest(const char *ref_so_file, int img_size){
 	handle = dlopen(ref_so_file, RTLD_LAZY);
 	assert(handle);
 
-	ref_difftest_memcpy = dlsym(handle, "difftest_memcpy");
+	ref_difftest_memcpy = (ref_difftest_memcpy_t)dlsym(handle, "difftest_memcpy");
 	assert(ref_difftest_memcpy);
 
-	ref_difftest_regcpy = dlsym(handle, "difftest_regcpy");
+	ref_difftest_regcpy = (ref_difftest_regcpy_t)dlsym(handle, "difftest_regcpy");
 	assert(ref_difftest_regcpy);
 
-	ref_difftest_exec = dlsym(handle, "difftest_exec");
+	ref_difftest_exec = (ref_difftest_exec_t)dlsym(handle, "difftest_exec");
 	assert(ref_difftest_exec);
 
-	ref_difftest_raise_intr = dlsym(handle, "difftest_raise_intr");
+	ref_difftest_raise_intr = (ref_difftest_raise_intr_t)dlsym(handle, "difftest_raise_intr");
 	assert(ref_difftest_raise_intr);
 
-	void (*ref_difftest_init)() = dlsym(handle, "difftest_init");
+	void (*ref_difftest_init)() = (void (*)())dlsym(handle, "difftest_init");
 	assert(ref_difftest_init);
 
-	ref_difftest_regcmp = dlsym(handle, "difftest_regcmp");
+	ref_difftest_regcmp = (ref_difftest_regcmp_t)dlsym(handle, "difftest_regcmp");
 	assert(ref_difftest_regcmp);
 
 	Log("Differential testing: %s", ANSI_FMT("ON", ANSI_FG_GREEN));

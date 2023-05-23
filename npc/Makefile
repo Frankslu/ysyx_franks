@@ -22,7 +22,7 @@ BUILD_DIR = $(NPC_HOME)/obj_dir
 GDB = $(if $(CONFIG_CC_DEBUG), -CFLAGS -g, )
 WAVE = $(if $(CONFIG_CC_WAVE), --trace, )
 OPT = $(call remove_quote, $(CONFIG_CC_OPT))
-DIFF_SO_FILE = -d $(NEMU_HOME)/build/loongarch32r-nemu-interpreter-so
+DIFF_SO_FILE = --diff=$(NEMU_HOME)/build/loongarch32r-nemu-interpreter-so
 
 override ARGS ?= --log=$(CPP_DIR)/log/npc-log.txt
 override ARGS += $(DIFF_SO_FILE)
