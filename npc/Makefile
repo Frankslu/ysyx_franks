@@ -69,18 +69,17 @@ V$(TOP): $(VSRC) $(CSRC) $(INCLUDE)
 	--exe $(CSRC) \
 	-CFLAGS "-I $(INC)" \
 	-LDFLAGS "-l readline"
-	echo "finish"
-	@make OPT_FAST="$(OPT)" -j 8 -C $(BUILD_DIR) -f V$(TOP).mk V$(TOP)
-	echo "finish2"
+	echo "finish verilator"
+	@make -s OPT_FAST="$(OPT)" -j 8 -C $(BUILD_DIR) -f V$(TOP).mk V$(TOP)
+	echo "finish make"
 
 
 unit: V$(TOP)
-	echo $(CSRC) $(INC)
 	@$(BUILD_DIR)/V$(TOP)
 
 sim: V$(TOP)
 	@$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
-	@$(BUILD_DIR)/V$(TOP)
+	@$(BUILD_DIR)/V$(TOP) $(ARGS)
 
 gdb: V$(TOP)
 	@gdb $(BUILD_DIR)/V$(TOP)
