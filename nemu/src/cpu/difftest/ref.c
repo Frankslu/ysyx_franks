@@ -78,7 +78,7 @@ void difftest_regcpy(void *dut, bool direction) {
 			cpu.gpr[i] = ((CPU_state *)dut)->gpr[i];
 		}
 		cpu.pc = ((CPU_state *)dut)->pc;
-		printf("pc = %x\n", cpu.pc);
+		printf("nemu pc = %x\n", ((CPU_state *)dut)->pc);
 	}
 }
 

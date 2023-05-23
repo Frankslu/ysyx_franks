@@ -85,6 +85,7 @@ void init_difftest(const char *ref_so_file, int img_size){
 	vaddr_t n_pc = cpu.pc;
 	cpu.pc = CONFIG_MBASE;
 	ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);
+	printf("npc pc = %x\n", cpu.pc);
 	cpu.pc = n_pc;
 }
 
