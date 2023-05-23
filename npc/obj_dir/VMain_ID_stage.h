@@ -223,7 +223,9 @@ class VMain_ID_stage final : public VerilatedModule {
         CData/*0:0*/ __PVT___br_taken_T_18;
         CData/*0:0*/ __PVT___br_taken_T_19;
         CData/*0:0*/ __PVT___br_taken_T_21;
+        CData/*0:0*/ __PVT___br_taken_T_22;
         CData/*0:0*/ __PVT___br_taken_T_24;
+        CData/*0:0*/ __PVT__src1_is_pc;
         SData/*11:0*/ __PVT__imm12u;
         SData/*11:0*/ __PVT___imm12_sign_T;
         SData/*14:0*/ __PVT___decode_res_T;
@@ -279,10 +281,10 @@ class VMain_ID_stage final : public VerilatedModule {
         VL_OUT(__PVT__toes_bits_mem_wdata,31,0);
         VL_OUT(__PVT__toes_bits_inst,31,0);
         VL_IN(__PVT__ds_bits_pc,31,0);
-        VL_IN(__PVT__ds_bits_inst,31,0);
-        VL_IN(__PVT__torf_pc,31,0);
     };
     struct {
+        VL_IN(__PVT__ds_bits_inst,31,0);
+        VL_IN(__PVT__torf_pc,31,0);
         VL_IN(__PVT__torf_rf_wdata,31,0);
         VL_IN(__PVT__torf_inst,31,0);
         VL_OUT(__PVT__br_target,31,0);

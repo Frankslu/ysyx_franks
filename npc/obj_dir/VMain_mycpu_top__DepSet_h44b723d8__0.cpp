@@ -97,6 +97,7 @@ VL_INLINE_OPT void VMain_mycpu_top___ico_sequent__TOP__Main__cpucore__5(VMain_my
     vlSelf->__PVT__EXE_toms_bits_rf_waddr = vlSymsp->TOP__Main__cpucore__EXE.__PVT__toms_bits_rf_waddr;
     vlSelf->__PVT__EXE_toms_bits_is_break = vlSymsp->TOP__Main__cpucore__EXE.__PVT__toms_bits_is_break;
     vlSelf->__PVT__EXE_data_sram_wstrb = vlSymsp->TOP__Main__cpucore__EXE.__PVT__data_sram_wstrb;
+    vlSelf->__PVT__ID_toes_bits_alu_src1 = vlSymsp->TOP__Main__cpucore__ID.__PVT__toes_bits_alu_src1;
     vlSelf->__PVT__ID_toes_bits_mem_wdata = vlSymsp->TOP__Main__cpucore__ID.__PVT__toes_bits_mem_wdata;
     vlSelf->__PVT__ID_toes_bits_alu_src2 = vlSymsp->TOP__Main__cpucore__ID.__PVT__toes_bits_alu_src2;
     vlSelf->__PVT__ID_br_target = vlSymsp->TOP__Main__cpucore__ID.__PVT__br_target;
@@ -109,6 +110,7 @@ VL_INLINE_OPT void VMain_mycpu_top___ico_sequent__TOP__Main__cpucore__5(VMain_my
     vlSelf->__PVT__MEM_ms_bits_rf_waddr = vlSelf->__PVT__EXE_toms_bits_rf_waddr;
     vlSelf->__PVT__MEM_ms_bits_is_break = vlSelf->__PVT__EXE_toms_bits_is_break;
     vlSelf->__PVT__data_sram_wstrb = vlSelf->__PVT__EXE_data_sram_wstrb;
+    vlSelf->__PVT__EXE_es_bits_alu_src1 = vlSelf->__PVT__ID_toes_bits_alu_src1;
     vlSelf->__PVT__EXE_es_bits_mem_wdata = vlSelf->__PVT__ID_toes_bits_mem_wdata;
     vlSelf->__PVT__EXE_es_bits_alu_src2 = vlSelf->__PVT__ID_toes_bits_alu_src2;
     vlSelf->__PVT__pIF_br_target = vlSelf->__PVT__ID_br_target;
@@ -123,6 +125,8 @@ VL_INLINE_OPT void VMain_mycpu_top___ico_sequent__TOP__Main__cpucore__5(VMain_my
         = vlSelf->__PVT__MEM_ms_bits_rf_waddr;
     vlSymsp->TOP__Main__cpucore__MEM.__PVT__ms_bits_is_break 
         = vlSelf->__PVT__MEM_ms_bits_is_break;
+    vlSymsp->TOP__Main__cpucore__EXE.__PVT__es_bits_alu_src1 
+        = vlSelf->__PVT__EXE_es_bits_alu_src1;
     vlSymsp->TOP__Main__cpucore__EXE.__PVT__es_bits_mem_wdata 
         = vlSelf->__PVT__EXE_es_bits_mem_wdata;
     vlSymsp->TOP__Main__cpucore__EXE.__PVT__es_bits_alu_src2 
@@ -241,13 +245,9 @@ VL_INLINE_OPT void VMain_mycpu_top___nba_sequent__TOP__Main__cpucore__2(VMain_my
     VL_DEBUG_IF(VL_DBG_MSGF("+        VMain_mycpu_top___nba_sequent__TOP__Main__cpucore__2\n"); );
     // Body
     vlSelf->__PVT__ID_toes_bits_pc = vlSymsp->TOP__Main__cpucore__ID.__PVT__toes_bits_pc;
-    vlSelf->__PVT__ID_toes_bits_alu_src1 = vlSymsp->TOP__Main__cpucore__ID.__PVT__toes_bits_alu_src1;
     vlSelf->__PVT__EXE_es_bits_pc = vlSelf->__PVT__ID_toes_bits_pc;
-    vlSelf->__PVT__EXE_es_bits_alu_src1 = vlSelf->__PVT__ID_toes_bits_alu_src1;
     vlSymsp->TOP__Main__cpucore__EXE.__PVT__es_bits_pc 
         = vlSelf->__PVT__EXE_es_bits_pc;
-    vlSymsp->TOP__Main__cpucore__EXE.__PVT__es_bits_alu_src1 
-        = vlSelf->__PVT__EXE_es_bits_alu_src1;
 }
 
 VL_INLINE_OPT void VMain_mycpu_top___nba_sequent__TOP__Main__cpucore__3(VMain_mycpu_top* vlSelf) {
@@ -411,14 +411,18 @@ VL_INLINE_OPT void VMain_mycpu_top___nba_comb__TOP__Main__cpucore__0(VMain_mycpu
     VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+        VMain_mycpu_top___nba_comb__TOP__Main__cpucore__0\n"); );
     // Body
+    vlSelf->__PVT__ID_toes_bits_alu_src1 = vlSymsp->TOP__Main__cpucore__ID.__PVT__toes_bits_alu_src1;
     vlSelf->__PVT__ID_toes_bits_mem_wdata = vlSymsp->TOP__Main__cpucore__ID.__PVT__toes_bits_mem_wdata;
     vlSelf->__PVT__ID_toes_bits_alu_src2 = vlSymsp->TOP__Main__cpucore__ID.__PVT__toes_bits_alu_src2;
     vlSelf->__PVT__ID_br_target = vlSymsp->TOP__Main__cpucore__ID.__PVT__br_target;
     vlSelf->__PVT__ID_br_taken = vlSymsp->TOP__Main__cpucore__ID.__PVT__br_taken;
+    vlSelf->__PVT__EXE_es_bits_alu_src1 = vlSelf->__PVT__ID_toes_bits_alu_src1;
     vlSelf->__PVT__EXE_es_bits_mem_wdata = vlSelf->__PVT__ID_toes_bits_mem_wdata;
     vlSelf->__PVT__EXE_es_bits_alu_src2 = vlSelf->__PVT__ID_toes_bits_alu_src2;
     vlSelf->__PVT__pIF_br_target = vlSelf->__PVT__ID_br_target;
     vlSelf->__PVT__pIF_br_taken = vlSelf->__PVT__ID_br_taken;
+    vlSymsp->TOP__Main__cpucore__EXE.__PVT__es_bits_alu_src1 
+        = vlSelf->__PVT__EXE_es_bits_alu_src1;
     vlSymsp->TOP__Main__cpucore__EXE.__PVT__es_bits_mem_wdata 
         = vlSelf->__PVT__EXE_es_bits_mem_wdata;
     vlSymsp->TOP__Main__cpucore__EXE.__PVT__es_bits_alu_src2 

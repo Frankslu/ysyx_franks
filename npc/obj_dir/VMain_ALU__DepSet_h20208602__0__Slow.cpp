@@ -12,14 +12,6 @@ VL_ATTR_COLD void VMain_ALU___stl_sequent__TOP__Main__cpucore__EXE__alu__0(VMain
     VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+            VMain_ALU___stl_sequent__TOP__Main__cpucore__EXE__alu__0\n"); );
     // Body
-    vlSelf->__PVT___GEN_1 = VL_EXTEND_QI(63,32, vlSelf->__PVT__io_src1);
-}
-
-VL_ATTR_COLD void VMain_ALU___stl_sequent__TOP__Main__cpucore__EXE__alu__1(VMain_ALU* vlSelf) {
-    if (false && vlSelf) {}  // Prevent unused
-    VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+            VMain_ALU___stl_sequent__TOP__Main__cpucore__EXE__alu__1\n"); );
-    // Body
     vlSelf->__PVT__op_add = (1U == (IData)(vlSelf->__PVT__io_alu_op));
     vlSelf->__PVT__op_and = (5U == (IData)(vlSelf->__PVT__io_alu_op));
     vlSelf->__PVT__op_or = (7U == (IData)(vlSelf->__PVT__io_alu_op));
@@ -41,32 +33,27 @@ VL_ATTR_COLD void VMain_ALU___stl_sequent__TOP__Main__cpucore__EXE__alu__1(VMain
     vlSelf->__PVT__op_sltu = (4U == (IData)(vlSelf->__PVT__io_alu_op));
     vlSelf->__PVT___io_res_T_1 = ((IData)(vlSelf->__PVT__op_sra) 
                                   | (IData)(vlSelf->__PVT__op_srl));
-    vlSelf->__PVT___sr_T_3 = ((VL_BITSEL_IIII(32, vlSelf->__PVT__io_src1, 0x1fU) 
-                               & (IData)(vlSelf->__PVT__op_sra))
-                               ? 0xffffffffU : 0U);
     vlSelf->__PVT___io_res_T = ((IData)(vlSelf->__PVT__op_add) 
                                 | (IData)(vlSelf->__PVT__op_sub));
     vlSelf->__PVT__add_sub = (((IData)(vlSelf->__PVT__op_sub) 
                                | (IData)(vlSelf->__PVT__op_slt)) 
                               | (IData)(vlSelf->__PVT__op_sltu));
-    vlSelf->__PVT__sr = VL_CONCAT_QII(64,32,32, vlSelf->__PVT___sr_T_3, vlSelf->__PVT__io_src1);
     vlSelf->__PVT___GEN_0 = VL_EXTEND_QI(33,1, (IData)(vlSelf->__PVT__add_sub));
 }
 
-VL_ATTR_COLD void VMain_ALU___stl_sequent__TOP__Main__cpucore__EXE__alu__2(VMain_ALU* vlSelf) {
+VL_ATTR_COLD void VMain_ALU___stl_sequent__TOP__Main__cpucore__EXE__alu__1(VMain_ALU* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+            VMain_ALU___stl_sequent__TOP__Main__cpucore__EXE__alu__2\n"); );
+    VL_DEBUG_IF(VL_DBG_MSGF("+            VMain_ALU___stl_sequent__TOP__Main__cpucore__EXE__alu__1\n"); );
     // Body
+    vlSelf->__PVT___GEN_1 = VL_EXTEND_QI(63,32, vlSelf->__PVT__io_src1);
+    vlSelf->__PVT___sr_T_3 = ((VL_BITSEL_IIII(32, vlSelf->__PVT__io_src1, 0x1fU) 
+                               & (IData)(vlSelf->__PVT__op_sra))
+                               ? 0xffffffffU : 0U);
     vlSelf->__PVT__and_res = (vlSelf->__PVT__io_src1 
                               & vlSelf->__PVT__io_src2);
     vlSelf->__PVT__xor_res = (vlSelf->__PVT__io_src1 
                               ^ vlSelf->__PVT__io_src2);
-    vlSelf->__PVT__sll_res = (0x7fffffffffffffffULL 
-                              & (vlSelf->__PVT___GEN_1 
-                                 << (0x1fU & VL_SEL_IIII(32, vlSelf->__PVT__io_src2, 0U, 5U))));
-    vlSelf->__PVT__sr_res = (vlSelf->__PVT__sr >> (0x1fU 
-                                                   & VL_SEL_IIII(32, vlSelf->__PVT__io_src2, 0U, 5U)));
     vlSelf->__PVT___mulh_res_T_2 = VL_MULS_QQQ(64, 
                                                VL_EXTENDS_QI(64,32, vlSelf->__PVT__io_src1), 
                                                VL_EXTENDS_QI(64,32, vlSelf->__PVT__io_src2));
@@ -84,6 +71,10 @@ VL_ATTR_COLD void VMain_ALU___stl_sequent__TOP__Main__cpucore__EXE__alu__2(VMain
     vlSelf->__PVT__mul_pre = (VL_EXTEND_QI(64,32, vlSelf->__PVT__io_src1) 
                               * VL_EXTEND_QI(64,32, vlSelf->__PVT__io_src2));
     vlSelf->__PVT___add_res_T = (~ vlSelf->__PVT__io_src2);
+    vlSelf->__PVT__sll_res = (0x7fffffffffffffffULL 
+                              & (vlSelf->__PVT___GEN_1 
+                                 << (0x1fU & VL_SEL_IIII(32, vlSelf->__PVT__io_src2, 0U, 5U))));
+    vlSelf->__PVT__sr = VL_CONCAT_QII(64,32,32, vlSelf->__PVT___sr_T_3, vlSelf->__PVT__io_src1);
     vlSelf->__PVT__mulh_res = VL_SEL_IQII(64, vlSelf->__PVT___mulh_res_T_2, 0x20U, 0x20U);
     vlSelf->__PVT__div_res = VL_SEL_IQII(33, vlSelf->__PVT___div_res_T_3, 0U, 0x20U);
     vlSelf->__PVT___io_res_T_2 = ((IData)(vlSelf->__PVT__op_modu)
@@ -95,6 +86,8 @@ VL_ATTR_COLD void VMain_ALU___stl_sequent__TOP__Main__cpucore__EXE__alu__2(VMain
     vlSelf->__PVT___add_res_T_1 = ((IData)(vlSelf->__PVT__add_sub)
                                     ? vlSelf->__PVT___add_res_T
                                     : vlSelf->__PVT__io_src2);
+    vlSelf->__PVT__sr_res = (vlSelf->__PVT__sr >> (0x1fU 
+                                                   & VL_SEL_IIII(32, vlSelf->__PVT__io_src2, 0U, 5U)));
     vlSelf->__PVT___io_res_T_3 = ((IData)(vlSelf->__PVT__op_divu)
                                    ? vlSelf->__PVT__divu_res
                                    : vlSelf->__PVT___io_res_T_2);

@@ -37,8 +37,11 @@ VL_INLINE_OPT void VMain_EX_stage___ico_sequent__TOP__Main__cpucore__EXE__1(VMai
     VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_EX_stage___ico_sequent__TOP__Main__cpucore__EXE__1\n"); );
     // Body
+    vlSelf->__PVT__alu_io_src1 = vlSelf->__PVT__es_bits_alu_src1;
     vlSelf->__PVT__data_sram_wdata = vlSelf->__PVT__es_bits_mem_wdata;
     vlSelf->__PVT__alu_io_src2 = vlSelf->__PVT__es_bits_alu_src2;
+    vlSymsp->TOP__Main__cpucore__EXE__alu.__PVT__io_src1 
+        = vlSelf->__PVT__alu_io_src1;
     vlSymsp->TOP__Main__cpucore__EXE__alu.__PVT__io_src2 
         = vlSelf->__PVT__alu_io_src2;
 }
@@ -51,17 +54,6 @@ VL_INLINE_OPT void VMain_EX_stage___ico_sequent__TOP__Main__cpucore__EXE__2(VMai
     vlSelf->__PVT__alu_io_res = vlSymsp->TOP__Main__cpucore__EXE__alu.__PVT__io_res;
     vlSelf->__PVT__toms_bits_alu_res = vlSelf->__PVT__alu_io_res;
     vlSelf->__PVT__data_sram_addr = vlSelf->__PVT__alu_io_res;
-}
-
-VL_INLINE_OPT void VMain_EX_stage___nba_sequent__TOP__Main__cpucore__EXE__0(VMain_EX_stage* vlSelf) {
-    if (false && vlSelf) {}  // Prevent unused
-    VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_EX_stage___nba_sequent__TOP__Main__cpucore__EXE__0\n"); );
-    // Body
-    vlSelf->__PVT__toms_bits_pc = vlSelf->__PVT__es_bits_pc;
-    vlSelf->__PVT__alu_io_src1 = vlSelf->__PVT__es_bits_alu_src1;
-    vlSymsp->TOP__Main__cpucore__EXE__alu.__PVT__io_src1 
-        = vlSelf->__PVT__alu_io_src1;
 }
 
 VL_INLINE_OPT void VMain_EX_stage___nba_sequent__TOP__Main__cpucore__EXE__1(VMain_EX_stage* vlSelf) {
@@ -93,8 +85,11 @@ VL_INLINE_OPT void VMain_EX_stage___nba_comb__TOP__Main__cpucore__EXE__0(VMain_E
     VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_EX_stage___nba_comb__TOP__Main__cpucore__EXE__0\n"); );
     // Body
+    vlSelf->__PVT__alu_io_src1 = vlSelf->__PVT__es_bits_alu_src1;
     vlSelf->__PVT__data_sram_wdata = vlSelf->__PVT__es_bits_mem_wdata;
     vlSelf->__PVT__alu_io_src2 = vlSelf->__PVT__es_bits_alu_src2;
+    vlSymsp->TOP__Main__cpucore__EXE__alu.__PVT__io_src1 
+        = vlSelf->__PVT__alu_io_src1;
     vlSymsp->TOP__Main__cpucore__EXE__alu.__PVT__io_src2 
         = vlSelf->__PVT__alu_io_src2;
 }

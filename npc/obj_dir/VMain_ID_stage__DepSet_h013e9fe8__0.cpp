@@ -27,12 +27,12 @@ VL_INLINE_OPT void VMain_ID_stage___ico_sequent__TOP__Main__cpucore__ID__1(VMain
     VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_ID_stage___ico_sequent__TOP__Main__cpucore__ID__1\n"); );
     // Body
     vlSelf->__PVT__toes_bits_inst = vlSelf->__PVT__ds_bits_inst;
-    vlSelf->__PVT__reg___05Fio_raddr1 = (0x1fU & VL_SEL_IIII(32, vlSelf->__PVT__ds_bits_inst, 5U, 5U));
     vlSelf->__PVT___imm12_sign_T = (0xfffU & VL_SEL_IIII(32, vlSelf->__PVT__ds_bits_inst, 0xaU, 0xcU));
     vlSelf->__PVT__imm12u = (0xfffU & VL_SEL_IIII(32, vlSelf->__PVT__ds_bits_inst, 0xaU, 0xcU));
     vlSelf->__PVT__imm20 = VL_CONCAT_III(32,20,12, 
                                          (0xfffffU 
                                           & VL_SEL_IIII(32, vlSelf->__PVT__ds_bits_inst, 5U, 0x14U)), 0U);
+    vlSelf->__PVT__reg___05Fio_raddr1 = (0x1fU & VL_SEL_IIII(32, vlSelf->__PVT__ds_bits_inst, 5U, 5U));
     vlSelf->__PVT__rd = (0x1fU & VL_SEL_IIII(32, vlSelf->__PVT__ds_bits_inst, 0U, 5U));
     vlSelf->__PVT__rk = (0x1fU & VL_SEL_IIII(32, vlSelf->__PVT__ds_bits_inst, 0xaU, 5U));
     vlSelf->__PVT__decode_res_andMatrixInput_4_23 = 
@@ -68,13 +68,13 @@ VL_INLINE_OPT void VMain_ID_stage___ico_sequent__TOP__Main__cpucore__ID__1(VMain
     vlSelf->__PVT__decode_res_andMatrixInput_2_43 = 
         (1U & VL_BITSEL_IIII(32, vlSelf->__PVT__ds_bits_inst, 0x1bU));
     vlSelf->__PVT__decode_res_invInputs = (~ vlSelf->__PVT__ds_bits_inst);
-    vlSymsp->TOP__Main__cpucore__ID__reg_.__PVT__io_raddr1 
-        = vlSelf->__PVT__reg___05Fio_raddr1;
     vlSelf->__PVT__imm12 = VL_CONCAT_III(32,20,12, 
                                          (0xfffffU 
                                           & VL_REPLICATE_IOI(1,
                                                              (1U 
                                                               & VL_BITSEL_IIII(12, (IData)(vlSelf->__PVT___imm12_sign_T), 0xbU)), 0x14U)), (IData)(vlSelf->__PVT___imm12_sign_T));
+    vlSymsp->TOP__Main__cpucore__ID__reg_.__PVT__io_raddr1 
+        = vlSelf->__PVT__reg___05Fio_raddr1;
     vlSelf->__PVT__decode_res_andMatrixInput_3_23 = 
         (1U & VL_BITSEL_IIII(32, vlSelf->__PVT__decode_res_invInputs, 0x14U));
     vlSelf->__PVT__decode_res_andMatrixInput_3_1 = 
@@ -925,9 +925,10 @@ VL_INLINE_OPT void VMain_ID_stage___ico_sequent__TOP__Main__cpucore__ID__1(VMain
     vlSelf->__PVT__inst_name = (0x1fU & VL_SEL_IIII(17, vlSelf->__PVT__decode_res_invMatrixOutputs, 1U, 5U));
     vlSelf->__PVT__inst_type = (0xfU & VL_SEL_IIII(17, vlSelf->__PVT__decode_res_invMatrixOutputs, 8U, 4U));
     vlSelf->__PVT___rf_waddr_T = (0xeU == (IData)(vlSelf->__PVT__inst_name));
-    vlSelf->__PVT___br_taken_T_24 = (0x10U == (IData)(vlSelf->__PVT__inst_name));
     vlSelf->__PVT__toes_bits_rf_waddr = ((0xeU == (IData)(vlSelf->__PVT__inst_name))
                                           ? 1U : (IData)(vlSelf->__PVT__rd));
+    vlSelf->__PVT___br_taken_T_22 = (0xfU == (IData)(vlSelf->__PVT__inst_name));
+    vlSelf->__PVT___br_taken_T_24 = (0x10U == (IData)(vlSelf->__PVT__inst_name));
     vlSelf->__PVT__toes_bits_is_break = (7U == (IData)(vlSelf->__PVT__inst_type));
     vlSelf->__PVT___imm_T = (2U == (IData)(vlSelf->__PVT__inst_type));
     vlSelf->__PVT___imm_T_1 = (3U == (IData)(vlSelf->__PVT__inst_type));
@@ -935,6 +936,9 @@ VL_INLINE_OPT void VMain_ID_stage___ico_sequent__TOP__Main__cpucore__ID__1(VMain
     vlSelf->__PVT___imm_T_4 = (5U == (IData)(vlSelf->__PVT__inst_type));
     vlSelf->__PVT___imm_T_5 = (6U == (IData)(vlSelf->__PVT__inst_type));
     vlSelf->__PVT___imm_T_3 = (4U == (IData)(vlSelf->__PVT__inst_type));
+    vlSelf->__PVT__src1_is_pc = (((IData)(vlSelf->__PVT___br_taken_T_24) 
+                                  | (0x11U == (IData)(vlSelf->__PVT__inst_name))) 
+                                 | (IData)(vlSelf->__PVT___br_taken_T_22));
     vlSelf->__PVT___imm_T_6 = ((IData)(vlSelf->__PVT___imm_T_5)
                                 ? 4U : 0U);
     vlSelf->__PVT__rk_or_rd = (((0x10U != (IData)(vlSelf->__PVT__inst_name)) 
@@ -971,6 +975,9 @@ VL_INLINE_OPT void VMain_ID_stage___ico_sequent__TOP__Main__cpucore__ID__2(VMain
     vlSelf->__PVT___br_target_T_1 = ((IData)(vlSelf->__PVT___br_taken_T_24)
                                       ? vlSelf->__PVT__reg___05Fio_rdata1
                                       : vlSelf->__PVT__ds_bits_pc);
+    vlSelf->__PVT__toes_bits_alu_src1 = ((IData)(vlSelf->__PVT__src1_is_pc)
+                                          ? vlSelf->__PVT__ds_bits_pc
+                                          : vlSelf->__PVT__reg___05Fio_rdata1);
     vlSelf->__PVT__rj_eq_rd = (vlSelf->__PVT__reg___05Fio_rdata1 
                                == vlSelf->__PVT__reg___05Fio_rdata2);
     vlSelf->__PVT___rj_sub_rd_T = (0x1ffffffffULL & 
@@ -1060,12 +1067,12 @@ VL_INLINE_OPT void VMain_ID_stage___nba_sequent__TOP__Main__cpucore__ID__2(VMain
     VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_ID_stage___nba_sequent__TOP__Main__cpucore__ID__2\n"); );
     // Body
     vlSelf->__PVT__toes_bits_inst = vlSelf->__PVT__ds_bits_inst;
-    vlSelf->__PVT__reg___05Fio_raddr1 = (0x1fU & VL_SEL_IIII(32, vlSelf->__PVT__ds_bits_inst, 5U, 5U));
     vlSelf->__PVT___imm12_sign_T = (0xfffU & VL_SEL_IIII(32, vlSelf->__PVT__ds_bits_inst, 0xaU, 0xcU));
     vlSelf->__PVT__imm12u = (0xfffU & VL_SEL_IIII(32, vlSelf->__PVT__ds_bits_inst, 0xaU, 0xcU));
     vlSelf->__PVT__imm20 = VL_CONCAT_III(32,20,12, 
                                          (0xfffffU 
                                           & VL_SEL_IIII(32, vlSelf->__PVT__ds_bits_inst, 5U, 0x14U)), 0U);
+    vlSelf->__PVT__reg___05Fio_raddr1 = (0x1fU & VL_SEL_IIII(32, vlSelf->__PVT__ds_bits_inst, 5U, 5U));
     vlSelf->__PVT__rd = (0x1fU & VL_SEL_IIII(32, vlSelf->__PVT__ds_bits_inst, 0U, 5U));
     vlSelf->__PVT__rk = (0x1fU & VL_SEL_IIII(32, vlSelf->__PVT__ds_bits_inst, 0xaU, 5U));
     vlSelf->__PVT__decode_res_andMatrixInput_4_23 = 
@@ -1101,13 +1108,13 @@ VL_INLINE_OPT void VMain_ID_stage___nba_sequent__TOP__Main__cpucore__ID__2(VMain
     vlSelf->__PVT__decode_res_andMatrixInput_2_43 = 
         (1U & VL_BITSEL_IIII(32, vlSelf->__PVT__ds_bits_inst, 0x1bU));
     vlSelf->__PVT__decode_res_invInputs = (~ vlSelf->__PVT__ds_bits_inst);
-    vlSymsp->TOP__Main__cpucore__ID__reg_.__PVT__io_raddr1 
-        = vlSelf->__PVT__reg___05Fio_raddr1;
     vlSelf->__PVT__imm12 = VL_CONCAT_III(32,20,12, 
                                          (0xfffffU 
                                           & VL_REPLICATE_IOI(1,
                                                              (1U 
                                                               & VL_BITSEL_IIII(12, (IData)(vlSelf->__PVT___imm12_sign_T), 0xbU)), 0x14U)), (IData)(vlSelf->__PVT___imm12_sign_T));
+    vlSymsp->TOP__Main__cpucore__ID__reg_.__PVT__io_raddr1 
+        = vlSelf->__PVT__reg___05Fio_raddr1;
     vlSelf->__PVT__decode_res_andMatrixInput_3_23 = 
         (1U & VL_BITSEL_IIII(32, vlSelf->__PVT__decode_res_invInputs, 0x14U));
     vlSelf->__PVT__decode_res_andMatrixInput_3_1 = 
@@ -1958,9 +1965,10 @@ VL_INLINE_OPT void VMain_ID_stage___nba_sequent__TOP__Main__cpucore__ID__2(VMain
     vlSelf->__PVT__inst_name = (0x1fU & VL_SEL_IIII(17, vlSelf->__PVT__decode_res_invMatrixOutputs, 1U, 5U));
     vlSelf->__PVT__inst_type = (0xfU & VL_SEL_IIII(17, vlSelf->__PVT__decode_res_invMatrixOutputs, 8U, 4U));
     vlSelf->__PVT___rf_waddr_T = (0xeU == (IData)(vlSelf->__PVT__inst_name));
-    vlSelf->__PVT___br_taken_T_24 = (0x10U == (IData)(vlSelf->__PVT__inst_name));
     vlSelf->__PVT__toes_bits_rf_waddr = ((0xeU == (IData)(vlSelf->__PVT__inst_name))
                                           ? 1U : (IData)(vlSelf->__PVT__rd));
+    vlSelf->__PVT___br_taken_T_22 = (0xfU == (IData)(vlSelf->__PVT__inst_name));
+    vlSelf->__PVT___br_taken_T_24 = (0x10U == (IData)(vlSelf->__PVT__inst_name));
     vlSelf->__PVT__toes_bits_is_break = (7U == (IData)(vlSelf->__PVT__inst_type));
     vlSelf->__PVT___imm_T = (2U == (IData)(vlSelf->__PVT__inst_type));
     vlSelf->__PVT___imm_T_1 = (3U == (IData)(vlSelf->__PVT__inst_type));
@@ -1968,6 +1976,9 @@ VL_INLINE_OPT void VMain_ID_stage___nba_sequent__TOP__Main__cpucore__ID__2(VMain
     vlSelf->__PVT___imm_T_4 = (5U == (IData)(vlSelf->__PVT__inst_type));
     vlSelf->__PVT___imm_T_5 = (6U == (IData)(vlSelf->__PVT__inst_type));
     vlSelf->__PVT___imm_T_3 = (4U == (IData)(vlSelf->__PVT__inst_type));
+    vlSelf->__PVT__src1_is_pc = (((IData)(vlSelf->__PVT___br_taken_T_24) 
+                                  | (0x11U == (IData)(vlSelf->__PVT__inst_name))) 
+                                 | (IData)(vlSelf->__PVT___br_taken_T_22));
     vlSelf->__PVT___imm_T_6 = ((IData)(vlSelf->__PVT___imm_T_5)
                                 ? 4U : 0U);
     vlSelf->__PVT__rk_or_rd = (((0x10U != (IData)(vlSelf->__PVT__inst_name)) 
@@ -2020,6 +2031,9 @@ VL_INLINE_OPT void VMain_ID_stage___nba_comb__TOP__Main__cpucore__ID__0(VMain_ID
     vlSelf->__PVT___br_target_T_1 = ((IData)(vlSelf->__PVT___br_taken_T_24)
                                       ? vlSelf->__PVT__reg___05Fio_rdata1
                                       : vlSelf->__PVT__ds_bits_pc);
+    vlSelf->__PVT__toes_bits_alu_src1 = ((IData)(vlSelf->__PVT__src1_is_pc)
+                                          ? vlSelf->__PVT__ds_bits_pc
+                                          : vlSelf->__PVT__reg___05Fio_rdata1);
     vlSelf->__PVT__rj_eq_rd = (vlSelf->__PVT__reg___05Fio_rdata1 
                                == vlSelf->__PVT__reg___05Fio_rdata2);
     vlSelf->__PVT___rj_sub_rd_T = (0x1ffffffffULL & 

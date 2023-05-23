@@ -298,6 +298,8 @@ VL_ATTR_COLD void VMain_ID_stage___ctor_var_reset(VMain_ID_stage* vlSelf) {
     vlSelf->__PVT___br_taken_T_18 = VL_RAND_RESET_I(1);
     vlSelf->__PVT___br_taken_T_19 = VL_RAND_RESET_I(1);
     vlSelf->__PVT___br_taken_T_21 = VL_RAND_RESET_I(1);
+    vlSelf->__PVT___br_taken_T_22 = VL_RAND_RESET_I(1);
     vlSelf->__PVT___br_taken_T_24 = VL_RAND_RESET_I(1);
     vlSelf->__PVT___br_target_T_1 = VL_RAND_RESET_I(32);
+    vlSelf->__PVT__src1_is_pc = VL_RAND_RESET_I(1);
 }

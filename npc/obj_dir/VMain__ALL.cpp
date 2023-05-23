@@ -13,6 +13,7 @@
 #include "VMain_IF_stage__DepSet_hbdd4086c__0.cpp"
 #include "VMain_ID_stage__DepSet_had495d01__0.cpp"
 #include "VMain_ID_stage__DepSet_h013e9fe8__0.cpp"
+#include "VMain_EX_stage__DepSet_h90eb7e32__0.cpp"
 #include "VMain_EX_stage__DepSet_h1d03e947__0.cpp"
 #include "VMain_MEM_stage__DepSet_h45d6c94d__0.cpp"
 #include "VMain_WB_stage__DepSet_hc2b623c4__0.cpp"

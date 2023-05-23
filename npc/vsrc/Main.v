@@ -959,8 +959,10 @@ module ID_stage(
   wire  _br_taken_T_18 = inst_name == 5'h5 & ~sltu_res; // @[src/src/cpucore/pipeline/ID_stage.scala 80:48]
   wire  _br_taken_T_19 = _br_taken_T_15 | _br_taken_T_18; // @[src/src/cpucore/pipeline/ID_stage.scala 79:59]
   wire  _br_taken_T_21 = _br_taken_T_19 | _rf_waddr_T; // @[src/src/cpucore/pipeline/ID_stage.scala 80:60]
+  wire  _br_taken_T_22 = inst_name == 5'hf; // @[src/src/cpucore/pipeline/ID_stage.scala 81:57]
   wire  _br_taken_T_24 = inst_name == 5'h10; // @[src/src/cpucore/pipeline/ID_stage.scala 81:84]
   wire [31:0] _br_target_T_1 = _br_taken_T_24 ? reg__io_rdata1 : ds_bits_pc; // @[src/src/cpucore/pipeline/ID_stage.scala 83:21]
+  wire  src1_is_pc = _br_taken_T_24 | inst_name == 5'h11 | _br_taken_T_22; // @[src/src/cpucore/pipeline/ID_stage.scala 89:78]
   regfile reg_ ( // @[src/src/cpucore/pipeline/ID_stage.scala 52:21]
     .clock(reg__clock),
     .reset(reg__reset),
@@ -975,15 +977,15 @@ module ID_stage(
     .io_inst(reg__io_inst)
   );
   assign toes_bits_pc = ds_bits_pc; // @[src/src/cpucore/pipeline/ID_stage.scala 88:18]
-  assign toes_bits_alu_src1 = ds_bits_pc; // @[src/src/cpucore/pipeline/ID_stage.scala 89:30]
-  assign toes_bits_alu_src2 = inst_type == 4'h1 ? reg__io_rdata2 : imm; // @[src/src/cpucore/pipeline/ID_stage.scala 90:30]
+  assign toes_bits_alu_src1 = src1_is_pc ? ds_bits_pc : reg__io_rdata1; // @[src/src/cpucore/pipeline/ID_stage.scala 90:30]
+  assign toes_bits_alu_src2 = inst_type == 4'h1 ? reg__io_rdata2 : imm; // @[src/src/cpucore/pipeline/ID_stage.scala 91:30]
   assign toes_bits_alu_op = decode_res_invMatrixOutputs[16:12]; // @[src/src/cpucore/pipeline/ID_stage.scala 87:35]
   assign toes_bits_rf_waddr = inst_name == 5'he ? 5'h1 : rd; // @[src/src/cpucore/pipeline/ID_stage.scala 66:23]
   assign toes_bits_mem_we = decode_res_invMatrixOutputs[7:6]; // @[src/src/cpucore/pipeline/ID_stage.scala 33:28]
   assign toes_bits_inst_name = decode_res_invMatrixOutputs[5:1]; // @[src/src/cpucore/pipeline/ID_stage.scala 34:31]
-  assign toes_bits_mem_wdata = reg__io_rdata2; // @[src/src/cpucore/pipeline/ID_stage.scala 95:25]
-  assign toes_bits_is_break = inst_type == 4'h7; // @[src/src/cpucore/pipeline/ID_stage.scala 96:37]
-  assign toes_bits_inst = ds_bits_inst; // @[src/src/cpucore/pipeline/ID_stage.scala 97:20]
+  assign toes_bits_mem_wdata = reg__io_rdata2; // @[src/src/cpucore/pipeline/ID_stage.scala 96:25]
+  assign toes_bits_is_break = inst_type == 4'h7; // @[src/src/cpucore/pipeline/ID_stage.scala 97:37]
+  assign toes_bits_inst = ds_bits_inst; // @[src/src/cpucore/pipeline/ID_stage.scala 98:20]
   assign br_taken = _br_taken_T_21 | inst_name == 5'hf | inst_name == 5'h10; // @[src/src/cpucore/pipeline/ID_stage.scala 81:72]
   assign br_target = _br_target_T_1 + imm; // @[src/src/cpucore/pipeline/ID_stage.scala 83:67]
   assign reg__clock = clock;

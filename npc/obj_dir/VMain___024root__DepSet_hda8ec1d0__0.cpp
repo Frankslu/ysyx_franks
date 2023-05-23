@@ -161,7 +161,6 @@ void VMain_ID_stage___nba_sequent__TOP__Main__cpucore__ID__0(VMain_ID_stage* vlS
 void VMain_mycpu_top___nba_sequent__TOP__Main__cpucore__2(VMain_mycpu_top* vlSelf);
 void VMain_EX_stage___nba_sequent__TOP__Main__cpucore__EXE__0(VMain_EX_stage* vlSelf);
 void VMain_mycpu_top___nba_sequent__TOP__Main__cpucore__3(VMain_mycpu_top* vlSelf);
-void VMain_ALU___nba_sequent__TOP__Main__cpucore__EXE__alu__0(VMain_ALU* vlSelf);
 void VMain_MEM_stage___nba_sequent__TOP__Main__cpucore__MEM__0(VMain_MEM_stage* vlSelf);
 void VMain_mycpu_top___nba_sequent__TOP__Main__cpucore__4(VMain_mycpu_top* vlSelf);
 void VMain_WB_stage___nba_sequent__TOP__Main__cpucore__WB__0(VMain_WB_stage* vlSelf);
@@ -177,7 +176,7 @@ void VMain_mycpu_top___nba_sequent__TOP__Main__cpucore__8(VMain_mycpu_top* vlSel
 void VMain_regfile___nba_sequent__TOP__Main__cpucore__ID__reg___1(VMain_regfile* vlSelf);
 void VMain_EX_stage___nba_sequent__TOP__Main__cpucore__EXE__1(VMain_EX_stage* vlSelf);
 void VMain_mycpu_top___nba_sequent__TOP__Main__cpucore__9(VMain_mycpu_top* vlSelf);
-void VMain_ALU___nba_sequent__TOP__Main__cpucore__EXE__alu__1(VMain_ALU* vlSelf);
+void VMain_ALU___nba_sequent__TOP__Main__cpucore__EXE__alu__0(VMain_ALU* vlSelf);
 void VMain_Main___nba_sequent__TOP__Main__2(VMain_Main* vlSelf);
 void VMain_MEM_stage___nba_sequent__TOP__Main__cpucore__MEM__1(VMain_MEM_stage* vlSelf);
 void VMain_mycpu_top___nba_sequent__TOP__Main__cpucore__10(VMain_mycpu_top* vlSelf);
@@ -228,7 +227,6 @@ void VMain___024root___eval_nba(VMain___024root* vlSelf) {
         VMain_mycpu_top___nba_sequent__TOP__Main__cpucore__2((&vlSymsp->TOP__Main__cpucore));
         VMain_EX_stage___nba_sequent__TOP__Main__cpucore__EXE__0((&vlSymsp->TOP__Main__cpucore__EXE));
         VMain_mycpu_top___nba_sequent__TOP__Main__cpucore__3((&vlSymsp->TOP__Main__cpucore));
-        VMain_ALU___nba_sequent__TOP__Main__cpucore__EXE__alu__0((&vlSymsp->TOP__Main__cpucore__EXE__alu));
         VMain_MEM_stage___nba_sequent__TOP__Main__cpucore__MEM__0((&vlSymsp->TOP__Main__cpucore__MEM));
         VMain_mycpu_top___nba_sequent__TOP__Main__cpucore__4((&vlSymsp->TOP__Main__cpucore));
         VMain_WB_stage___nba_sequent__TOP__Main__cpucore__WB__0((&vlSymsp->TOP__Main__cpucore__WB));
@@ -244,7 +242,7 @@ void VMain___024root___eval_nba(VMain___024root* vlSelf) {
         VMain_regfile___nba_sequent__TOP__Main__cpucore__ID__reg___1((&vlSymsp->TOP__Main__cpucore__ID__reg_));
         VMain_EX_stage___nba_sequent__TOP__Main__cpucore__EXE__1((&vlSymsp->TOP__Main__cpucore__EXE));
         VMain_mycpu_top___nba_sequent__TOP__Main__cpucore__9((&vlSymsp->TOP__Main__cpucore));
-        VMain_ALU___nba_sequent__TOP__Main__cpucore__EXE__alu__1((&vlSymsp->TOP__Main__cpucore__EXE__alu));
+        VMain_ALU___nba_sequent__TOP__Main__cpucore__EXE__alu__0((&vlSymsp->TOP__Main__cpucore__EXE__alu));
         VMain_Main___nba_sequent__TOP__Main__2((&vlSymsp->TOP__Main));
         VMain_MEM_stage___nba_sequent__TOP__Main__cpucore__MEM__1((&vlSymsp->TOP__Main__cpucore__MEM));
         VMain_mycpu_top___nba_sequent__TOP__Main__cpucore__10((&vlSymsp->TOP__Main__cpucore));
