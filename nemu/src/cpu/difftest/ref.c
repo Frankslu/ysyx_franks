@@ -89,7 +89,6 @@ void difftest_regcpy(void *dut, bool direction) {
 		}
 		cpu.pc = ((npc_CPU_state *)dut)->pc;
 		cpu.ref_pc = ((npc_CPU_state *)dut)->pc;
-		printf("nemu pc = %x\n", ((npc_CPU_state *)dut)->pc);
 	}
 }
 
