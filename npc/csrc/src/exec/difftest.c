@@ -82,7 +82,10 @@ void init_difftest(const char *ref_so_file, int img_size){
 
 	ref_difftest_init();
 	ref_difftest_memcpy(RESET_VECTOR, guest_to_host(RESET_VECTOR), img_size, DIFFTEST_TO_REF);
+	vaddr_t n_pc = cpu.pc;
+	cpu.pc = CONFIG_MBASE;
 	ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);
+	cpu.pc = n_pc;
 }
 
 void difftest_step(vaddr_t pc, vaddr_t npc) {
