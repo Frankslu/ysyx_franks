@@ -21,7 +21,7 @@ unit: V$(TOP)
 sim: V$(TOP)
 	@make -C $(NEMU_HOME) -f Makefile
 	@$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
-	@$(BUILD_DIR)/V$(TOP) $(ARGS)
+	$(BUILD_DIR)/V$(TOP) $(ARGS)
 
 gdb: V$(TOP)
 	@gdb $(BUILD_DIR)/V$(TOP)
