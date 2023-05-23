@@ -199,7 +199,7 @@ VL_ATTR_COLD void VMain___024root___stl_sequent__TOP__0(VMain___024root* vlSelf)
     vlSelf->Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__difftest__DOT__regs[0x1fU] 
         = vlSelf->Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__rf
         [0x1fU];
-    if (vlSelf->reset) {
+    if ((1U & (~ (IData)(vlSelf->reset)))) {
         VMain___024root____Vdpiimwrap_Main__DOT__iram__DOT__vaddr_fetch_TOP(vlSelf->Main__DOT__cpucore__DOT__pIF__DOT__pc, vlSelf->__Vtask_Main__DOT__iram__DOT__vaddr_fetch__5__rdata);
         vlSelf->Main__DOT__iram_rdata = vlSelf->__Vtask_Main__DOT__iram__DOT__vaddr_fetch__5__rdata;
     }

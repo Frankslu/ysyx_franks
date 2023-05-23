@@ -15,7 +15,7 @@ module preIF(
 `endif // RANDOMIZE_REG_INIT
   reg [31:0] pc; // @[src/src/cpucore/pipeline/preIF.scala 15:21]
   wire [31:0] snpc = pc + 32'h4; // @[src/src/cpucore/pipeline/preIF.scala 16:19]
-  assign inst_sram_en = reset; // @[src/src/cpucore/pipeline/preIF.scala 19:27]
+  assign inst_sram_en = ~reset; // @[src/src/cpucore/pipeline/preIF.scala 19:21]
   assign inst_sram_addr = pc; // @[src/src/cpucore/pipeline/preIF.scala 21:20]
   assign tofs_bits_pc = pc; // @[src/src/cpucore/pipeline/preIF.scala 25:18]
   always @(posedge clock) begin

@@ -16,7 +16,7 @@ VL_INLINE_OPT void VMain___024root___ico_sequent__TOP__0(VMain___024root* vlSelf
     VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    VMain___024root___ico_sequent__TOP__0\n"); );
     // Body
-    if (vlSelf->reset) {
+    if ((1U & (~ (IData)(vlSelf->reset)))) {
         VMain___024root____Vdpiimwrap_Main__DOT__iram__DOT__vaddr_fetch_TOP(vlSelf->Main__DOT__cpucore__DOT__pIF__DOT__pc, vlSelf->__Vtask_Main__DOT__iram__DOT__vaddr_fetch__5__rdata);
         vlSelf->Main__DOT__iram_rdata = vlSelf->__Vtask_Main__DOT__iram__DOT__vaddr_fetch__5__rdata;
     }
@@ -1198,7 +1198,7 @@ VL_INLINE_OPT void VMain___024root___nba_sequent__TOP__0(VMain___024root* vlSelf
                                                   : vlSelf->Main__DOT__cpucore__DOT__pIF__DOT__snpc));
     vlSelf->Main__DOT__cpucore__DOT__pIF__DOT__snpc 
         = ((IData)(4U) + vlSelf->Main__DOT__cpucore__DOT__pIF__DOT__pc);
-    if (vlSelf->reset) {
+    if ((1U & (~ (IData)(vlSelf->reset)))) {
         VMain___024root____Vdpiimwrap_Main__DOT__iram__DOT__vaddr_fetch_TOP(vlSelf->Main__DOT__cpucore__DOT__pIF__DOT__pc, vlSelf->__Vtask_Main__DOT__iram__DOT__vaddr_fetch__5__rdata);
         vlSelf->Main__DOT__iram_rdata = vlSelf->__Vtask_Main__DOT__iram__DOT__vaddr_fetch__5__rdata;
     }
