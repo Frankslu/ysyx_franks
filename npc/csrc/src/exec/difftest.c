@@ -8,6 +8,20 @@
 
 #ifdef CONFIG_DIFFTEST
 
+typedef struct {
+  word_t gpr[32];
+  vaddr_t pc;
+} CPU_state;
+
+CPU_state dut;
+
+void reg_cp(){
+	for (int i = 0;i < 32;i++){
+		dut.gpr[i] = (cpu.gpr)[i];
+	}
+	dut.pc = cpu.pc;
+}
+
 typedef void (*ref_difftest_memcpy_t)(paddr_t, void *, size_t, bool);
 ref_difftest_memcpy_t ref_difftest_memcpy = NULL;
 typedef void (*ref_difftest_regcpy_t)(void *, bool);
@@ -83,17 +97,18 @@ void init_difftest(const char *ref_so_file, int img_size){
 
 	ref_difftest_init();
 	ref_difftest_memcpy(RESET_VECTOR, guest_to_host(RESET_VECTOR), img_size, DIFFTEST_TO_REF);
-	vaddr_t n_pc = cpu.pc;
-	cpu.pc = CONFIG_MBASE;
-	ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);
+	reg_cp();
+	vaddr_t n_pc = dut.pc;
+	dut.pc = CONFIG_MBASE;
+	ref_difftest_regcpy(&dut, DIFFTEST_TO_REF);
 	printf("npc pc = %x\n", cpu.pc);
-	cpu.pc = n_pc;
+	dut.pc = n_pc;
 }
 
 void difftest_step(vaddr_t pc, vaddr_t npc) {
 	ref_difftest_exec(1);
 
-	if (ref_difftest_regcmp(&cpu) == false) {
+	if (ref_difftest_regcmp(&dut) == false) {
 		npc_state.state = NPC_ABORT;
 		npc_state.halt_pc = pc;
 //  	isa_reg_display();
