@@ -108,7 +108,7 @@ void init_difftest(const char *_so_file, int img_size){
 
 void difftest_step(vaddr_t pc, vaddr_t npc) {
 	ref_difftest_exec(1);
-
+	reg_cp();
 	if (ref_difftest_regcmp(&dut) == false) {
 		npc_state.state = NPC_ABORT;
 		npc_state.halt_pc = pc;
