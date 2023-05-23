@@ -6,10 +6,10 @@ c: $(VERILOG_DIR)/*.v
 
 V$(TOP): $(VSRC) $(CSRC) $(INCLUDE)
 	@verilator -Wall $(WAVE) $(GDB) $(OPT) --cc $(VSRC) --top-module $(TOP) \
-	--exe $(CSRC) \
-	-CFLAGS "-I $(INC)" \
+	--exe $(CSRC) -CFLAGS "-I $(INC)" \
 	-CFLAGS -Wno-narrowing \
-	-LDFLAGS "-l readline"
+	-LDFLAGS "-l readline" \
+	-LDFLAGS "-l dl"
 	@echo "finish verilator"
 	@make -s OPT_FAST="$(OPT)" -j 8 -C $(BUILD_DIR) -f V$(TOP).mk V$(TOP)
 	@echo "finish make"
