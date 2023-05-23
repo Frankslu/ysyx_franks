@@ -76,7 +76,7 @@ V$(TOP): $(VSRC) $(CSRC) $(INCLUDE)
 
 unit: V$(TOP)
 	echo $(CSRC) $(INC)
-	@./$(BUILD_DIR)/V$(TOP)
+	@$(BUILD_DIR)/V$(TOP)
 
 sim: V$(TOP)
 	@$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
