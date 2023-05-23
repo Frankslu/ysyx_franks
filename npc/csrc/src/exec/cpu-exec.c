@@ -33,6 +33,7 @@ static bool g_print_step = false;
 
 extern int scan_wp();
 void iring_write(char *buf);
+int decode_exec(Decode *s);
 // void trace_log_write();
 
 __attribute__((unused)) static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
@@ -74,11 +75,12 @@ static void exec_once(Decode *s) {
 	memset(p, ' ', space_len);
 	p += space_len;
 
+	p[0] = '\t';
+	decode_exec(s);
+	p++;
+	strcpy(p, s->disas);
+	p += strlen(s->disas);
 	p[0] = '\0';
-// 	p++;
-// 	strcpy(p, s->disas);
-// 	p += strlen(s->disas);
-// 	p[0] = '\0';
 #endif
 }
 
