@@ -37,6 +37,7 @@ VM_MODPREFIX = VMain
 VM_USER_CFLAGS = \
 	-g \
 	-I /home/franks/ysyx-workbench/npc/csrc/include \
+	-Wno-narrowing \
 
 # User LDLIBS (from -LDFLAGS on Verilator command line)
 VM_USER_LDLIBS = \
