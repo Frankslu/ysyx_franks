@@ -19,6 +19,14 @@
 #include <stdint.h>
 #include <generated/autoconf.h>
 
+typedef struct {
+  word_t *gpr;
+  vaddr_t pc;
+  bool valid;
+  word_t inst;
+  bool is_break;
+} npc_CPU_state;
+
 enum { DIFFTEST_TO_DUT, DIFFTEST_TO_REF };
 
 #if defined(CONFIG_ISA_x86)
