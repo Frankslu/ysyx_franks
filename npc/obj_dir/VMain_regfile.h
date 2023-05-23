@@ -33,8 +33,6 @@ class VMain_regfile final : public VerilatedModule {
         CData/*4:0*/ __PVT__rf_io_rdata1_MPORT_addr;
         CData/*0:0*/ __PVT__rf_io_rdata2_MPORT_en;
         CData/*4:0*/ __PVT__rf_io_rdata2_MPORT_addr;
-        CData/*0:0*/ __PVT__rf_difftest_io_rf_0_MPORT_en;
-        CData/*4:0*/ __PVT__rf_difftest_io_rf_0_MPORT_addr;
         CData/*0:0*/ __PVT__rf_difftest_io_rf_1_MPORT_en;
         CData/*4:0*/ __PVT__rf_difftest_io_rf_1_MPORT_addr;
         CData/*0:0*/ __PVT__rf_difftest_io_rf_2_MPORT_en;
@@ -87,10 +85,10 @@ class VMain_regfile final : public VerilatedModule {
         CData/*4:0*/ __PVT__rf_difftest_io_rf_25_MPORT_addr;
         CData/*0:0*/ __PVT__rf_difftest_io_rf_26_MPORT_en;
         CData/*4:0*/ __PVT__rf_difftest_io_rf_26_MPORT_addr;
-    };
-    struct {
         CData/*0:0*/ __PVT__rf_difftest_io_rf_27_MPORT_en;
         CData/*4:0*/ __PVT__rf_difftest_io_rf_27_MPORT_addr;
+    };
+    struct {
         CData/*0:0*/ __PVT__rf_difftest_io_rf_28_MPORT_en;
         CData/*4:0*/ __PVT__rf_difftest_io_rf_28_MPORT_addr;
         CData/*0:0*/ __PVT__rf_difftest_io_rf_29_MPORT_en;
@@ -117,7 +115,6 @@ class VMain_regfile final : public VerilatedModule {
         VL_IN(__PVT__io_inst,31,0);
         IData/*31:0*/ __PVT__rf_io_rdata1_MPORT_data;
         IData/*31:0*/ __PVT__rf_io_rdata2_MPORT_data;
-        IData/*31:0*/ __PVT__rf_difftest_io_rf_0_MPORT_data;
         IData/*31:0*/ __PVT__rf_difftest_io_rf_1_MPORT_data;
         IData/*31:0*/ __PVT__rf_difftest_io_rf_2_MPORT_data;
         IData/*31:0*/ __PVT__rf_difftest_io_rf_3_MPORT_data;
@@ -153,11 +150,11 @@ class VMain_regfile final : public VerilatedModule {
         IData/*31:0*/ __PVT__difftest_rf_0;
         IData/*31:0*/ __PVT__difftest_rf_1;
         IData/*31:0*/ __PVT__difftest_rf_2;
-    };
-    struct {
         IData/*31:0*/ __PVT__difftest_rf_3;
         IData/*31:0*/ __PVT__difftest_rf_4;
         IData/*31:0*/ __PVT__difftest_rf_5;
+    };
+    struct {
         IData/*31:0*/ __PVT__difftest_rf_6;
         IData/*31:0*/ __PVT__difftest_rf_7;
         IData/*31:0*/ __PVT__difftest_rf_8;

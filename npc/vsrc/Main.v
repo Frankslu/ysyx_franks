@@ -1,21 +1,6 @@
 /* verilator lint_off UNUSEDSIGNAL */
 /* verilator lint_off DECLFILENAME */
 /* verilator lint_off WIDTHEXPAND */
-/* verilator lint_off UNUSEDSIGNAL */
-/* verilator lint_off DECLFILENAME */
-/* verilator lint_off WIDTHEXPAND */
-/* verilator lint_off UNUSEDSIGNAL */
-/* verilator lint_off DECLFILENAME */
-/* verilator lint_off WIDTHEXPAND */
-/* verilator lint_off UNUSEDSIGNAL */
-/* verilator lint_off DECLFILENAME */
-/* verilator lint_off WIDTHEXPAND */
-/* verilator lint_off UNUSEDSIGNAL */
-/* verilator lint_off DECLFILENAME */
-/* verilator lint_off WIDTHEXPAND */
-/* verilator lint_off UNUSEDSIGNAL */
-/* verilator lint_off DECLFILENAME */
-/* verilator lint_off WIDTHEXPAND */
 module preIF(
   input         clock,
   input         reset,
@@ -126,9 +111,6 @@ module regfile(
   wire  rf_io_rdata2_MPORT_en; // @[src/src/cpucore/Unit/regfile.scala 40:17]
   wire [4:0] rf_io_rdata2_MPORT_addr; // @[src/src/cpucore/Unit/regfile.scala 40:17]
   wire [31:0] rf_io_rdata2_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 40:17]
-  wire  rf_difftest_io_rf_0_MPORT_en; // @[src/src/cpucore/Unit/regfile.scala 40:17]
-  wire [4:0] rf_difftest_io_rf_0_MPORT_addr; // @[src/src/cpucore/Unit/regfile.scala 40:17]
-  wire [31:0] rf_difftest_io_rf_0_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 40:17]
   wire  rf_difftest_io_rf_1_MPORT_en; // @[src/src/cpucore/Unit/regfile.scala 40:17]
   wire [4:0] rf_difftest_io_rf_1_MPORT_addr; // @[src/src/cpucore/Unit/regfile.scala 40:17]
   wire [31:0] rf_difftest_io_rf_1_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 40:17]
@@ -258,14 +240,14 @@ module regfile(
   wire [31:0] difftest_rf_29; // @[src/src/cpucore/Unit/regfile.scala 48:26]
   wire [31:0] difftest_rf_30; // @[src/src/cpucore/Unit/regfile.scala 48:26]
   wire [31:0] difftest_rf_31; // @[src/src/cpucore/Unit/regfile.scala 48:26]
-  wire  npc_brk_is_break; // @[src/src/cpucore/Unit/regfile.scala 55:25]
-  wire  inst_exec_once_valid; // @[src/src/cpucore/Unit/regfile.scala 61:32]
-  wire [31:0] inst_exec_once_inst; // @[src/src/cpucore/Unit/regfile.scala 61:32]
-  wire [31:0] inst_exec_once_pc; // @[src/src/cpucore/Unit/regfile.scala 61:32]
+  wire  npc_brk_is_break; // @[src/src/cpucore/Unit/regfile.scala 56:25]
+  wire  inst_exec_once_valid; // @[src/src/cpucore/Unit/regfile.scala 62:32]
+  wire [31:0] inst_exec_once_inst; // @[src/src/cpucore/Unit/regfile.scala 62:32]
+  wire [31:0] inst_exec_once_pc; // @[src/src/cpucore/Unit/regfile.scala 62:32]
   reg [31:0] pc; // @[src/src/cpucore/Unit/regfile.scala 46:21]
-  reg  is_break; // @[src/src/cpucore/Unit/regfile.scala 53:27]
-  reg  valid; // @[src/src/cpucore/Unit/regfile.scala 58:24]
-  reg [31:0] inst; // @[src/src/cpucore/Unit/regfile.scala 60:23]
+  reg  is_break; // @[src/src/cpucore/Unit/regfile.scala 54:27]
+  reg  valid; // @[src/src/cpucore/Unit/regfile.scala 59:24]
+  reg [31:0] inst; // @[src/src/cpucore/Unit/regfile.scala 61:23]
   Difftest difftest ( // @[src/src/cpucore/Unit/regfile.scala 48:26]
     .rf_0(difftest_rf_0),
     .rf_1(difftest_rf_1),
@@ -300,10 +282,10 @@ module regfile(
     .rf_30(difftest_rf_30),
     .rf_31(difftest_rf_31)
   );
-  npc_break npc_brk ( // @[src/src/cpucore/Unit/regfile.scala 55:25]
+  npc_break npc_brk ( // @[src/src/cpucore/Unit/regfile.scala 56:25]
     .is_break(npc_brk_is_break)
   );
-  Exec inst_exec_once ( // @[src/src/cpucore/Unit/regfile.scala 61:32]
+  Exec inst_exec_once ( // @[src/src/cpucore/Unit/regfile.scala 62:32]
     .valid(inst_exec_once_valid),
     .inst(inst_exec_once_inst),
     .pc(inst_exec_once_pc)
@@ -314,9 +296,6 @@ module regfile(
   assign rf_io_rdata2_MPORT_en = 1'h1;
   assign rf_io_rdata2_MPORT_addr = io_raddr2;
   assign rf_io_rdata2_MPORT_data = rf[rf_io_rdata2_MPORT_addr]; // @[src/src/cpucore/Unit/regfile.scala 40:17]
-  assign rf_difftest_io_rf_0_MPORT_en = 1'h1;
-  assign rf_difftest_io_rf_0_MPORT_addr = 5'h0;
-  assign rf_difftest_io_rf_0_MPORT_data = rf[rf_difftest_io_rf_0_MPORT_addr]; // @[src/src/cpucore/Unit/regfile.scala 40:17]
   assign rf_difftest_io_rf_1_MPORT_en = 1'h1;
   assign rf_difftest_io_rf_1_MPORT_addr = 5'h1;
   assign rf_difftest_io_rf_1_MPORT_data = rf[rf_difftest_io_rf_1_MPORT_addr]; // @[src/src/cpucore/Unit/regfile.scala 40:17]
@@ -416,58 +395,58 @@ module regfile(
   assign rf_MPORT_en = 1'h1;
   assign io_rdata1 = io_raddr1 == 5'h0 ? 32'h0 : rf_io_rdata1_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 42:21]
   assign io_rdata2 = io_raddr2 == 5'h0 ? 32'h0 : rf_io_rdata2_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 43:21]
-  assign difftest_rf_0 = rf_difftest_io_rf_0_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 50:27]
-  assign difftest_rf_1 = rf_difftest_io_rf_1_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 50:27]
-  assign difftest_rf_2 = rf_difftest_io_rf_2_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 50:27]
-  assign difftest_rf_3 = rf_difftest_io_rf_3_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 50:27]
-  assign difftest_rf_4 = rf_difftest_io_rf_4_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 50:27]
-  assign difftest_rf_5 = rf_difftest_io_rf_5_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 50:27]
-  assign difftest_rf_6 = rf_difftest_io_rf_6_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 50:27]
-  assign difftest_rf_7 = rf_difftest_io_rf_7_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 50:27]
-  assign difftest_rf_8 = rf_difftest_io_rf_8_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 50:27]
-  assign difftest_rf_9 = rf_difftest_io_rf_9_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 50:27]
-  assign difftest_rf_10 = rf_difftest_io_rf_10_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 50:27]
-  assign difftest_rf_11 = rf_difftest_io_rf_11_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 50:27]
-  assign difftest_rf_12 = rf_difftest_io_rf_12_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 50:27]
-  assign difftest_rf_13 = rf_difftest_io_rf_13_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 50:27]
-  assign difftest_rf_14 = rf_difftest_io_rf_14_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 50:27]
-  assign difftest_rf_15 = rf_difftest_io_rf_15_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 50:27]
-  assign difftest_rf_16 = rf_difftest_io_rf_16_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 50:27]
-  assign difftest_rf_17 = rf_difftest_io_rf_17_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 50:27]
-  assign difftest_rf_18 = rf_difftest_io_rf_18_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 50:27]
-  assign difftest_rf_19 = rf_difftest_io_rf_19_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 50:27]
-  assign difftest_rf_20 = rf_difftest_io_rf_20_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 50:27]
-  assign difftest_rf_21 = rf_difftest_io_rf_21_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 50:27]
-  assign difftest_rf_22 = rf_difftest_io_rf_22_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 50:27]
-  assign difftest_rf_23 = rf_difftest_io_rf_23_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 50:27]
-  assign difftest_rf_24 = rf_difftest_io_rf_24_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 50:27]
-  assign difftest_rf_25 = rf_difftest_io_rf_25_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 50:27]
-  assign difftest_rf_26 = rf_difftest_io_rf_26_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 50:27]
-  assign difftest_rf_27 = rf_difftest_io_rf_27_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 50:27]
-  assign difftest_rf_28 = rf_difftest_io_rf_28_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 50:27]
-  assign difftest_rf_29 = rf_difftest_io_rf_29_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 50:27]
-  assign difftest_rf_30 = rf_difftest_io_rf_30_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 50:27]
-  assign difftest_rf_31 = rf_difftest_io_rf_31_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 50:27]
-  assign npc_brk_is_break = is_break; // @[src/src/cpucore/Unit/regfile.scala 56:25]
-  assign inst_exec_once_valid = valid; // @[src/src/cpucore/Unit/regfile.scala 62:29]
-  assign inst_exec_once_inst = inst; // @[src/src/cpucore/Unit/regfile.scala 63:28]
-  assign inst_exec_once_pc = pc; // @[src/src/cpucore/Unit/regfile.scala 64:26]
+  assign difftest_rf_0 = 32'h0; // @[src/src/cpucore/Unit/regfile.scala 49:23]
+  assign difftest_rf_1 = rf_difftest_io_rf_1_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 51:27]
+  assign difftest_rf_2 = rf_difftest_io_rf_2_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 51:27]
+  assign difftest_rf_3 = rf_difftest_io_rf_3_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 51:27]
+  assign difftest_rf_4 = rf_difftest_io_rf_4_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 51:27]
+  assign difftest_rf_5 = rf_difftest_io_rf_5_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 51:27]
+  assign difftest_rf_6 = rf_difftest_io_rf_6_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 51:27]
+  assign difftest_rf_7 = rf_difftest_io_rf_7_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 51:27]
+  assign difftest_rf_8 = rf_difftest_io_rf_8_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 51:27]
+  assign difftest_rf_9 = rf_difftest_io_rf_9_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 51:27]
+  assign difftest_rf_10 = rf_difftest_io_rf_10_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 51:27]
+  assign difftest_rf_11 = rf_difftest_io_rf_11_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 51:27]
+  assign difftest_rf_12 = rf_difftest_io_rf_12_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 51:27]
+  assign difftest_rf_13 = rf_difftest_io_rf_13_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 51:27]
+  assign difftest_rf_14 = rf_difftest_io_rf_14_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 51:27]
+  assign difftest_rf_15 = rf_difftest_io_rf_15_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 51:27]
+  assign difftest_rf_16 = rf_difftest_io_rf_16_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 51:27]
+  assign difftest_rf_17 = rf_difftest_io_rf_17_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 51:27]
+  assign difftest_rf_18 = rf_difftest_io_rf_18_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 51:27]
+  assign difftest_rf_19 = rf_difftest_io_rf_19_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 51:27]
+  assign difftest_rf_20 = rf_difftest_io_rf_20_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 51:27]
+  assign difftest_rf_21 = rf_difftest_io_rf_21_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 51:27]
+  assign difftest_rf_22 = rf_difftest_io_rf_22_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 51:27]
+  assign difftest_rf_23 = rf_difftest_io_rf_23_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 51:27]
+  assign difftest_rf_24 = rf_difftest_io_rf_24_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 51:27]
+  assign difftest_rf_25 = rf_difftest_io_rf_25_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 51:27]
+  assign difftest_rf_26 = rf_difftest_io_rf_26_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 51:27]
+  assign difftest_rf_27 = rf_difftest_io_rf_27_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 51:27]
+  assign difftest_rf_28 = rf_difftest_io_rf_28_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 51:27]
+  assign difftest_rf_29 = rf_difftest_io_rf_29_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 51:27]
+  assign difftest_rf_30 = rf_difftest_io_rf_30_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 51:27]
+  assign difftest_rf_31 = rf_difftest_io_rf_31_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 51:27]
+  assign npc_brk_is_break = is_break; // @[src/src/cpucore/Unit/regfile.scala 57:25]
+  assign inst_exec_once_valid = valid; // @[src/src/cpucore/Unit/regfile.scala 63:29]
+  assign inst_exec_once_inst = inst; // @[src/src/cpucore/Unit/regfile.scala 64:28]
+  assign inst_exec_once_pc = pc; // @[src/src/cpucore/Unit/regfile.scala 65:26]
   always @(posedge clock) begin
     if (rf_MPORT_en & rf_MPORT_mask) begin
       rf[rf_MPORT_addr] <= rf_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 40:17]
     end
     pc <= io_rf_pc; // @[src/src/cpucore/Unit/regfile.scala 46:21]
-    if (reset) begin // @[src/src/cpucore/Unit/regfile.scala 53:27]
-      is_break <= 1'h0; // @[src/src/cpucore/Unit/regfile.scala 53:27]
+    if (reset) begin // @[src/src/cpucore/Unit/regfile.scala 54:27]
+      is_break <= 1'h0; // @[src/src/cpucore/Unit/regfile.scala 54:27]
     end else begin
-      is_break <= io_is_break; // @[src/src/cpucore/Unit/regfile.scala 54:14]
+      is_break <= io_is_break; // @[src/src/cpucore/Unit/regfile.scala 55:14]
     end
-    if (reset) begin // @[src/src/cpucore/Unit/regfile.scala 58:24]
-      valid <= 1'h0; // @[src/src/cpucore/Unit/regfile.scala 58:24]
+    if (reset) begin // @[src/src/cpucore/Unit/regfile.scala 59:24]
+      valid <= 1'h0; // @[src/src/cpucore/Unit/regfile.scala 59:24]
     end else begin
-      valid <= 1'h1; // @[src/src/cpucore/Unit/regfile.scala 59:11]
+      valid <= 1'h1; // @[src/src/cpucore/Unit/regfile.scala 60:11]
     end
-    inst <= io_inst; // @[src/src/cpucore/Unit/regfile.scala 60:23]
+    inst <= io_inst; // @[src/src/cpucore/Unit/regfile.scala 61:23]
   end
 // Register and memory initialization
 `ifdef RANDOMIZE_GARBAGE_ASSIGN

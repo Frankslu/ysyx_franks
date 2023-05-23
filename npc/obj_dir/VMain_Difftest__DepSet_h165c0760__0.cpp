@@ -12,7 +12,6 @@ VL_INLINE_OPT void VMain_Difftest___nba_sequent__TOP__Main__cpucore__ID__reg___d
     VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+              VMain_Difftest___nba_sequent__TOP__Main__cpucore__ID__reg___difftest__0\n"); );
     // Body
-    vlSelf->__PVT__regs[0U] = vlSelf->__PVT__rf_0;
     vlSelf->__PVT__regs[1U] = vlSelf->__PVT__rf_1;
     vlSelf->__PVT__regs[2U] = vlSelf->__PVT__rf_2;
     vlSelf->__PVT__regs[3U] = vlSelf->__PVT__rf_3;

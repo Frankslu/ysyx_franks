@@ -14,8 +14,6 @@ VL_ATTR_COLD void VMain_regfile___eval_initial__TOP__Main__cpucore__ID__reg_(VMa
     // Body
     vlSelf->__PVT__rf_io_rdata1_MPORT_en = 1U;
     vlSelf->__PVT__rf_io_rdata2_MPORT_en = 1U;
-    vlSelf->__PVT__rf_difftest_io_rf_0_MPORT_en = 1U;
-    vlSelf->__PVT__rf_difftest_io_rf_0_MPORT_addr = 0U;
     vlSelf->__PVT__rf_difftest_io_rf_1_MPORT_en = 1U;
     vlSelf->__PVT__rf_difftest_io_rf_1_MPORT_addr = 1U;
     vlSelf->__PVT__rf_difftest_io_rf_2_MPORT_en = 1U;
@@ -80,6 +78,7 @@ VL_ATTR_COLD void VMain_regfile___eval_initial__TOP__Main__cpucore__ID__reg_(VMa
     vlSelf->__PVT__rf_difftest_io_rf_31_MPORT_addr = 0x1fU;
     vlSelf->__PVT__rf_MPORT_mask = 1U;
     vlSelf->__PVT__rf_MPORT_en = 1U;
+    vlSelf->__PVT__difftest_rf_0 = 0U;
 }
 
 VL_ATTR_COLD void VMain_regfile___stl_sequent__TOP__Main__cpucore__ID__reg___1(VMain_regfile* vlSelf) {
@@ -140,9 +139,6 @@ VL_ATTR_COLD void VMain_regfile___ctor_var_reset(VMain_regfile* vlSelf) {
     vlSelf->__PVT__rf_io_rdata2_MPORT_en = VL_RAND_RESET_I(1);
     vlSelf->__PVT__rf_io_rdata2_MPORT_addr = VL_RAND_RESET_I(5);
     vlSelf->__PVT__rf_io_rdata2_MPORT_data = VL_RAND_RESET_I(32);
-    vlSelf->__PVT__rf_difftest_io_rf_0_MPORT_en = VL_RAND_RESET_I(1);
-    vlSelf->__PVT__rf_difftest_io_rf_0_MPORT_addr = VL_RAND_RESET_I(5);
-    vlSelf->__PVT__rf_difftest_io_rf_0_MPORT_data = VL_RAND_RESET_I(32);
     vlSelf->__PVT__rf_difftest_io_rf_1_MPORT_en = VL_RAND_RESET_I(1);
     vlSelf->__PVT__rf_difftest_io_rf_1_MPORT_addr = VL_RAND_RESET_I(5);
     vlSelf->__PVT__rf_difftest_io_rf_1_MPORT_data = VL_RAND_RESET_I(32);
