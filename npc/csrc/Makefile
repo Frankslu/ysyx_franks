@@ -24,7 +24,7 @@ sim: V$(TOP)
 	$(BUILD_DIR)/V$(TOP) $(ARGS)
 
 gdb: V$(TOP)
-	@gdb $(BUILD_DIR)/V$(TOP)
+	@gdb $(BUILD_DIR)/V$(TOP) --args $(ARGS)
 
 wave:
 	gtkwave wave.vcd	
