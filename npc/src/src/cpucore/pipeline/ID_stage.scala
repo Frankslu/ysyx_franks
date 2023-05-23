@@ -86,7 +86,8 @@ class ID_stage extends Module{
 
     toes.bits.alu_op := decode_res(16,12)
     toes.bits.pc := ds_pc
-    toes.bits.alu_src1 := Mux(eq_list(inst_name, u(INST_JIRL), u(INST_PCAD), u(INST_BL)), ds_pc, rj_value)
+    val src1_is_pc = inst_name === u(INST_JIRL) | inst_name === u(INST_PCAD) | inst_name === u(INST_BL)
+    toes.bits.alu_src1 := Mux(src1_is_pc , ds_pc, rj_value)
     toes.bits.alu_src2 := Mux(inst_type === u(R3), rkd_value, imm)
     toes.bits.rf_waddr := rf_waddr
     toes.bits.inst_name := inst_name
