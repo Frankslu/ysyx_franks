@@ -41,7 +41,7 @@ __attribute__((unused)) static void trace_and_difftest(Decode *_this, vaddr_t dn
 #ifdef CONFIG_ITRACE_COND
 	log_write("%s\n", _this->logbuf);
 #endif
-	if (g_print_step) { IFDEF(CONFIG_ITRACE, puts(_this->logbuf)); }
+	if (g_print_step) { IFDEF(CONFIG_ITRACE, printf("%s\n",_this->logbuf)); }
 	IFDEF(CONFIG_DIFFTEST, difftest_step(cpu.pc, dnpc));
 	
 	IFDEF(CONFIG_IRING, iring_write(_this->logbuf));
