@@ -59,6 +59,7 @@ static void exec_once(Decode *s) {
 	s->snpc = s->pc + 4;
 	npc_exec_once();
 	s->isa.inst.val = cpu.inst;
+	decode_exec(s);
 
 #ifdef CONFIG_ITRACE
 	char *p = s->logbuf;
@@ -77,7 +78,6 @@ static void exec_once(Decode *s) {
 	p += space_len;
 
 	p[0] = '\t';
-	decode_exec(s);
 	p++;
 	strcpy(p, s->disas);
 	p += strlen(s->disas);
