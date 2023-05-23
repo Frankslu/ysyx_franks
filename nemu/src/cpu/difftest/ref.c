@@ -80,15 +80,16 @@ void difftest_regcpy(void *dut, bool direction) {
 			cpu.gpr[i] = ((CPU_state *)dut)->gpr[i];
 		}
 		cpu.pc = ((CPU_state *)dut)->pc;
+		cpu.ref_pc = ((CPU_state *)dut)->pc;
 		printf("nemu pc = %x\n", ((CPU_state *)dut)->pc);
 	}
 }
 
 bool difftest_regcmp(void *dut){
 	bool err = true;
-	if (((CPU_state *)dut)->pc != cpu.pc){
+	if (((CPU_state *)dut)->pc != cpu.ref_pc){
 		printf("PC wrong: ref = ");
-		printf(ANSI_FMT("0x%x", ANSI_FG_GREEN), cpu.pc);
+		printf(ANSI_FMT("0x%x", ANSI_FG_GREEN), cpu.ref_pc);
 		printf("dut = ");
 		printf(ANSI_FMT("0x%x", ANSI_FG_GREEN), ((CPU_state *)dut)->pc);
 		printf("\n");
