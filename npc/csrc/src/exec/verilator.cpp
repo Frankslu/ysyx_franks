@@ -4,9 +4,9 @@
 #include "cpu/cpu.h"
 
 
-VerilatedContext *contextp = nullptr;
-VMain *top = nullptr;
-__attribute__((unused)) VerilatedVcd *tfp = nullptr;
+VerilatedContext *contextp = NULL;
+VMain *top = NULL;
+__attribute__((unused)) VerilatedVcdC *tfp = NULL;
 uint64_t sim_time = 0;
 
 int decode_exec(Decode *s);
@@ -42,7 +42,7 @@ void init_verilator(int argc, char *argv[]){
 	top = new VMain{ contextp };
 
 #ifdef CONFIG_CC_WAVE
-	VerilatedVcdC *tfp = new VerilatedVcdC;
+	tfp = new VerilatedVcdC;
     contextp->traceEverOn(true);
 	top->trace(tfp, 5);
 	tfp->open("wave.vcd");
@@ -64,9 +64,7 @@ void init_verilator(int argc, char *argv[]){
 int npc_exec_once(Decode *s){
 	top->clock = 0;
 	top->eval();
-	// printf("1\n");
 	tfp->dump(sim_time++);
-	// printf("1\n");
 	top->clock = 1;
 	top->eval();
     tfp->dump(sim_time++);
@@ -80,6 +78,13 @@ int npc_exec_once(Decode *s){
 }
 
 void verilator_finish(){
+	top->eval();
+    tfp->dump(sim_time++);
+	top->eval();
+    tfp->dump(sim_time++);
+	top->eval();
+    tfp->dump(sim_time++);
+
 	top->final();
 	tfp->close();
 	delete top;

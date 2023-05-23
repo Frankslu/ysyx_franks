@@ -14,6 +14,6 @@
 
 extern VerilatedContext *contextp;
 extern VMain *top;
-extern VerilatedVcd *tfp;
+extern VerilatedVcdC *tfp;
 
 #endif

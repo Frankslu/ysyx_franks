@@ -35,6 +35,7 @@ VM_PREFIX = VMain
 VM_MODPREFIX = VMain
 # User CFLAGS (from -CFLAGS on Verilator command line)
 VM_USER_CFLAGS = \
+	-g \
 	-I /home/franks/ysyx-workbench/npc/csrc/include \
 
 # User LDLIBS (from -LDFLAGS on Verilator command line)
