@@ -46,7 +46,8 @@ class regfile extends Module{
     val pc = RegNext(io.rf_pc)
 
     val difftest = Module(new Difftest)
-    for(i <- 0 to 31){
+    difftest.io.rf(0) := 0.U
+    for(i <- 1 to 31){
         difftest.io.rf(i) := rf(i)
     }
 
