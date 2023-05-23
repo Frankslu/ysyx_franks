@@ -47,7 +47,6 @@ void init_verilator(int argc, char *argv[]){
 	top->trace(tfp, 99);
 	tfp->open("wave.vcd");
 #endif
-	printf("success\n");
 
 	for (int i = 0; i < 4; i++){
 		top->reset = 1;
@@ -65,7 +64,9 @@ void init_verilator(int argc, char *argv[]){
 int npc_exec_once(Decode *s){
 	top->clock = 0;
 	top->eval();
-    tfp->dump(sim_time++);
+	printf("1\n");
+	tfp->dump(sim_time++);
+	printf("1\n");
 	top->clock = 1;
 	top->eval();
     tfp->dump(sim_time++);
