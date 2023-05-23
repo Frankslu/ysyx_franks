@@ -18,6 +18,13 @@
 #include <difftest-def.h>
 #include <memory/paddr.h>
 
+// typedef struct {
+//   word_t *gpr;
+//   vaddr_t pc;
+//   bool valid;
+//   word_t inst;
+//   bool is_break;
+// } npc_CPU_state;
 
 void init_mem();
 void init_rand();
@@ -101,7 +108,7 @@ bool difftest_regcmp(void *dut){
 			printf(" wrong: ref = ");
 			printf(ANSI_FMT("0x%x", ANSI_FG_GREEN), cpu.gpr[i]);
 			printf("dut = ");
-			printf(ANSI_FMT("0x%x", ANSI_FG_GREEN), ((npc_CPU_state *)dut)->gpr[i]);
+			printf(ANSI_FMT("0x%x", ANSI_FG_GREEN), ((CPU_state *)dut)->gpr[i]);
 			printf("\n");
 			err = false;
 		}
