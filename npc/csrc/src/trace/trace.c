@@ -17,7 +17,7 @@ static Fring_t fring[FRING_SIZE] = {};
 static int fring_pos = 0;
 
 extern char* elf_file;
-extern npc_CPU_state cpu;
+extern CPU_state cpu;
 
 void iring_init();
 void mring_init();

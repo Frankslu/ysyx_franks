@@ -25,7 +25,7 @@
  */
 #define MAX_INST_TO_PRINT 10
 
-npc_CPU_state cpu = {};
+CPU_state cpu = {};
 NPCState npc_state;
 uint64_t g_nr_guest_inst = 0;
 static uint64_t g_timer = 0; // unit: us
