@@ -14,7 +14,7 @@
 ***************************************************************************************/
 
 #include "utils.h"
-#include "ifetch.h"
+#include "cpu/ifetch.h"
 #include "isa.h"
 #include "difftest.h"
 

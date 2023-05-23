@@ -1,7 +1,7 @@
 #include "ve.h"
 #include "common.h"
-#include "decode.h"
-#include "cpu.h"
+#include "cpu/decode.h"
+#include "cpu/cpu.h"
 
 
 VerilatedContext *contextp = NULL;

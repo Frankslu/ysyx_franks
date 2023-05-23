@@ -14,10 +14,10 @@
  ***************************************************************************************/
 #ifdef FUCK_GCC
 
-#include "reg.h"
-#include "cpu.h"
-#include "ifetch.h"
-#include "decode.h"
+#include "cpu/reg.h"
+#include "cpu/cpu.h"
+#include "cpu/ifetch.h"
+#include "cpu/decode.h"
 
 #define R(i) gpr(i)
 #define Mr vaddr_read

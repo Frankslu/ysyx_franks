@@ -15,8 +15,8 @@
 
 #include <locale.h>
 #include "isa.h"
-#include "cpu.h"
-#include "decode.h"
+#include "cpu/cpu.h"
+#include "cpu/decode.h"
 
  /* The assembly code of instructions executed is only output to the screen
  * when the number of instructions executed is less than this value.

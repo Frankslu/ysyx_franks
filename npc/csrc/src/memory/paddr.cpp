@@ -1,7 +1,7 @@
 
 #include "host.h"
 #include "paddr.h"
-#include "mmio.h"
+#include "device/mmio.h"
 #include "isa.h"
 
 #if   defined(CONFIG_PMEM_MALLOC)
