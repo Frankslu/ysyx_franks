@@ -7,7 +7,7 @@
 VerilatedContext *contextp = NULL;
 VMain *top = NULL;
 __attribute__((unused)) VerilatedVcd *tfp = NULL;
-static unsigned long sim_time = 0;
+uint64_t sim_time = 0;
 
 int decode_exec(Decode *s);
 
@@ -63,12 +63,10 @@ void init_verilator(int argc, char *argv[]){
 
 int npc_exec_once(Decode *s){
 	top->clock = 0;
-	top->reset = 1;
 	top->eval();
 	printf("1\n");
 	tfp->dump(sim_time++);
 	printf("1\n");
-	top->reset = 0;
 	top->clock = 1;
 	top->eval();
     tfp->dump(sim_time++);
