@@ -45,7 +45,7 @@ enum {
 #define offs26()  do { *imm = SEXT((BITS(i, 25, 10) << 2 | BITS(i, 9, 0) << 18), 28);} while (0)
 #define offs16()  do { *imm = SEXT(BITS(i, 25, 10), 16) << 2;} while (0)
 
-static void decode_operand(Decode *s, int *rj, int *rk, int *rd_, word_t *imm, int type) {
+static void decode_operand(Decode *s, int *rj, int *rk, int *rd_, word_t *imm, int32_t *simm, int type) {
 	uint32_t i = s->isa.inst.val;
 	*rj = BITS(i, 9, 5);
 	*rk = BITS(i, 14, 10);
@@ -59,17 +59,18 @@ static void decode_operand(Decode *s, int *rj, int *rk, int *rd_, word_t *imm, i
 		case TYPE_2RO16 : offs16(); break;
 		case TYPE_2RI5  : break;
 	}
+	*simm = (signed)*imm;
 }
 
 int decode_exec(Decode *s) {
 	int rj = 0, rk = 0, rd = 0;
 	word_t imm = 0;//imm also used as offset
 	char *as = s->disas;
-	int32_t simm = (signed)imm;
+	int32_t simm = 0;
 
 #define INSTPAT_INST(s) ((s)->isa.inst.val)
 #define INSTPAT_MATCH(s, name, type, ... /* execute body */ ) { \
-	decode_operand(s, &rj, &rk, &rd, &imm, concat(TYPE_, type)); \
+	decode_operand(s, &rj, &rk, &rd, &imm, &simm, concat(TYPE_, type)); \
 	__VA_ARGS__ ; \
 }
 
