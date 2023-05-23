@@ -63,7 +63,7 @@ void init_verilator(int argc, char *argv[]){
 
 int npc_exec_once(Decode *s){
 	top->clock = 0;
-	// top->eval();
+	top->eval();
 	// printf("1\n");
 	// tfp->dump(sim_time++);
 	// printf("1\n");
