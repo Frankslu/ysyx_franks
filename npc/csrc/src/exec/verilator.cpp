@@ -61,14 +61,13 @@ void init_verilator(int argc, char *argv[]){
 
 }
 
-int npc_exec_once(Decode *s){
+int npc_exec_once(){
 	top->clock = 0;
 	top->eval();
 	tfp->dump(sim_time++);
 	top->clock = 1;
 	top->eval();
     tfp->dump(sim_time++);
-	s->isa.inst.val = cpu.inst;
 	// decode_exec(s);
 	if (cpu.is_break == true){
 		set_npc_state(NPC_END, cpu.pc, 0);

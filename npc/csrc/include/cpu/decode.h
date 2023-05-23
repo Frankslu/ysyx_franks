@@ -28,7 +28,7 @@ typedef struct Decode {
   char disas[128];
 } Decode;
 
-int npc_exec_once(Decode *s);
+int npc_exec_once();
 
 // --- pattern matching mechanism ---
 __attribute__((always_inline))
