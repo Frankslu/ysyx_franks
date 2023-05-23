@@ -19,6 +19,7 @@ unit: V$(TOP)
 	@$(BUILD_DIR)/V$(TOP)
 
 sim: V$(TOP)
+	@make -s -C $(NEMU_HOME) -f Makefile
 	@$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
 	@$(BUILD_DIR)/V$(TOP) $(ARGS)
 
