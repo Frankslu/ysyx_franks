@@ -70,7 +70,7 @@ int npc_exec_once(){
     tfp->dump(sim_time++);
 	// decode_exec(s);
 	if (cpu.is_break == true){
-		set_npc_state(NPC_END, cpu.pc, cpu.gpr[4]);
+		set_npc_state(NPC_END, cpu.pc, 0);
 	}
 	printf("%x\n", cpu.pc);
 	return 0;
