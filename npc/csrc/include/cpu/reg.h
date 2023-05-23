@@ -16,7 +16,7 @@
 #ifndef __LOONGARCH32R_REG_H__
 #define __LOONGARCH32R_REG_H__
 
-#include <common.h>
+#include "common.h"
 
 static inline int check_reg_idx(int idx) {
   IFDEF(CONFIG_RT_CHECK, assert(idx >= 0 && idx < 32));

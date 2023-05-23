@@ -293,7 +293,7 @@ static void *read_file(const char *filename)
 /* Ignore certain dependencies */
 static int is_ignored_file(const char *s, int len)
 {
-	return str_ends_with(s, len, "csrc/include/autoconf.h") ||
+	return str_ends_with(s, len, "csrc/include/generated/autoconf.h") ||
 	       str_ends_with(s, len, "csrc/include/generated/autoksyms.h");
 }
 

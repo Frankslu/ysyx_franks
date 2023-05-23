@@ -8,7 +8,7 @@ INC = $(shell find $(CPP_DIR) -name "*.h")
 else
 CPP_DIR = $(NPC_HOME)/csrc
 CSRC = $(shell find $(CPP_DIR)/src -name "*.cpp" -o -name "*.c")
-# INC = $(shell find $(CPP_DIR)/include -name "*.h")
+INCLUDE = $(shell find $(CPP_DIR)/include -name "*.h")
 INC = $(CPP_DIR)/include
 endif
 BUILD_DIR = obj_dir
@@ -60,7 +60,7 @@ c: $(VERILOG_DIR)/*.v
 	@sed -i '1s/^/\/* verilator lint_off UNUSEDSIGNAL *\/\n/' $(VERILOG_DIR)/$(TOP).v
 	@verilator --top-module $(TOP) -cc $(VSRC)
 
-V$(TOP): $(VSRC) $(CSRC)
+V$(TOP): $(VSRC) $(CSRC) $(INCLUDE)
 	@verilator -Wall --trace $(GDB) -O3 --cc $(VSRC) --top-module $(TOP) \
 	--exe $(CSRC) \
 	-CFLAGS "-I $(INC)" \
