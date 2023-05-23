@@ -16,7 +16,7 @@ class preIF extends Module{
     val snpc = pc + 4.U
     pc := Mux(br.taken, br.target, snpc)
 
-    inst_sram.en := reset.asBool
+    inst_sram.en := ~reset.asBool
     inst_sram.wr := 0.B
     inst_sram.addr := pc
     inst_sram.wdata := 0.U
