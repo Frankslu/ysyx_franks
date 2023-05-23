@@ -18,6 +18,14 @@
 #include <difftest-def.h>
 #include <memory/paddr.h>
 
+typedef struct {
+  word_t *gpr;
+  vaddr_t pc;
+  bool valid;
+  word_t inst;
+  bool is_break;
+} npc_CPU_state;
+
 void init_mem();
 void init_rand();
 
@@ -70,37 +78,37 @@ void difftest_memcpy(paddr_t addr, void *buf, size_t n, bool direction) {
 void difftest_regcpy(void *dut, bool direction) {
 	if (direction == DIFFTEST_TO_DUT){
 		for (int i = 0; i < 32; i++)
-			((CPU_state *)dut)->gpr[i] = cpu.gpr[i];
-		((CPU_state *)dut)->pc = cpu.pc;
+			((npc_CPU_state *)dut)->gpr[i] = cpu.gpr[i];
+		((npc_CPU_state *)dut)->pc = cpu.pc;
 	}
 	else {
 		for (int i = 0; i < 32; i++){
-			cpu.gpr[i] = ((CPU_state *)dut)->gpr[i];
+			cpu.gpr[i] = ((npc_CPU_state *)dut)->gpr[i];
 		}
-		cpu.pc = ((CPU_state *)dut)->pc;
-		printf("nemu pc = %x\n", ((CPU_state *)dut)->pc);
+		cpu.pc = ((npc_CPU_state *)dut)->pc;
+		printf("nemu pc = %x\n", ((npc_CPU_state *)dut)->pc);
 	}
 }
 
 bool difftest_regcmp(void *dut){
 	bool err = true;
-	if (((CPU_state *)dut)->pc != cpu.pc){
+	if (((npc_CPU_state *)dut)->pc != cpu.pc){
 		printf("PC wrong: ref = ");
 		printf(ANSI_FMT("0x%x", ANSI_FG_GREEN), cpu.pc);
 		printf("dut = ");
-		printf(ANSI_FMT("0x%x", ANSI_FG_GREEN), ((CPU_state *)dut)->pc);
+		printf(ANSI_FMT("0x%x", ANSI_FG_GREEN), ((npc_CPU_state *)dut)->pc);
 		printf("\n");
 		err = false;
 	}
 
 	for (int i = 0; i < 32; i++){
-		if (((CPU_state *)dut)->gpr[i] != cpu.gpr[i]){
+		if (((npc_CPU_state *)dut)->gpr[i] != cpu.gpr[i]){
 			printf("$r");
 			printf(ANSI_FMT("0x%d", ANSI_FG_GREEN), i);
 			printf(" wrong: ref = ");
 			printf(ANSI_FMT("0x%x", ANSI_FG_GREEN), cpu.gpr[i]);
 			printf("dut = ");
-			printf(ANSI_FMT("0x%x", ANSI_FG_GREEN), ((CPU_state *)dut)->gpr[i]);
+			printf(ANSI_FMT("0x%x", ANSI_FG_GREEN), ((npc_CPU_state *)dut)->gpr[i]);
 			printf("\n");
 			err = false;
 		}
