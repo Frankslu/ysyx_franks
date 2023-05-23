@@ -4,9 +4,9 @@
 #include "cpu/cpu.h"
 
 
-VerilatedContext *contextp = NULL;
-VMain *top = NULL;
-__attribute__((unused)) VerilatedVcd *tfp = NULL;
+VerilatedContext *contextp = nullptr;
+VMain *top = nullptr;
+__attribute__((unused)) VerilatedVcd *tfp = nullptr;
 uint64_t sim_time = 0;
 
 int decode_exec(Decode *s);
