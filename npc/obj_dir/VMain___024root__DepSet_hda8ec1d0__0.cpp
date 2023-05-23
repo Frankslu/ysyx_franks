@@ -84,6 +84,23 @@ VL_INLINE_OPT void VMain___024root____Vdpiimwrap_Main__DOT__iram__DOT__vaddr_fet
 }
 
 #ifdef VL_DEBUG
+VL_ATTR_COLD void VMain___024root___dump_triggers__ico(VMain___024root* vlSelf);
+#endif  // VL_DEBUG
+
+void VMain___024root___eval_triggers__ico(VMain___024root* vlSelf) {
+    if (false && vlSelf) {}  // Prevent unused
+    VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VMain___024root___eval_triggers__ico\n"); );
+    // Body
+    vlSelf->__VicoTriggered.at(0U) = (0U == vlSelf->__VicoIterCount);
+#ifdef VL_DEBUG
+    if (VL_UNLIKELY(vlSymsp->_vm_contextp__->debug())) {
+        VMain___024root___dump_triggers__ico(vlSelf);
+    }
+#endif
+}
+
+#ifdef VL_DEBUG
 VL_ATTR_COLD void VMain___024root___dump_triggers__act(VMain___024root* vlSelf);
 #endif  // VL_DEBUG
 

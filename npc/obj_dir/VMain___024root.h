@@ -133,6 +133,7 @@ class VMain___024root final : public VerilatedModule {
         IData/*31:0*/ __Vtask_Main__DOT__dram__DOT__vaddr_read__4__rdata;
         IData/*31:0*/ __Vtask_Main__DOT__iram__DOT__vaddr_fetch__5__rdata;
         IData/*31:0*/ __VstlIterCount;
+        IData/*31:0*/ __VicoIterCount;
         IData/*31:0*/ __VactIterCount;
         QData/*32:0*/ Main__DOT__cpucore__DOT__ID__DOT___rj_sub_rd_T;
         QData/*32:0*/ Main__DOT__cpucore__DOT__EXE__DOT__alu__DOT__add_res;
@@ -141,9 +142,10 @@ class VMain___024root final : public VerilatedModule {
         QData/*63:0*/ Main__DOT__cpucore__DOT__EXE__DOT__alu__DOT___io_res_T_18;
         VlUnpacked<IData/*31:0*/, 32> Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__rf;
         VlUnpacked<IData/*31:0*/, 32> Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__difftest__DOT__regs;
-        VlUnpacked<CData/*0:0*/, 2> __Vm_traceActivity;
+        VlUnpacked<CData/*0:0*/, 3> __Vm_traceActivity;
     };
     VlTriggerVec<1> __VstlTriggered;
+    VlTriggerVec<1> __VicoTriggered;
     VlTriggerVec<1> __VactTriggered;
     VlTriggerVec<1> __VnbaTriggered;
 

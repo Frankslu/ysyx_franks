@@ -64,7 +64,7 @@ VL_ATTR_COLD void VMain___024root___eval_settle(VMain___024root* vlSelf) {
 #ifdef VL_DEBUG
                 VMain___024root___dump_triggers__stl(vlSelf);
 #endif
-                VL_FATAL_MT("/home/franks/ysyx-workbench/npc/vsrc/Main.v", 1398, "", "Settle region did not converge.");
+                VL_FATAL_MT("/home/franks/ysyx-workbench/npc/vsrc/Main.v", 1404, "", "Settle region did not converge.");
             }
             vlSelf->__VstlIterCount = ((IData)(1U) 
                                        + vlSelf->__VstlIterCount);
@@ -199,8 +199,10 @@ VL_ATTR_COLD void VMain___024root___stl_sequent__TOP__0(VMain___024root* vlSelf)
     vlSelf->Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__difftest__DOT__regs[0x1fU] 
         = vlSelf->Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__rf
         [0x1fU];
-    VMain___024root____Vdpiimwrap_Main__DOT__iram__DOT__vaddr_fetch_TOP(vlSelf->Main__DOT__cpucore__DOT__pIF__DOT__pc, vlSelf->__Vtask_Main__DOT__iram__DOT__vaddr_fetch__5__rdata);
-    vlSelf->Main__DOT__iram_rdata = vlSelf->__Vtask_Main__DOT__iram__DOT__vaddr_fetch__5__rdata;
+    if (vlSelf->reset) {
+        VMain___024root____Vdpiimwrap_Main__DOT__iram__DOT__vaddr_fetch_TOP(vlSelf->Main__DOT__cpucore__DOT__pIF__DOT__pc, vlSelf->__Vtask_Main__DOT__iram__DOT__vaddr_fetch__5__rdata);
+        vlSelf->Main__DOT__iram_rdata = vlSelf->__Vtask_Main__DOT__iram__DOT__vaddr_fetch__5__rdata;
+    }
     vlSelf->Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__rf_io_rdata1_MPORT_data 
         = vlSelf->Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__rf
         [(0x1fU & (vlSelf->Main__DOT__iram_rdata >> 5U))];
@@ -1166,10 +1168,26 @@ VL_ATTR_COLD void VMain___024root___eval_stl(VMain___024root* vlSelf) {
     // Body
     if (vlSelf->__VstlTriggered.at(0U)) {
         VMain___024root___stl_sequent__TOP__0(vlSelf);
+        vlSelf->__Vm_traceActivity[2U] = 1U;
         vlSelf->__Vm_traceActivity[1U] = 1U;
         vlSelf->__Vm_traceActivity[0U] = 1U;
     }
 }
+
+#ifdef VL_DEBUG
+VL_ATTR_COLD void VMain___024root___dump_triggers__ico(VMain___024root* vlSelf) {
+    if (false && vlSelf) {}  // Prevent unused
+    VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VMain___024root___dump_triggers__ico\n"); );
+    // Body
+    if ((1U & (~ (IData)(vlSelf->__VicoTriggered.any())))) {
+        VL_DBG_MSGF("         No triggers active\n");
+    }
+    if (vlSelf->__VicoTriggered.at(0U)) {
+        VL_DBG_MSGF("         'ico' region trigger index 0 is active: Internal 'ico' trigger - first iteration\n");
+    }
+}
+#endif  // VL_DEBUG
 
 #ifdef VL_DEBUG
 VL_ATTR_COLD void VMain___024root___dump_triggers__act(VMain___024root* vlSelf) {
@@ -1331,7 +1349,7 @@ VL_ATTR_COLD void VMain___024root___ctor_var_reset(VMain___024root* vlSelf) {
     vlSelf->__Vtask_Main__DOT__dram__DOT__vaddr_read__4__rdata = 0;
     vlSelf->__Vtask_Main__DOT__iram__DOT__vaddr_fetch__5__rdata = 0;
     vlSelf->__Vtrigrprev__TOP__clock = VL_RAND_RESET_I(1);
-    for (int __Vi0 = 0; __Vi0 < 2; ++__Vi0) {
+    for (int __Vi0 = 0; __Vi0 < 3; ++__Vi0) {
         vlSelf->__Vm_traceActivity[__Vi0] = 0;
     }
 }

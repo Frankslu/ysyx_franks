@@ -6,6 +6,7 @@ module preIF(
   input         reset,
   input         br_taken, // @[src/src/cpucore/pipeline/preIF.scala 11:16]
   input  [31:0] br_target, // @[src/src/cpucore/pipeline/preIF.scala 11:16]
+  output        inst_sram_en, // @[src/src/cpucore/pipeline/preIF.scala 12:23]
   output [31:0] inst_sram_addr, // @[src/src/cpucore/pipeline/preIF.scala 12:23]
   output [31:0] tofs_bits_pc // @[src/src/cpucore/pipeline/preIF.scala 13:18]
 );
@@ -14,6 +15,7 @@ module preIF(
 `endif // RANDOMIZE_REG_INIT
   reg [31:0] pc; // @[src/src/cpucore/pipeline/preIF.scala 15:21]
   wire [31:0] snpc = pc + 32'h4; // @[src/src/cpucore/pipeline/preIF.scala 16:19]
+  assign inst_sram_en = reset; // @[src/src/cpucore/pipeline/preIF.scala 19:27]
   assign inst_sram_addr = pc; // @[src/src/cpucore/pipeline/preIF.scala 21:20]
   assign tofs_bits_pc = pc; // @[src/src/cpucore/pipeline/preIF.scala 25:18]
   always @(posedge clock) begin
@@ -1177,6 +1179,7 @@ endmodule
 module mycpu_top(
   input         clock,
   input         reset,
+  output        inst_sram_en, // @[src/src/cpucore/mycpu_top.scala 21:27]
   output [31:0] inst_sram_addr, // @[src/src/cpucore/mycpu_top.scala 21:27]
   input  [31:0] inst_sram_rdata, // @[src/src/cpucore/mycpu_top.scala 21:27]
   output        data_sram_en, // @[src/src/cpucore/mycpu_top.scala 22:27]
@@ -1190,6 +1193,7 @@ module mycpu_top(
   wire  pIF_reset; // @[src/src/cpucore/mycpu_top.scala 24:25]
   wire  pIF_br_taken; // @[src/src/cpucore/mycpu_top.scala 24:25]
   wire [31:0] pIF_br_target; // @[src/src/cpucore/mycpu_top.scala 24:25]
+  wire  pIF_inst_sram_en; // @[src/src/cpucore/mycpu_top.scala 24:25]
   wire [31:0] pIF_inst_sram_addr; // @[src/src/cpucore/mycpu_top.scala 24:25]
   wire [31:0] pIF_tofs_bits_pc; // @[src/src/cpucore/mycpu_top.scala 24:25]
   wire [31:0] IF_tods_bits_pc; // @[src/src/cpucore/mycpu_top.scala 25:24]
@@ -1267,6 +1271,7 @@ module mycpu_top(
     .reset(pIF_reset),
     .br_taken(pIF_br_taken),
     .br_target(pIF_br_target),
+    .inst_sram_en(pIF_inst_sram_en),
     .inst_sram_addr(pIF_inst_sram_addr),
     .tofs_bits_pc(pIF_tofs_bits_pc)
   );
@@ -1350,6 +1355,7 @@ module mycpu_top(
     .torf_is_break(WB_torf_is_break),
     .torf_inst(WB_torf_inst)
   );
+  assign inst_sram_en = pIF_inst_sram_en; // @[src/src/cpucore/mycpu_top.scala 41:23]
   assign inst_sram_addr = pIF_inst_sram_addr; // @[src/src/cpucore/mycpu_top.scala 41:23]
   assign data_sram_en = EXE_data_sram_en; // @[src/src/cpucore/mycpu_top.scala 44:23]
   assign data_sram_wr = EXE_data_sram_wr; // @[src/src/cpucore/mycpu_top.scala 44:23]
@@ -1401,6 +1407,7 @@ module Main(
 );
   wire  cpucore_clock; // @[src/src/main.scala 8:29]
   wire  cpucore_reset; // @[src/src/main.scala 8:29]
+  wire  cpucore_inst_sram_en; // @[src/src/main.scala 8:29]
   wire [31:0] cpucore_inst_sram_addr; // @[src/src/main.scala 8:29]
   wire [31:0] cpucore_inst_sram_rdata; // @[src/src/main.scala 8:29]
   wire  cpucore_data_sram_en; // @[src/src/main.scala 8:29]
@@ -1424,6 +1431,7 @@ module Main(
   mycpu_top cpucore ( // @[src/src/main.scala 8:29]
     .clock(cpucore_clock),
     .reset(cpucore_reset),
+    .inst_sram_en(cpucore_inst_sram_en),
     .inst_sram_addr(cpucore_inst_sram_addr),
     .inst_sram_rdata(cpucore_inst_sram_rdata),
     .data_sram_en(cpucore_data_sram_en),
@@ -1458,7 +1466,7 @@ module Main(
   assign dram_addr = cpucore_data_sram_addr; // @[src/src/main.scala 12:27]
   assign dram_wdata = cpucore_data_sram_wdata; // @[src/src/main.scala 12:27]
   assign dram_wstrb = cpucore_data_sram_wstrb; // @[src/src/main.scala 12:27]
-  assign iram_en = 1'h1; // @[src/src/main.scala 13:27]
+  assign iram_en = cpucore_inst_sram_en; // @[src/src/main.scala 13:27]
   assign iram_wr = 1'h0; // @[src/src/main.scala 13:27]
   assign iram_addr = cpucore_inst_sram_addr; // @[src/src/main.scala 13:27]
   assign iram_wdata = 32'h0; // @[src/src/main.scala 13:27]
