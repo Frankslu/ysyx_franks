@@ -7,6 +7,12 @@
 /* verilator lint_off UNUSEDSIGNAL */
 /* verilator lint_off DECLFILENAME */
 /* verilator lint_off WIDTHEXPAND */
+/* verilator lint_off UNUSEDSIGNAL */
+/* verilator lint_off DECLFILENAME */
+/* verilator lint_off WIDTHEXPAND */
+/* verilator lint_off UNUSEDSIGNAL */
+/* verilator lint_off DECLFILENAME */
+/* verilator lint_off WIDTHEXPAND */
 module preIF(
   input         clock,
   input         reset,

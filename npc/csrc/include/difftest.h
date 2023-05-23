@@ -19,7 +19,7 @@
 #include <common.h>
 
 #include <stdint.h>
-#include "autoconf.h"
+#include "generated/autoconf.h"
 
 enum { DIFFTEST_TO_DUT, DIFFTEST_TO_REF };
 

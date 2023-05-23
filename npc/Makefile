@@ -60,7 +60,7 @@ c: $(VERILOG_DIR)/*.v
 	@sed -i '1s/^/\/* verilator lint_off UNUSEDSIGNAL *\/\n/' $(VERILOG_DIR)/$(TOP).v
 	@verilator --top-module $(TOP) -cc $(VSRC)
 
-V$(TOP): $(VSRC)
+V$(TOP): $(VSRC) $(CSRC)
 	@verilator -Wall --trace $(GDB) -O3 --cc $(VSRC) --top-module $(TOP) \
 	--exe $(CSRC) \
 	-CFLAGS "-I $(INC)" \
