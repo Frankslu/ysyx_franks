@@ -36,6 +36,7 @@ extern WP *new_wp(char *s);
 extern bool free_wp(int i);
 extern BP *new_bp(vaddr_t pc);
 extern bool free_bp(int i);
+void verilator_finish();
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char* rl_gets() {
@@ -63,6 +64,7 @@ static int cmd_c(char *args) {
 
 static int cmd_q(char *args) {
 	npc_state.state = NPC_QUIT;
+	verilator_finish();
 	return -1;
 }
 
