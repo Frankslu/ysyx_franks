@@ -63,13 +63,13 @@ void init_verilator(int argc, char *argv[]){
 
 int npc_exec_once(Decode *s){
 	top->clock = 0;
-	top->eval();
-	printf("1\n");
-	tfp->dump(sim_time++);
-	printf("1\n");
+	// top->eval();
+	// printf("1\n");
+	// tfp->dump(sim_time++);
+	// printf("1\n");
 	top->clock = 1;
 	top->eval();
-    tfp->dump(sim_time++);
+    // tfp->dump(sim_time++);
 	s->isa.inst.val = cpu.inst;
 	// decode_exec(s);
 	if (cpu.is_break == true){
