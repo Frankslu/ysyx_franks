@@ -92,6 +92,8 @@ void init_monitor(int argc, char *argv[]){
 	/* Load the image to memory. This will overwrite the built-in image. */
 	long img_size = load_img();
 
+	init_verilator(argc, argv);
+
 	/* Initialize differential testing. */
 	IFDEF(CONFIG_DIFFTEST ,init_difftest(diff_so_file, img_size));
 
@@ -101,5 +103,4 @@ void init_monitor(int argc, char *argv[]){
 	/*Initialize tracer*/
 	IFDEF(CONFIG_TRACE, init_trace());
 
-	init_verilator(argc, argv);
 }
