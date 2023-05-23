@@ -1,6 +1,12 @@
+include csrc/include/config/auto.conf
+
+remove_quote = $(patsubst "%",%,$(1))
+
 TOP ?= Main
 
 VERILOG_DIR = $(NPC_HOME)/vsrc
+VSRC = $(shell find $(VERILOG_DIR) -name "*.v")
+
 ifeq ($(MAKECMDGOALS),unit)
 CPP_DIR = $(NPC_HOME)/unit_test/$(TOP)_src
 CSRC = $(shell find $(CPP_DIR) -name "*.cpp" -o -name "*.c")
@@ -11,14 +17,13 @@ CSRC = $(shell find $(CPP_DIR)/src -name "*.cpp" -o -name "*.c")
 INCLUDE = $(shell find $(CPP_DIR)/include -name "*.h")
 INC = $(CPP_DIR)/include
 endif
-BUILD_DIR = obj_dir
+BUILD_DIR = $(NPC_HOME)/obj_dir
 
-VSRC = $(shell find $(VERILOG_DIR) -name "*.v")
+GDB = $(if $(CONFIG_CC_DEBUG), --debug, )
+WAVE = $(if $(CONFIG_CC_WAVE), --trace, )
+OPT = $(call remove_quote, $(CONFIG_CC_OPT))
 
-GDB =
-ifeq ($(MAKECMDGOALS), gdb)
-GDB := --debug
-endif
+override ARGS ?= --log=$(CPP_DIR)/log
 
 export PATH := $(PATH):$(abspath ./utils)
 
@@ -29,7 +34,6 @@ verilog:
 	@$(call git_commit, "generate verilog")
 	@mkdir -p $(VERILOG_DIR)
 	@mill -i __.test.runMain Elaborate -td $(VERILOG_DIR)
-# 	find . -name "*.v" | xargs sed -i -E "/^(\w+\/)+\w+\.v/d"
 
 help:
 	mill -i __.test.runMain Elaborate --help
@@ -61,12 +65,12 @@ c: $(VERILOG_DIR)/*.v
 	@verilator --top-module $(TOP) -cc $(VSRC)
 
 V$(TOP): $(VSRC) $(CSRC) $(INCLUDE)
-	@verilator -Wall --trace $(GDB) -O3 --cc $(VSRC) --top-module $(TOP) \
+	@verilator -Wall $(WAVE) $(GDB) $(OPT) --cc $(VSRC) --top-module $(TOP) \
 	--exe $(CSRC) \
 	-CFLAGS "-I $(INC)" \
 	-LDFLAGS "-l readline"
 	echo "finish"
-	@make -s -C $(BUILD_DIR) -f V$(TOP).mk V$(TOP)
+	@make OPT_FAST="$(OPT)" -j 8 -C $(BUILD_DIR) -f V$(TOP).mk V$(TOP)
 	echo "finish2"
 
 
