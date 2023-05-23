@@ -84,9 +84,8 @@ sim: V$(TOP)
 gdb: V$(TOP)
 	@gdb $(BUILD_DIR)/V$(TOP)
 
-mytest:
-	echo $(GDB) $(WAVE) $(OPT)
-	
+wave:
+	gtkwave wave.vcd	
 
 include ../Makefile
 include csrc/scripts/config.mk
