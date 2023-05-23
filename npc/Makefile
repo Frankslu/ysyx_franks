@@ -80,7 +80,7 @@ unit: V$(TOP)
 
 sim: V$(TOP)
 	@$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
-	@.$(BUILD_DIR)/V$(TOP)
+	@$(BUILD_DIR)/V$(TOP)
 
 gdb: V$(TOP)
 	@gdb $(BUILD_DIR)/V$(TOP)
