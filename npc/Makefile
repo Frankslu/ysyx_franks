@@ -19,7 +19,7 @@ INC = $(CPP_DIR)/include
 endif
 BUILD_DIR = $(NPC_HOME)/obj_dir
 
-GDB = $(if $(CONFIG_CC_DEBUG), --gdb, )
+GDB = $(if $(CONFIG_CC_DEBUG), --debug, )
 WAVE = $(if $(CONFIG_CC_WAVE), --trace, )
 OPT = $(call remove_quote, $(CONFIG_CC_OPT))
 
