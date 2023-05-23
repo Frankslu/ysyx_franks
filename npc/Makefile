@@ -19,7 +19,7 @@ INC = $(CPP_DIR)/include
 endif
 BUILD_DIR = $(NPC_HOME)/obj_dir
 
-GDB = $(if $(CONFIG_CC_DEBUG), --debug, )
+GDB = $(if $(CONFIG_CC_DEBUG), --gdb, )
 WAVE = $(if $(CONFIG_CC_WAVE), --trace, )
 OPT = $(call remove_quote, $(CONFIG_CC_OPT))
 
@@ -69,9 +69,9 @@ V$(TOP): $(VSRC) $(CSRC) $(INCLUDE)
 	--exe $(CSRC) \
 	-CFLAGS "-I $(INC)" \
 	-LDFLAGS "-l readline"
-	echo "finish verilator"
+	@echo "finish verilator"
 	@make -s OPT_FAST="$(OPT)" -j 8 -C $(BUILD_DIR) -f V$(TOP).mk V$(TOP)
-	echo "finish make"
+	@echo "finish make"
 
 
 unit: V$(TOP)
@@ -83,6 +83,9 @@ sim: V$(TOP)
 
 gdb: V$(TOP)
 	@gdb $(BUILD_DIR)/V$(TOP)
+
+mytest:
+	echo $(GDB) $(WAVE) $(OPT)
 	
 
 include ../Makefile
