@@ -23,7 +23,7 @@ GDB = $(if $(CONFIG_CC_DEBUG), --debug, )
 WAVE = $(if $(CONFIG_CC_WAVE), --trace, )
 OPT = $(call remove_quote, $(CONFIG_CC_OPT))
 
-override ARGS ?= --log=$(CPP_DIR)/log
+override ARGS ?= --log=$(CPP_DIR)/log/npc-log.txt
 
 export PATH := $(PATH):$(abspath ./utils)
 
