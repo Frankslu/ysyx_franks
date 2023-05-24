@@ -329,12 +329,13 @@ class VMain_ID_stage final : public VerilatedModule {
         IData/*31:0*/ __PVT___imm_T_11;
         IData/*31:0*/ __PVT___imm_T_12;
         IData/*31:0*/ __PVT__imm;
+        IData/*31:0*/ __PVT___rj_sub_rd_T;
         IData/*31:0*/ __PVT___br_target_T_1;
         IData/*31:0*/ __PVT___br_target_T_3;
         IData/*31:0*/ __PVT___br_target_T_7;
         IData/*31:0*/ __PVT___br_target_T_9;
         IData/*31:0*/ __PVT___br_target_T_11;
-        QData/*32:0*/ __PVT___rj_sub_rd_T;
+        QData/*32:0*/ __PVT___rj_sub_rd_T_1;
         QData/*32:0*/ __PVT__rj_sub_rd;
     };
 

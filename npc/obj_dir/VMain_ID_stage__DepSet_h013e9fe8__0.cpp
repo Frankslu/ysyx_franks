@@ -1038,9 +1038,7 @@ VL_INLINE_OPT void VMain_ID_stage___nba_comb__TOP__Main__cpucore__ID__0(VMain_ID
                                           : vlSelf->__PVT__reg___05Fio_rdata1);
     vlSelf->__PVT__rj_eq_rd = (vlSelf->__PVT__reg___05Fio_rdata1 
                                == vlSelf->__PVT__reg___05Fio_rdata2);
-    vlSelf->__PVT___rj_sub_rd_T = (0x1ffffffffULL & 
-                                   (VL_EXTEND_QI(33,32, vlSelf->__PVT__reg___05Fio_rdata1) 
-                                    + VL_EXTEND_QI(33,32, vlSelf->__PVT__reg___05Fio_rdata2)));
+    vlSelf->__PVT___rj_sub_rd_T = (~ vlSelf->__PVT__reg___05Fio_rdata2);
     vlSelf->__PVT__toes_bits_mem_wdata = vlSelf->__PVT__reg___05Fio_rdata2;
     vlSelf->__PVT__toes_bits_alu_src2 = ((1U == (IData)(vlSelf->__PVT__inst_type))
                                           ? vlSelf->__PVT__reg___05Fio_rdata2
@@ -1050,23 +1048,26 @@ VL_INLINE_OPT void VMain_ID_stage___nba_comb__TOP__Main__cpucore__ID__0(VMain_ID
                                       : vlSelf->__PVT___br_target_T_7);
     vlSelf->__PVT___br_taken_T_4 = ((1U == (IData)(vlSelf->__PVT__inst_name)) 
                                     & (~ (IData)(vlSelf->__PVT__rj_eq_rd)));
-    vlSelf->__PVT__rj_sub_rd = (0x1ffffffffULL & (1ULL 
-                                                  + vlSelf->__PVT___rj_sub_rd_T));
+    vlSelf->__PVT___rj_sub_rd_T_1 = (0x1ffffffffULL 
+                                     & (VL_EXTEND_QI(33,32, vlSelf->__PVT__reg___05Fio_rdata1) 
+                                        + VL_EXTEND_QI(33,32, vlSelf->__PVT___rj_sub_rd_T)));
     vlSelf->__PVT___br_target_T_11 = ((0xeU == (IData)(vlSelf->__PVT__inst_name))
                                        ? vlSelf->__PVT___br_target_T_3
                                        : vlSelf->__PVT___br_target_T_9);
     vlSelf->__PVT___br_taken_T_5 = (((0U == (IData)(vlSelf->__PVT__inst_name)) 
                                      & (IData)(vlSelf->__PVT__rj_eq_rd)) 
                                     | (IData)(vlSelf->__PVT___br_taken_T_4));
+    vlSelf->__PVT__rj_sub_rd = (0x1ffffffffULL & (1ULL 
+                                                  + vlSelf->__PVT___rj_sub_rd_T_1));
+    vlSelf->__PVT__br_target = ((0xfU == (IData)(vlSelf->__PVT__inst_name))
+                                 ? vlSelf->__PVT___br_target_T_3
+                                 : vlSelf->__PVT___br_target_T_11);
     vlSelf->__PVT__sltu_res = (1U & (~ VL_BITSEL_IQII(33, vlSelf->__PVT__rj_sub_rd, 0x20U)));
     vlSelf->__PVT__slt_res = (1U & ((VL_BITSEL_IIII(32, vlSelf->__PVT__reg___05Fio_rdata1, 0x1fU) 
                                      & (~ VL_BITSEL_IIII(32, vlSelf->__PVT__reg___05Fio_rdata2, 0x1fU))) 
                                     | ((~ (VL_BITSEL_IIII(32, vlSelf->__PVT__reg___05Fio_rdata1, 0x1fU) 
                                            ^ VL_BITSEL_IIII(32, vlSelf->__PVT__reg___05Fio_rdata2, 0x1fU))) 
                                        & VL_BITSEL_IQII(33, vlSelf->__PVT__rj_sub_rd, 0x1fU))));
-    vlSelf->__PVT__br_target = ((0xfU == (IData)(vlSelf->__PVT__inst_name))
-                                 ? vlSelf->__PVT___br_target_T_3
-                                 : vlSelf->__PVT___br_target_T_11);
     vlSelf->__PVT___br_taken_T_18 = ((5U == (IData)(vlSelf->__PVT__inst_name)) 
                                      & (~ (IData)(vlSelf->__PVT__sltu_res)));
     vlSelf->__PVT___br_taken_T_14 = ((4U == (IData)(vlSelf->__PVT__inst_name)) 

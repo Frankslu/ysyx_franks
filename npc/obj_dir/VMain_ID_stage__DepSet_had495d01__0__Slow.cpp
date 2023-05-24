@@ -306,7 +306,8 @@ VL_ATTR_COLD void VMain_ID_stage___ctor_var_reset(VMain_ID_stage* vlSelf) {
     vlSelf->__PVT___reg_io_waddr_T = VL_RAND_RESET_I(1);
     vlSelf->__PVT___rf_waddr_T = VL_RAND_RESET_I(1);
     vlSelf->__PVT__rj_eq_rd = VL_RAND_RESET_I(1);
-    vlSelf->__PVT___rj_sub_rd_T = VL_RAND_RESET_Q(33);
+    vlSelf->__PVT___rj_sub_rd_T = VL_RAND_RESET_I(32);
+    vlSelf->__PVT___rj_sub_rd_T_1 = VL_RAND_RESET_Q(33);
     vlSelf->__PVT__rj_sub_rd = VL_RAND_RESET_Q(33);
     vlSelf->__PVT__slt_res = VL_RAND_RESET_I(1);
     vlSelf->__PVT__sltu_res = VL_RAND_RESET_I(1);
