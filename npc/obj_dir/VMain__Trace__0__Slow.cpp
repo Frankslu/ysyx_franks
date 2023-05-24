@@ -339,7 +339,7 @@ VL_ATTR_COLD void VMain___024root__trace_init_sub__TOP__Main__cpucore__ID__0(VMa
     tracep->declBus(c+340,"mem_we", false,-1, 1,0);
     tracep->declBus(c+341,"inst_name", false,-1, 4,0);
     tracep->declBus(c+342,"imm", false,-1, 31,0);
-    tracep->declBit(c+343,"rk_or_rd", false,-1);
+    tracep->declBit(c+343,"src2_is_rd", false,-1);
     tracep->declBit(c+476,"rj_eq_rd", false,-1);
     tracep->declQuad(c+477,"rj_sub_rd", false,-1, 32,0);
     tracep->declBit(c+479,"slt_res", false,-1);
@@ -1138,7 +1138,7 @@ VL_ATTR_COLD void VMain___024root__trace_full_sub_0(VMain___024root* vlSelf, Ver
     bufp->fullCData(oldp+340,(vlSymsp->TOP__Main__cpucore__ID.__PVT__mem_we),2);
     bufp->fullCData(oldp+341,(vlSymsp->TOP__Main__cpucore__ID.__PVT__inst_name),5);
     bufp->fullIData(oldp+342,(vlSymsp->TOP__Main__cpucore__ID.__PVT__imm),32);
-    bufp->fullBit(oldp+343,(vlSymsp->TOP__Main__cpucore__ID.__PVT__rk_or_rd));
+    bufp->fullBit(oldp+343,(vlSymsp->TOP__Main__cpucore__ID.__PVT__src2_is_rd));
     bufp->fullBit(oldp+344,(vlSymsp->TOP__Main__cpucore__ID.__PVT__src1_is_pc));
     bufp->fullCData(oldp+345,(vlSymsp->TOP__Main__cpucore__EXE.__PVT__es_bits_alu_op),5);
     bufp->fullCData(oldp+346,(vlSymsp->TOP__Main__cpucore__EXE.__PVT__es_bits_rf_waddr),5);

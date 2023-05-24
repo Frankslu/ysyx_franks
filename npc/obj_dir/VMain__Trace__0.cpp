@@ -372,7 +372,7 @@ void VMain___024root__trace_chg_sub_0(VMain___024root* vlSelf, VerilatedVcd::Buf
         bufp->chgCData(oldp+339,(vlSymsp->TOP__Main__cpucore__ID.__PVT__mem_we),2);
         bufp->chgCData(oldp+340,(vlSymsp->TOP__Main__cpucore__ID.__PVT__inst_name),5);
         bufp->chgIData(oldp+341,(vlSymsp->TOP__Main__cpucore__ID.__PVT__imm),32);
-        bufp->chgBit(oldp+342,(vlSymsp->TOP__Main__cpucore__ID.__PVT__rk_or_rd));
+        bufp->chgBit(oldp+342,(vlSymsp->TOP__Main__cpucore__ID.__PVT__src2_is_rd));
         bufp->chgBit(oldp+343,(vlSymsp->TOP__Main__cpucore__ID.__PVT__src1_is_pc));
         bufp->chgCData(oldp+344,(vlSymsp->TOP__Main__cpucore__EXE.__PVT__es_bits_alu_op),5);
         bufp->chgCData(oldp+345,(vlSymsp->TOP__Main__cpucore__EXE.__PVT__es_bits_rf_waddr),5);

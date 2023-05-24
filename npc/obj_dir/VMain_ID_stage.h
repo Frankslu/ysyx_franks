@@ -212,7 +212,7 @@ class VMain_ID_stage final : public VerilatedModule {
         CData/*0:0*/ __PVT___imm_T_4;
         CData/*0:0*/ __PVT___imm_T_5;
         CData/*0:0*/ __PVT___imm_T_6;
-        CData/*0:0*/ __PVT__rk_or_rd;
+        CData/*0:0*/ __PVT__src2_is_rd;
         CData/*0:0*/ __PVT___reg_io_waddr_T;
         CData/*0:0*/ __PVT___rf_waddr_T;
     };

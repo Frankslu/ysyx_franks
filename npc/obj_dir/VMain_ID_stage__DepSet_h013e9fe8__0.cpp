@@ -967,15 +967,15 @@ VL_INLINE_OPT void VMain_ID_stage___nba_sequent__TOP__Main__cpucore__ID__0(VMain
                                  | (IData)(vlSelf->__PVT___reg_io_waddr_T));
     vlSelf->__PVT___imm_T_7 = ((IData)(vlSelf->__PVT___imm_T_6)
                                 ? 4U : 0U);
-    vlSelf->__PVT__rk_or_rd = (((0x10U != (IData)(vlSelf->__PVT__inst_name)) 
-                                & (IData)(vlSelf->__PVT___imm_T_3)) 
-                               | (0U == (IData)(vlSelf->__PVT__mem_we)));
+    vlSelf->__PVT__src2_is_rd = (((0x10U != (IData)(vlSelf->__PVT__inst_name)) 
+                                  & (IData)(vlSelf->__PVT___imm_T_3)) 
+                                 | (0U == (IData)(vlSelf->__PVT__mem_we)));
     vlSelf->__PVT___imm_T_8 = ((IData)(vlSelf->__PVT___imm_T_5)
                                 ? vlSelf->__PVT__imm20u
                                 : vlSelf->__PVT___imm_T_7);
-    vlSelf->__PVT__reg___05Fio_raddr2 = ((IData)(vlSelf->__PVT__rk_or_rd)
-                                          ? (IData)(vlSelf->__PVT__rk)
-                                          : (IData)(vlSelf->__PVT__rd));
+    vlSelf->__PVT__reg___05Fio_raddr2 = ((IData)(vlSelf->__PVT__src2_is_rd)
+                                          ? (IData)(vlSelf->__PVT__rd)
+                                          : (IData)(vlSelf->__PVT__rk));
     vlSelf->__PVT___imm_T_9 = ((IData)(vlSelf->__PVT___imm_T_4)
                                 ? vlSelf->__PVT__imm20
                                 : vlSelf->__PVT___imm_T_8);
