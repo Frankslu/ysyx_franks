@@ -10,7 +10,7 @@ import _root_.memory._
 object StageConnect {
 	def apply[T <: Data] (left: DecoupledIO[T], right: DecoupledIO[T]) = {
 		val arch = "single"
-		if		(arch == "single")	{right.bits := left.bits; right.valid := 1.U; left.ready := 1.U}
+		if		(arch == "single")	{right.bits := left.bits; right.valid := left.valid; left.ready := 1.U}
 		else if (arch == "multi")	{right <> left}
 		else if	(arch == "pipeline"){right <> RegEnable(left, left.fire)}
 		else if	(arch == "ooo")		{right <> Queue(left, 16)}

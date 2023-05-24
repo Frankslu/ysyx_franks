@@ -98,5 +98,5 @@ class ID_stage extends Module{
     toes.bits.inst := inst
 
     ds.ready := 1.B
-    toes.valid := 1.B
+    toes.valid := ds.valid
 }

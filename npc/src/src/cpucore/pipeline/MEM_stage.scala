@@ -30,5 +30,5 @@ class MEM_stage extends Module{
 	tows.bits.inst := ms.bits.inst
 
 	ms.ready := 1.U
-	tows.valid := 1.U
+	tows.valid := ms.valid
 }

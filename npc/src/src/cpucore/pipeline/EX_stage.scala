@@ -42,5 +42,5 @@ class EX_stage extends Module{
     ).toIndexedSeq)
 
     es.ready := true.B
-    toms.valid := true.B
+    toms.valid := es.valid
 }
