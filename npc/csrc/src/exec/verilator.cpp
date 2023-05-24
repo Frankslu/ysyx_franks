@@ -50,10 +50,10 @@ void init_verilator(int argc, char *argv[]){
 
 	for (int i = 0; i < 4; i++){
 		top->reset = 1;
-		top->clock = 1;
+		top->clock = 0;
 		top->eval();
     	tfp->dump(sim_time++);
-		top->clock = 0;
+		top->clock = 1;
 		top->eval();
     	tfp->dump(sim_time++);
 	}
@@ -67,10 +67,10 @@ void init_verilator(int argc, char *argv[]){
 }
 
 int npc_exec_once(){
-	top->clock = 1;
+	top->clock = 0;
 	top->eval();
 	tfp->dump(sim_time++);
-	top->clock = 0;
+	top->clock = 1;
 	top->eval();
     tfp->dump(sim_time++);
 	// decode_exec(s);
