@@ -32,7 +32,7 @@ void init_wp_pool() {
 }
 
 /* TODO: Implement the functionality of watchpoint */
-WP *new_watchpoint(char *s){
+WP *new_wp(char *s){
 	bool success = true;
 	word_t res = expr(s,&success);
 	if(success == true){
