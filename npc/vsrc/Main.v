@@ -1,6 +1,3 @@
-/* verilator lint_off UNUSEDSIGNAL */
-/* verilator lint_off DECLFILENAME */
-/* verilator lint_off WIDTHEXPAND */
 module preIF(
   input         clock,
   input         reset,
@@ -943,8 +940,9 @@ module ID_stage(
   wire  _reg_io_waddr_T = inst_name == 5'hf; // @[src/src/cpucore/pipeline/ID_stage.scala 58:35]
   wire  _rf_waddr_T = inst_name == 5'he; // @[src/src/cpucore/pipeline/ID_stage.scala 69:34]
   wire  rj_eq_rd = reg__io_rdata1 == reg__io_rdata2; // @[src/src/cpucore/pipeline/ID_stage.scala 74:30]
-  wire [32:0] _rj_sub_rd_T = reg__io_rdata1 + reg__io_rdata2; // @[src/src/cpucore/pipeline/ID_stage.scala 75:30]
-  wire [32:0] rj_sub_rd = _rj_sub_rd_T + 33'h1; // @[src/src/cpucore/pipeline/ID_stage.scala 75:43]
+  wire [31:0] _rj_sub_rd_T = ~reg__io_rdata2; // @[src/src/cpucore/pipeline/ID_stage.scala 75:33]
+  wire [32:0] _rj_sub_rd_T_1 = reg__io_rdata1 + _rj_sub_rd_T; // @[src/src/cpucore/pipeline/ID_stage.scala 75:30]
+  wire [32:0] rj_sub_rd = _rj_sub_rd_T_1 + 33'h1; // @[src/src/cpucore/pipeline/ID_stage.scala 75:44]
   wire  slt_res = reg__io_rdata1[31] & ~reg__io_rdata2[31] | ~(reg__io_rdata1[31] ^ reg__io_rdata2[31]) & rj_sub_rd[31]; // @[src/src/cpucore/pipeline/ID_stage.scala 76:49]
   wire  sltu_res = ~rj_sub_rd[32]; // @[src/src/cpucore/pipeline/ID_stage.scala 77:20]
   wire  _br_taken_T_4 = inst_name == 5'h1 & ~rj_eq_rd; // @[src/src/cpucore/pipeline/ID_stage.scala 79:48]
