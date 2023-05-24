@@ -14,6 +14,7 @@ static inline word_t host_read(void *addr, int len) {
 }
 
 static inline void host_write(void *addr, int len, word_t data) {
+  printf("len = %d\n", len);
   switch (len) {
     case 1: *(uint8_t  *)addr = data; return;
     case 2: *(uint16_t *)addr = data; return;
