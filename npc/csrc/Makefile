@@ -22,7 +22,7 @@ sim: V$(TOP)
 
 gdb: V$(TOP)
 	@make -C $(NEMU_HOME) -f Makefile
-	@gdb -s $(BUILD_DIR)/V$(TOP) --args $(ARGS)
+	gdb -s $(BUILD_DIR)/V$(TOP) --args $(ARGS)
 
 wave:
 	gtkwave wave.vcd	
