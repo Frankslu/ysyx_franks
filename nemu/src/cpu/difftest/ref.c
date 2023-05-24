@@ -81,22 +81,22 @@ void difftest_regcpy(void *dut, bool direction) {
 	if (direction == DIFFTEST_TO_DUT){
 		for (int i = 0; i < 32; i++)
 			((npc_CPU_state *)dut)->gpr[i] = cpu.gpr[i];
-		((npc_CPU_state *)dut)->pc = cpu.ref_pc;
+		((npc_CPU_state *)dut)->pc = cpu.pc;
 	}
 	else {
 		for (int i = 0; i < 32; i++){
 			cpu.gpr[i] = ((npc_CPU_state *)dut)->gpr[i];
 		}
 		cpu.pc = ((npc_CPU_state *)dut)->pc;
-		cpu.ref_pc = ((npc_CPU_state *)dut)->pc;
+		cpu.pc = ((npc_CPU_state *)dut)->pc;
 	}
 }
 
 bool difftest_regcmp(void *dut){
 	bool err = true;
-	if (((npc_CPU_state *)dut)->pc != cpu.ref_pc){
+	if (((npc_CPU_state *)dut)->pc != cpu.pc){
 		printf("PC wrong: ref = ");
-		printf(ANSI_FMT("0x%x", ANSI_FG_GREEN), cpu.ref_pc);
+		printf(ANSI_FMT("0x%x", ANSI_FG_GREEN), cpu.pc);
 		printf("dut = ");
 		printf(ANSI_FMT("0x%x", ANSI_FG_GREEN), ((npc_CPU_state *)dut)->pc);
 		printf("\n");
