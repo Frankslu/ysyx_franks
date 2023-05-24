@@ -7,10 +7,10 @@
 
 #include "VMain_Difftest.h"
 
-VL_INLINE_OPT void VMain_Difftest___nba_sequent__TOP__Main__cpucore__ID__reg___difftest__0(VMain_Difftest* vlSelf) {
+VL_INLINE_OPT void VMain_Difftest___nba_comb__TOP__Main__cpucore__ID__reg___difftest__0(VMain_Difftest* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+              VMain_Difftest___nba_sequent__TOP__Main__cpucore__ID__reg___difftest__0\n"); );
+    VL_DEBUG_IF(VL_DBG_MSGF("+              VMain_Difftest___nba_comb__TOP__Main__cpucore__ID__reg___difftest__0\n"); );
     // Body
     vlSelf->__PVT__regs[1U] = vlSelf->__PVT__rf_1;
     vlSelf->__PVT__regs[2U] = vlSelf->__PVT__rf_2;

@@ -116,6 +116,7 @@ VL_ATTR_COLD void VMain_mycpu_top___stl_sequent__TOP__Main__cpucore__11(VMain_my
 VL_ATTR_COLD void VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__6(VMain_ID_stage* vlSelf);
 VL_ATTR_COLD void VMain_regfile___stl_sequent__TOP__Main__cpucore__ID__reg___4(VMain_regfile* vlSelf);
 VL_ATTR_COLD void VMain_Exec___stl_sequent__TOP__Main__cpucore__ID__reg___inst_exec_once__0(VMain_Exec* vlSelf);
+VL_ATTR_COLD void VMain_Difftest___stl_sequent__TOP__Main__cpucore__ID__reg___difftest__1(VMain_Difftest* vlSelf);
 
 VL_ATTR_COLD void VMain___024root___eval_stl(VMain___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
@@ -186,5 +187,6 @@ VL_ATTR_COLD void VMain___024root___eval_stl(VMain___024root* vlSelf) {
         VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__6((&vlSymsp->TOP__Main__cpucore__ID));
         VMain_regfile___stl_sequent__TOP__Main__cpucore__ID__reg___4((&vlSymsp->TOP__Main__cpucore__ID__reg_));
         VMain_Exec___stl_sequent__TOP__Main__cpucore__ID__reg___inst_exec_once__0((&vlSymsp->TOP__Main__cpucore__ID__reg___inst_exec_once));
+        VMain_Difftest___stl_sequent__TOP__Main__cpucore__ID__reg___difftest__1((&vlSymsp->TOP__Main__cpucore__ID__reg___difftest));
     }
 }
