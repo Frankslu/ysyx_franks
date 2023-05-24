@@ -63,6 +63,7 @@ void init_verilator(int argc, char *argv[]){
 	top->reset = 0;
 	top->clock = 1;
 	top->eval();
+    tfp->dump(sim_time++);
 }
 
 int npc_exec_once(){
