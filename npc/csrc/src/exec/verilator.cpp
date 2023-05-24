@@ -10,6 +10,7 @@ __attribute__((unused)) VerilatedVcdC *tfp = NULL;
 uint64_t sim_time = 0;
 
 int decode_exec(Decode *s);
+int scan_bp(vaddr_t pc);
 
 extern "C" void set_gpr_ptr(const svOpenArrayHandle regs){
 	cpu.gpr = (word_t *)(((VerilatedDpiOpenVar *)regs)->datap());
@@ -76,9 +77,13 @@ int npc_exec_once(){
     tfp->dump(sim_time++);
 	// decode_exec(s);
 	if (cpu.is_break == true){
-		set_npc_state(NPC_END, cpu.pc, cpu.gpr[4]);
+		if (scan_bp(cpu.pc) == 1){
+			set_npc_state(NPC_STOP, cpu.pc, cpu.gpr[4]);
+		}
+		else {
+			set_npc_state(NPC_END, cpu.pc, cpu.gpr[4]);
+		}
 	}
-	printf("%x\n", cpu.pc);
 	return 0;
 }
 
