@@ -96,4 +96,5 @@ void verilator_finish(){
 	top->final();
 	tfp->close();
 	delete top;
+	top = nullptr;
 }
