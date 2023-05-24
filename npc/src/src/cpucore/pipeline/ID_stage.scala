@@ -84,8 +84,8 @@ class ID_stage extends Module{
                     inst_name === u(INST_B) | inst_name === u(INST_BL) |
                     inst_name === u(INST_JIRL) | inst_name === u(INST_BRK)
     val ds_pc = ds.bits.pc
-    br.target := MuxLookup(inst_name, ds_pc + imm)(Seq(
-        u(INST_JIRL) -> (rj_value + imm),
+    br.target := MuxLookup(inst_name, ds_pc + imm16)(Seq(
+        u(INST_JIRL) -> rj_value,
         u(INST_BRK) -> ds_pc,
         u(INST_B) -> (imm26 + ds_pc),
         u(INST_BL) -> (imm26 + ds_pc)
