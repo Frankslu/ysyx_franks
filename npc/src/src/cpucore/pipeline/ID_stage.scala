@@ -84,7 +84,9 @@ class ID_stage extends Module{
     val ds_pc = ds.bits.pc
     br.target := MuxLookup(inst_name, ds_pc + imm)(Seq(
         u(INST_JIRL) -> (rj_value + imm),
-        u(INST_BRK) -> ds_pc
+        u(INST_BRK) -> ds_pc,
+        u(INST_B) -> imm26,
+        u(INST_BL) -> imm26
     ))
 
 
