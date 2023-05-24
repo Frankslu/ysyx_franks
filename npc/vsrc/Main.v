@@ -845,8 +845,8 @@ module ID_stage(
   wire [16:0] _decode_res_orMatrixOutputs_T = {_decode_res_T_1,_decode_res_T_5,_decode_res_T_11,_decode_res_T_17,
     _decode_res_T_19,_decode_res_T_27,_decode_res_T_47,_decode_res_T_55,_decode_res_T_57,decode_res_orMatrixOutputs_lo}; // @[src/main/scala/chisel3/util/pla.scala 114:19]
   wire  _decode_res_orMatrixOutputs_T_1 = |_decode_res_orMatrixOutputs_T; // @[src/main/scala/chisel3/util/pla.scala 114:36]
-  wire [5:0] _decode_res_orMatrixOutputs_T_2 = {_decode_res_T_95,_decode_res_T_105,_decode_res_T_113,_decode_res_T_117,
-    _decode_res_T_121,_decode_res_T_131}; // @[src/main/scala/chisel3/util/pla.scala 114:19]
+  wire [6:0] _decode_res_orMatrixOutputs_T_2 = {_decode_res_T_53,_decode_res_T_95,_decode_res_T_105,_decode_res_T_113,
+    _decode_res_T_117,_decode_res_T_121,_decode_res_T_131}; // @[src/main/scala/chisel3/util/pla.scala 114:19]
   wire  _decode_res_orMatrixOutputs_T_3 = |_decode_res_orMatrixOutputs_T_2; // @[src/main/scala/chisel3/util/pla.scala 114:36]
   wire [6:0] _decode_res_orMatrixOutputs_T_4 = {_decode_res_T_87,_decode_res_T_101,_decode_res_T_105,_decode_res_T_111,
     _decode_res_T_115,_decode_res_T_127,_decode_res_T_133}; // @[src/main/scala/chisel3/util/pla.scala 114:19]
