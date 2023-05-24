@@ -13,10 +13,12 @@ module preIF(
 );
 `ifdef RANDOMIZE_REG_INIT
   reg [31:0] _RAND_0;
+  reg [31:0] _RAND_1;
 `endif // RANDOMIZE_REG_INIT
   reg [31:0] pc; // @[src/src/cpucore/pipeline/preIF.scala 15:21]
   wire [31:0] snpc = pc + 32'h4; // @[src/src/cpucore/pipeline/preIF.scala 16:19]
-  assign inst_sram_en = ~reset; // @[src/src/cpucore/pipeline/preIF.scala 19:21]
+  reg  inst_sram_en_REG; // @[src/src/cpucore/pipeline/preIF.scala 19:28]
+  assign inst_sram_en = inst_sram_en_REG; // @[src/src/cpucore/pipeline/preIF.scala 19:18]
   assign inst_sram_addr = pc; // @[src/src/cpucore/pipeline/preIF.scala 21:20]
   assign tofs_valid = ~reset; // @[src/src/cpucore/pipeline/preIF.scala 26:19]
   assign tofs_bits_pc = pc; // @[src/src/cpucore/pipeline/preIF.scala 25:18]
@@ -28,6 +30,7 @@ module preIF(
     end else begin
       pc <= snpc;
     end
+    inst_sram_en_REG <= ~reset; // @[src/src/cpucore/pipeline/preIF.scala 19:29]
   end
 // Register and memory initialization
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
@@ -67,6 +70,8 @@ initial begin
 `ifdef RANDOMIZE_REG_INIT
   _RAND_0 = {1{`RANDOM}};
   pc = _RAND_0[31:0];
+  _RAND_1 = {1{`RANDOM}};
+  inst_sram_en_REG = _RAND_1[0:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
