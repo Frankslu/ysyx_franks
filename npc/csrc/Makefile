@@ -21,7 +21,7 @@ sim: V$(TOP)
 	$(BUILD_DIR)/V$(TOP) $(ARGS)
 
 gdb: V$(TOP)
-	gdb -s $(NPC_HOME)/obj_dir/V$(TOP) --args $(ARGS)
+	gdb -s $(BUILD_DIR)/V$(TOP)
 
 wave:
 	gtkwave wave.vcd	
