@@ -970,6 +970,8 @@ VL_INLINE_OPT void VMain_ID_stage___nba_sequent__TOP__Main__cpucore__ID__0(VMain
     vlSelf->__PVT__imm = ((IData)(vlSelf->__PVT___imm_T)
                            ? VL_EXTEND_II(32,5, (IData)(vlSelf->__PVT__rk))
                            : vlSelf->__PVT___imm_T_10);
+    vlSelf->__PVT___br_target_T_1 = (vlSelf->__PVT__ds_bits_pc 
+                                     + vlSelf->__PVT__imm);
 }
 
 VL_INLINE_OPT void VMain_ID_stage___nba_sequent__TOP__Main__cpucore__ID__1(VMain_ID_stage* vlSelf) {
@@ -995,12 +997,11 @@ VL_INLINE_OPT void VMain_ID_stage___nba_comb__TOP__Main__cpucore__ID__0(VMain_ID
     // Body
     vlSelf->__PVT__reg___05Fio_rdata1 = vlSymsp->TOP__Main__cpucore__ID__reg_.__PVT__io_rdata1;
     vlSelf->__PVT__reg___05Fio_rdata2 = vlSymsp->TOP__Main__cpucore__ID__reg_.__PVT__io_rdata2;
-    vlSelf->__PVT___br_target_T_1 = ((IData)(vlSelf->__PVT___br_taken_T_24)
-                                      ? vlSelf->__PVT__reg___05Fio_rdata1
-                                      : vlSelf->__PVT__ds_bits_pc);
     vlSelf->__PVT__toes_bits_alu_src1 = ((IData)(vlSelf->__PVT__src1_is_pc)
                                           ? vlSelf->__PVT__ds_bits_pc
                                           : vlSelf->__PVT__reg___05Fio_rdata1);
+    vlSelf->__PVT___br_target_T_3 = (vlSelf->__PVT__reg___05Fio_rdata1 
+                                     + vlSelf->__PVT__imm);
     vlSelf->__PVT__rj_eq_rd = (vlSelf->__PVT__reg___05Fio_rdata1 
                                == vlSelf->__PVT__reg___05Fio_rdata2);
     vlSelf->__PVT___rj_sub_rd_T = (0x1ffffffffULL & 
@@ -1010,12 +1011,16 @@ VL_INLINE_OPT void VMain_ID_stage___nba_comb__TOP__Main__cpucore__ID__0(VMain_ID
     vlSelf->__PVT__toes_bits_alu_src2 = ((1U == (IData)(vlSelf->__PVT__inst_type))
                                           ? vlSelf->__PVT__reg___05Fio_rdata2
                                           : vlSelf->__PVT__imm);
-    vlSelf->__PVT__br_target = (vlSelf->__PVT___br_target_T_1 
-                                + vlSelf->__PVT__imm);
+    vlSelf->__PVT___br_target_T_5 = ((0x10U == (IData)(vlSelf->__PVT__inst_name))
+                                      ? vlSelf->__PVT___br_target_T_3
+                                      : vlSelf->__PVT___br_target_T_1);
     vlSelf->__PVT___br_taken_T_4 = ((1U == (IData)(vlSelf->__PVT__inst_name)) 
                                     & (~ (IData)(vlSelf->__PVT__rj_eq_rd)));
     vlSelf->__PVT__rj_sub_rd = (0x1ffffffffULL & (1ULL 
                                                   + vlSelf->__PVT___rj_sub_rd_T));
+    vlSelf->__PVT__br_target = ((0x12U == (IData)(vlSelf->__PVT__inst_name))
+                                 ? vlSelf->__PVT__ds_bits_pc
+                                 : vlSelf->__PVT___br_target_T_5);
     vlSelf->__PVT___br_taken_T_5 = (((0U == (IData)(vlSelf->__PVT__inst_name)) 
                                      & (IData)(vlSelf->__PVT__rj_eq_rd)) 
                                     | (IData)(vlSelf->__PVT___br_taken_T_4));
