@@ -94,11 +94,11 @@ void difftest_regcpy(void *dut, bool direction) {
 
 bool difftest_regcmp(void *dut){
 	bool err = true;
-		printf("PC: ref = ");
-		printf(ANSI_FMT("0x%x", ANSI_FG_GREEN), cpu.pc);
-		printf("dut = ");
-		printf(ANSI_FMT("0x%x", ANSI_FG_GREEN), ((npc_CPU_state *)dut)->pc);
-		printf("\n");
+		// printf("PC: ref = ");
+		// printf(ANSI_FMT("0x%x", ANSI_FG_GREEN), cpu.pc);
+		// printf("dut = ");
+		// printf(ANSI_FMT("0x%x", ANSI_FG_GREEN), ((npc_CPU_state *)dut)->pc);
+		// printf("\n");
 	if (((npc_CPU_state *)dut)->pc != cpu.pc){
 		printf("PC wrong: ref = ");
 		printf(ANSI_FMT("0x%x", ANSI_FG_GREEN), cpu.pc);
