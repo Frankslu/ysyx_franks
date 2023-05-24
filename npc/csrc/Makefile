@@ -22,7 +22,7 @@ sim: V$(TOP)
 
 gdb: V$(TOP)
 	echo $(BUILD_DIR)/V$(TOP)
-	gdb $(BUILD_DIR)/V$(TOP) #--args $(ARGS)
+	gdb $(BUILD_DIR)/V$(TOP) --args --diff=/home/franks/ysyx-workbench/nemu/build/loongarch32r-nemu-interpreter-so
 
 wave:
 	gtkwave wave.vcd	
