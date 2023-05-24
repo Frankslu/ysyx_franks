@@ -15,6 +15,6 @@ class IF_stage extends Module{
     inst_sram := DontCare
     tods.bits.inst := inst_sram.rdata
     tods.bits.pc := fs.bits.pc
-    tods.valid := 1.U
+    tods.valid := fs.valid
     fs.ready := 1.U
 }
