@@ -24,7 +24,7 @@ module preIF(
   assign tofs_bits_pc = pc; // @[src/src/cpucore/pipeline/preIF.scala 25:18]
   always @(posedge clock) begin
     if (reset) begin // @[src/src/cpucore/pipeline/preIF.scala 15:21]
-      pc <= 32'h1c000000; // @[src/src/cpucore/pipeline/preIF.scala 15:21]
+      pc <= 32'h1bffffff; // @[src/src/cpucore/pipeline/preIF.scala 15:21]
     end else if (br_taken) begin // @[src/src/cpucore/pipeline/preIF.scala 17:14]
       pc <= br_target;
     end else begin
