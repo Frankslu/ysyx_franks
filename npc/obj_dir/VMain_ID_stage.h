@@ -184,9 +184,9 @@ class VMain_ID_stage final : public VerilatedModule {
         CData/*6:0*/ __PVT__decode_res_orMatrixOutputs_lo_6;
         CData/*0:0*/ __PVT___decode_res_orMatrixOutputs_T_17;
         CData/*0:0*/ __PVT___decode_res_orMatrixOutputs_T_19;
-        CData/*4:0*/ __PVT___decode_res_orMatrixOutputs_T_20;
+        CData/*3:0*/ __PVT___decode_res_orMatrixOutputs_T_20;
         CData/*0:0*/ __PVT___decode_res_orMatrixOutputs_T_21;
-        CData/*1:0*/ __PVT___decode_res_orMatrixOutputs_T_22;
+        CData/*2:0*/ __PVT___decode_res_orMatrixOutputs_T_22;
         CData/*0:0*/ __PVT___decode_res_orMatrixOutputs_T_23;
         CData/*7:0*/ __PVT__decode_res_orMatrixOutputs_lo_9;
         CData/*0:0*/ __PVT___decode_res_orMatrixOutputs_T_25;
@@ -211,12 +211,13 @@ class VMain_ID_stage final : public VerilatedModule {
         CData/*0:0*/ __PVT___imm_T_3;
         CData/*0:0*/ __PVT___imm_T_4;
         CData/*0:0*/ __PVT___imm_T_5;
+        CData/*0:0*/ __PVT___imm_T_6;
         CData/*0:0*/ __PVT__rk_or_rd;
         CData/*0:0*/ __PVT___rf_waddr_T;
         CData/*0:0*/ __PVT__rj_eq_rd;
-        CData/*0:0*/ __PVT__slt_res;
     };
     struct {
+        CData/*0:0*/ __PVT__slt_res;
         CData/*0:0*/ __PVT__sltu_res;
         CData/*0:0*/ __PVT___br_taken_T_4;
         CData/*0:0*/ __PVT___br_taken_T_5;
@@ -277,12 +278,12 @@ class VMain_ID_stage final : public VerilatedModule {
         SData/*8:0*/ __PVT___decode_res_T_108;
         SData/*9:0*/ __PVT___decode_res_T_110;
         SData/*9:0*/ __PVT___decode_res_T_112;
-        SData/*13:0*/ __PVT___decode_res_orMatrixOutputs_T_16;
+        SData/*14:0*/ __PVT___decode_res_orMatrixOutputs_T_16;
         SData/*8:0*/ __PVT___decode_res_orMatrixOutputs_T_18;
         SData/*15:0*/ __PVT___decode_res_orMatrixOutputs_T_24;
-        SData/*11:0*/ __PVT___decode_res_orMatrixOutputs_T_26;
     };
     struct {
+        SData/*11:0*/ __PVT___decode_res_orMatrixOutputs_T_26;
         SData/*8:0*/ __PVT___decode_res_orMatrixOutputs_T_30;
         VL_OUT(__PVT__toes_bits_alu_src1,31,0);
         VL_OUT(__PVT__toes_bits_alu_src2,31,0);
@@ -302,8 +303,10 @@ class VMain_ID_stage final : public VerilatedModule {
         IData/*31:0*/ __PVT__reg___05Fio_rf_pc;
         IData/*31:0*/ __PVT__reg___05Fio_inst;
         IData/*31:0*/ __PVT__imm12;
+        IData/*31:0*/ __PVT__imm20u;
         IData/*31:0*/ __PVT__imm20;
-        IData/*25:0*/ __PVT__imm26;
+        IData/*27:0*/ __PVT___imm26_sign_T;
+        IData/*31:0*/ __PVT__imm26;
         IData/*31:0*/ __PVT__decode_res_invInputs;
         IData/*16:0*/ __PVT___decode_res_T_12;
         IData/*16:0*/ __PVT___decode_res_T_14;
@@ -317,17 +320,19 @@ class VMain_ID_stage final : public VerilatedModule {
         IData/*16:0*/ __PVT___decode_res_orMatrixOutputs_T;
         IData/*16:0*/ __PVT__decode_res_orMatrixOutputs;
         IData/*16:0*/ __PVT__decode_res_invMatrixOutputs;
-        IData/*31:0*/ __PVT___imm_T_6;
         IData/*31:0*/ __PVT___imm_T_7;
         IData/*31:0*/ __PVT___imm_T_8;
         IData/*31:0*/ __PVT___imm_T_9;
         IData/*31:0*/ __PVT___imm_T_10;
+        IData/*31:0*/ __PVT___imm_T_11;
+        IData/*31:0*/ __PVT___imm_T_12;
         IData/*31:0*/ __PVT__imm;
         IData/*31:0*/ __PVT___br_target_T_1;
         IData/*31:0*/ __PVT___br_target_T_3;
         IData/*31:0*/ __PVT___br_target_T_5;
-        IData/*31:0*/ __PVT___br_target_T_7;
         IData/*31:0*/ __PVT___br_target_T_9;
+        IData/*31:0*/ __PVT___br_target_T_11;
+        IData/*31:0*/ __PVT___br_target_T_13;
         QData/*32:0*/ __PVT___rj_sub_rd_T;
         QData/*32:0*/ __PVT__rj_sub_rd;
     };
