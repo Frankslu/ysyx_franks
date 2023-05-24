@@ -18,6 +18,7 @@ void init_difftest(const char *diff_so_file, int img_size);
 void init_sdb();
 void init_trace();
 void init_verilator(int argc, char *argv[]);
+void verilator_finish();
 
 static int parse_args(int argc, char *argv[]) {
 	const struct option table[] = {
@@ -106,17 +107,15 @@ void init_monitor(int argc, char *argv[]){
 }
 
 void reset_monitor(){
-	extern struct {
-		int argc;
-		char **argv;
-	} parameter;
+	extern int parameter_argc;
+	extern char **parameter_argv;
 	verilator_finish();
 	init_rand();
 	init_mem();
 	init_isa();
 	IFDEF(CONFIG_DEVICE, init_device());
 	long img_size = load_img();
-	init_verilator(parameter.argc, parameter.argv);
+	init_verilator(parameter_argc, parameter_argv);
 	IFDEF(CONFIG_DIFFTEST ,init_difftest(diff_so_file, img_size));
 	IFDEF(CONFIG_TRACE, init_trace());
 }

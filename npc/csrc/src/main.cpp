@@ -14,17 +14,15 @@
 // 	return 0;
 // }
 
-struct {
-	int argc;
-	char **argv;
-} parameter;
+int parameter_argc;
+char **parameter_argv;
 
 void init_monitor(int, char *[]);
 void sdb_mainloop();
 
 int main(int argc, char *argv[]){
-	parameter.argc = argc;
-	parameter.argv = argv;
+	parameter_argc = argc;
+	parameter_argv = argv;
 	init_monitor(argc, argv);
 
 	sdb_mainloop();
