@@ -22,8 +22,7 @@ sim: V$(TOP)
 
 gdb: V$(TOP)
 	echo $(BUILD_DIR)/V$(TOP)
-	gdb /home/franks/ysyx-workbench/npc/obj_dir/VMain 
-	# gdb -s $(BUILD_DIR)/V$(TOP)
+	gdb $(BUILD_DIR)/V$(TOP)
 
 wave:
 	gtkwave wave.vcd	
