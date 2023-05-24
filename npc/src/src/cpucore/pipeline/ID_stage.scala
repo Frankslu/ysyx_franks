@@ -79,7 +79,8 @@ class ID_stage extends Module{
                     inst_name === u(INST_BGE)  & ~slt_res |
                     inst_name === u(INST_BLTU) & sltu_res |
                     inst_name === u(INST_BGEU) & ~sltu_res |
-                    inst_name === u(INST_B) | inst_name === u(INST_BL) | inst_name === u(INST_JIRL)
+                    inst_name === u(INST_B) | inst_name === u(INST_BL) |
+                    inst_name === u(INST_JIRL) | inst_name === u(INST_BRK)
     val ds_pc = ds.bits.pc
     br.target := MuxLookup(inst_name, ds_pc + imm)(Seq(
         u(INST_JIRL) -> (rj_value + imm),
