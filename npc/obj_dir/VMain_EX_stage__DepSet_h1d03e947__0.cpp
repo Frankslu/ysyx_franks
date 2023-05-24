@@ -14,6 +14,7 @@ VL_INLINE_OPT void VMain_EX_stage___nba_sequent__TOP__Main__cpucore__EXE__0(VMai
     VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_EX_stage___nba_sequent__TOP__Main__cpucore__EXE__0\n"); );
     // Body
     vlSelf->__PVT__toms_bits_dpi_c_inst = vlSelf->__PVT__es_bits_dpi_c_inst;
+    vlSelf->__PVT__toms_bits_rf_we = vlSelf->__PVT__es_bits_rf_we;
     vlSelf->__PVT__toms_bits_res_from_mem = (1U == (IData)(vlSelf->__PVT__es_bits_mem_we));
     vlSelf->__PVT__data_sram_en = (2U != (IData)(vlSelf->__PVT__es_bits_mem_we));
     vlSelf->__PVT__data_sram_wr = (0U == (IData)(vlSelf->__PVT__es_bits_mem_we));

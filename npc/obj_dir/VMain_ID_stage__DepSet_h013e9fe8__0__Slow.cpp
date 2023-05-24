@@ -24,6 +24,7 @@ VL_ATTR_COLD void VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__2(VMain_
     VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__2\n"); );
     // Body
     vlSelf->__PVT__toes_bits_dpi_c_inst = vlSelf->__PVT__ds_bits_inst;
+    vlSelf->__PVT__rj = (0x1fU & VL_SEL_IIII(32, vlSelf->__PVT__ds_bits_inst, 5U, 5U));
     vlSelf->__PVT___imm12_sign_T = (0xfffU & VL_SEL_IIII(32, vlSelf->__PVT__ds_bits_inst, 0xaU, 0xcU));
     vlSelf->__PVT__imm12u = (0xfffU & VL_SEL_IIII(32, vlSelf->__PVT__ds_bits_inst, 0xaU, 0xcU));
     vlSelf->__PVT__imm20 = VL_CONCAT_III(32,20,12, 
@@ -72,6 +73,10 @@ VL_ATTR_COLD void VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__2(VMain_
                                                               & VL_BITSEL_IIII(12, (IData)(vlSelf->__PVT___imm12_sign_T), 0xbU)), 0x14U)), (IData)(vlSelf->__PVT___imm12_sign_T));
     vlSymsp->TOP__Main__cpucore__ID__reg_.__PVT__io_raddr1 
         = vlSelf->__PVT__reg___05Fio_raddr1;
+    vlSelf->__PVT__imm26 = VL_CONCAT_III(26,5,21, (IData)(vlSelf->__PVT__rj), 
+                                         VL_CONCAT_III(21,5,16, (IData)(vlSelf->__PVT__rd), 
+                                                       (0xffffU 
+                                                        & VL_SEL_IIII(32, vlSelf->__PVT__ds_bits_inst, 0xaU, 0x10U))));
     vlSelf->__PVT__decode_res_andMatrixInput_3_23 = 
         (1U & VL_BITSEL_IIII(32, vlSelf->__PVT__decode_res_invInputs, 0x14U));
     vlSelf->__PVT__decode_res_andMatrixInput_3_1 = 
@@ -916,6 +921,7 @@ VL_ATTR_COLD void VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__2(VMain_
                                                                                 VL_CONCAT_III(9,1,8, 
                                                                                 (1U 
                                                                                 & VL_BITSEL_IIII(17, vlSelf->__PVT__decode_res_orMatrixOutputs, 8U)), (IData)(vlSelf->__PVT__decode_res_invMatrixOutputs_lo))))))))));
+    vlSelf->__PVT__toes_bits_rf_we = (1U & VL_BITSEL_IIII(17, vlSelf->__PVT__decode_res_invMatrixOutputs, 0U));
     vlSelf->__PVT__toes_bits_mem_we = (3U & VL_SEL_IIII(17, vlSelf->__PVT__decode_res_invMatrixOutputs, 6U, 2U));
     vlSelf->__PVT__toes_bits_inst_name = (0x1fU & VL_SEL_IIII(17, vlSelf->__PVT__decode_res_invMatrixOutputs, 1U, 5U));
     vlSelf->__PVT__toes_bits_alu_op = (0x1fU & VL_SEL_IIII(17, vlSelf->__PVT__decode_res_invMatrixOutputs, 0xcU, 5U));
@@ -993,9 +999,9 @@ VL_ATTR_COLD void VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__3(VMain_
                                     & (~ (IData)(vlSelf->__PVT__rj_eq_rd)));
     vlSelf->__PVT__rj_sub_rd = (0x1ffffffffULL & (1ULL 
                                                   + vlSelf->__PVT___rj_sub_rd_T));
-    vlSelf->__PVT__br_target = ((0x12U == (IData)(vlSelf->__PVT__inst_name))
-                                 ? vlSelf->__PVT__ds_bits_pc
-                                 : vlSelf->__PVT___br_target_T_5);
+    vlSelf->__PVT___br_target_T_7 = ((0x12U == (IData)(vlSelf->__PVT__inst_name))
+                                      ? vlSelf->__PVT__ds_bits_pc
+                                      : vlSelf->__PVT___br_target_T_5);
     vlSelf->__PVT___br_taken_T_5 = (((0U == (IData)(vlSelf->__PVT__inst_name)) 
                                      & (IData)(vlSelf->__PVT__rj_eq_rd)) 
                                     | (IData)(vlSelf->__PVT___br_taken_T_4));
@@ -1005,6 +1011,9 @@ VL_ATTR_COLD void VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__3(VMain_
                                     | ((~ (VL_BITSEL_IIII(32, vlSelf->__PVT__reg___05Fio_rdata1, 0x1fU) 
                                            ^ VL_BITSEL_IIII(32, vlSelf->__PVT__reg___05Fio_rdata2, 0x1fU))) 
                                        & VL_BITSEL_IQII(33, vlSelf->__PVT__rj_sub_rd, 0x1fU))));
+    vlSelf->__PVT___br_target_T_9 = ((0xeU == (IData)(vlSelf->__PVT__inst_name))
+                                      ? VL_EXTEND_II(32,26, vlSelf->__PVT__imm26)
+                                      : vlSelf->__PVT___br_target_T_7);
     vlSelf->__PVT___br_taken_T_18 = ((5U == (IData)(vlSelf->__PVT__inst_name)) 
                                      & (~ (IData)(vlSelf->__PVT__sltu_res)));
     vlSelf->__PVT___br_taken_T_14 = ((4U == (IData)(vlSelf->__PVT__inst_name)) 
@@ -1013,6 +1022,9 @@ VL_ATTR_COLD void VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__3(VMain_
                                      & (~ (IData)(vlSelf->__PVT__slt_res)));
     vlSelf->__PVT___br_taken_T_7 = ((2U == (IData)(vlSelf->__PVT__inst_name)) 
                                     & (IData)(vlSelf->__PVT__slt_res));
+    vlSelf->__PVT__br_target = ((0xfU == (IData)(vlSelf->__PVT__inst_name))
+                                 ? VL_EXTEND_II(32,26, vlSelf->__PVT__imm26)
+                                 : vlSelf->__PVT___br_target_T_9);
     vlSelf->__PVT___br_taken_T_8 = ((IData)(vlSelf->__PVT___br_taken_T_5) 
                                     | (IData)(vlSelf->__PVT___br_taken_T_7));
     vlSelf->__PVT___br_taken_T_12 = ((IData)(vlSelf->__PVT___br_taken_T_8) 
@@ -1046,11 +1058,14 @@ VL_ATTR_COLD void VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__5(VMain_
     VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__5\n"); );
     // Body
     vlSelf->__PVT__reg___05Fio_inst = vlSelf->__PVT__torf_dpi_c_inst;
+    vlSelf->__PVT__reg___05Fio_wen = vlSelf->__PVT__torf_rf_we;
     vlSelf->__PVT__reg___05Fio_waddr = vlSelf->__PVT__torf_rf_waddr;
     vlSelf->__PVT__reg___05Fio_is_break = vlSelf->__PVT__torf_dpi_c_is_break;
     vlSelf->__PVT__toes_bits_dpi_c_next_pc = vlSelf->__PVT__ds_bits_next_pc;
     vlSymsp->TOP__Main__cpucore__ID__reg_.__PVT__io_inst 
         = vlSelf->__PVT__reg___05Fio_inst;
+    vlSymsp->TOP__Main__cpucore__ID__reg_.__PVT__io_wen 
+        = vlSelf->__PVT__reg___05Fio_wen;
     vlSymsp->TOP__Main__cpucore__ID__reg_.__PVT__io_waddr 
         = vlSelf->__PVT__reg___05Fio_waddr;
     vlSymsp->TOP__Main__cpucore__ID__reg_.__PVT__io_is_break 

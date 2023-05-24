@@ -21,6 +21,7 @@ VL_ATTR_COLD void VMain_MEM_stage___stl_sequent__TOP__Main__cpucore__MEM__1(VMai
     VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_MEM_stage___stl_sequent__TOP__Main__cpucore__MEM__1\n"); );
     // Body
     vlSelf->__PVT__tows_bits_dpi_c_inst = vlSelf->__PVT__ms_bits_dpi_c_inst;
+    vlSelf->__PVT__tows_bits_rf_we = vlSelf->__PVT__ms_bits_rf_we;
     vlSelf->__PVT__tows_bits_rf_waddr = vlSelf->__PVT__ms_bits_rf_waddr;
     vlSelf->__PVT__tows_bits_dpi_c_is_break = vlSelf->__PVT__ms_bits_dpi_c_is_break;
 }
@@ -77,11 +78,13 @@ VL_ATTR_COLD void VMain_MEM_stage___ctor_var_reset(VMain_MEM_stage* vlSelf) {
     vlSelf->__PVT__ms_bits_alu_res = VL_RAND_RESET_I(32);
     vlSelf->__PVT__ms_bits_inst_name = VL_RAND_RESET_I(5);
     vlSelf->__PVT__ms_bits_res_from_mem = VL_RAND_RESET_I(1);
+    vlSelf->__PVT__ms_bits_rf_we = VL_RAND_RESET_I(1);
     vlSelf->__PVT__ms_bits_rf_waddr = VL_RAND_RESET_I(5);
     vlSelf->__PVT__ms_bits_dpi_c_is_break = VL_RAND_RESET_I(1);
     vlSelf->__PVT__ms_bits_dpi_c_inst = VL_RAND_RESET_I(32);
     vlSelf->__PVT__ms_bits_dpi_c_next_pc = VL_RAND_RESET_I(32);
     vlSelf->__PVT__tows_valid = VL_RAND_RESET_I(1);
+    vlSelf->__PVT__tows_bits_rf_we = VL_RAND_RESET_I(1);
     vlSelf->__PVT__tows_bits_rf_waddr = VL_RAND_RESET_I(5);
     vlSelf->__PVT__tows_bits_rf_wdata = VL_RAND_RESET_I(32);
     vlSelf->__PVT__tows_bits_dpi_c_is_break = VL_RAND_RESET_I(1);

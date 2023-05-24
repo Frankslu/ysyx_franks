@@ -20,12 +20,14 @@ class VMain_EX_stage final : public VerilatedModule {
     VL_IN8(__PVT__es_valid,0,0);
     VL_IN8(__PVT__es_bits_alu_op,4,0);
     VL_IN8(__PVT__es_bits_rf_waddr,4,0);
+    VL_IN8(__PVT__es_bits_rf_we,0,0);
     VL_IN8(__PVT__es_bits_mem_we,1,0);
     VL_IN8(__PVT__es_bits_inst_name,4,0);
     VL_IN8(__PVT__es_bits_dpi_c_is_break,0,0);
     VL_OUT8(__PVT__toms_valid,0,0);
     VL_OUT8(__PVT__toms_bits_inst_name,4,0);
     VL_OUT8(__PVT__toms_bits_res_from_mem,0,0);
+    VL_OUT8(__PVT__toms_bits_rf_we,0,0);
     VL_OUT8(__PVT__toms_bits_rf_waddr,4,0);
     VL_OUT8(__PVT__toms_bits_dpi_c_is_break,0,0);
     VL_OUT8(__PVT__data_sram_en,0,0);

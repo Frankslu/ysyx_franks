@@ -21,6 +21,7 @@ VL_INLINE_OPT void VMain_WB_stage___nba_sequent__TOP__Main__cpucore__WB__0(VMain
     VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_WB_stage___nba_sequent__TOP__Main__cpucore__WB__0\n"); );
     // Body
     vlSelf->__PVT__torf_dpi_c_inst = vlSelf->__PVT__ws_bits_dpi_c_inst;
+    vlSelf->__PVT__torf_rf_we = vlSelf->__PVT__ws_bits_rf_we;
     vlSelf->__PVT__torf_rf_waddr = vlSelf->__PVT__ws_bits_rf_waddr;
     vlSelf->__PVT__torf_dpi_c_is_break = vlSelf->__PVT__ws_bits_dpi_c_is_break;
 }

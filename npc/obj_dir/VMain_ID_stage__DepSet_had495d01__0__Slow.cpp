@@ -26,6 +26,7 @@ VL_ATTR_COLD void VMain_ID_stage___ctor_var_reset(VMain_ID_stage* vlSelf) {
     vlSelf->__PVT__toes_bits_alu_src2 = VL_RAND_RESET_I(32);
     vlSelf->__PVT__toes_bits_alu_op = VL_RAND_RESET_I(5);
     vlSelf->__PVT__toes_bits_rf_waddr = VL_RAND_RESET_I(5);
+    vlSelf->__PVT__toes_bits_rf_we = VL_RAND_RESET_I(1);
     vlSelf->__PVT__toes_bits_mem_we = VL_RAND_RESET_I(2);
     vlSelf->__PVT__toes_bits_inst_name = VL_RAND_RESET_I(5);
     vlSelf->__PVT__toes_bits_mem_wdata = VL_RAND_RESET_I(32);
@@ -36,6 +37,7 @@ VL_ATTR_COLD void VMain_ID_stage___ctor_var_reset(VMain_ID_stage* vlSelf) {
     vlSelf->__PVT__ds_bits_pc = VL_RAND_RESET_I(32);
     vlSelf->__PVT__ds_bits_inst = VL_RAND_RESET_I(32);
     vlSelf->__PVT__ds_bits_next_pc = VL_RAND_RESET_I(32);
+    vlSelf->__PVT__torf_rf_we = VL_RAND_RESET_I(1);
     vlSelf->__PVT__torf_rf_waddr = VL_RAND_RESET_I(5);
     vlSelf->__PVT__torf_rf_wdata = VL_RAND_RESET_I(32);
     vlSelf->__PVT__torf_valid = VL_RAND_RESET_I(1);
@@ -51,16 +53,19 @@ VL_ATTR_COLD void VMain_ID_stage___ctor_var_reset(VMain_ID_stage* vlSelf) {
     vlSelf->__PVT__reg___05Fio_rdata2 = VL_RAND_RESET_I(32);
     vlSelf->__PVT__reg___05Fio_waddr = VL_RAND_RESET_I(5);
     vlSelf->__PVT__reg___05Fio_wdata = VL_RAND_RESET_I(32);
+    vlSelf->__PVT__reg___05Fio_wen = VL_RAND_RESET_I(1);
     vlSelf->__PVT__reg___05Fio_rf_pc = VL_RAND_RESET_I(32);
     vlSelf->__PVT__reg___05Fio_is_break = VL_RAND_RESET_I(1);
     vlSelf->__PVT__reg___05Fio_valid = VL_RAND_RESET_I(1);
     vlSelf->__PVT__reg___05Fio_inst = VL_RAND_RESET_I(32);
+    vlSelf->__PVT__rj = VL_RAND_RESET_I(5);
     vlSelf->__PVT__rd = VL_RAND_RESET_I(5);
     vlSelf->__PVT__rk = VL_RAND_RESET_I(5);
     vlSelf->__PVT__imm12u = VL_RAND_RESET_I(12);
     vlSelf->__PVT___imm12_sign_T = VL_RAND_RESET_I(12);
     vlSelf->__PVT__imm12 = VL_RAND_RESET_I(32);
     vlSelf->__PVT__imm20 = VL_RAND_RESET_I(32);
+    vlSelf->__PVT__imm26 = VL_RAND_RESET_I(26);
     vlSelf->__PVT__decode_res_invInputs = VL_RAND_RESET_I(32);
     vlSelf->__PVT__decode_res_andMatrixInput_0 = VL_RAND_RESET_I(1);
     vlSelf->__PVT__decode_res_andMatrixInput_1 = VL_RAND_RESET_I(1);
@@ -315,5 +320,7 @@ VL_ATTR_COLD void VMain_ID_stage___ctor_var_reset(VMain_ID_stage* vlSelf) {
     vlSelf->__PVT___br_target_T_1 = VL_RAND_RESET_I(32);
     vlSelf->__PVT___br_target_T_3 = VL_RAND_RESET_I(32);
     vlSelf->__PVT___br_target_T_5 = VL_RAND_RESET_I(32);
+    vlSelf->__PVT___br_target_T_7 = VL_RAND_RESET_I(32);
+    vlSelf->__PVT___br_target_T_9 = VL_RAND_RESET_I(32);
     vlSelf->__PVT__src1_is_pc = VL_RAND_RESET_I(1);
 }

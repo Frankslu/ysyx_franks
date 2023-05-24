@@ -77,7 +77,6 @@ VL_ATTR_COLD void VMain_regfile___eval_initial__TOP__Main__cpucore__ID__reg_(VMa
     vlSelf->__PVT__rf_difftest_io_rf_31_MPORT_en = 1U;
     vlSelf->__PVT__rf_difftest_io_rf_31_MPORT_addr = 0x1fU;
     vlSelf->__PVT__rf_MPORT_mask = 1U;
-    vlSelf->__PVT__rf_MPORT_en = 1U;
     vlSelf->__PVT__difftest_rf_0 = 0U;
 }
 
@@ -110,6 +109,7 @@ VL_ATTR_COLD void VMain_regfile___ctor_var_reset(VMain_regfile* vlSelf) {
     vlSelf->__PVT__io_rdata2 = VL_RAND_RESET_I(32);
     vlSelf->__PVT__io_waddr = VL_RAND_RESET_I(5);
     vlSelf->__PVT__io_wdata = VL_RAND_RESET_I(32);
+    vlSelf->__PVT__io_wen = VL_RAND_RESET_I(1);
     vlSelf->__PVT__io_rf_pc = VL_RAND_RESET_I(32);
     vlSelf->__PVT__io_is_break = VL_RAND_RESET_I(1);
     vlSelf->__PVT__io_valid = VL_RAND_RESET_I(1);

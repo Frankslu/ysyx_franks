@@ -46,6 +46,7 @@ VL_ATTR_COLD void VMain_mycpu_top___ctor_var_reset(VMain_mycpu_top* vlSelf) {
     vlSelf->__PVT__ID_toes_bits_alu_src2 = VL_RAND_RESET_I(32);
     vlSelf->__PVT__ID_toes_bits_alu_op = VL_RAND_RESET_I(5);
     vlSelf->__PVT__ID_toes_bits_rf_waddr = VL_RAND_RESET_I(5);
+    vlSelf->__PVT__ID_toes_bits_rf_we = VL_RAND_RESET_I(1);
     vlSelf->__PVT__ID_toes_bits_mem_we = VL_RAND_RESET_I(2);
     vlSelf->__PVT__ID_toes_bits_inst_name = VL_RAND_RESET_I(5);
     vlSelf->__PVT__ID_toes_bits_mem_wdata = VL_RAND_RESET_I(32);
@@ -56,6 +57,7 @@ VL_ATTR_COLD void VMain_mycpu_top___ctor_var_reset(VMain_mycpu_top* vlSelf) {
     vlSelf->__PVT__ID_ds_bits_pc = VL_RAND_RESET_I(32);
     vlSelf->__PVT__ID_ds_bits_inst = VL_RAND_RESET_I(32);
     vlSelf->__PVT__ID_ds_bits_next_pc = VL_RAND_RESET_I(32);
+    vlSelf->__PVT__ID_torf_rf_we = VL_RAND_RESET_I(1);
     vlSelf->__PVT__ID_torf_rf_waddr = VL_RAND_RESET_I(5);
     vlSelf->__PVT__ID_torf_rf_wdata = VL_RAND_RESET_I(32);
     vlSelf->__PVT__ID_torf_valid = VL_RAND_RESET_I(1);
@@ -69,6 +71,7 @@ VL_ATTR_COLD void VMain_mycpu_top___ctor_var_reset(VMain_mycpu_top* vlSelf) {
     vlSelf->__PVT__EXE_es_bits_alu_src2 = VL_RAND_RESET_I(32);
     vlSelf->__PVT__EXE_es_bits_alu_op = VL_RAND_RESET_I(5);
     vlSelf->__PVT__EXE_es_bits_rf_waddr = VL_RAND_RESET_I(5);
+    vlSelf->__PVT__EXE_es_bits_rf_we = VL_RAND_RESET_I(1);
     vlSelf->__PVT__EXE_es_bits_mem_we = VL_RAND_RESET_I(2);
     vlSelf->__PVT__EXE_es_bits_inst_name = VL_RAND_RESET_I(5);
     vlSelf->__PVT__EXE_es_bits_mem_wdata = VL_RAND_RESET_I(32);
@@ -79,6 +82,7 @@ VL_ATTR_COLD void VMain_mycpu_top___ctor_var_reset(VMain_mycpu_top* vlSelf) {
     vlSelf->__PVT__EXE_toms_bits_alu_res = VL_RAND_RESET_I(32);
     vlSelf->__PVT__EXE_toms_bits_inst_name = VL_RAND_RESET_I(5);
     vlSelf->__PVT__EXE_toms_bits_res_from_mem = VL_RAND_RESET_I(1);
+    vlSelf->__PVT__EXE_toms_bits_rf_we = VL_RAND_RESET_I(1);
     vlSelf->__PVT__EXE_toms_bits_rf_waddr = VL_RAND_RESET_I(5);
     vlSelf->__PVT__EXE_toms_bits_dpi_c_is_break = VL_RAND_RESET_I(1);
     vlSelf->__PVT__EXE_toms_bits_dpi_c_inst = VL_RAND_RESET_I(32);
@@ -92,11 +96,13 @@ VL_ATTR_COLD void VMain_mycpu_top___ctor_var_reset(VMain_mycpu_top* vlSelf) {
     vlSelf->__PVT__MEM_ms_bits_alu_res = VL_RAND_RESET_I(32);
     vlSelf->__PVT__MEM_ms_bits_inst_name = VL_RAND_RESET_I(5);
     vlSelf->__PVT__MEM_ms_bits_res_from_mem = VL_RAND_RESET_I(1);
+    vlSelf->__PVT__MEM_ms_bits_rf_we = VL_RAND_RESET_I(1);
     vlSelf->__PVT__MEM_ms_bits_rf_waddr = VL_RAND_RESET_I(5);
     vlSelf->__PVT__MEM_ms_bits_dpi_c_is_break = VL_RAND_RESET_I(1);
     vlSelf->__PVT__MEM_ms_bits_dpi_c_inst = VL_RAND_RESET_I(32);
     vlSelf->__PVT__MEM_ms_bits_dpi_c_next_pc = VL_RAND_RESET_I(32);
     vlSelf->__PVT__MEM_tows_valid = VL_RAND_RESET_I(1);
+    vlSelf->__PVT__MEM_tows_bits_rf_we = VL_RAND_RESET_I(1);
     vlSelf->__PVT__MEM_tows_bits_rf_waddr = VL_RAND_RESET_I(5);
     vlSelf->__PVT__MEM_tows_bits_rf_wdata = VL_RAND_RESET_I(32);
     vlSelf->__PVT__MEM_tows_bits_dpi_c_is_break = VL_RAND_RESET_I(1);
@@ -104,11 +110,13 @@ VL_ATTR_COLD void VMain_mycpu_top___ctor_var_reset(VMain_mycpu_top* vlSelf) {
     vlSelf->__PVT__MEM_tows_bits_dpi_c_next_pc = VL_RAND_RESET_I(32);
     vlSelf->__PVT__MEM_data_sram_rdata = VL_RAND_RESET_I(32);
     vlSelf->__PVT__WB_ws_valid = VL_RAND_RESET_I(1);
+    vlSelf->__PVT__WB_ws_bits_rf_we = VL_RAND_RESET_I(1);
     vlSelf->__PVT__WB_ws_bits_rf_waddr = VL_RAND_RESET_I(5);
     vlSelf->__PVT__WB_ws_bits_rf_wdata = VL_RAND_RESET_I(32);
     vlSelf->__PVT__WB_ws_bits_dpi_c_is_break = VL_RAND_RESET_I(1);
     vlSelf->__PVT__WB_ws_bits_dpi_c_inst = VL_RAND_RESET_I(32);
     vlSelf->__PVT__WB_ws_bits_dpi_c_next_pc = VL_RAND_RESET_I(32);
+    vlSelf->__PVT__WB_torf_rf_we = VL_RAND_RESET_I(1);
     vlSelf->__PVT__WB_torf_rf_waddr = VL_RAND_RESET_I(5);
     vlSelf->__PVT__WB_torf_rf_wdata = VL_RAND_RESET_I(32);
     vlSelf->__PVT__WB_torf_valid = VL_RAND_RESET_I(1);

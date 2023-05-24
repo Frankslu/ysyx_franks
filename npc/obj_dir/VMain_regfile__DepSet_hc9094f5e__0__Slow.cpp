@@ -95,6 +95,7 @@ VL_ATTR_COLD void VMain_regfile___stl_sequent__TOP__Main__cpucore__ID__reg___3(V
     VL_DEBUG_IF(VL_DBG_MSGF("+            VMain_regfile___stl_sequent__TOP__Main__cpucore__ID__reg___3\n"); );
     // Body
     vlSelf->__PVT__inst_exec_once_inst = vlSelf->__PVT__io_inst;
+    vlSelf->__PVT__rf_MPORT_en = vlSelf->__PVT__io_wen;
     vlSelf->__PVT__rf_MPORT_addr = vlSelf->__PVT__io_waddr;
     vlSelf->__PVT__npc_brk_is_break = vlSelf->__PVT__io_is_break;
     vlSymsp->TOP__Main__cpucore__ID__reg___inst_exec_once.__PVT__inst 
