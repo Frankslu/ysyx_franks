@@ -35,7 +35,9 @@ void display_fring();
 extern WP *new_wp(char *s);
 extern bool free_wp(int i);
 extern BP *new_bp(vaddr_t pc);
+void ref_newbp(vaddr_t pc);
 extern bool free_bp(int i);
+void ref_freebp(int i);
 void reset_monitor();
 void verilator_finish();
 
@@ -199,6 +201,7 @@ static int cmd_d(char *args){
 			if(strcmp(c, "y") == 0){
 				for(int i=0; i < NR_BP; i++){
 					free_bp(i);
+					ref_freebp(i);
 				}
 			}
 #else		
@@ -212,6 +215,7 @@ static int cmd_d(char *args){
 		}
 		else if(strcmp(c, "b") == 0){
 			MUXDEF(CONFIG_BREAKPOINT, free_bp(i), printf("Breakpoint disabled\n"));
+			IFDEF(CONFIG_BREAKPOINT, ref_freebp(i));
 		}
 	}
 	return 0;
@@ -229,6 +233,7 @@ static int cmd_b(char *args){
 		return 0;
 	}
 	new_bp(i);
+	ref_newbp(i);
 	return 0;
 }
 #endif

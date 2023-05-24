@@ -34,8 +34,8 @@ void display_mring();
 void display_fring();
 extern WP *new_wp(char *s);
 extern bool free_wp(int i);
-extern BP *new_bp(vaddr_t pc);
-extern bool free_bp(int i);
+void new_bp(vaddr_t pc);
+void free_bp(int i);
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char* rl_gets() {

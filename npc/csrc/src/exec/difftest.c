@@ -19,6 +19,10 @@ typedef void (*ref_difftest_raise_intr_t)(uint64_t);
 ref_difftest_raise_intr_t ref_difftest_raise_intr = NULL;
 typedef bool (*ref_difftest_regcmp_t)(void *);
 ref_difftest_regcmp_t ref_difftest_regcmp = NULL;
+typedef void (*ref_difftest_newbp_t)(vaddr_t pc);
+ref_difftest_newbp_t ref_difftest_newbp = NULL;
+typedef void (*ref_difftest_freebp_t)(int NO);
+ref_difftest_freebp_t ref_difftest_freebp = NULL;
 
 static bool is_skip_ref = false;
 static int skip_dut_nr_inst = 0;
@@ -75,7 +79,13 @@ void init_difftest(const char *ref_so_file, int img_size){
 
 	ref_difftest_regcmp = (ref_difftest_regcmp_t)dlsym(handle, "difftest_regcmp");
 	assert(ref_difftest_regcmp);
+#ifdef CONFIG_BREAKPOINT
+	ref_difftest_newbp = (ref_difftest_newbp_t)dlsym(handle, "difftest_newbp");
+	assert(ref_difftest_newbp);
 
+	ref_difftest_freebp = (ref_difftest_freebp_t)dlsym(handle, "difftest_freebp");
+	assert(ref_difftest_freebp);
+#endif
 	Log("Differential testing: %s", ANSI_FMT("ON", ANSI_FG_GREEN));
 	Log("The result of every instruction will be compared with %s. "
 			"This will help you a lot for debugging, but also significantly reduce the performance. "
@@ -98,6 +108,16 @@ void difftest_step(vaddr_t pc, vaddr_t npc) {
 //  	isa_reg_display();
 	}
 }
+#ifdef CONFIG_BREAKPOINT
+void ref_newbp(vaddr_t pc){
+	ref_difftest_newbp(pc);
+}
+
+void ref_freebp(int NO){
+	ref_difftest_freebp(NO);
+}
+#endif
+
 #else
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc){ }
 #endif
