@@ -25,7 +25,7 @@ extern "C" void vaddr_write(int waddr, int wdata, char wmask, int *rdata){
 	IFDEF(CONFIG_MTRACE, record_write(waddr));
 	*rdata = 0xbeef;
 	uint32_t mask = (uint32_t)wmask;
-	printf("wmask = %u\n", mask);
+	printf("pc = %x, wmask = %u\n", cpu.pc, mask);
 	int len;
 	if (mask == 1){
 		len = 1;
