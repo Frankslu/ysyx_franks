@@ -27,7 +27,7 @@ sim: V$(TOP)
 
 gdb: V$(TOP)
 	@echo $(BUILD_DIR)/V$(TOP)
-	@gdb $(BUILD_DIR)/V$(TOP) --args $(BUILD_DIR)/V$(TOP) $(ARGS)
+	@gdb -s $(BUILD_DIR)/V$(TOP) --args $(BUILD_DIR)/V$(TOP) $(ARGS)
 
 wave:
 	gtkwave wave.vcd	
