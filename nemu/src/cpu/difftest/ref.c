@@ -137,4 +137,5 @@ void difftest_init() {
 	init_rand();
 	init_isa();
 	init_mem();
+	set_nemu_state(NEMU_RUNNING, RESET_VECTOR, 0);
 }
