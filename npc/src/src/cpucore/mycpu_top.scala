@@ -21,6 +21,7 @@ class mycpu_top extends RawModule{
 	val inst_sram = IO(new sram_io)
 	val data_sram = IO(new sram_io)
 	val rst = IO(Input(Reset()))
+	val clk = IO(Input(Clock()))
 
 	val pIF = Module(new preIF)
 	val IF = Module(new IF_stage)
@@ -45,4 +46,15 @@ class mycpu_top extends RawModule{
 	EXE.data_sram <> data_sram
 
 	pIF.reset := rst
+	pIF.clock := clk
+	IF.reset := rst
+	IF.clock := clk
+	ID.reset := rst
+	ID.clock := clk
+	EXE.reset := rst
+	EXE.clock := clk
+	MEM.reset := rst
+	MEM.clock := clk
+	WB.reset := rst
+	WB.clock := clk
 }
