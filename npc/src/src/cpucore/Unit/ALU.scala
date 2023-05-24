@@ -81,21 +81,21 @@ class ALU extends Module{
 
     Array((op_add | op_sub) -> add_res,
         op_slt      -> slt_res,
-        op_sltu     -> slt_res,
+        op_sltu     -> sltu_res,
         op_and      -> and_res,
         op_or       -> or_res,
         op_nor      -> nor_res,
         op_xor      -> xor_res,
         op_sll      -> sll_res,
         (op_sra | op_srl) -> sr_res,
-        op_lui      -> mul_res,
+        op_lui      -> lui_res,
         op_mul      -> mul_res,
         op_mulh     -> mulh_res,
-        op_mulhu    -> mulh_res,
+        op_mulhu    -> mulhu_res,
         op_div      -> div_res,
         op_mod      -> mod_res,
-        op_divu     -> div_res,
-        op_modu     -> mod_res
+        op_divu     -> divu_res,
+        op_modu     -> modu_res
     ).toIndexedSeq)
 }
 
