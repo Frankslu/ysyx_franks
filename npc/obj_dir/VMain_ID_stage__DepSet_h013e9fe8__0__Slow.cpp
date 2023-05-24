@@ -19,10 +19,10 @@ VL_ATTR_COLD void VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__0(VMain_
         = vlSelf->__PVT__reg___05Fclock;
 }
 
-VL_ATTR_COLD void VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__2(VMain_ID_stage* vlSelf) {
+VL_ATTR_COLD void VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__1(VMain_ID_stage* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__2\n"); );
+    VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__1\n"); );
     // Body
     vlSelf->__PVT__toes_bits_inst = vlSelf->__PVT__ds_bits_inst;
     vlSelf->__PVT___imm12_sign_T = (0xfffU & VL_SEL_IIII(32, vlSelf->__PVT__ds_bits_inst, 0xaU, 0xcU));
@@ -66,7 +66,7 @@ VL_ATTR_COLD void VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__2(VMain_
     vlSelf->__PVT__decode_res_andMatrixInput_2_43 = 
         (1U & VL_BITSEL_IIII(32, vlSelf->__PVT__ds_bits_inst, 0x1bU));
     vlSelf->__PVT__decode_res_invInputs = (~ vlSelf->__PVT__ds_bits_inst);
-    vlSelf->__PVT__reg___05Fio_rf_pc = vlSelf->__PVT__torf_pc;
+    vlSelf->__PVT__toes_valid = vlSelf->__PVT__ds_valid;
     vlSelf->__PVT__imm12 = VL_CONCAT_III(32,20,12, 
                                          (0xfffffU 
                                           & VL_REPLICATE_IOI(1,
@@ -108,8 +108,6 @@ VL_ATTR_COLD void VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__2(VMain_
                                                    & VL_BITSEL_IIII(32, vlSelf->__PVT__decode_res_invInputs, 0x1cU));
     vlSelf->__PVT__decode_res_andMatrixInput_14 = (1U 
                                                    & VL_BITSEL_IIII(32, vlSelf->__PVT__decode_res_invInputs, 0x1fU));
-    vlSymsp->TOP__Main__cpucore__ID__reg_.__PVT__io_rf_pc 
-        = vlSelf->__PVT__reg___05Fio_rf_pc;
     vlSelf->__PVT___decode_res_T_76 = VL_CONCAT_III(9,1,8, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_1_35), 
                                                     VL_CONCAT_III(8,1,7, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_1_36), 
                                                                   VL_CONCAT_III(7,1,6, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_2_31), 
@@ -966,10 +964,10 @@ VL_ATTR_COLD void VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__2(VMain_
                            : vlSelf->__PVT___imm_T_10);
 }
 
-VL_ATTR_COLD void VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__3(VMain_ID_stage* vlSelf) {
+VL_ATTR_COLD void VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__2(VMain_ID_stage* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__3\n"); );
+    VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__2\n"); );
     // Body
     vlSelf->__PVT__reg___05Fio_rdata1 = vlSymsp->TOP__Main__cpucore__ID__reg_.__PVT__io_rdata1;
     vlSelf->__PVT__reg___05Fio_rdata2 = vlSymsp->TOP__Main__cpucore__ID__reg_.__PVT__io_rdata2;
@@ -1026,36 +1024,39 @@ VL_ATTR_COLD void VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__3(VMain_
                                | (0x10U == (IData)(vlSelf->__PVT__inst_name)));
 }
 
+VL_ATTR_COLD void VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__3(VMain_ID_stage* vlSelf) {
+    if (false && vlSelf) {}  // Prevent unused
+    VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__3\n"); );
+    // Body
+    vlSelf->__PVT__reg___05Fio_rf_pc = vlSelf->__PVT__torf_pc;
+    vlSymsp->TOP__Main__cpucore__ID__reg_.__PVT__io_rf_pc 
+        = vlSelf->__PVT__reg___05Fio_rf_pc;
+}
+
 VL_ATTR_COLD void VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__4(VMain_ID_stage* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__4\n"); );
     // Body
-    vlSelf->__PVT__reg___05Fio_valid = vlSelf->__PVT__torf_valid;
-    vlSymsp->TOP__Main__cpucore__ID__reg_.__PVT__io_valid 
-        = vlSelf->__PVT__reg___05Fio_valid;
-}
-
-VL_ATTR_COLD void VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__5(VMain_ID_stage* vlSelf) {
-    if (false && vlSelf) {}  // Prevent unused
-    VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__5\n"); );
-    // Body
     vlSelf->__PVT__reg___05Fio_inst = vlSelf->__PVT__torf_inst;
+    vlSelf->__PVT__reg___05Fio_valid = vlSelf->__PVT__torf_valid;
     vlSelf->__PVT__reg___05Fio_waddr = vlSelf->__PVT__torf_rf_waddr;
     vlSelf->__PVT__reg___05Fio_is_break = vlSelf->__PVT__torf_is_break;
     vlSymsp->TOP__Main__cpucore__ID__reg_.__PVT__io_inst 
         = vlSelf->__PVT__reg___05Fio_inst;
+    vlSymsp->TOP__Main__cpucore__ID__reg_.__PVT__io_valid 
+        = vlSelf->__PVT__reg___05Fio_valid;
     vlSymsp->TOP__Main__cpucore__ID__reg_.__PVT__io_waddr 
         = vlSelf->__PVT__reg___05Fio_waddr;
     vlSymsp->TOP__Main__cpucore__ID__reg_.__PVT__io_is_break 
         = vlSelf->__PVT__reg___05Fio_is_break;
 }
 
-VL_ATTR_COLD void VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__6(VMain_ID_stage* vlSelf) {
+VL_ATTR_COLD void VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__5(VMain_ID_stage* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__6\n"); );
+    VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__5\n"); );
     // Body
     vlSelf->__PVT__reg___05Fio_wdata = vlSelf->__PVT__torf_rf_wdata;
     vlSymsp->TOP__Main__cpucore__ID__reg_.__PVT__io_wdata 

@@ -20,6 +20,7 @@ VL_ATTR_COLD void VMain_preIF___stl_sequent__TOP__Main__cpucore__pIF__0(VMain_pr
     // Body
     vlSelf->__PVT__snpc = ((IData)(4U) + vlSelf->__PVT__pc);
     vlSelf->__PVT__tofs_bits_pc = vlSelf->__PVT__pc;
+    vlSelf->__PVT__inst_sram_en = vlSelf->__PVT__inst_sram_en_REG;
     vlSelf->__PVT__inst_sram_addr = vlSelf->__PVT__pc;
 }
 
@@ -29,7 +30,6 @@ VL_ATTR_COLD void VMain_preIF___stl_sequent__TOP__Main__cpucore__pIF__1(VMain_pr
     VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_preIF___stl_sequent__TOP__Main__cpucore__pIF__1\n"); );
     // Body
     vlSelf->__PVT__tofs_valid = (1U & (~ (IData)(vlSelf->__PVT__reset)));
-    vlSelf->__PVT__inst_sram_en = (1U & (~ (IData)(vlSelf->__PVT__reset)));
 }
 
 VL_ATTR_COLD void VMain_preIF___ctor_var_reset(VMain_preIF* vlSelf) {
@@ -47,5 +47,7 @@ VL_ATTR_COLD void VMain_preIF___ctor_var_reset(VMain_preIF* vlSelf) {
     vlSelf->__PVT__tofs_bits_pc = VL_RAND_RESET_I(32);
     vlSelf->__PVT__pc = VL_RAND_RESET_I(32);
     vlSelf->__PVT__snpc = VL_RAND_RESET_I(32);
+    vlSelf->__PVT__inst_sram_en_REG = VL_RAND_RESET_I(1);
     vlSelf->__Vdly__pc = VL_RAND_RESET_I(32);
+    vlSelf->__Vdly__inst_sram_en_REG = VL_RAND_RESET_I(1);
 }

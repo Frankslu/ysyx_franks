@@ -18,6 +18,8 @@ class VMain_preIF final : public VerilatedModule {
     VL_IN8(__PVT__br_taken,0,0);
     VL_OUT8(__PVT__inst_sram_en,0,0);
     VL_OUT8(__PVT__tofs_valid,0,0);
+    CData/*0:0*/ __PVT__inst_sram_en_REG;
+    CData/*0:0*/ __Vdly__inst_sram_en_REG;
     VL_IN(__PVT__br_target,31,0);
     VL_OUT(__PVT__inst_sram_addr,31,0);
     VL_OUT(__PVT__tofs_bits_pc,31,0);
