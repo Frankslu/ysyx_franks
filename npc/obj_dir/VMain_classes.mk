@@ -30,7 +30,6 @@ VM_CLASSES_FAST += \
 	VMain_d_mem__DepSet_ha86af6f4__0 \
 	VMain_d_mem__DepSet_hc7667883__0 \
 	VMain_mycpu_top__DepSet_h44b723d8__0 \
-	VMain_mycpu_top__DepSet_hab3aa397__0 \
 	VMain_i_mem__DepSet_he25a1c22__0 \
 	VMain_i_mem__DepSet_h0d55d231__0 \
 	VMain_preIF__DepSet_hb1be6c35__0 \

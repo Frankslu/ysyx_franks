@@ -47,6 +47,4 @@ VL_ATTR_COLD void VMain_Main___ctor_var_reset(VMain_Main* vlSelf) {
     vlSelf->__PVT__iram_wdata = VL_RAND_RESET_I(32);
     vlSelf->__PVT__iram_wstrb = VL_RAND_RESET_I(4);
     vlSelf->__PVT__iram_rdata = VL_RAND_RESET_I(32);
-    vlSelf->__PVT__cpucore_reset_REG = VL_RAND_RESET_I(1);
-    vlSelf->__Vdly__cpucore_reset_REG = VL_RAND_RESET_I(1);
 }

@@ -21,7 +21,6 @@ class VMain___024root final : public VerilatedModule {
     VL_IN8(reset,0,0);
     CData/*0:0*/ __VstlContinue;
     CData/*0:0*/ __VicoContinue;
-    CData/*0:0*/ __Vtrigrprev__TOP__Main__clock;
     CData/*0:0*/ __Vtrigrprev__TOP__Main__cpucore__pIF____PVT__clock;
     CData/*0:0*/ __Vtrigrprev__TOP__Main__cpucore__ID__reg_____PVT__clock;
     CData/*0:0*/ __VactContinue;
@@ -30,12 +29,12 @@ class VMain___024root final : public VerilatedModule {
     IData/*31:0*/ __VicoIterCount;
     IData/*31:0*/ __VactIterCount;
     IData/*31:0*/ __VnbaIterCount;
-    VlUnpacked<CData/*0:0*/, 8> __Vm_traceActivity;
+    VlUnpacked<CData/*0:0*/, 5> __Vm_traceActivity;
     VlTriggerVec<1> __VstlTriggered;
     VlTriggerVec<1> __VicoTriggered;
-    VlTriggerVec<3> __VactTriggered;
-    VlTriggerVec<3> __VpreTriggered;
-    VlTriggerVec<3> __VnbaTriggered;
+    VlTriggerVec<2> __VactTriggered;
+    VlTriggerVec<2> __VpreTriggered;
+    VlTriggerVec<2> __VnbaTriggered;
 
     // INTERNAL VARIABLES
     VMain__Syms* const vlSymsp;
