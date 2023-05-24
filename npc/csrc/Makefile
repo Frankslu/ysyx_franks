@@ -2,6 +2,7 @@ c: $(VERILOG_DIR)/*.v
 	@verilator --top-module $(TOP) -cc $(VSRC)
 
 V$(TOP): $(VSRC) $(CSRC) $(INCLUDE)
+	@make -C $(NEMU_HOME) -f Makefile
 	@verilator -Wall $(WAVE) $(GDB) $(OPT) --cc $(VSRC) --top-module $(TOP) \
 	--exe $(CSRC) -CFLAGS "-I $(INC)" \
 	-CFLAGS -Wno-narrowing \
@@ -16,13 +17,11 @@ unit: V$(TOP)
 	@$(BUILD_DIR)/V$(TOP)
 
 sim: V$(TOP)
-	@make -C $(NEMU_HOME) -f Makefile
 	@$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
 	$(BUILD_DIR)/V$(TOP) $(ARGS)
 
 gdb: V$(TOP)
-	@make -C $(NEMU_HOME) -f Makefile
-	gdb -s $(BUILD_DIR)/V$(TOP) --args $(ARGS)
+	gdb -s $(NPC_HOME)/obj_dir/V$(TOP) --args $(ARGS)
 
 wave:
 	gtkwave wave.vcd	
