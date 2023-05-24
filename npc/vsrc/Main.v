@@ -1,6 +1,3 @@
-/* verilator lint_off UNUSEDSIGNAL */
-/* verilator lint_off DECLFILENAME */
-/* verilator lint_off WIDTHEXPAND */
 module preIF(
   input         clock,
   input         reset,
@@ -850,6 +847,7 @@ module ID_stage(
   wire [4:0] _decode_res_T_132 = {decode_res_andMatrixInput_2_43,decode_res_andMatrixInput_11,
     decode_res_andMatrixInput_5_44,decode_res_andMatrixInput_3_57,decode_res_andMatrixInput_14}; // @[src/main/scala/chisel3/util/pla.scala 98:53]
   wire  _decode_res_T_133 = &_decode_res_T_132; // @[src/main/scala/chisel3/util/pla.scala 98:70]
+  wire [1:0] decode_res_orMatrixOutputs_lo_lo_hi = {_decode_res_T_89,_decode_res_T_95}; // @[src/main/scala/chisel3/util/pla.scala 114:19]
   wire [7:0] decode_res_orMatrixOutputs_lo = {_decode_res_T_65,_decode_res_T_71,_decode_res_T_73,_decode_res_T_83,
     _decode_res_T_89,_decode_res_T_95,_decode_res_T_117,_decode_res_T_125}; // @[src/main/scala/chisel3/util/pla.scala 114:19]
   wire [16:0] _decode_res_orMatrixOutputs_T = {_decode_res_T_1,_decode_res_T_5,_decode_res_T_11,_decode_res_T_17,
@@ -871,8 +869,7 @@ module ID_stage(
   wire [4:0] _decode_res_orMatrixOutputs_T_10 = {_decode_res_T_89,_decode_res_T_91,_decode_res_T_93,_decode_res_T_119,
     _decode_res_T_129}; // @[src/main/scala/chisel3/util/pla.scala 114:19]
   wire  _decode_res_orMatrixOutputs_T_11 = |_decode_res_orMatrixOutputs_T_10; // @[src/main/scala/chisel3/util/pla.scala 114:36]
-  wire [1:0] _decode_res_orMatrixOutputs_T_12 = {_decode_res_T_95,_decode_res_T_97}; // @[src/main/scala/chisel3/util/pla.scala 114:19]
-  wire  _decode_res_orMatrixOutputs_T_13 = |_decode_res_orMatrixOutputs_T_12; // @[src/main/scala/chisel3/util/pla.scala 114:36]
+  wire  _decode_res_orMatrixOutputs_T_13 = |decode_res_orMatrixOutputs_lo_lo_hi; // @[src/main/scala/chisel3/util/pla.scala 114:36]
   wire  _decode_res_orMatrixOutputs_T_15 = |decode_res_orMatrixOutputs_hi_5; // @[src/main/scala/chisel3/util/pla.scala 114:36]
   wire [6:0] decode_res_orMatrixOutputs_lo_6 = {_decode_res_T_71,_decode_res_T_73,_decode_res_T_87,_decode_res_T_89,
     _decode_res_T_91,_decode_res_T_93,_decode_res_T_123}; // @[src/main/scala/chisel3/util/pla.scala 114:19]
