@@ -116,6 +116,7 @@ static void statistic() {
 void assert_fail_msg() {
 	isa_reg_display();
 	statistic();
+	verilator_finish();
 }
 
 /* Simulate how the CPU works. */
@@ -148,6 +149,5 @@ void cpu_exec(uint64_t n) {
 		case NPC_QUIT: 
 			// trace_log_write();
 			statistic();
-			verilator_finish();
 	}
 }
