@@ -21,6 +21,7 @@ sim: V$(TOP)
 	$(BUILD_DIR)/V$(TOP) $(ARGS)
 
 gdb: V$(TOP)
+	echo $(BUILD_DIR)/V$(TOP)
 	gdb /home/franks/ysyx-workbench/npc/obj_dir/VMain 
 	# gdb -s $(BUILD_DIR)/V$(TOP)
 
