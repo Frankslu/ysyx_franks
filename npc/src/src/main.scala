@@ -9,6 +9,7 @@ class Main extends Module{
 	val dram	= Module(new d_mem)
 	val iram	= Module(new i_mem)
 
+	cpucore.rst := RegNext(reset)
 	cpucore.data_sram <> dram.io
 	cpucore.inst_sram <> iram.io
 }

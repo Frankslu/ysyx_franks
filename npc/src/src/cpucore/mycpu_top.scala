@@ -17,9 +17,10 @@ object StageConnect {
 	}
 }
 
-class mycpu_top extends Module{
+class mycpu_top extends RawModule{
 	val inst_sram = IO(new sram_io)
 	val data_sram = IO(new sram_io)
+	val rst = IO(Input(Reset()))
 
 	val pIF = Module(new preIF)
 	val IF = Module(new IF_stage)
@@ -42,4 +43,6 @@ class mycpu_top extends Module{
 
 	MEM.data_sram <> data_sram
 	EXE.data_sram <> data_sram
+
+	pIF.reset := rst
 }
