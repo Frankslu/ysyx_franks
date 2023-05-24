@@ -35,6 +35,7 @@ extern int scan_wp();
 void iring_write(char *buf);
 int decode_exec(Decode *s);
 void difftest_step(vaddr_t pc, vaddr_t npc);
+void verilator_finish();
 // void trace_log_write();
 
 __attribute__((unused)) static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
@@ -147,5 +148,6 @@ void cpu_exec(uint64_t n) {
 		case NPC_QUIT: 
 			// trace_log_write();
 			statistic();
+			verilator_finish();
 	}
 }

@@ -83,6 +83,9 @@ int npc_exec_once(){
 }
 
 void verilator_finish(){
+	if (top == NULL)
+		return;
+
 	top->eval();
     tfp->dump(sim_time++);
 	top->eval();
