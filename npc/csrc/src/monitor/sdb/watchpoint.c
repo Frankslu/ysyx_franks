@@ -37,38 +37,38 @@ WP *new_wp(char *s){
 	word_t res = expr(s,&success);
 	if(success == true){
 		if(free_ != NULL){
-			WP *new = free_;
+			WP *new_wp = free_;
 			free_ = free_->next;
-			new->next = NULL;
+			new_wp->next = NULL;
 			WP *p = wp_head;
 			if(wp_head != NULL){
 				p = wp_head;
-				if(p->NO >= new->NO){
-					new->next = p;
-					wp_head = new;
+				if(p->NO >= new_wp->NO){
+					new_wp->next = p;
+					wp_head = new_wp;
 				}
 				else{
-					while(p->next != NULL && p->next->NO <= new->NO)
+					while(p->next != NULL && p->next->NO <= new_wp->NO)
 						p = p->next;
 					if(p->next != NULL){
-						new->next = p->next;
-						p->next = new;
+						new_wp->next = p->next;
+						p->next = new_wp;
 					}
 					else{
-						//new->next = NULL;
-						p->next = new;
+						//new_wp->next = NULL;
+						p->next = new_wp;
 					}
 				}
 			}
 			else{
-				//new->next = NULL;
-				wp_head = new;
+				//new_wp->next = NULL;
+				wp_head = new_wp;
 			}
-			new->str = malloc(strlen(s)+1);
-			strcpy(new->str, s);
-			new->result = res;
+			new_wp->str = (char *)malloc(strlen(s)+1);
+			strcpy(new_wp->str, s);
+			new_wp->result = res;
 			printf("New watchpoint: %s = %u\n", s, res);
-			return new;
+			return new_wp;
 		}
 		else{
 			printf("Watch_point pool is full!\n");
@@ -114,7 +114,7 @@ bool free_wp(int NO){
 					back->next = p;
 				}
 				else{
-					//new->next = NULL;
+					//new_wp->next = NULL;
 					back->next = p;
 				}
 			}

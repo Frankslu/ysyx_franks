@@ -4,6 +4,7 @@
  * NEMU Configuration Menu
  *
  */
+#define CONFIG_WATCHPOINT 1
 #define CONFIG_SEED 0
 #define CONFIG_PC_RESET_OFFSET 0x0
 #define CONFIG_MSIZE 0x8000000
