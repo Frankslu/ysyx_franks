@@ -1,6 +1,3 @@
-/* verilator lint_off UNUSEDSIGNAL */
-/* verilator lint_off DECLFILENAME */
-/* verilator lint_off WIDTHEXPAND */
 module preIF(
   input         clock,
   input         reset,
@@ -938,6 +935,7 @@ module ID_stage(
   wire [31:0] _imm_T_12 = _imm_T_1 ? imm12 : _imm_T_11; // @[src/main/scala/chisel3/util/Mux.scala 141:16]
   wire [31:0] imm = _imm_T ? {{27'd0}, rk} : _imm_T_12; // @[src/main/scala/chisel3/util/Mux.scala 141:16]
   wire  rk_or_rd = inst_name != 5'h10 & _imm_T_3 | mem_we == 2'h0; // @[src/src/cpucore/pipeline/ID_stage.scala 54:74]
+  wire  _reg_io_waddr_T = inst_name == 5'hf; // @[src/src/cpucore/pipeline/ID_stage.scala 58:35]
   wire  _rf_waddr_T = inst_name == 5'he; // @[src/src/cpucore/pipeline/ID_stage.scala 69:34]
   wire  rj_eq_rd = reg__io_rdata1 == reg__io_rdata2; // @[src/src/cpucore/pipeline/ID_stage.scala 74:30]
   wire [32:0] _rj_sub_rd_T = reg__io_rdata1 + reg__io_rdata2; // @[src/src/cpucore/pipeline/ID_stage.scala 75:30]
@@ -955,16 +953,15 @@ module ID_stage(
   wire  _br_taken_T_18 = inst_name == 5'h5 & ~sltu_res; // @[src/src/cpucore/pipeline/ID_stage.scala 83:48]
   wire  _br_taken_T_19 = _br_taken_T_15 | _br_taken_T_18; // @[src/src/cpucore/pipeline/ID_stage.scala 82:59]
   wire  _br_taken_T_21 = _br_taken_T_19 | _rf_waddr_T; // @[src/src/cpucore/pipeline/ID_stage.scala 83:60]
-  wire  _br_taken_T_22 = inst_name == 5'hf; // @[src/src/cpucore/pipeline/ID_stage.scala 84:57]
   wire  _br_taken_T_24 = inst_name == 5'h10; // @[src/src/cpucore/pipeline/ID_stage.scala 85:31]
-  wire  _br_taken_T_25 = _br_taken_T_21 | inst_name == 5'hf | _br_taken_T_24; // @[src/src/cpucore/pipeline/ID_stage.scala 84:72]
+  wire  _br_taken_T_25 = _br_taken_T_21 | _reg_io_waddr_T | _br_taken_T_24; // @[src/src/cpucore/pipeline/ID_stage.scala 84:72]
   wire [31:0] _br_target_T_1 = ds_bits_pc + imm; // @[src/src/cpucore/pipeline/ID_stage.scala 87:45]
   wire [31:0] _br_target_T_3 = reg__io_rdata1 + imm; // @[src/src/cpucore/pipeline/ID_stage.scala 88:35]
   wire [31:0] _br_target_T_5 = imm26 + ds_bits_pc; // @[src/src/cpucore/pipeline/ID_stage.scala 90:29]
   wire [31:0] _br_target_T_9 = 5'h10 == inst_name ? _br_target_T_3 : _br_target_T_1; // @[src/src/cpucore/pipeline/ID_stage.scala 87:51]
   wire [31:0] _br_target_T_11 = 5'h12 == inst_name ? ds_bits_pc : _br_target_T_9; // @[src/src/cpucore/pipeline/ID_stage.scala 87:51]
   wire [31:0] _br_target_T_13 = 5'he == inst_name ? _br_target_T_5 : _br_target_T_11; // @[src/src/cpucore/pipeline/ID_stage.scala 87:51]
-  wire  src1_is_pc = _br_taken_T_24 | inst_name == 5'h11 | _br_taken_T_22; // @[src/src/cpucore/pipeline/ID_stage.scala 98:78]
+  wire  src1_is_pc = _br_taken_T_24 | inst_name == 5'h11 | _reg_io_waddr_T; // @[src/src/cpucore/pipeline/ID_stage.scala 98:78]
   regfile reg_ ( // @[src/src/cpucore/pipeline/ID_stage.scala 55:21]
     .clock(reg__clock),
     .io_raddr1(reg__io_raddr1),
@@ -996,7 +993,7 @@ module ID_stage(
   assign reg__clock = clock;
   assign reg__io_raddr1 = ds_bits_inst[9:5]; // @[src/src/cpucore/pipeline/ID_stage.scala 19:18]
   assign reg__io_raddr2 = rk_or_rd ? rk : rd; // @[src/src/cpucore/pipeline/ID_stage.scala 57:25]
-  assign reg__io_waddr = torf_rf_waddr; // @[src/src/cpucore/pipeline/ID_stage.scala 58:18]
+  assign reg__io_waddr = inst_name == 5'hf ? 5'h1 : torf_rf_waddr; // @[src/src/cpucore/pipeline/ID_stage.scala 58:24]
   assign reg__io_wdata = torf_rf_wdata; // @[src/src/cpucore/pipeline/ID_stage.scala 59:18]
   assign reg__io_wen = torf_rf_we; // @[src/src/cpucore/pipeline/ID_stage.scala 60:16]
   assign reg__io_rf_pc = torf_dpi_c_next_pc; // @[src/src/cpucore/pipeline/ID_stage.scala 61:18]
