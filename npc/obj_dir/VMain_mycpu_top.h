@@ -40,7 +40,6 @@ class VMain_mycpu_top final : public VerilatedModule {
         CData/*0:0*/ __PVT__pIF_br_taken;
         CData/*0:0*/ __PVT__pIF_inst_sram_en;
         CData/*0:0*/ __PVT__ID_clock;
-        CData/*0:0*/ __PVT__ID_reset;
         CData/*4:0*/ __PVT__ID_toes_bits_alu_op;
         CData/*4:0*/ __PVT__ID_toes_bits_rf_waddr;
         CData/*1:0*/ __PVT__ID_toes_bits_mem_we;
@@ -93,9 +92,9 @@ class VMain_mycpu_top final : public VerilatedModule {
         IData/*31:0*/ __PVT__ID_torf_pc;
         IData/*31:0*/ __PVT__ID_torf_rf_wdata;
         IData/*31:0*/ __PVT__ID_torf_inst;
+        IData/*31:0*/ __PVT__ID_br_target;
     };
     struct {
-        IData/*31:0*/ __PVT__ID_br_target;
         IData/*31:0*/ __PVT__EXE_es_bits_pc;
         IData/*31:0*/ __PVT__EXE_es_bits_alu_src1;
         IData/*31:0*/ __PVT__EXE_es_bits_alu_src2;

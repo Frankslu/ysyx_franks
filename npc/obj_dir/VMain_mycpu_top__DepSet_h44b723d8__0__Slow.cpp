@@ -28,12 +28,10 @@ VL_ATTR_COLD void VMain_mycpu_top___stl_sequent__TOP__Main__cpucore__1(VMain_myc
     // Body
     vlSelf->__PVT__pIF_clock = vlSelf->__PVT__clock;
     vlSelf->__PVT__ID_clock = vlSelf->__PVT__clock;
-    vlSelf->__PVT__ID_reset = vlSelf->__PVT__reset;
     vlSelf->__PVT__pIF_reset = vlSelf->__PVT__reset;
     vlSelf->__PVT__IF_tods_bits_pc = vlSymsp->TOP__Main__cpucore__IF.__PVT__tods_bits_pc;
     vlSymsp->TOP__Main__cpucore__pIF.__PVT__clock = vlSelf->__PVT__pIF_clock;
     vlSymsp->TOP__Main__cpucore__ID.__PVT__clock = vlSelf->__PVT__ID_clock;
-    vlSymsp->TOP__Main__cpucore__ID.__PVT__reset = vlSelf->__PVT__ID_reset;
     vlSymsp->TOP__Main__cpucore__pIF.__PVT__reset = vlSelf->__PVT__pIF_reset;
     vlSelf->__PVT__ID_ds_bits_pc = vlSelf->__PVT__IF_tods_bits_pc;
     vlSymsp->TOP__Main__cpucore__ID.__PVT__ds_bits_pc 

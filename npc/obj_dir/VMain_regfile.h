@@ -24,7 +24,6 @@ class VMain_regfile final : public VerilatedModule {
     // Anonymous structures to workaround compiler member-count bugs
     struct {
         VL_IN8(__PVT__clock,0,0);
-        VL_IN8(__PVT__reset,0,0);
         VL_IN8(__PVT__io_raddr1,4,0);
         VL_IN8(__PVT__io_raddr2,4,0);
         VL_IN8(__PVT__io_waddr,4,0);
@@ -87,9 +86,9 @@ class VMain_regfile final : public VerilatedModule {
         CData/*4:0*/ __PVT__rf_difftest_io_rf_26_MPORT_addr;
         CData/*0:0*/ __PVT__rf_difftest_io_rf_27_MPORT_en;
         CData/*4:0*/ __PVT__rf_difftest_io_rf_27_MPORT_addr;
+        CData/*0:0*/ __PVT__rf_difftest_io_rf_28_MPORT_en;
     };
     struct {
-        CData/*0:0*/ __PVT__rf_difftest_io_rf_28_MPORT_en;
         CData/*4:0*/ __PVT__rf_difftest_io_rf_28_MPORT_addr;
         CData/*0:0*/ __PVT__rf_difftest_io_rf_29_MPORT_en;
         CData/*4:0*/ __PVT__rf_difftest_io_rf_29_MPORT_addr;
@@ -102,10 +101,8 @@ class VMain_regfile final : public VerilatedModule {
         CData/*0:0*/ __PVT__rf_MPORT_en;
         CData/*0:0*/ __PVT__npc_brk_is_break;
         CData/*0:0*/ __PVT__inst_exec_once_valid;
-        CData/*0:0*/ __PVT__is_break;
         CData/*4:0*/ __Vdlyvdim0__rf__v0;
         CData/*0:0*/ __Vdlyvset__rf__v0;
-        CData/*0:0*/ __Vdly__is_break;
         VL_OUT(__PVT__io_rdata1,31,0);
         VL_OUT(__PVT__io_rdata2,31,0);
         VL_IN(__PVT__io_wdata,31,0);
@@ -153,11 +150,11 @@ class VMain_regfile final : public VerilatedModule {
         IData/*31:0*/ __PVT__difftest_rf_5;
         IData/*31:0*/ __PVT__difftest_rf_6;
         IData/*31:0*/ __PVT__difftest_rf_7;
-    };
-    struct {
         IData/*31:0*/ __PVT__difftest_rf_8;
         IData/*31:0*/ __PVT__difftest_rf_9;
         IData/*31:0*/ __PVT__difftest_rf_10;
+    };
+    struct {
         IData/*31:0*/ __PVT__difftest_rf_11;
         IData/*31:0*/ __PVT__difftest_rf_12;
         IData/*31:0*/ __PVT__difftest_rf_13;

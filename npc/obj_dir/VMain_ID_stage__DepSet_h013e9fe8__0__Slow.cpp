@@ -14,12 +14,9 @@ VL_ATTR_COLD void VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__0(VMain_
     VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__0\n"); );
     // Body
     vlSelf->__PVT__reg___05Fclock = vlSelf->__PVT__clock;
-    vlSelf->__PVT__reg___05Freset = vlSelf->__PVT__reset;
     vlSelf->__PVT__toes_bits_pc = vlSelf->__PVT__ds_bits_pc;
     vlSymsp->TOP__Main__cpucore__ID__reg_.__PVT__clock 
         = vlSelf->__PVT__reg___05Fclock;
-    vlSymsp->TOP__Main__cpucore__ID__reg_.__PVT__reset 
-        = vlSelf->__PVT__reg___05Freset;
 }
 
 VL_ATTR_COLD void VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__1(VMain_ID_stage* vlSelf) {

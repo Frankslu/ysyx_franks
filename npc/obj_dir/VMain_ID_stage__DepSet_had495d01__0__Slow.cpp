@@ -13,7 +13,6 @@ VL_ATTR_COLD void VMain_ID_stage___ctor_var_reset(VMain_ID_stage* vlSelf) {
     VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_ID_stage___ctor_var_reset\n"); );
     // Body
     vlSelf->__PVT__clock = VL_RAND_RESET_I(1);
-    vlSelf->__PVT__reset = VL_RAND_RESET_I(1);
     vlSelf->__PVT__toes_bits_pc = VL_RAND_RESET_I(32);
     vlSelf->__PVT__toes_bits_alu_src1 = VL_RAND_RESET_I(32);
     vlSelf->__PVT__toes_bits_alu_src2 = VL_RAND_RESET_I(32);
@@ -34,7 +33,6 @@ VL_ATTR_COLD void VMain_ID_stage___ctor_var_reset(VMain_ID_stage* vlSelf) {
     vlSelf->__PVT__br_taken = VL_RAND_RESET_I(1);
     vlSelf->__PVT__br_target = VL_RAND_RESET_I(32);
     vlSelf->__PVT__reg___05Fclock = VL_RAND_RESET_I(1);
-    vlSelf->__PVT__reg___05Freset = VL_RAND_RESET_I(1);
     vlSelf->__PVT__reg___05Fio_raddr1 = VL_RAND_RESET_I(5);
     vlSelf->__PVT__reg___05Fio_raddr2 = VL_RAND_RESET_I(5);
     vlSelf->__PVT__reg___05Fio_rdata1 = VL_RAND_RESET_I(32);

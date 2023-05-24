@@ -14,11 +14,8 @@ VL_INLINE_OPT void VMain_ID_stage___ico_sequent__TOP__Main__cpucore__ID__0(VMain
     VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_ID_stage___ico_sequent__TOP__Main__cpucore__ID__0\n"); );
     // Body
     vlSelf->__PVT__reg___05Fclock = vlSelf->__PVT__clock;
-    vlSelf->__PVT__reg___05Freset = vlSelf->__PVT__reset;
     vlSymsp->TOP__Main__cpucore__ID__reg_.__PVT__clock 
         = vlSelf->__PVT__reg___05Fclock;
-    vlSymsp->TOP__Main__cpucore__ID__reg_.__PVT__reset 
-        = vlSelf->__PVT__reg___05Freset;
 }
 
 VL_INLINE_OPT void VMain_ID_stage___ico_sequent__TOP__Main__cpucore__ID__1(VMain_ID_stage* vlSelf) {

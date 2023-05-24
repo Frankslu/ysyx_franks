@@ -20,7 +20,6 @@ class VMain_ID_stage final : public VerilatedModule {
     // Anonymous structures to workaround compiler member-count bugs
     struct {
         VL_IN8(__PVT__clock,0,0);
-        VL_IN8(__PVT__reset,0,0);
         VL_OUT8(__PVT__toes_bits_alu_op,4,0);
         VL_OUT8(__PVT__toes_bits_rf_waddr,4,0);
         VL_OUT8(__PVT__toes_bits_mem_we,1,0);
@@ -30,7 +29,6 @@ class VMain_ID_stage final : public VerilatedModule {
         VL_IN8(__PVT__torf_is_break,0,0);
         VL_OUT8(__PVT__br_taken,0,0);
         CData/*0:0*/ __PVT__reg___05Fclock;
-        CData/*0:0*/ __PVT__reg___05Freset;
         CData/*4:0*/ __PVT__reg___05Fio_raddr1;
         CData/*4:0*/ __PVT__reg___05Fio_raddr2;
         CData/*4:0*/ __PVT__reg___05Fio_waddr;
@@ -83,10 +81,10 @@ class VMain_ID_stage final : public VerilatedModule {
         CData/*0:0*/ __PVT___decode_res_T_39;
         CData/*0:0*/ __PVT___decode_res_T_41;
         CData/*0:0*/ __PVT___decode_res_T_43;
-    };
-    struct {
         CData/*0:0*/ __PVT___decode_res_T_45;
         CData/*0:0*/ __PVT__decode_res_andMatrixInput_3_23;
+    };
+    struct {
         CData/*0:0*/ __PVT__decode_res_andMatrixInput_4_23;
         CData/*0:0*/ __PVT___decode_res_T_47;
         CData/*0:0*/ __PVT___decode_res_T_49;
@@ -149,10 +147,10 @@ class VMain_ID_stage final : public VerilatedModule {
         CData/*0:0*/ __PVT___decode_res_T_123;
         CData/*5:0*/ __PVT___decode_res_T_124;
         CData/*0:0*/ __PVT___decode_res_T_125;
-    };
-    struct {
         CData/*4:0*/ __PVT___decode_res_T_126;
         CData/*0:0*/ __PVT___decode_res_T_127;
+    };
+    struct {
         CData/*3:0*/ __PVT___decode_res_T_128;
         CData/*0:0*/ __PVT___decode_res_T_129;
         CData/*4:0*/ __PVT___decode_res_T_130;
@@ -215,10 +213,10 @@ class VMain_ID_stage final : public VerilatedModule {
         CData/*0:0*/ __PVT___br_taken_T_7;
         CData/*0:0*/ __PVT___br_taken_T_8;
         CData/*0:0*/ __PVT___br_taken_T_11;
-    };
-    struct {
         CData/*0:0*/ __PVT___br_taken_T_12;
         CData/*0:0*/ __PVT___br_taken_T_14;
+    };
+    struct {
         CData/*0:0*/ __PVT___br_taken_T_15;
         CData/*0:0*/ __PVT___br_taken_T_18;
         CData/*0:0*/ __PVT___br_taken_T_19;
@@ -281,10 +279,10 @@ class VMain_ID_stage final : public VerilatedModule {
         VL_OUT(__PVT__toes_bits_mem_wdata,31,0);
         VL_OUT(__PVT__toes_bits_inst,31,0);
         VL_IN(__PVT__ds_bits_pc,31,0);
-    };
-    struct {
         VL_IN(__PVT__ds_bits_inst,31,0);
         VL_IN(__PVT__torf_pc,31,0);
+    };
+    struct {
         VL_IN(__PVT__torf_rf_wdata,31,0);
         VL_IN(__PVT__torf_inst,31,0);
         VL_OUT(__PVT__br_target,31,0);

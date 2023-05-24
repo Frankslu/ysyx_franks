@@ -96,7 +96,6 @@ VL_ATTR_COLD void VMain_regfile___ctor_var_reset(VMain_regfile* vlSelf) {
     VL_DEBUG_IF(VL_DBG_MSGF("+            VMain_regfile___ctor_var_reset\n"); );
     // Body
     vlSelf->__PVT__clock = VL_RAND_RESET_I(1);
-    vlSelf->__PVT__reset = VL_RAND_RESET_I(1);
     vlSelf->__PVT__io_raddr1 = VL_RAND_RESET_I(5);
     vlSelf->__PVT__io_raddr2 = VL_RAND_RESET_I(5);
     vlSelf->__PVT__io_rdata1 = VL_RAND_RESET_I(32);
@@ -248,9 +247,7 @@ VL_ATTR_COLD void VMain_regfile___ctor_var_reset(VMain_regfile* vlSelf) {
     vlSelf->__PVT__inst_exec_once_valid = VL_RAND_RESET_I(1);
     vlSelf->__PVT__inst_exec_once_inst = VL_RAND_RESET_I(32);
     vlSelf->__PVT__inst_exec_once_pc = VL_RAND_RESET_I(32);
-    vlSelf->__PVT__is_break = VL_RAND_RESET_I(1);
     vlSelf->__Vdlyvdim0__rf__v0 = 0;
     vlSelf->__Vdlyvval__rf__v0 = VL_RAND_RESET_I(32);
     vlSelf->__Vdlyvset__rf__v0 = 0;
-    vlSelf->__Vdly__is_break = VL_RAND_RESET_I(1);
 }

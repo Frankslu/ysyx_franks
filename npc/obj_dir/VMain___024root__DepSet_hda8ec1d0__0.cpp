@@ -67,6 +67,7 @@ void VMain_d_mem___ico_sequent__TOP__Main__dram__0(VMain_d_mem* vlSelf);
 void VMain_regfile___ico_sequent__TOP__Main__cpucore__ID__reg___1(VMain_regfile* vlSelf);
 void VMain_Main___ico_sequent__TOP__Main__6(VMain_Main* vlSelf);
 void VMain_Exec___ico_sequent__TOP__Main__cpucore__ID__reg___inst_exec_once__0(VMain_Exec* vlSelf);
+void VMain_npc_break___ico_sequent__TOP__Main__cpucore__ID__reg___npc_brk__0(VMain_npc_break* vlSelf);
 void VMain_mycpu_top___ico_sequent__TOP__Main__cpucore__8(VMain_mycpu_top* vlSelf);
 void VMain_MEM_stage___ico_sequent__TOP__Main__cpucore__MEM__1(VMain_MEM_stage* vlSelf);
 void VMain_mycpu_top___ico_sequent__TOP__Main__cpucore__9(VMain_mycpu_top* vlSelf);
@@ -116,6 +117,7 @@ void VMain___024root___eval_ico(VMain___024root* vlSelf) {
         VMain_regfile___ico_sequent__TOP__Main__cpucore__ID__reg___1((&vlSymsp->TOP__Main__cpucore__ID__reg_));
         VMain_Main___ico_sequent__TOP__Main__6((&vlSymsp->TOP__Main));
         VMain_Exec___ico_sequent__TOP__Main__cpucore__ID__reg___inst_exec_once__0((&vlSymsp->TOP__Main__cpucore__ID__reg___inst_exec_once));
+        VMain_npc_break___ico_sequent__TOP__Main__cpucore__ID__reg___npc_brk__0((&vlSymsp->TOP__Main__cpucore__ID__reg___npc_brk));
         VMain_mycpu_top___ico_sequent__TOP__Main__cpucore__8((&vlSymsp->TOP__Main__cpucore));
         VMain_MEM_stage___ico_sequent__TOP__Main__cpucore__MEM__1((&vlSymsp->TOP__Main__cpucore__MEM));
         VMain_mycpu_top___ico_sequent__TOP__Main__cpucore__9((&vlSymsp->TOP__Main__cpucore));
@@ -151,7 +153,6 @@ void VMain___024root___eval_triggers__act(VMain___024root* vlSelf) {
 }
 
 void VMain_regfile___nba_sequent__TOP__Main__cpucore__ID__reg___0(VMain_regfile* vlSelf);
-void VMain_npc_break___nba_sequent__TOP__Main__cpucore__ID__reg___npc_brk__0(VMain_npc_break* vlSelf);
 void VMain_Difftest___nba_sequent__TOP__Main__cpucore__ID__reg___difftest__0(VMain_Difftest* vlSelf);
 void VMain_preIF___nba_sequent__TOP__Main__cpucore__pIF__0(VMain_preIF* vlSelf);
 void VMain_mycpu_top___nba_sequent__TOP__Main__cpucore__0(VMain_mycpu_top* vlSelf);
@@ -187,6 +188,7 @@ void VMain_mycpu_top___nba_sequent__TOP__Main__cpucore__11(VMain_mycpu_top* vlSe
 void VMain_ID_stage___nba_sequent__TOP__Main__cpucore__ID__3(VMain_ID_stage* vlSelf);
 void VMain_regfile___nba_sequent__TOP__Main__cpucore__ID__reg___3(VMain_regfile* vlSelf);
 void VMain_Exec___nba_sequent__TOP__Main__cpucore__ID__reg___inst_exec_once__0(VMain_Exec* vlSelf);
+void VMain_npc_break___nba_sequent__TOP__Main__cpucore__ID__reg___npc_brk__0(VMain_npc_break* vlSelf);
 void VMain_regfile___nba_comb__TOP__Main__cpucore__ID__reg___0(VMain_regfile* vlSelf);
 void VMain_ID_stage___nba_comb__TOP__Main__cpucore__ID__0(VMain_ID_stage* vlSelf);
 void VMain_mycpu_top___nba_comb__TOP__Main__cpucore__0(VMain_mycpu_top* vlSelf);
@@ -215,7 +217,6 @@ void VMain___024root___eval_nba(VMain___024root* vlSelf) {
     if (vlSelf->__VnbaTriggered.at(1U)) {
         VMain_regfile___nba_sequent__TOP__Main__cpucore__ID__reg___0((&vlSymsp->TOP__Main__cpucore__ID__reg_));
         vlSelf->__Vm_traceActivity[2U] = 1U;
-        VMain_npc_break___nba_sequent__TOP__Main__cpucore__ID__reg___npc_brk__0((&vlSymsp->TOP__Main__cpucore__ID__reg___npc_brk));
         VMain_Difftest___nba_sequent__TOP__Main__cpucore__ID__reg___difftest__0((&vlSymsp->TOP__Main__cpucore__ID__reg___difftest));
     }
     if (vlSelf->__VnbaTriggered.at(0U)) {
@@ -254,6 +255,7 @@ void VMain___024root___eval_nba(VMain___024root* vlSelf) {
         VMain_ID_stage___nba_sequent__TOP__Main__cpucore__ID__3((&vlSymsp->TOP__Main__cpucore__ID));
         VMain_regfile___nba_sequent__TOP__Main__cpucore__ID__reg___3((&vlSymsp->TOP__Main__cpucore__ID__reg_));
         VMain_Exec___nba_sequent__TOP__Main__cpucore__ID__reg___inst_exec_once__0((&vlSymsp->TOP__Main__cpucore__ID__reg___inst_exec_once));
+        VMain_npc_break___nba_sequent__TOP__Main__cpucore__ID__reg___npc_brk__0((&vlSymsp->TOP__Main__cpucore__ID__reg___npc_brk));
     }
     if ((vlSelf->__VnbaTriggered.at(0U) | vlSelf->__VnbaTriggered.at(1U))) {
         VMain_regfile___nba_comb__TOP__Main__cpucore__ID__reg___0((&vlSymsp->TOP__Main__cpucore__ID__reg_));

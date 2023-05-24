@@ -35,7 +35,6 @@ VL_ATTR_COLD void VMain_mycpu_top___ctor_var_reset(VMain_mycpu_top* vlSelf) {
     vlSelf->__PVT__IF_inst_sram_rdata = VL_RAND_RESET_I(32);
     vlSelf->__PVT__IF_fs_bits_pc = VL_RAND_RESET_I(32);
     vlSelf->__PVT__ID_clock = VL_RAND_RESET_I(1);
-    vlSelf->__PVT__ID_reset = VL_RAND_RESET_I(1);
     vlSelf->__PVT__ID_toes_bits_pc = VL_RAND_RESET_I(32);
     vlSelf->__PVT__ID_toes_bits_alu_src1 = VL_RAND_RESET_I(32);
     vlSelf->__PVT__ID_toes_bits_alu_src2 = VL_RAND_RESET_I(32);

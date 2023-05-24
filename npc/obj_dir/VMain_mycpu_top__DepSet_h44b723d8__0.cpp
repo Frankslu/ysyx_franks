@@ -15,11 +15,9 @@ VL_INLINE_OPT void VMain_mycpu_top___ico_sequent__TOP__Main__cpucore__0(VMain_my
     // Body
     vlSelf->__PVT__pIF_clock = vlSelf->__PVT__clock;
     vlSelf->__PVT__ID_clock = vlSelf->__PVT__clock;
-    vlSelf->__PVT__ID_reset = vlSelf->__PVT__reset;
     vlSelf->__PVT__pIF_reset = vlSelf->__PVT__reset;
     vlSymsp->TOP__Main__cpucore__pIF.__PVT__clock = vlSelf->__PVT__pIF_clock;
     vlSymsp->TOP__Main__cpucore__ID.__PVT__clock = vlSelf->__PVT__ID_clock;
-    vlSymsp->TOP__Main__cpucore__ID.__PVT__reset = vlSelf->__PVT__ID_reset;
     vlSymsp->TOP__Main__cpucore__pIF.__PVT__reset = vlSelf->__PVT__pIF_reset;
 }
 

@@ -15,8 +15,11 @@ VL_INLINE_OPT void VMain_regfile___ico_sequent__TOP__Main__cpucore__ID__reg___1(
     // Body
     vlSelf->__PVT__inst_exec_once_inst = vlSelf->__PVT__io_inst;
     vlSelf->__PVT__rf_MPORT_addr = vlSelf->__PVT__io_waddr;
+    vlSelf->__PVT__npc_brk_is_break = vlSelf->__PVT__io_is_break;
     vlSymsp->TOP__Main__cpucore__ID__reg___inst_exec_once.__PVT__inst 
         = vlSelf->__PVT__inst_exec_once_inst;
+    vlSymsp->TOP__Main__cpucore__ID__reg___npc_brk.__PVT__is_break 
+        = vlSelf->__PVT__npc_brk_is_break;
 }
 
 VL_INLINE_OPT void VMain_regfile___nba_sequent__TOP__Main__cpucore__ID__reg___0(VMain_regfile* vlSelf) {
@@ -25,20 +28,15 @@ VL_INLINE_OPT void VMain_regfile___nba_sequent__TOP__Main__cpucore__ID__reg___0(
     VL_DEBUG_IF(VL_DBG_MSGF("+            VMain_regfile___nba_sequent__TOP__Main__cpucore__ID__reg___0\n"); );
     // Body
     vlSelf->__Vdlyvset__rf__v0 = 0U;
-    vlSelf->__Vdly__is_break = vlSelf->__PVT__is_break;
     if (((IData)(vlSelf->__PVT__rf_MPORT_en) & (IData)(vlSelf->__PVT__rf_MPORT_mask))) {
         vlSelf->__Vdlyvval__rf__v0 = vlSelf->__PVT__rf_MPORT_data;
         vlSelf->__Vdlyvset__rf__v0 = 1U;
         vlSelf->__Vdlyvdim0__rf__v0 = vlSelf->__PVT__rf_MPORT_addr;
     }
-    vlSelf->__Vdly__is_break = ((~ (IData)(vlSelf->__PVT__reset)) 
-                                & (IData)(vlSelf->__PVT__io_is_break));
-    vlSelf->__PVT__is_break = vlSelf->__Vdly__is_break;
     if (vlSelf->__Vdlyvset__rf__v0) {
         vlSelf->__PVT__rf[vlSelf->__Vdlyvdim0__rf__v0] 
             = vlSelf->__Vdlyvval__rf__v0;
     }
-    vlSelf->__PVT__npc_brk_is_break = vlSelf->__PVT__is_break;
     vlSelf->__PVT__rf_difftest_io_rf_1_MPORT_data = 
         vlSelf->__PVT__rf[vlSelf->__PVT__rf_difftest_io_rf_1_MPORT_addr];
     vlSelf->__PVT__rf_difftest_io_rf_2_MPORT_data = 
@@ -101,8 +99,6 @@ VL_INLINE_OPT void VMain_regfile___nba_sequent__TOP__Main__cpucore__ID__reg___0(
         = vlSelf->__PVT__rf[vlSelf->__PVT__rf_difftest_io_rf_30_MPORT_addr];
     vlSelf->__PVT__rf_difftest_io_rf_31_MPORT_data 
         = vlSelf->__PVT__rf[vlSelf->__PVT__rf_difftest_io_rf_31_MPORT_addr];
-    vlSymsp->TOP__Main__cpucore__ID__reg___npc_brk.__PVT__is_break 
-        = vlSelf->__PVT__npc_brk_is_break;
     vlSelf->__PVT__difftest_rf_1 = vlSelf->__PVT__rf_difftest_io_rf_1_MPORT_data;
     vlSelf->__PVT__difftest_rf_2 = vlSelf->__PVT__rf_difftest_io_rf_2_MPORT_data;
     vlSelf->__PVT__difftest_rf_3 = vlSelf->__PVT__rf_difftest_io_rf_3_MPORT_data;
@@ -215,6 +211,9 @@ VL_INLINE_OPT void VMain_regfile___nba_sequent__TOP__Main__cpucore__ID__reg___3(
     // Body
     vlSelf->__PVT__inst_exec_once_inst = vlSelf->__PVT__io_inst;
     vlSelf->__PVT__rf_MPORT_addr = vlSelf->__PVT__io_waddr;
+    vlSelf->__PVT__npc_brk_is_break = vlSelf->__PVT__io_is_break;
     vlSymsp->TOP__Main__cpucore__ID__reg___inst_exec_once.__PVT__inst 
         = vlSelf->__PVT__inst_exec_once_inst;
+    vlSymsp->TOP__Main__cpucore__ID__reg___npc_brk.__PVT__is_break 
+        = vlSelf->__PVT__npc_brk_is_break;
 }
