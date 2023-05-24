@@ -942,7 +942,7 @@ VL_ATTR_COLD void VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__2(VMain_
     vlSelf->__PVT___rf_waddr_T = (0xeU == (IData)(vlSelf->__PVT__inst_name));
     vlSelf->__PVT__toes_bits_rf_waddr = ((0xeU == (IData)(vlSelf->__PVT__inst_name))
                                           ? 1U : (IData)(vlSelf->__PVT__rd));
-    vlSelf->__PVT___br_taken_T_22 = (0xfU == (IData)(vlSelf->__PVT__inst_name));
+    vlSelf->__PVT___reg_io_waddr_T = (0xfU == (IData)(vlSelf->__PVT__inst_name));
     vlSelf->__PVT___br_taken_T_24 = (0x10U == (IData)(vlSelf->__PVT__inst_name));
     vlSelf->__PVT__toes_bits_dpi_c_is_break = (8U == (IData)(vlSelf->__PVT__inst_type));
     vlSelf->__PVT___imm_T = (2U == (IData)(vlSelf->__PVT__inst_type));
@@ -954,7 +954,7 @@ VL_ATTR_COLD void VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__2(VMain_
     vlSelf->__PVT___imm_T_3 = (4U == (IData)(vlSelf->__PVT__inst_type));
     vlSelf->__PVT__src1_is_pc = (((IData)(vlSelf->__PVT___br_taken_T_24) 
                                   | (0x11U == (IData)(vlSelf->__PVT__inst_name))) 
-                                 | (IData)(vlSelf->__PVT___br_taken_T_22));
+                                 | (IData)(vlSelf->__PVT___reg_io_waddr_T));
     vlSelf->__PVT___imm_T_7 = ((IData)(vlSelf->__PVT___imm_T_6)
                                 ? 4U : 0U);
     vlSelf->__PVT__rk_or_rd = (((0x10U != (IData)(vlSelf->__PVT__inst_name)) 
@@ -1051,7 +1051,7 @@ VL_ATTR_COLD void VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__3(VMain_
     vlSelf->__PVT___br_taken_T_21 = ((IData)(vlSelf->__PVT___br_taken_T_19) 
                                      | (IData)(vlSelf->__PVT___rf_waddr_T));
     vlSelf->__PVT___br_taken_T_25 = (((IData)(vlSelf->__PVT___br_taken_T_21) 
-                                      | (0xfU == (IData)(vlSelf->__PVT__inst_name))) 
+                                      | (IData)(vlSelf->__PVT___reg_io_waddr_T)) 
                                      | (IData)(vlSelf->__PVT___br_taken_T_24));
     vlSelf->__PVT__br_taken = ((IData)(vlSelf->__PVT___br_taken_T_25) 
                                | (0x12U == (IData)(vlSelf->__PVT__inst_name)));
@@ -1074,7 +1074,8 @@ VL_ATTR_COLD void VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__5(VMain_
     // Body
     vlSelf->__PVT__reg___05Fio_inst = vlSelf->__PVT__torf_dpi_c_inst;
     vlSelf->__PVT__reg___05Fio_wen = vlSelf->__PVT__torf_rf_we;
-    vlSelf->__PVT__reg___05Fio_waddr = vlSelf->__PVT__torf_rf_waddr;
+    vlSelf->__PVT__reg___05Fio_waddr = ((0xfU == (IData)(vlSelf->__PVT__inst_name))
+                                         ? 1U : (IData)(vlSelf->__PVT__torf_rf_waddr));
     vlSelf->__PVT__reg___05Fio_is_break = vlSelf->__PVT__torf_dpi_c_is_break;
     vlSelf->__PVT__toes_bits_dpi_c_next_pc = vlSelf->__PVT__ds_bits_next_pc;
     vlSymsp->TOP__Main__cpucore__ID__reg_.__PVT__io_inst 

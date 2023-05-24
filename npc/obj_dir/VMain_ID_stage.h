@@ -213,10 +213,11 @@ class VMain_ID_stage final : public VerilatedModule {
         CData/*0:0*/ __PVT___imm_T_5;
         CData/*0:0*/ __PVT___imm_T_6;
         CData/*0:0*/ __PVT__rk_or_rd;
+        CData/*0:0*/ __PVT___reg_io_waddr_T;
         CData/*0:0*/ __PVT___rf_waddr_T;
-        CData/*0:0*/ __PVT__rj_eq_rd;
     };
     struct {
+        CData/*0:0*/ __PVT__rj_eq_rd;
         CData/*0:0*/ __PVT__slt_res;
         CData/*0:0*/ __PVT__sltu_res;
         CData/*0:0*/ __PVT___br_taken_T_4;
@@ -230,7 +231,6 @@ class VMain_ID_stage final : public VerilatedModule {
         CData/*0:0*/ __PVT___br_taken_T_18;
         CData/*0:0*/ __PVT___br_taken_T_19;
         CData/*0:0*/ __PVT___br_taken_T_21;
-        CData/*0:0*/ __PVT___br_taken_T_22;
         CData/*0:0*/ __PVT___br_taken_T_24;
         CData/*0:0*/ __PVT___br_taken_T_25;
         CData/*0:0*/ __PVT__src1_is_pc;
