@@ -1048,9 +1048,11 @@ VL_INLINE_OPT void VMain_ID_stage___nba_comb__TOP__Main__cpucore__ID__0(VMain_ID
                                      | (IData)(vlSelf->__PVT___br_taken_T_18));
     vlSelf->__PVT___br_taken_T_21 = ((IData)(vlSelf->__PVT___br_taken_T_19) 
                                      | (IData)(vlSelf->__PVT___rf_waddr_T));
-    vlSelf->__PVT__br_taken = (((IData)(vlSelf->__PVT___br_taken_T_21) 
-                                | (0xfU == (IData)(vlSelf->__PVT__inst_name))) 
-                               | (0x10U == (IData)(vlSelf->__PVT__inst_name)));
+    vlSelf->__PVT___br_taken_T_25 = (((IData)(vlSelf->__PVT___br_taken_T_21) 
+                                      | (0xfU == (IData)(vlSelf->__PVT__inst_name))) 
+                                     | (IData)(vlSelf->__PVT___br_taken_T_24));
+    vlSelf->__PVT__br_taken = ((IData)(vlSelf->__PVT___br_taken_T_25) 
+                               | (0x12U == (IData)(vlSelf->__PVT__inst_name)));
 }
 
 VL_INLINE_OPT void VMain_ID_stage___nba_comb__TOP__Main__cpucore__ID__2(VMain_ID_stage* vlSelf) {
