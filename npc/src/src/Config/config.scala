@@ -10,7 +10,7 @@ object Configs {
     val ADDR_WIDTH = 32
     val DATA_WIDTH = 32
 
-    val PC_INIT = 0x1c000000
+    val PC_INIT = 0x1bffffff
 
     val WSTRB_WIDTH = 4
     val INST_NAME_WIDTH = 5
