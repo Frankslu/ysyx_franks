@@ -55,38 +55,38 @@ BP *new_bp(vaddr_t pc){
 	}
 
 	if (bp_free != NULL){
-		BP *new = bp_free;
+		BP *new_breakpoint = bp_free;
 		bp_free = bp_free->next;
-		new->next = NULL;
+		new_breakpoint->next = NULL;
 		BP *p = bp_head;
 		if(bp_head != NULL){
 			p = bp_head;
-			if(p->NO >= new->NO){
-				new->next = p;
-				bp_head = new;
+			if(p->NO >= new_breakpoint->NO){
+				new_breakpoint->next = p;
+				bp_head = new_breakpoint;
 			}
 			else{
-				while(p->next != NULL && p->next->NO <= new->NO)
+				while(p->next != NULL && p->next->NO <= new_breakpoint->NO)
 					p = p->next;
 				if(p->next != NULL){
-					new->next = p->next;
-					p->next = new;
+					new_breakpoint->next = p->next;
+					p->next = new_breakpoint;
 				}
 				else{
-					//new->next = NULL;
-					p->next = new;
+					//new_breakpoint->next = NULL;
+					p->next = new_breakpoint;
 				}
 			}
 		}
 		else{
-			//new->next = NULL;
-			bp_head = new;
+			//new_breakpoint->next = NULL;
+			bp_head = new_breakpoint;
 		}
-		new->pc = pc;
-		new->inst = get_inst;
+		new_breakpoint->pc = pc;
+		new_breakpoint->inst = get_inst;
 		break_write(pc, 4, brk_inst);
-		printf("New breakpoint %d: %x\n", new->NO, pc);
-		return new;
+		printf("New breakpoint %d: %x\n", new_breakpoint->NO, pc);
+		return new_breakpoint;
 	}
 	else{
 		printf("Breakpoint pool is full!\n");
@@ -129,7 +129,7 @@ bool free_bp(int NO){
 					back->next = p;
 				}
 				else{
-					// new->next = NULL;
+					// new_breakpoint->next = NULL;
 					back->next = p;
 				}
 			}

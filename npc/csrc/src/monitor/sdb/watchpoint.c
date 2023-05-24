@@ -32,43 +32,43 @@ void init_wp_pool() {
 }
 
 /* TODO: Implement the functionality of watchpoint */
-WP *new_wp(char *s){
+WP *new_watchpoint(char *s){
 	bool success = true;
 	word_t res = expr(s,&success);
 	if(success == true){
 		if(free_ != NULL){
-			WP *new_wp = free_;
+			WP *new_watchpoint = free_;
 			free_ = free_->next;
-			new_wp->next = NULL;
+			new_watchpoint->next = NULL;
 			WP *p = wp_head;
 			if(wp_head != NULL){
 				p = wp_head;
-				if(p->NO >= new_wp->NO){
-					new_wp->next = p;
-					wp_head = new_wp;
+				if(p->NO >= new_watchpoint->NO){
+					new_watchpoint->next = p;
+					wp_head = new_watchpoint;
 				}
 				else{
-					while(p->next != NULL && p->next->NO <= new_wp->NO)
+					while(p->next != NULL && p->next->NO <= new_watchpoint->NO)
 						p = p->next;
 					if(p->next != NULL){
-						new_wp->next = p->next;
-						p->next = new_wp;
+						new_watchpoint->next = p->next;
+						p->next = new_watchpoint;
 					}
 					else{
-						//new_wp->next = NULL;
-						p->next = new_wp;
+						//new_watchpoint->next = NULL;
+						p->next = new_watchpoint;
 					}
 				}
 			}
 			else{
-				//new_wp->next = NULL;
-				wp_head = new_wp;
+				//new_watchpoint->next = NULL;
+				wp_head = new_watchpoint;
 			}
-			new_wp->str = (char *)malloc(strlen(s)+1);
-			strcpy(new_wp->str, s);
-			new_wp->result = res;
+			new_watchpoint->str = (char *)malloc(strlen(s)+1);
+			strcpy(new_watchpoint->str, s);
+			new_watchpoint->result = res;
 			printf("New watchpoint: %s = %u\n", s, res);
-			return new_wp;
+			return new_watchpoint;
 		}
 		else{
 			printf("Watch_point pool is full!\n");
@@ -114,7 +114,7 @@ bool free_wp(int NO){
 					back->next = p;
 				}
 				else{
-					//new_wp->next = NULL;
+					//new_watchpoint->next = NULL;
 					back->next = p;
 				}
 			}
