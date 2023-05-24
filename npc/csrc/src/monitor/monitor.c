@@ -104,3 +104,19 @@ void init_monitor(int argc, char *argv[]){
 	IFDEF(CONFIG_TRACE, init_trace());
 
 }
+
+void reset_monitor(){
+	extern struct {
+		int argc;
+		char **argv;
+	} parameter;
+	verilator_finish();
+	init_rand();
+	init_mem();
+	init_isa();
+	IFDEF(CONFIG_DEVICE, init_device());
+	long img_size = load_img();
+	init_verilator(parameter.argc, parameter.argv);
+	IFDEF(CONFIG_DIFFTEST ,init_difftest(diff_so_file, img_size));
+	IFDEF(CONFIG_TRACE, init_trace());
+}
