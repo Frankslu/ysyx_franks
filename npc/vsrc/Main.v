@@ -9,7 +9,8 @@ module preIF(
   output        inst_sram_en, // @[src/src/cpucore/pipeline/preIF.scala 12:23]
   output [31:0] inst_sram_addr, // @[src/src/cpucore/pipeline/preIF.scala 12:23]
   output        tofs_valid, // @[src/src/cpucore/pipeline/preIF.scala 13:18]
-  output [31:0] tofs_bits_pc // @[src/src/cpucore/pipeline/preIF.scala 13:18]
+  output [31:0] tofs_bits_pc, // @[src/src/cpucore/pipeline/preIF.scala 13:18]
+  output [31:0] tofs_bits_next_pc // @[src/src/cpucore/pipeline/preIF.scala 13:18]
 );
 `ifdef RANDOMIZE_REG_INIT
   reg [31:0] _RAND_0;
@@ -22,6 +23,7 @@ module preIF(
   assign inst_sram_addr = pc; // @[src/src/cpucore/pipeline/preIF.scala 21:20]
   assign tofs_valid = ~reset; // @[src/src/cpucore/pipeline/preIF.scala 26:19]
   assign tofs_bits_pc = pc; // @[src/src/cpucore/pipeline/preIF.scala 25:18]
+  assign tofs_bits_next_pc = br_taken ? br_target : snpc; // @[src/src/cpucore/pipeline/preIF.scala 27:29]
   always @(posedge clock) begin
     if (reset) begin // @[src/src/cpucore/pipeline/preIF.scala 15:21]
       pc <= 32'h1bfffffc; // @[src/src/cpucore/pipeline/preIF.scala 15:21]
@@ -84,13 +86,16 @@ module IF_stage(
   output        tods_valid, // @[src/src/cpucore/pipeline/IF_stage.scala 11:18]
   output [31:0] tods_bits_pc, // @[src/src/cpucore/pipeline/IF_stage.scala 11:18]
   output [31:0] tods_bits_inst, // @[src/src/cpucore/pipeline/IF_stage.scala 11:18]
+  output [31:0] tods_bits_next_pc, // @[src/src/cpucore/pipeline/IF_stage.scala 11:18]
   input  [31:0] inst_sram_rdata, // @[src/src/cpucore/pipeline/IF_stage.scala 12:23]
   input         fs_valid, // @[src/src/cpucore/pipeline/IF_stage.scala 13:16]
-  input  [31:0] fs_bits_pc // @[src/src/cpucore/pipeline/IF_stage.scala 13:16]
+  input  [31:0] fs_bits_pc, // @[src/src/cpucore/pipeline/IF_stage.scala 13:16]
+  input  [31:0] fs_bits_next_pc // @[src/src/cpucore/pipeline/IF_stage.scala 13:16]
 );
-  assign tods_valid = fs_valid; // @[src/src/cpucore/pipeline/IF_stage.scala 18:16]
+  assign tods_valid = fs_valid; // @[src/src/cpucore/pipeline/IF_stage.scala 19:16]
   assign tods_bits_pc = fs_bits_pc; // @[src/src/cpucore/pipeline/IF_stage.scala 17:18]
   assign tods_bits_inst = inst_sram_rdata; // @[src/src/cpucore/pipeline/IF_stage.scala 16:20]
+  assign tods_bits_next_pc = fs_bits_next_pc; // @[src/src/cpucore/pipeline/IF_stage.scala 18:23]
 endmodule
 module regfile(
   input         clock,
@@ -486,7 +491,6 @@ endmodule
 module ID_stage(
   input         clock,
   output        toes_valid, // @[src/src/cpucore/pipeline/ID_stage.scala 12:18]
-  output [31:0] toes_bits_pc, // @[src/src/cpucore/pipeline/ID_stage.scala 12:18]
   output [31:0] toes_bits_alu_src1, // @[src/src/cpucore/pipeline/ID_stage.scala 12:18]
   output [31:0] toes_bits_alu_src2, // @[src/src/cpucore/pipeline/ID_stage.scala 12:18]
   output [4:0]  toes_bits_alu_op, // @[src/src/cpucore/pipeline/ID_stage.scala 12:18]
@@ -494,17 +498,19 @@ module ID_stage(
   output [1:0]  toes_bits_mem_we, // @[src/src/cpucore/pipeline/ID_stage.scala 12:18]
   output [4:0]  toes_bits_inst_name, // @[src/src/cpucore/pipeline/ID_stage.scala 12:18]
   output [31:0] toes_bits_mem_wdata, // @[src/src/cpucore/pipeline/ID_stage.scala 12:18]
-  output        toes_bits_is_break, // @[src/src/cpucore/pipeline/ID_stage.scala 12:18]
-  output [31:0] toes_bits_inst, // @[src/src/cpucore/pipeline/ID_stage.scala 12:18]
+  output        toes_bits_dpi_c_is_break, // @[src/src/cpucore/pipeline/ID_stage.scala 12:18]
+  output [31:0] toes_bits_dpi_c_inst, // @[src/src/cpucore/pipeline/ID_stage.scala 12:18]
+  output [31:0] toes_bits_dpi_c_next_pc, // @[src/src/cpucore/pipeline/ID_stage.scala 12:18]
   input         ds_valid, // @[src/src/cpucore/pipeline/ID_stage.scala 13:16]
   input  [31:0] ds_bits_pc, // @[src/src/cpucore/pipeline/ID_stage.scala 13:16]
   input  [31:0] ds_bits_inst, // @[src/src/cpucore/pipeline/ID_stage.scala 13:16]
-  input  [31:0] torf_pc, // @[src/src/cpucore/pipeline/ID_stage.scala 14:18]
+  input  [31:0] ds_bits_next_pc, // @[src/src/cpucore/pipeline/ID_stage.scala 13:16]
   input  [4:0]  torf_rf_waddr, // @[src/src/cpucore/pipeline/ID_stage.scala 14:18]
   input  [31:0] torf_rf_wdata, // @[src/src/cpucore/pipeline/ID_stage.scala 14:18]
-  input         torf_is_break, // @[src/src/cpucore/pipeline/ID_stage.scala 14:18]
   input         torf_valid, // @[src/src/cpucore/pipeline/ID_stage.scala 14:18]
-  input  [31:0] torf_inst, // @[src/src/cpucore/pipeline/ID_stage.scala 14:18]
+  input         torf_dpi_c_is_break, // @[src/src/cpucore/pipeline/ID_stage.scala 14:18]
+  input  [31:0] torf_dpi_c_inst, // @[src/src/cpucore/pipeline/ID_stage.scala 14:18]
+  input  [31:0] torf_dpi_c_next_pc, // @[src/src/cpucore/pipeline/ID_stage.scala 14:18]
   output        br_taken, // @[src/src/cpucore/pipeline/ID_stage.scala 15:18]
   output [31:0] br_target // @[src/src/cpucore/pipeline/ID_stage.scala 15:18]
 );
@@ -956,8 +962,7 @@ module ID_stage(
     .io_valid(reg__io_valid),
     .io_inst(reg__io_inst)
   );
-  assign toes_valid = ds_valid; // @[src/src/cpucore/pipeline/ID_stage.scala 101:16]
-  assign toes_bits_pc = ds_bits_pc; // @[src/src/cpucore/pipeline/ID_stage.scala 88:18]
+  assign toes_valid = ds_valid; // @[src/src/cpucore/pipeline/ID_stage.scala 102:16]
   assign toes_bits_alu_src1 = src1_is_pc ? ds_bits_pc : reg__io_rdata1; // @[src/src/cpucore/pipeline/ID_stage.scala 90:30]
   assign toes_bits_alu_src2 = inst_type == 4'h1 ? reg__io_rdata2 : imm; // @[src/src/cpucore/pipeline/ID_stage.scala 91:30]
   assign toes_bits_alu_op = decode_res_invMatrixOutputs[16:12]; // @[src/src/cpucore/pipeline/ID_stage.scala 87:35]
@@ -965,8 +970,9 @@ module ID_stage(
   assign toes_bits_mem_we = decode_res_invMatrixOutputs[7:6]; // @[src/src/cpucore/pipeline/ID_stage.scala 33:28]
   assign toes_bits_inst_name = decode_res_invMatrixOutputs[5:1]; // @[src/src/cpucore/pipeline/ID_stage.scala 34:31]
   assign toes_bits_mem_wdata = reg__io_rdata2; // @[src/src/cpucore/pipeline/ID_stage.scala 96:25]
-  assign toes_bits_is_break = inst_type == 4'h7; // @[src/src/cpucore/pipeline/ID_stage.scala 97:37]
-  assign toes_bits_inst = ds_bits_inst; // @[src/src/cpucore/pipeline/ID_stage.scala 98:20]
+  assign toes_bits_dpi_c_is_break = inst_type == 4'h7; // @[src/src/cpucore/pipeline/ID_stage.scala 97:43]
+  assign toes_bits_dpi_c_inst = ds_bits_inst; // @[src/src/cpucore/pipeline/ID_stage.scala 98:26]
+  assign toes_bits_dpi_c_next_pc = ds_bits_next_pc; // @[src/src/cpucore/pipeline/ID_stage.scala 99:29]
   assign br_taken = _br_taken_T_21 | inst_name == 5'hf | inst_name == 5'h10; // @[src/src/cpucore/pipeline/ID_stage.scala 81:72]
   assign br_target = _br_target_T_1 + imm; // @[src/src/cpucore/pipeline/ID_stage.scala 83:67]
   assign reg__clock = clock;
@@ -974,10 +980,10 @@ module ID_stage(
   assign reg__io_raddr2 = rk_or_rd ? rk : rd; // @[src/src/cpucore/pipeline/ID_stage.scala 54:25]
   assign reg__io_waddr = torf_rf_waddr; // @[src/src/cpucore/pipeline/ID_stage.scala 55:18]
   assign reg__io_wdata = torf_rf_wdata; // @[src/src/cpucore/pipeline/ID_stage.scala 56:18]
-  assign reg__io_rf_pc = torf_pc; // @[src/src/cpucore/pipeline/ID_stage.scala 58:18]
-  assign reg__io_is_break = torf_is_break; // @[src/src/cpucore/pipeline/ID_stage.scala 60:21]
+  assign reg__io_rf_pc = torf_dpi_c_next_pc; // @[src/src/cpucore/pipeline/ID_stage.scala 58:18]
+  assign reg__io_is_break = torf_dpi_c_is_break; // @[src/src/cpucore/pipeline/ID_stage.scala 60:21]
   assign reg__io_valid = torf_valid; // @[src/src/cpucore/pipeline/ID_stage.scala 59:18]
-  assign reg__io_inst = torf_inst; // @[src/src/cpucore/pipeline/ID_stage.scala 61:17]
+  assign reg__io_inst = torf_dpi_c_inst; // @[src/src/cpucore/pipeline/ID_stage.scala 61:17]
 endmodule
 module ALU(
   input  [4:0]  io_alu_op, // @[src/src/cpucore/Unit/ALU.scala 16:16]
@@ -1054,7 +1060,6 @@ module ALU(
 endmodule
 module EX_stage(
   input         es_valid, // @[src/src/cpucore/pipeline/EX_stage.scala 15:16]
-  input  [31:0] es_bits_pc, // @[src/src/cpucore/pipeline/EX_stage.scala 15:16]
   input  [31:0] es_bits_alu_src1, // @[src/src/cpucore/pipeline/EX_stage.scala 15:16]
   input  [31:0] es_bits_alu_src2, // @[src/src/cpucore/pipeline/EX_stage.scala 15:16]
   input  [4:0]  es_bits_alu_op, // @[src/src/cpucore/pipeline/EX_stage.scala 15:16]
@@ -1062,16 +1067,17 @@ module EX_stage(
   input  [1:0]  es_bits_mem_we, // @[src/src/cpucore/pipeline/EX_stage.scala 15:16]
   input  [4:0]  es_bits_inst_name, // @[src/src/cpucore/pipeline/EX_stage.scala 15:16]
   input  [31:0] es_bits_mem_wdata, // @[src/src/cpucore/pipeline/EX_stage.scala 15:16]
-  input         es_bits_is_break, // @[src/src/cpucore/pipeline/EX_stage.scala 15:16]
-  input  [31:0] es_bits_inst, // @[src/src/cpucore/pipeline/EX_stage.scala 15:16]
+  input         es_bits_dpi_c_is_break, // @[src/src/cpucore/pipeline/EX_stage.scala 15:16]
+  input  [31:0] es_bits_dpi_c_inst, // @[src/src/cpucore/pipeline/EX_stage.scala 15:16]
+  input  [31:0] es_bits_dpi_c_next_pc, // @[src/src/cpucore/pipeline/EX_stage.scala 15:16]
   output        toms_valid, // @[src/src/cpucore/pipeline/EX_stage.scala 16:18]
-  output [31:0] toms_bits_pc, // @[src/src/cpucore/pipeline/EX_stage.scala 16:18]
   output [31:0] toms_bits_alu_res, // @[src/src/cpucore/pipeline/EX_stage.scala 16:18]
   output [4:0]  toms_bits_inst_name, // @[src/src/cpucore/pipeline/EX_stage.scala 16:18]
   output        toms_bits_res_from_mem, // @[src/src/cpucore/pipeline/EX_stage.scala 16:18]
   output [4:0]  toms_bits_rf_waddr, // @[src/src/cpucore/pipeline/EX_stage.scala 16:18]
-  output        toms_bits_is_break, // @[src/src/cpucore/pipeline/EX_stage.scala 16:18]
-  output [31:0] toms_bits_inst, // @[src/src/cpucore/pipeline/EX_stage.scala 16:18]
+  output        toms_bits_dpi_c_is_break, // @[src/src/cpucore/pipeline/EX_stage.scala 16:18]
+  output [31:0] toms_bits_dpi_c_inst, // @[src/src/cpucore/pipeline/EX_stage.scala 16:18]
+  output [31:0] toms_bits_dpi_c_next_pc, // @[src/src/cpucore/pipeline/EX_stage.scala 16:18]
   output        data_sram_en, // @[src/src/cpucore/pipeline/EX_stage.scala 17:23]
   output        data_sram_wr, // @[src/src/cpucore/pipeline/EX_stage.scala 17:23]
   output [31:0] data_sram_addr, // @[src/src/cpucore/pipeline/EX_stage.scala 17:23]
@@ -1082,47 +1088,47 @@ module EX_stage(
   wire [31:0] alu_io_src1; // @[src/src/cpucore/pipeline/EX_stage.scala 19:21]
   wire [31:0] alu_io_src2; // @[src/src/cpucore/pipeline/EX_stage.scala 19:21]
   wire [31:0] alu_io_res; // @[src/src/cpucore/pipeline/EX_stage.scala 19:21]
-  wire [15:0] _data_sram_wstrb_T_1 = 5'hb == es_bits_inst_name ? 16'h1 : 16'hdead; // @[src/src/cpucore/pipeline/EX_stage.scala 38:63]
-  wire [15:0] _data_sram_wstrb_T_3 = 5'hc == es_bits_inst_name ? 16'h3 : _data_sram_wstrb_T_1; // @[src/src/cpucore/pipeline/EX_stage.scala 38:63]
-  wire [15:0] _data_sram_wstrb_T_5 = 5'hd == es_bits_inst_name ? 16'h7 : _data_sram_wstrb_T_3; // @[src/src/cpucore/pipeline/EX_stage.scala 38:63]
+  wire [15:0] _data_sram_wstrb_T_1 = 5'hb == es_bits_inst_name ? 16'h1 : 16'hdead; // @[src/src/cpucore/pipeline/EX_stage.scala 39:63]
+  wire [15:0] _data_sram_wstrb_T_3 = 5'hc == es_bits_inst_name ? 16'h3 : _data_sram_wstrb_T_1; // @[src/src/cpucore/pipeline/EX_stage.scala 39:63]
+  wire [15:0] _data_sram_wstrb_T_5 = 5'hd == es_bits_inst_name ? 16'h7 : _data_sram_wstrb_T_3; // @[src/src/cpucore/pipeline/EX_stage.scala 39:63]
   ALU alu ( // @[src/src/cpucore/pipeline/EX_stage.scala 19:21]
     .io_alu_op(alu_io_alu_op),
     .io_src1(alu_io_src1),
     .io_src2(alu_io_src2),
     .io_res(alu_io_res)
   );
-  assign toms_valid = es_valid; // @[src/src/cpucore/pipeline/EX_stage.scala 45:16]
-  assign toms_bits_pc = es_bits_pc; // @[src/src/cpucore/pipeline/EX_stage.scala 28:18]
+  assign toms_valid = es_valid; // @[src/src/cpucore/pipeline/EX_stage.scala 46:16]
   assign toms_bits_alu_res = alu_io_res; // @[src/src/cpucore/pipeline/EX_stage.scala 25:23]
   assign toms_bits_inst_name = es_bits_inst_name; // @[src/src/cpucore/pipeline/EX_stage.scala 26:25]
   assign toms_bits_res_from_mem = es_bits_mem_we == 2'h1; // @[src/src/cpucore/pipeline/EX_stage.scala 27:46]
   assign toms_bits_rf_waddr = es_bits_rf_waddr; // @[src/src/cpucore/pipeline/EX_stage.scala 30:24]
-  assign toms_bits_is_break = es_bits_is_break; // @[src/src/cpucore/pipeline/EX_stage.scala 31:24]
-  assign toms_bits_inst = es_bits_inst; // @[src/src/cpucore/pipeline/EX_stage.scala 32:20]
-  assign data_sram_en = es_bits_mem_we != 2'h2; // @[src/src/cpucore/pipeline/EX_stage.scala 34:36]
-  assign data_sram_wr = es_bits_mem_we == 2'h0; // @[src/src/cpucore/pipeline/EX_stage.scala 35:36]
-  assign data_sram_addr = alu_io_res; // @[src/src/cpucore/pipeline/EX_stage.scala 36:20]
-  assign data_sram_wdata = es_bits_mem_wdata; // @[src/src/cpucore/pipeline/EX_stage.scala 37:21]
-  assign data_sram_wstrb = _data_sram_wstrb_T_5[3:0]; // @[src/src/cpucore/pipeline/EX_stage.scala 38:21]
+  assign toms_bits_dpi_c_is_break = es_bits_dpi_c_is_break; // @[src/src/cpucore/pipeline/EX_stage.scala 31:30]
+  assign toms_bits_dpi_c_inst = es_bits_dpi_c_inst; // @[src/src/cpucore/pipeline/EX_stage.scala 32:26]
+  assign toms_bits_dpi_c_next_pc = es_bits_dpi_c_next_pc; // @[src/src/cpucore/pipeline/EX_stage.scala 33:29]
+  assign data_sram_en = es_bits_mem_we != 2'h2; // @[src/src/cpucore/pipeline/EX_stage.scala 35:36]
+  assign data_sram_wr = es_bits_mem_we == 2'h0; // @[src/src/cpucore/pipeline/EX_stage.scala 36:36]
+  assign data_sram_addr = alu_io_res; // @[src/src/cpucore/pipeline/EX_stage.scala 37:20]
+  assign data_sram_wdata = es_bits_mem_wdata; // @[src/src/cpucore/pipeline/EX_stage.scala 38:21]
+  assign data_sram_wstrb = _data_sram_wstrb_T_5[3:0]; // @[src/src/cpucore/pipeline/EX_stage.scala 39:21]
   assign alu_io_alu_op = es_bits_alu_op; // @[src/src/cpucore/pipeline/EX_stage.scala 20:{37,37}]
   assign alu_io_src1 = es_bits_alu_src1; // @[src/src/cpucore/pipeline/EX_stage.scala 22:17]
   assign alu_io_src2 = es_bits_alu_src2; // @[src/src/cpucore/pipeline/EX_stage.scala 23:17]
 endmodule
 module MEM_stage(
   input         ms_valid, // @[src/src/cpucore/pipeline/MEM_stage.scala 12:20]
-  input  [31:0] ms_bits_pc, // @[src/src/cpucore/pipeline/MEM_stage.scala 12:20]
   input  [31:0] ms_bits_alu_res, // @[src/src/cpucore/pipeline/MEM_stage.scala 12:20]
   input  [4:0]  ms_bits_inst_name, // @[src/src/cpucore/pipeline/MEM_stage.scala 12:20]
   input         ms_bits_res_from_mem, // @[src/src/cpucore/pipeline/MEM_stage.scala 12:20]
   input  [4:0]  ms_bits_rf_waddr, // @[src/src/cpucore/pipeline/MEM_stage.scala 12:20]
-  input         ms_bits_is_break, // @[src/src/cpucore/pipeline/MEM_stage.scala 12:20]
-  input  [31:0] ms_bits_inst, // @[src/src/cpucore/pipeline/MEM_stage.scala 12:20]
+  input         ms_bits_dpi_c_is_break, // @[src/src/cpucore/pipeline/MEM_stage.scala 12:20]
+  input  [31:0] ms_bits_dpi_c_inst, // @[src/src/cpucore/pipeline/MEM_stage.scala 12:20]
+  input  [31:0] ms_bits_dpi_c_next_pc, // @[src/src/cpucore/pipeline/MEM_stage.scala 12:20]
   output        tows_valid, // @[src/src/cpucore/pipeline/MEM_stage.scala 13:22]
-  output [31:0] tows_bits_pc, // @[src/src/cpucore/pipeline/MEM_stage.scala 13:22]
   output [4:0]  tows_bits_rf_waddr, // @[src/src/cpucore/pipeline/MEM_stage.scala 13:22]
   output [31:0] tows_bits_rf_wdata, // @[src/src/cpucore/pipeline/MEM_stage.scala 13:22]
-  output        tows_bits_is_break, // @[src/src/cpucore/pipeline/MEM_stage.scala 13:22]
-  output [31:0] tows_bits_inst, // @[src/src/cpucore/pipeline/MEM_stage.scala 13:22]
+  output        tows_bits_dpi_c_is_break, // @[src/src/cpucore/pipeline/MEM_stage.scala 13:22]
+  output [31:0] tows_bits_dpi_c_inst, // @[src/src/cpucore/pipeline/MEM_stage.scala 13:22]
+  output [31:0] tows_bits_dpi_c_next_pc, // @[src/src/cpucore/pipeline/MEM_stage.scala 13:22]
   input  [31:0] data_sram_rdata // @[src/src/cpucore/pipeline/MEM_stage.scala 14:27]
 );
   wire [7:0] _mem_rdata_sign_T = data_sram_rdata[7:0]; // @[src/src/myUtil/tool.scala 8:22]
@@ -1134,33 +1140,33 @@ module MEM_stage(
   wire [31:0] _mem_rdata_T_11 = 5'h7 == ms_bits_inst_name ? _mem_rdata_T_4 : _mem_rdata_T_9; // @[src/src/cpucore/pipeline/MEM_stage.scala 17:64]
   wire [31:0] _mem_rdata_T_13 = 5'ha == ms_bits_inst_name ? {{16'd0}, data_sram_rdata[15:0]} : _mem_rdata_T_11; // @[src/src/cpucore/pipeline/MEM_stage.scala 17:64]
   wire [31:0] mem_rdata = 5'h8 == ms_bits_inst_name ? data_sram_rdata : _mem_rdata_T_13; // @[src/src/cpucore/pipeline/MEM_stage.scala 17:64]
-  assign tows_valid = ms_valid; // @[src/src/cpucore/pipeline/MEM_stage.scala 33:20]
-  assign tows_bits_pc = ms_bits_pc; // @[src/src/cpucore/pipeline/MEM_stage.scala 25:22]
+  assign tows_valid = ms_valid; // @[src/src/cpucore/pipeline/MEM_stage.scala 34:20]
   assign tows_bits_rf_waddr = ms_bits_rf_waddr; // @[src/src/cpucore/pipeline/MEM_stage.scala 27:28]
   assign tows_bits_rf_wdata = ms_bits_res_from_mem ? mem_rdata : ms_bits_alu_res; // @[src/src/cpucore/pipeline/MEM_stage.scala 28:34]
-  assign tows_bits_is_break = ms_bits_is_break; // @[src/src/cpucore/pipeline/MEM_stage.scala 29:28]
-  assign tows_bits_inst = ms_bits_inst; // @[src/src/cpucore/pipeline/MEM_stage.scala 30:24]
+  assign tows_bits_dpi_c_is_break = ms_bits_dpi_c_is_break; // @[src/src/cpucore/pipeline/MEM_stage.scala 29:34]
+  assign tows_bits_dpi_c_inst = ms_bits_dpi_c_inst; // @[src/src/cpucore/pipeline/MEM_stage.scala 30:30]
+  assign tows_bits_dpi_c_next_pc = ms_bits_dpi_c_next_pc; // @[src/src/cpucore/pipeline/MEM_stage.scala 31:33]
 endmodule
 module WB_stage(
   input         ws_valid, // @[src/src/cpucore/pipeline/WB_stage.scala 9:20]
-  input  [31:0] ws_bits_pc, // @[src/src/cpucore/pipeline/WB_stage.scala 9:20]
   input  [4:0]  ws_bits_rf_waddr, // @[src/src/cpucore/pipeline/WB_stage.scala 9:20]
   input  [31:0] ws_bits_rf_wdata, // @[src/src/cpucore/pipeline/WB_stage.scala 9:20]
-  input         ws_bits_is_break, // @[src/src/cpucore/pipeline/WB_stage.scala 9:20]
-  input  [31:0] ws_bits_inst, // @[src/src/cpucore/pipeline/WB_stage.scala 9:20]
-  output [31:0] torf_pc, // @[src/src/cpucore/pipeline/WB_stage.scala 10:22]
+  input         ws_bits_dpi_c_is_break, // @[src/src/cpucore/pipeline/WB_stage.scala 9:20]
+  input  [31:0] ws_bits_dpi_c_inst, // @[src/src/cpucore/pipeline/WB_stage.scala 9:20]
+  input  [31:0] ws_bits_dpi_c_next_pc, // @[src/src/cpucore/pipeline/WB_stage.scala 9:20]
   output [4:0]  torf_rf_waddr, // @[src/src/cpucore/pipeline/WB_stage.scala 10:22]
   output [31:0] torf_rf_wdata, // @[src/src/cpucore/pipeline/WB_stage.scala 10:22]
-  output        torf_is_break, // @[src/src/cpucore/pipeline/WB_stage.scala 10:22]
   output        torf_valid, // @[src/src/cpucore/pipeline/WB_stage.scala 10:22]
-  output [31:0] torf_inst // @[src/src/cpucore/pipeline/WB_stage.scala 10:22]
+  output        torf_dpi_c_is_break, // @[src/src/cpucore/pipeline/WB_stage.scala 10:22]
+  output [31:0] torf_dpi_c_inst, // @[src/src/cpucore/pipeline/WB_stage.scala 10:22]
+  output [31:0] torf_dpi_c_next_pc // @[src/src/cpucore/pipeline/WB_stage.scala 10:22]
 );
-  assign torf_pc = ws_bits_pc; // @[src/src/cpucore/pipeline/WB_stage.scala 12:17]
   assign torf_rf_waddr = ws_bits_rf_waddr; // @[src/src/cpucore/pipeline/WB_stage.scala 14:23]
   assign torf_rf_wdata = ws_bits_rf_wdata; // @[src/src/cpucore/pipeline/WB_stage.scala 15:23]
-  assign torf_is_break = ws_bits_is_break; // @[src/src/cpucore/pipeline/WB_stage.scala 16:23]
-  assign torf_valid = ws_valid; // @[src/src/cpucore/pipeline/WB_stage.scala 17:20]
-  assign torf_inst = ws_bits_inst; // @[src/src/cpucore/pipeline/WB_stage.scala 18:19]
+  assign torf_valid = ws_valid; // @[src/src/cpucore/pipeline/WB_stage.scala 19:20]
+  assign torf_dpi_c_is_break = ws_bits_dpi_c_is_break; // @[src/src/cpucore/pipeline/WB_stage.scala 17:29]
+  assign torf_dpi_c_inst = ws_bits_dpi_c_inst; // @[src/src/cpucore/pipeline/WB_stage.scala 16:25]
+  assign torf_dpi_c_next_pc = ws_bits_dpi_c_next_pc; // @[src/src/cpucore/pipeline/WB_stage.scala 18:28]
 endmodule
 module mycpu_top(
   input         clock,
@@ -1183,15 +1189,17 @@ module mycpu_top(
   wire [31:0] pIF_inst_sram_addr; // @[src/src/cpucore/mycpu_top.scala 26:25]
   wire  pIF_tofs_valid; // @[src/src/cpucore/mycpu_top.scala 26:25]
   wire [31:0] pIF_tofs_bits_pc; // @[src/src/cpucore/mycpu_top.scala 26:25]
+  wire [31:0] pIF_tofs_bits_next_pc; // @[src/src/cpucore/mycpu_top.scala 26:25]
   wire  IF_tods_valid; // @[src/src/cpucore/mycpu_top.scala 27:24]
   wire [31:0] IF_tods_bits_pc; // @[src/src/cpucore/mycpu_top.scala 27:24]
   wire [31:0] IF_tods_bits_inst; // @[src/src/cpucore/mycpu_top.scala 27:24]
+  wire [31:0] IF_tods_bits_next_pc; // @[src/src/cpucore/mycpu_top.scala 27:24]
   wire [31:0] IF_inst_sram_rdata; // @[src/src/cpucore/mycpu_top.scala 27:24]
   wire  IF_fs_valid; // @[src/src/cpucore/mycpu_top.scala 27:24]
   wire [31:0] IF_fs_bits_pc; // @[src/src/cpucore/mycpu_top.scala 27:24]
+  wire [31:0] IF_fs_bits_next_pc; // @[src/src/cpucore/mycpu_top.scala 27:24]
   wire  ID_clock; // @[src/src/cpucore/mycpu_top.scala 28:24]
   wire  ID_toes_valid; // @[src/src/cpucore/mycpu_top.scala 28:24]
-  wire [31:0] ID_toes_bits_pc; // @[src/src/cpucore/mycpu_top.scala 28:24]
   wire [31:0] ID_toes_bits_alu_src1; // @[src/src/cpucore/mycpu_top.scala 28:24]
   wire [31:0] ID_toes_bits_alu_src2; // @[src/src/cpucore/mycpu_top.scala 28:24]
   wire [4:0] ID_toes_bits_alu_op; // @[src/src/cpucore/mycpu_top.scala 28:24]
@@ -1199,21 +1207,22 @@ module mycpu_top(
   wire [1:0] ID_toes_bits_mem_we; // @[src/src/cpucore/mycpu_top.scala 28:24]
   wire [4:0] ID_toes_bits_inst_name; // @[src/src/cpucore/mycpu_top.scala 28:24]
   wire [31:0] ID_toes_bits_mem_wdata; // @[src/src/cpucore/mycpu_top.scala 28:24]
-  wire  ID_toes_bits_is_break; // @[src/src/cpucore/mycpu_top.scala 28:24]
-  wire [31:0] ID_toes_bits_inst; // @[src/src/cpucore/mycpu_top.scala 28:24]
+  wire  ID_toes_bits_dpi_c_is_break; // @[src/src/cpucore/mycpu_top.scala 28:24]
+  wire [31:0] ID_toes_bits_dpi_c_inst; // @[src/src/cpucore/mycpu_top.scala 28:24]
+  wire [31:0] ID_toes_bits_dpi_c_next_pc; // @[src/src/cpucore/mycpu_top.scala 28:24]
   wire  ID_ds_valid; // @[src/src/cpucore/mycpu_top.scala 28:24]
   wire [31:0] ID_ds_bits_pc; // @[src/src/cpucore/mycpu_top.scala 28:24]
   wire [31:0] ID_ds_bits_inst; // @[src/src/cpucore/mycpu_top.scala 28:24]
-  wire [31:0] ID_torf_pc; // @[src/src/cpucore/mycpu_top.scala 28:24]
+  wire [31:0] ID_ds_bits_next_pc; // @[src/src/cpucore/mycpu_top.scala 28:24]
   wire [4:0] ID_torf_rf_waddr; // @[src/src/cpucore/mycpu_top.scala 28:24]
   wire [31:0] ID_torf_rf_wdata; // @[src/src/cpucore/mycpu_top.scala 28:24]
-  wire  ID_torf_is_break; // @[src/src/cpucore/mycpu_top.scala 28:24]
   wire  ID_torf_valid; // @[src/src/cpucore/mycpu_top.scala 28:24]
-  wire [31:0] ID_torf_inst; // @[src/src/cpucore/mycpu_top.scala 28:24]
+  wire  ID_torf_dpi_c_is_break; // @[src/src/cpucore/mycpu_top.scala 28:24]
+  wire [31:0] ID_torf_dpi_c_inst; // @[src/src/cpucore/mycpu_top.scala 28:24]
+  wire [31:0] ID_torf_dpi_c_next_pc; // @[src/src/cpucore/mycpu_top.scala 28:24]
   wire  ID_br_taken; // @[src/src/cpucore/mycpu_top.scala 28:24]
   wire [31:0] ID_br_target; // @[src/src/cpucore/mycpu_top.scala 28:24]
   wire  EXE_es_valid; // @[src/src/cpucore/mycpu_top.scala 29:25]
-  wire [31:0] EXE_es_bits_pc; // @[src/src/cpucore/mycpu_top.scala 29:25]
   wire [31:0] EXE_es_bits_alu_src1; // @[src/src/cpucore/mycpu_top.scala 29:25]
   wire [31:0] EXE_es_bits_alu_src2; // @[src/src/cpucore/mycpu_top.scala 29:25]
   wire [4:0] EXE_es_bits_alu_op; // @[src/src/cpucore/mycpu_top.scala 29:25]
@@ -1221,48 +1230,49 @@ module mycpu_top(
   wire [1:0] EXE_es_bits_mem_we; // @[src/src/cpucore/mycpu_top.scala 29:25]
   wire [4:0] EXE_es_bits_inst_name; // @[src/src/cpucore/mycpu_top.scala 29:25]
   wire [31:0] EXE_es_bits_mem_wdata; // @[src/src/cpucore/mycpu_top.scala 29:25]
-  wire  EXE_es_bits_is_break; // @[src/src/cpucore/mycpu_top.scala 29:25]
-  wire [31:0] EXE_es_bits_inst; // @[src/src/cpucore/mycpu_top.scala 29:25]
+  wire  EXE_es_bits_dpi_c_is_break; // @[src/src/cpucore/mycpu_top.scala 29:25]
+  wire [31:0] EXE_es_bits_dpi_c_inst; // @[src/src/cpucore/mycpu_top.scala 29:25]
+  wire [31:0] EXE_es_bits_dpi_c_next_pc; // @[src/src/cpucore/mycpu_top.scala 29:25]
   wire  EXE_toms_valid; // @[src/src/cpucore/mycpu_top.scala 29:25]
-  wire [31:0] EXE_toms_bits_pc; // @[src/src/cpucore/mycpu_top.scala 29:25]
   wire [31:0] EXE_toms_bits_alu_res; // @[src/src/cpucore/mycpu_top.scala 29:25]
   wire [4:0] EXE_toms_bits_inst_name; // @[src/src/cpucore/mycpu_top.scala 29:25]
   wire  EXE_toms_bits_res_from_mem; // @[src/src/cpucore/mycpu_top.scala 29:25]
   wire [4:0] EXE_toms_bits_rf_waddr; // @[src/src/cpucore/mycpu_top.scala 29:25]
-  wire  EXE_toms_bits_is_break; // @[src/src/cpucore/mycpu_top.scala 29:25]
-  wire [31:0] EXE_toms_bits_inst; // @[src/src/cpucore/mycpu_top.scala 29:25]
+  wire  EXE_toms_bits_dpi_c_is_break; // @[src/src/cpucore/mycpu_top.scala 29:25]
+  wire [31:0] EXE_toms_bits_dpi_c_inst; // @[src/src/cpucore/mycpu_top.scala 29:25]
+  wire [31:0] EXE_toms_bits_dpi_c_next_pc; // @[src/src/cpucore/mycpu_top.scala 29:25]
   wire  EXE_data_sram_en; // @[src/src/cpucore/mycpu_top.scala 29:25]
   wire  EXE_data_sram_wr; // @[src/src/cpucore/mycpu_top.scala 29:25]
   wire [31:0] EXE_data_sram_addr; // @[src/src/cpucore/mycpu_top.scala 29:25]
   wire [31:0] EXE_data_sram_wdata; // @[src/src/cpucore/mycpu_top.scala 29:25]
   wire [3:0] EXE_data_sram_wstrb; // @[src/src/cpucore/mycpu_top.scala 29:25]
   wire  MEM_ms_valid; // @[src/src/cpucore/mycpu_top.scala 30:25]
-  wire [31:0] MEM_ms_bits_pc; // @[src/src/cpucore/mycpu_top.scala 30:25]
   wire [31:0] MEM_ms_bits_alu_res; // @[src/src/cpucore/mycpu_top.scala 30:25]
   wire [4:0] MEM_ms_bits_inst_name; // @[src/src/cpucore/mycpu_top.scala 30:25]
   wire  MEM_ms_bits_res_from_mem; // @[src/src/cpucore/mycpu_top.scala 30:25]
   wire [4:0] MEM_ms_bits_rf_waddr; // @[src/src/cpucore/mycpu_top.scala 30:25]
-  wire  MEM_ms_bits_is_break; // @[src/src/cpucore/mycpu_top.scala 30:25]
-  wire [31:0] MEM_ms_bits_inst; // @[src/src/cpucore/mycpu_top.scala 30:25]
+  wire  MEM_ms_bits_dpi_c_is_break; // @[src/src/cpucore/mycpu_top.scala 30:25]
+  wire [31:0] MEM_ms_bits_dpi_c_inst; // @[src/src/cpucore/mycpu_top.scala 30:25]
+  wire [31:0] MEM_ms_bits_dpi_c_next_pc; // @[src/src/cpucore/mycpu_top.scala 30:25]
   wire  MEM_tows_valid; // @[src/src/cpucore/mycpu_top.scala 30:25]
-  wire [31:0] MEM_tows_bits_pc; // @[src/src/cpucore/mycpu_top.scala 30:25]
   wire [4:0] MEM_tows_bits_rf_waddr; // @[src/src/cpucore/mycpu_top.scala 30:25]
   wire [31:0] MEM_tows_bits_rf_wdata; // @[src/src/cpucore/mycpu_top.scala 30:25]
-  wire  MEM_tows_bits_is_break; // @[src/src/cpucore/mycpu_top.scala 30:25]
-  wire [31:0] MEM_tows_bits_inst; // @[src/src/cpucore/mycpu_top.scala 30:25]
+  wire  MEM_tows_bits_dpi_c_is_break; // @[src/src/cpucore/mycpu_top.scala 30:25]
+  wire [31:0] MEM_tows_bits_dpi_c_inst; // @[src/src/cpucore/mycpu_top.scala 30:25]
+  wire [31:0] MEM_tows_bits_dpi_c_next_pc; // @[src/src/cpucore/mycpu_top.scala 30:25]
   wire [31:0] MEM_data_sram_rdata; // @[src/src/cpucore/mycpu_top.scala 30:25]
   wire  WB_ws_valid; // @[src/src/cpucore/mycpu_top.scala 31:24]
-  wire [31:0] WB_ws_bits_pc; // @[src/src/cpucore/mycpu_top.scala 31:24]
   wire [4:0] WB_ws_bits_rf_waddr; // @[src/src/cpucore/mycpu_top.scala 31:24]
   wire [31:0] WB_ws_bits_rf_wdata; // @[src/src/cpucore/mycpu_top.scala 31:24]
-  wire  WB_ws_bits_is_break; // @[src/src/cpucore/mycpu_top.scala 31:24]
-  wire [31:0] WB_ws_bits_inst; // @[src/src/cpucore/mycpu_top.scala 31:24]
-  wire [31:0] WB_torf_pc; // @[src/src/cpucore/mycpu_top.scala 31:24]
+  wire  WB_ws_bits_dpi_c_is_break; // @[src/src/cpucore/mycpu_top.scala 31:24]
+  wire [31:0] WB_ws_bits_dpi_c_inst; // @[src/src/cpucore/mycpu_top.scala 31:24]
+  wire [31:0] WB_ws_bits_dpi_c_next_pc; // @[src/src/cpucore/mycpu_top.scala 31:24]
   wire [4:0] WB_torf_rf_waddr; // @[src/src/cpucore/mycpu_top.scala 31:24]
   wire [31:0] WB_torf_rf_wdata; // @[src/src/cpucore/mycpu_top.scala 31:24]
-  wire  WB_torf_is_break; // @[src/src/cpucore/mycpu_top.scala 31:24]
   wire  WB_torf_valid; // @[src/src/cpucore/mycpu_top.scala 31:24]
-  wire [31:0] WB_torf_inst; // @[src/src/cpucore/mycpu_top.scala 31:24]
+  wire  WB_torf_dpi_c_is_break; // @[src/src/cpucore/mycpu_top.scala 31:24]
+  wire [31:0] WB_torf_dpi_c_inst; // @[src/src/cpucore/mycpu_top.scala 31:24]
+  wire [31:0] WB_torf_dpi_c_next_pc; // @[src/src/cpucore/mycpu_top.scala 31:24]
   preIF pIF ( // @[src/src/cpucore/mycpu_top.scala 26:25]
     .clock(pIF_clock),
     .reset(pIF_reset),
@@ -1271,20 +1281,22 @@ module mycpu_top(
     .inst_sram_en(pIF_inst_sram_en),
     .inst_sram_addr(pIF_inst_sram_addr),
     .tofs_valid(pIF_tofs_valid),
-    .tofs_bits_pc(pIF_tofs_bits_pc)
+    .tofs_bits_pc(pIF_tofs_bits_pc),
+    .tofs_bits_next_pc(pIF_tofs_bits_next_pc)
   );
   IF_stage IF ( // @[src/src/cpucore/mycpu_top.scala 27:24]
     .tods_valid(IF_tods_valid),
     .tods_bits_pc(IF_tods_bits_pc),
     .tods_bits_inst(IF_tods_bits_inst),
+    .tods_bits_next_pc(IF_tods_bits_next_pc),
     .inst_sram_rdata(IF_inst_sram_rdata),
     .fs_valid(IF_fs_valid),
-    .fs_bits_pc(IF_fs_bits_pc)
+    .fs_bits_pc(IF_fs_bits_pc),
+    .fs_bits_next_pc(IF_fs_bits_next_pc)
   );
   ID_stage ID ( // @[src/src/cpucore/mycpu_top.scala 28:24]
     .clock(ID_clock),
     .toes_valid(ID_toes_valid),
-    .toes_bits_pc(ID_toes_bits_pc),
     .toes_bits_alu_src1(ID_toes_bits_alu_src1),
     .toes_bits_alu_src2(ID_toes_bits_alu_src2),
     .toes_bits_alu_op(ID_toes_bits_alu_op),
@@ -1292,23 +1304,24 @@ module mycpu_top(
     .toes_bits_mem_we(ID_toes_bits_mem_we),
     .toes_bits_inst_name(ID_toes_bits_inst_name),
     .toes_bits_mem_wdata(ID_toes_bits_mem_wdata),
-    .toes_bits_is_break(ID_toes_bits_is_break),
-    .toes_bits_inst(ID_toes_bits_inst),
+    .toes_bits_dpi_c_is_break(ID_toes_bits_dpi_c_is_break),
+    .toes_bits_dpi_c_inst(ID_toes_bits_dpi_c_inst),
+    .toes_bits_dpi_c_next_pc(ID_toes_bits_dpi_c_next_pc),
     .ds_valid(ID_ds_valid),
     .ds_bits_pc(ID_ds_bits_pc),
     .ds_bits_inst(ID_ds_bits_inst),
-    .torf_pc(ID_torf_pc),
+    .ds_bits_next_pc(ID_ds_bits_next_pc),
     .torf_rf_waddr(ID_torf_rf_waddr),
     .torf_rf_wdata(ID_torf_rf_wdata),
-    .torf_is_break(ID_torf_is_break),
     .torf_valid(ID_torf_valid),
-    .torf_inst(ID_torf_inst),
+    .torf_dpi_c_is_break(ID_torf_dpi_c_is_break),
+    .torf_dpi_c_inst(ID_torf_dpi_c_inst),
+    .torf_dpi_c_next_pc(ID_torf_dpi_c_next_pc),
     .br_taken(ID_br_taken),
     .br_target(ID_br_target)
   );
   EX_stage EXE ( // @[src/src/cpucore/mycpu_top.scala 29:25]
     .es_valid(EXE_es_valid),
-    .es_bits_pc(EXE_es_bits_pc),
     .es_bits_alu_src1(EXE_es_bits_alu_src1),
     .es_bits_alu_src2(EXE_es_bits_alu_src2),
     .es_bits_alu_op(EXE_es_bits_alu_op),
@@ -1316,16 +1329,17 @@ module mycpu_top(
     .es_bits_mem_we(EXE_es_bits_mem_we),
     .es_bits_inst_name(EXE_es_bits_inst_name),
     .es_bits_mem_wdata(EXE_es_bits_mem_wdata),
-    .es_bits_is_break(EXE_es_bits_is_break),
-    .es_bits_inst(EXE_es_bits_inst),
+    .es_bits_dpi_c_is_break(EXE_es_bits_dpi_c_is_break),
+    .es_bits_dpi_c_inst(EXE_es_bits_dpi_c_inst),
+    .es_bits_dpi_c_next_pc(EXE_es_bits_dpi_c_next_pc),
     .toms_valid(EXE_toms_valid),
-    .toms_bits_pc(EXE_toms_bits_pc),
     .toms_bits_alu_res(EXE_toms_bits_alu_res),
     .toms_bits_inst_name(EXE_toms_bits_inst_name),
     .toms_bits_res_from_mem(EXE_toms_bits_res_from_mem),
     .toms_bits_rf_waddr(EXE_toms_bits_rf_waddr),
-    .toms_bits_is_break(EXE_toms_bits_is_break),
-    .toms_bits_inst(EXE_toms_bits_inst),
+    .toms_bits_dpi_c_is_break(EXE_toms_bits_dpi_c_is_break),
+    .toms_bits_dpi_c_inst(EXE_toms_bits_dpi_c_inst),
+    .toms_bits_dpi_c_next_pc(EXE_toms_bits_dpi_c_next_pc),
     .data_sram_en(EXE_data_sram_en),
     .data_sram_wr(EXE_data_sram_wr),
     .data_sram_addr(EXE_data_sram_addr),
@@ -1334,34 +1348,34 @@ module mycpu_top(
   );
   MEM_stage MEM ( // @[src/src/cpucore/mycpu_top.scala 30:25]
     .ms_valid(MEM_ms_valid),
-    .ms_bits_pc(MEM_ms_bits_pc),
     .ms_bits_alu_res(MEM_ms_bits_alu_res),
     .ms_bits_inst_name(MEM_ms_bits_inst_name),
     .ms_bits_res_from_mem(MEM_ms_bits_res_from_mem),
     .ms_bits_rf_waddr(MEM_ms_bits_rf_waddr),
-    .ms_bits_is_break(MEM_ms_bits_is_break),
-    .ms_bits_inst(MEM_ms_bits_inst),
+    .ms_bits_dpi_c_is_break(MEM_ms_bits_dpi_c_is_break),
+    .ms_bits_dpi_c_inst(MEM_ms_bits_dpi_c_inst),
+    .ms_bits_dpi_c_next_pc(MEM_ms_bits_dpi_c_next_pc),
     .tows_valid(MEM_tows_valid),
-    .tows_bits_pc(MEM_tows_bits_pc),
     .tows_bits_rf_waddr(MEM_tows_bits_rf_waddr),
     .tows_bits_rf_wdata(MEM_tows_bits_rf_wdata),
-    .tows_bits_is_break(MEM_tows_bits_is_break),
-    .tows_bits_inst(MEM_tows_bits_inst),
+    .tows_bits_dpi_c_is_break(MEM_tows_bits_dpi_c_is_break),
+    .tows_bits_dpi_c_inst(MEM_tows_bits_dpi_c_inst),
+    .tows_bits_dpi_c_next_pc(MEM_tows_bits_dpi_c_next_pc),
     .data_sram_rdata(MEM_data_sram_rdata)
   );
   WB_stage WB ( // @[src/src/cpucore/mycpu_top.scala 31:24]
     .ws_valid(WB_ws_valid),
-    .ws_bits_pc(WB_ws_bits_pc),
     .ws_bits_rf_waddr(WB_ws_bits_rf_waddr),
     .ws_bits_rf_wdata(WB_ws_bits_rf_wdata),
-    .ws_bits_is_break(WB_ws_bits_is_break),
-    .ws_bits_inst(WB_ws_bits_inst),
-    .torf_pc(WB_torf_pc),
+    .ws_bits_dpi_c_is_break(WB_ws_bits_dpi_c_is_break),
+    .ws_bits_dpi_c_inst(WB_ws_bits_dpi_c_inst),
+    .ws_bits_dpi_c_next_pc(WB_ws_bits_dpi_c_next_pc),
     .torf_rf_waddr(WB_torf_rf_waddr),
     .torf_rf_wdata(WB_torf_rf_wdata),
-    .torf_is_break(WB_torf_is_break),
     .torf_valid(WB_torf_valid),
-    .torf_inst(WB_torf_inst)
+    .torf_dpi_c_is_break(WB_torf_dpi_c_is_break),
+    .torf_dpi_c_inst(WB_torf_dpi_c_inst),
+    .torf_dpi_c_next_pc(WB_torf_dpi_c_next_pc)
   );
   assign inst_sram_en = pIF_inst_sram_en; // @[src/src/cpucore/mycpu_top.scala 43:23]
   assign inst_sram_addr = pIF_inst_sram_addr; // @[src/src/cpucore/mycpu_top.scala 43:23]
@@ -1377,18 +1391,19 @@ module mycpu_top(
   assign IF_inst_sram_rdata = inst_sram_rdata; // @[src/src/cpucore/mycpu_top.scala 42:22]
   assign IF_fs_valid = pIF_tofs_valid; // @[src/src/cpucore/mycpu_top.scala 13:64]
   assign IF_fs_bits_pc = pIF_tofs_bits_pc; // @[src/src/cpucore/mycpu_top.scala 13:64]
+  assign IF_fs_bits_next_pc = pIF_tofs_bits_next_pc; // @[src/src/cpucore/mycpu_top.scala 13:64]
   assign ID_clock = clock;
   assign ID_ds_valid = IF_tods_valid; // @[src/src/cpucore/mycpu_top.scala 13:64]
   assign ID_ds_bits_pc = IF_tods_bits_pc; // @[src/src/cpucore/mycpu_top.scala 13:64]
   assign ID_ds_bits_inst = IF_tods_bits_inst; // @[src/src/cpucore/mycpu_top.scala 13:64]
-  assign ID_torf_pc = WB_torf_pc; // @[src/src/cpucore/mycpu_top.scala 40:17]
+  assign ID_ds_bits_next_pc = IF_tods_bits_next_pc; // @[src/src/cpucore/mycpu_top.scala 13:64]
   assign ID_torf_rf_waddr = WB_torf_rf_waddr; // @[src/src/cpucore/mycpu_top.scala 40:17]
   assign ID_torf_rf_wdata = WB_torf_rf_wdata; // @[src/src/cpucore/mycpu_top.scala 40:17]
-  assign ID_torf_is_break = WB_torf_is_break; // @[src/src/cpucore/mycpu_top.scala 40:17]
   assign ID_torf_valid = WB_torf_valid; // @[src/src/cpucore/mycpu_top.scala 40:17]
-  assign ID_torf_inst = WB_torf_inst; // @[src/src/cpucore/mycpu_top.scala 40:17]
+  assign ID_torf_dpi_c_is_break = WB_torf_dpi_c_is_break; // @[src/src/cpucore/mycpu_top.scala 40:17]
+  assign ID_torf_dpi_c_inst = WB_torf_dpi_c_inst; // @[src/src/cpucore/mycpu_top.scala 40:17]
+  assign ID_torf_dpi_c_next_pc = WB_torf_dpi_c_next_pc; // @[src/src/cpucore/mycpu_top.scala 40:17]
   assign EXE_es_valid = ID_toes_valid; // @[src/src/cpucore/mycpu_top.scala 13:64]
-  assign EXE_es_bits_pc = ID_toes_bits_pc; // @[src/src/cpucore/mycpu_top.scala 13:64]
   assign EXE_es_bits_alu_src1 = ID_toes_bits_alu_src1; // @[src/src/cpucore/mycpu_top.scala 13:64]
   assign EXE_es_bits_alu_src2 = ID_toes_bits_alu_src2; // @[src/src/cpucore/mycpu_top.scala 13:64]
   assign EXE_es_bits_alu_op = ID_toes_bits_alu_op; // @[src/src/cpucore/mycpu_top.scala 13:64]
@@ -1396,23 +1411,24 @@ module mycpu_top(
   assign EXE_es_bits_mem_we = ID_toes_bits_mem_we; // @[src/src/cpucore/mycpu_top.scala 13:64]
   assign EXE_es_bits_inst_name = ID_toes_bits_inst_name; // @[src/src/cpucore/mycpu_top.scala 13:64]
   assign EXE_es_bits_mem_wdata = ID_toes_bits_mem_wdata; // @[src/src/cpucore/mycpu_top.scala 13:64]
-  assign EXE_es_bits_is_break = ID_toes_bits_is_break; // @[src/src/cpucore/mycpu_top.scala 13:64]
-  assign EXE_es_bits_inst = ID_toes_bits_inst; // @[src/src/cpucore/mycpu_top.scala 13:64]
+  assign EXE_es_bits_dpi_c_is_break = ID_toes_bits_dpi_c_is_break; // @[src/src/cpucore/mycpu_top.scala 13:64]
+  assign EXE_es_bits_dpi_c_inst = ID_toes_bits_dpi_c_inst; // @[src/src/cpucore/mycpu_top.scala 13:64]
+  assign EXE_es_bits_dpi_c_next_pc = ID_toes_bits_dpi_c_next_pc; // @[src/src/cpucore/mycpu_top.scala 13:64]
   assign MEM_ms_valid = EXE_toms_valid; // @[src/src/cpucore/mycpu_top.scala 13:64]
-  assign MEM_ms_bits_pc = EXE_toms_bits_pc; // @[src/src/cpucore/mycpu_top.scala 13:64]
   assign MEM_ms_bits_alu_res = EXE_toms_bits_alu_res; // @[src/src/cpucore/mycpu_top.scala 13:64]
   assign MEM_ms_bits_inst_name = EXE_toms_bits_inst_name; // @[src/src/cpucore/mycpu_top.scala 13:64]
   assign MEM_ms_bits_res_from_mem = EXE_toms_bits_res_from_mem; // @[src/src/cpucore/mycpu_top.scala 13:64]
   assign MEM_ms_bits_rf_waddr = EXE_toms_bits_rf_waddr; // @[src/src/cpucore/mycpu_top.scala 13:64]
-  assign MEM_ms_bits_is_break = EXE_toms_bits_is_break; // @[src/src/cpucore/mycpu_top.scala 13:64]
-  assign MEM_ms_bits_inst = EXE_toms_bits_inst; // @[src/src/cpucore/mycpu_top.scala 13:64]
+  assign MEM_ms_bits_dpi_c_is_break = EXE_toms_bits_dpi_c_is_break; // @[src/src/cpucore/mycpu_top.scala 13:64]
+  assign MEM_ms_bits_dpi_c_inst = EXE_toms_bits_dpi_c_inst; // @[src/src/cpucore/mycpu_top.scala 13:64]
+  assign MEM_ms_bits_dpi_c_next_pc = EXE_toms_bits_dpi_c_next_pc; // @[src/src/cpucore/mycpu_top.scala 13:64]
   assign MEM_data_sram_rdata = data_sram_rdata; // @[src/src/cpucore/mycpu_top.scala 45:23]
   assign WB_ws_valid = MEM_tows_valid; // @[src/src/cpucore/mycpu_top.scala 13:64]
-  assign WB_ws_bits_pc = MEM_tows_bits_pc; // @[src/src/cpucore/mycpu_top.scala 13:64]
   assign WB_ws_bits_rf_waddr = MEM_tows_bits_rf_waddr; // @[src/src/cpucore/mycpu_top.scala 13:64]
   assign WB_ws_bits_rf_wdata = MEM_tows_bits_rf_wdata; // @[src/src/cpucore/mycpu_top.scala 13:64]
-  assign WB_ws_bits_is_break = MEM_tows_bits_is_break; // @[src/src/cpucore/mycpu_top.scala 13:64]
-  assign WB_ws_bits_inst = MEM_tows_bits_inst; // @[src/src/cpucore/mycpu_top.scala 13:64]
+  assign WB_ws_bits_dpi_c_is_break = MEM_tows_bits_dpi_c_is_break; // @[src/src/cpucore/mycpu_top.scala 13:64]
+  assign WB_ws_bits_dpi_c_inst = MEM_tows_bits_dpi_c_inst; // @[src/src/cpucore/mycpu_top.scala 13:64]
+  assign WB_ws_bits_dpi_c_next_pc = MEM_tows_bits_dpi_c_next_pc; // @[src/src/cpucore/mycpu_top.scala 13:64]
 endmodule
 module Main(
   input   clock,
