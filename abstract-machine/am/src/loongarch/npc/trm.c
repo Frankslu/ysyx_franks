@@ -18,6 +18,7 @@ void putch(char ch) {
 }
 
 void halt(int code) {
+  asm volatile("move $a0, %0; break 0" : :"r"(code));
   while (1);
 }
 
