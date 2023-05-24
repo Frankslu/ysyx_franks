@@ -55,10 +55,10 @@ class ID_stage extends Module{
     reg.io.waddr := torf.rf_waddr
     reg.io.wdata := torf.rf_wdata
     reg.io.wen := torf.rf_we
-    reg.io.rf_pc := torf.pc
+    reg.io.rf_pc := torf.dpi_c.next_pc
     reg.io.valid := torf.valid
-    reg.io.is_break := torf.is_break
-    reg.io.inst := torf.inst
+    reg.io.is_break := torf.dpi_c.is_break 
+    reg.io.inst := torf.dpi_c.inst
 
     val rj_value = reg.io.rdata1
     val rkd_value = reg.io.rdata2
@@ -94,8 +94,9 @@ class ID_stage extends Module{
     toes.bits.mem_we := mem_we
     toes.bits.rf_we := rf_we
     toes.bits.mem_wdata := rkd_value
-    toes.bits.is_break := inst_type === u(BRK_T)
-    toes.bits.inst := inst
+    toes.bits.dpi_c.is_break := inst_type === u(BRK_T)
+    toes.bits.dpi_c.inst := inst
+    toes.bits.dpi_c.next_pc := ds.bits.next_pc
 
     ds.ready := 1.B
     toes.valid := ds.valid

@@ -28,8 +28,9 @@ class EX_stage extends Module{
     toms.bits.pc := es.bits.pc
     toms.bits.rf_we := 1.U
     toms.bits.rf_waddr := es.bits.rf_waddr
-    toms.bits.is_break := es.bits.is_break
-    toms.bits.inst := es.bits.inst
+    toms.bits.dpi_c.is_break := es.bits.dpi_c.is_break
+    toms.bits.dpi_c.inst := es.bits.dpi_c.inst
+    toms.bits.dpi_c.next_pc := es.bits.dpi_c.next_pc
 
     data_sram.en := es.bits.mem_we =/= u(MEM_UN)
     data_sram.wr := es.bits.mem_we === u(MEM_WR)

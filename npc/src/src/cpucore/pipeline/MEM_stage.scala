@@ -26,8 +26,9 @@ class MEM_stage extends Module{
 	tows.bits.rf_we := ms.bits.rf_we
 	tows.bits.rf_waddr := ms.bits.rf_waddr
 	tows.bits.rf_wdata := Mux(ms.bits.res_from_mem, mem_rdata, ms.bits.alu_res)
-	tows.bits.is_break := ms.bits.is_break
-	tows.bits.inst := ms.bits.inst
+	tows.bits.dpi_c.is_break := ms.bits.dpi_c.is_break
+	tows.bits.dpi_c.inst := ms.bits.dpi_c.inst
+	tows.bits.dpi_c.next_pc := ms.bits.dpi_c.next_pc
 
 	ms.ready := 1.U
 	tows.valid := ms.valid

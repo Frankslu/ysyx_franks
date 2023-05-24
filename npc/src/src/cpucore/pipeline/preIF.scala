@@ -24,4 +24,5 @@ class preIF extends Module{
 
     tofs.bits.pc := pc
     tofs.valid := ~reset.asBool
+    tofs.bits.next_pc := Mux(br.taken, br.target, snpc)
 }
