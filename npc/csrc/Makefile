@@ -1,7 +1,4 @@
 c: $(VERILOG_DIR)/*.v
-	@sed -i '1s/^/\/* verilator lint_off WIDTHEXPAND *\/\n/' $(VERILOG_DIR)/$(TOP).v
-	@sed -i '1s/^/\/* verilator lint_off DECLFILENAME *\/\n/' $(VERILOG_DIR)/$(TOP).v
-	@sed -i '1s/^/\/* verilator lint_off UNUSEDSIGNAL *\/\n/' $(VERILOG_DIR)/$(TOP).v
 	@verilator --top-module $(TOP) -cc $(VSRC)
 
 V$(TOP): $(VSRC) $(CSRC) $(INCLUDE)

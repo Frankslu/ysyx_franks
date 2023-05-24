@@ -60,7 +60,7 @@ class regfile extends Module{
     valid := io.valid
     val inst = RegNext(io.inst)
     val inst_exec_once = Module(new Exec)
-    inst_exec_once.io.valid := valid
-    inst_exec_once.io.inst := inst
-    inst_exec_once.io.pc := pc
+    inst_exec_once.io.valid := io.valid
+    inst_exec_once.io.inst := io.inst
+    inst_exec_once.io.pc := io.rf_pc
 }

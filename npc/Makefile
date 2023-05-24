@@ -36,6 +36,9 @@ verilog:
 	@$(call git_commit, "generate verilog")
 	@mkdir -p $(VERILOG_DIR)
 	@mill -i __.test.runMain Elaborate -td $(VERILOG_DIR)
+	@sed -i '1s/^/\/* verilator lint_off WIDTHEXPAND *\/\n/' $(VERILOG_DIR)/$(TOP).v
+	@sed -i '1s/^/\/* verilator lint_off DECLFILENAME *\/\n/' $(VERILOG_DIR)/$(TOP).v
+	@sed -i '1s/^/\/* verilator lint_off UNUSEDSIGNAL *\/\n/' $(VERILOG_DIR)/$(TOP).v
 
 help:
 	mill -i __.test.runMain Elaborate --help
