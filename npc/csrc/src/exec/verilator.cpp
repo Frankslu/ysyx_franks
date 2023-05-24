@@ -48,7 +48,7 @@ void init_verilator(int argc, char *argv[]){
 	tfp->open("wave.vcd");
 #endif
 
-	for (int i = 0; i < 10; i++){
+	for (int i = 0; i < 4; i++){
 		top->reset = 1;
 		top->clock = 0;
 		top->eval();
@@ -57,8 +57,10 @@ void init_verilator(int argc, char *argv[]){
 		top->eval();
     	tfp->dump(sim_time++);
 	}
+	top->clock = 0;
+	top->eval();
+    tfp->dump(sim_time++);
 	top->reset = 0;
-
 }
 
 int npc_exec_once(){
