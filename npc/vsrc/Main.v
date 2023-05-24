@@ -1413,9 +1413,6 @@ module Main(
   input   clock,
   input   reset
 );
-`ifdef RANDOMIZE_REG_INIT
-  reg [31:0] _RAND_0;
-`endif // RANDOMIZE_REG_INIT
   wire  cpucore_clock; // @[src/src/main.scala 8:29]
   wire  cpucore_reset; // @[src/src/main.scala 8:29]
   wire  cpucore_inst_sram_en; // @[src/src/main.scala 8:29]
@@ -1439,7 +1436,6 @@ module Main(
   wire [31:0] iram_wdata; // @[src/src/main.scala 10:33]
   wire [3:0] iram_wstrb; // @[src/src/main.scala 10:33]
   wire [31:0] iram_rdata; // @[src/src/main.scala 10:33]
-  reg  cpucore_reset_REG; // @[src/src/main.scala 12:33]
   mycpu_top cpucore ( // @[src/src/main.scala 8:29]
     .clock(cpucore_clock),
     .reset(cpucore_reset),
@@ -1469,66 +1465,18 @@ module Main(
     .wstrb(iram_wstrb),
     .rdata(iram_rdata)
   );
-  assign cpucore_clock = clock; // @[src/src/main.scala 13:23]
-  assign cpucore_reset = cpucore_reset_REG; // @[src/src/main.scala 12:23]
-  assign cpucore_inst_sram_rdata = iram_rdata; // @[src/src/main.scala 15:27]
-  assign cpucore_data_sram_rdata = dram_rdata; // @[src/src/main.scala 14:27]
-  assign dram_en = cpucore_data_sram_en; // @[src/src/main.scala 14:27]
-  assign dram_wr = cpucore_data_sram_wr; // @[src/src/main.scala 14:27]
-  assign dram_addr = cpucore_data_sram_addr; // @[src/src/main.scala 14:27]
-  assign dram_wdata = cpucore_data_sram_wdata; // @[src/src/main.scala 14:27]
-  assign dram_wstrb = cpucore_data_sram_wstrb; // @[src/src/main.scala 14:27]
-  assign iram_en = cpucore_inst_sram_en; // @[src/src/main.scala 15:27]
-  assign iram_wr = 1'h0; // @[src/src/main.scala 15:27]
-  assign iram_addr = cpucore_inst_sram_addr; // @[src/src/main.scala 15:27]
-  assign iram_wdata = 32'h0; // @[src/src/main.scala 15:27]
-  assign iram_wstrb = 4'h0; // @[src/src/main.scala 15:27]
-  always @(posedge clock) begin
-    cpucore_reset_REG <= reset; // @[src/src/main.scala 12:33]
-  end
-// Register and memory initialization
-`ifdef RANDOMIZE_GARBAGE_ASSIGN
-`define RANDOMIZE
-`endif
-`ifdef RANDOMIZE_INVALID_ASSIGN
-`define RANDOMIZE
-`endif
-`ifdef RANDOMIZE_REG_INIT
-`define RANDOMIZE
-`endif
-`ifdef RANDOMIZE_MEM_INIT
-`define RANDOMIZE
-`endif
-`ifndef RANDOM
-`define RANDOM $random
-`endif
-`ifdef RANDOMIZE_MEM_INIT
-  integer initvar;
-`endif
-`ifndef SYNTHESIS
-`ifdef FIRRTL_BEFORE_INITIAL
-`FIRRTL_BEFORE_INITIAL
-`endif
-initial begin
-  `ifdef RANDOMIZE
-    `ifdef INIT_RANDOM
-      `INIT_RANDOM
-    `endif
-    `ifndef VERILATOR
-      `ifdef RANDOMIZE_DELAY
-        #`RANDOMIZE_DELAY begin end
-      `else
-        #0.002 begin end
-      `endif
-    `endif
-`ifdef RANDOMIZE_REG_INIT
-  _RAND_0 = {1{`RANDOM}};
-  cpucore_reset_REG = _RAND_0[0:0];
-`endif // RANDOMIZE_REG_INIT
-  `endif // RANDOMIZE
-end // initial
-`ifdef FIRRTL_AFTER_INITIAL
-`FIRRTL_AFTER_INITIAL
-`endif
-`endif // SYNTHESIS
+  assign cpucore_clock = clock;
+  assign cpucore_reset = reset;
+  assign cpucore_inst_sram_rdata = iram_rdata; // @[src/src/main.scala 13:27]
+  assign cpucore_data_sram_rdata = dram_rdata; // @[src/src/main.scala 12:27]
+  assign dram_en = cpucore_data_sram_en; // @[src/src/main.scala 12:27]
+  assign dram_wr = cpucore_data_sram_wr; // @[src/src/main.scala 12:27]
+  assign dram_addr = cpucore_data_sram_addr; // @[src/src/main.scala 12:27]
+  assign dram_wdata = cpucore_data_sram_wdata; // @[src/src/main.scala 12:27]
+  assign dram_wstrb = cpucore_data_sram_wstrb; // @[src/src/main.scala 12:27]
+  assign iram_en = cpucore_inst_sram_en; // @[src/src/main.scala 13:27]
+  assign iram_wr = 1'h0; // @[src/src/main.scala 13:27]
+  assign iram_addr = cpucore_inst_sram_addr; // @[src/src/main.scala 13:27]
+  assign iram_wdata = 32'h0; // @[src/src/main.scala 13:27]
+  assign iram_wstrb = 4'h0; // @[src/src/main.scala 13:27]
 endmodule
