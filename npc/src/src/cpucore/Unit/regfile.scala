@@ -46,7 +46,7 @@ class regfile extends Module{
     val difftest = Module(new Difftest)
     difftest.io.rf(0) := 0.U
     for(i <- 1 to 31){
-        difftest.io.rf(i) := Mux(i.U === io.waddr, io.wdata, rf(i))
+        difftest.io.rf(i) := Mux(i.U === io.waddr & io.wen, io.wdata, rf(i))
     }
 
     val npc_brk = Module(new npc_break)

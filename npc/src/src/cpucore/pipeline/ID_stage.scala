@@ -51,10 +51,10 @@ class ID_stage extends Module{
 
 
 
-    val rk_or_rd = (inst_name =/= u(INST_JIRL) & inst_type === u(R2I16)) | mem_we === u(MEM_WR)
+    val src2_is_rd = (inst_name =/= u(INST_JIRL) & inst_type === u(R2I16)) | mem_we === u(MEM_WR)
     val reg = Module(new regfile)
     reg.io.raddr1 := rj
-    reg.io.raddr2 := Mux(rk_or_rd, rk, rd)
+    reg.io.raddr2 := Mux(src2_is_rd, rd, rk)
     reg.io.waddr := Mux(inst_name === u(INST_BL), 1.U, torf.rf_waddr)
     reg.io.wdata := torf.rf_wdata
     reg.io.wen := torf.rf_we
