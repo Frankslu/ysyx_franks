@@ -12,9 +12,9 @@ class preIF extends Module{
     val inst_sram = IO(new sram_io)
     val tofs = IO(Decoupled(new pre2fs))
 
-    val pc = RegInit(PC_INIT.U)
+    val pc = Reg(UInt(ADDR_WIDTH.W))
     val snpc = pc + 4.U
-    pc := Mux(br.taken, br.target, snpc)
+    pc := Mux(reset.asBool, PC_INIT.U, Mux(br.taken, br.target, snpc))
 
     inst_sram.en := ~reset.asBool
     inst_sram.wr := 0.B
