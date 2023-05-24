@@ -19,6 +19,7 @@ void init_sdb();
 void init_trace();
 void init_verilator(int argc, char *argv[]);
 void verilator_finish();
+void set_npc_state(int state, vaddr_t pc, int halt_ret);
 
 static int parse_args(int argc, char *argv[]) {
 	const struct option table[] = {
@@ -118,4 +119,5 @@ void reset_monitor(){
 	init_verilator(parameter_argc, parameter_argv);
 	IFDEF(CONFIG_DIFFTEST ,init_difftest(diff_so_file, img_size));
 	IFDEF(CONFIG_TRACE, init_trace());
+	set_npc_state(NPC_RUNNING, RESET_VECTOR, 0);
 }
