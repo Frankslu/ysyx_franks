@@ -22,7 +22,7 @@ sim: V$(TOP)
 
 gdb: V$(TOP)
 	echo $(BUILD_DIR)/V$(TOP)
-	gdb $(BUILD_DIR)/V$(TOP)
+	gdb -s $(BUILD_DIR)/V$(TOP)
 
 wave:
 	gtkwave wave.vcd	
