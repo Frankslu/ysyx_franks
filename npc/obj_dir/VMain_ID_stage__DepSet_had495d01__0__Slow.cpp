@@ -240,6 +240,7 @@ VL_ATTR_COLD void VMain_ID_stage___ctor_var_reset(VMain_ID_stage* vlSelf) {
     vlSelf->__PVT___decode_res_T_131 = VL_RAND_RESET_I(1);
     vlSelf->__PVT___decode_res_T_132 = VL_RAND_RESET_I(5);
     vlSelf->__PVT___decode_res_T_133 = VL_RAND_RESET_I(1);
+    vlSelf->__PVT__decode_res_orMatrixOutputs_lo_lo_hi = VL_RAND_RESET_I(2);
     vlSelf->__PVT__decode_res_orMatrixOutputs_lo = VL_RAND_RESET_I(8);
     vlSelf->__PVT___decode_res_orMatrixOutputs_T = VL_RAND_RESET_I(17);
     vlSelf->__PVT___decode_res_orMatrixOutputs_T_1 = VL_RAND_RESET_I(1);
@@ -254,7 +255,6 @@ VL_ATTR_COLD void VMain_ID_stage___ctor_var_reset(VMain_ID_stage* vlSelf) {
     vlSelf->__PVT__decode_res_orMatrixOutputs_hi_5 = VL_RAND_RESET_I(3);
     vlSelf->__PVT___decode_res_orMatrixOutputs_T_10 = VL_RAND_RESET_I(5);
     vlSelf->__PVT___decode_res_orMatrixOutputs_T_11 = VL_RAND_RESET_I(1);
-    vlSelf->__PVT___decode_res_orMatrixOutputs_T_12 = VL_RAND_RESET_I(2);
     vlSelf->__PVT___decode_res_orMatrixOutputs_T_13 = VL_RAND_RESET_I(1);
     vlSelf->__PVT___decode_res_orMatrixOutputs_T_15 = VL_RAND_RESET_I(1);
     vlSelf->__PVT__decode_res_orMatrixOutputs_lo_6 = VL_RAND_RESET_I(7);

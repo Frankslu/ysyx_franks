@@ -165,6 +165,7 @@ class VMain_ID_stage final : public VerilatedModule {
         CData/*0:0*/ __PVT___decode_res_T_131;
         CData/*4:0*/ __PVT___decode_res_T_132;
         CData/*0:0*/ __PVT___decode_res_T_133;
+        CData/*1:0*/ __PVT__decode_res_orMatrixOutputs_lo_lo_hi;
         CData/*7:0*/ __PVT__decode_res_orMatrixOutputs_lo;
         CData/*0:0*/ __PVT___decode_res_orMatrixOutputs_T_1;
         CData/*6:0*/ __PVT___decode_res_orMatrixOutputs_T_2;
@@ -178,7 +179,6 @@ class VMain_ID_stage final : public VerilatedModule {
         CData/*2:0*/ __PVT__decode_res_orMatrixOutputs_hi_5;
         CData/*4:0*/ __PVT___decode_res_orMatrixOutputs_T_10;
         CData/*0:0*/ __PVT___decode_res_orMatrixOutputs_T_11;
-        CData/*1:0*/ __PVT___decode_res_orMatrixOutputs_T_12;
         CData/*0:0*/ __PVT___decode_res_orMatrixOutputs_T_13;
         CData/*0:0*/ __PVT___decode_res_orMatrixOutputs_T_15;
         CData/*6:0*/ __PVT__decode_res_orMatrixOutputs_lo_6;
