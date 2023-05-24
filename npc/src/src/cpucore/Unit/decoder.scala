@@ -44,9 +44,10 @@ object loongarch32r_inst{
 	val R2I12   = set_inst_type(3)
 	val R2I16   = set_inst_type(4)
 	val R1I20   = set_inst_type(5)
-	val I26     = set_inst_type(6)
-	val BRK_T   = set_inst_type(7)
-	val R2I12U  = set_inst_type(8)
+	val R1I20U  = set_inst_type(6)
+	val I26     = set_inst_type(7)
+	val BRK_T   = set_inst_type(8)
+	val R2I12U  = set_inst_type(9)
 //    val R2
 //    val R4
 //    val R2I8
@@ -152,7 +153,7 @@ object loongarch32r_inst{
 		BGE       -> BitPat("b" +OP_NONE  +R2I16  +MEM_UN +INST_BGE  +RF_UN),
 		BLTU      -> BitPat("b" +OP_NONE  +R2I16  +MEM_UN +INST_BLTU +RF_UN),
 		BGEU      -> BitPat("b" +OP_NONE  +R2I16  +MEM_UN +INST_BGEU +RF_UN),
-		LU12I_W   -> BitPat("b" +OP_LUI   +R1I20  +MEM_UN +INST_NNNN +RF_WE),
+		LU12I_W   -> BitPat("b" +OP_LUI   +R1I20U +MEM_UN +INST_NNNN +RF_WE),
 		PCADDU12I -> BitPat("b" +OP_ADD   +R1I20  +MEM_UN +INST_PCAD +RF_WE),
 		SLTI      -> BitPat("b" +OP_SLT   +R2I12  +MEM_UN +INST_NNNN +RF_WE),
 		SLTUI     -> BitPat("b" +OP_SLTU  +R2I12  +MEM_UN +INST_NNNN +RF_WE),

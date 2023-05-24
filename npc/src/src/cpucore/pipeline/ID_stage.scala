@@ -23,8 +23,9 @@ class ID_stage extends Module{
     val imm12u = inst(21,10)
     val imm12  = sign_extend(inst(21,10))
     val imm16  = sign_extend(Cat(inst(25,10),0.U(2.W)))
-    val imm20  = Cat(inst(24,5), 0.U(12.W))
-    val imm26  = Cat(rj, rd, inst(25,10))
+    val imm20u  = Cat(inst(24,5), 0.U(12.W))
+    val imm20 = sign_extend(imm20u)
+    val imm26  = sign_extend(Cat(rj, rd, inst(25,10), 0.U(2.W)))
 
 
 
@@ -44,6 +45,7 @@ class ID_stage extends Module{
         (inst_type === u(R2I12U)) -> imm12u,
         (inst_type === u(R2I16)) -> 4.U,
         (inst_type === u(R1I20)) -> imm20,
+        (inst_type === u(R1I20U)) -> imm20u,
         (inst_type === u(I26))   -> 4.U
     ))
 
@@ -85,8 +87,8 @@ class ID_stage extends Module{
     br.target := MuxLookup(inst_name, ds_pc + imm)(Seq(
         u(INST_JIRL) -> (rj_value + imm),
         u(INST_BRK) -> ds_pc,
-        u(INST_B) -> imm26,
-        u(INST_BL) -> imm26
+        u(INST_B) -> (imm26 + ds_pc),
+        u(INST_BL) -> (imm26 + ds_pc)
     ))
 
 
