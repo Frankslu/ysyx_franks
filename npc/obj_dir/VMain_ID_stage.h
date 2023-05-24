@@ -303,6 +303,8 @@ class VMain_ID_stage final : public VerilatedModule {
         IData/*31:0*/ __PVT__reg___05Fio_rf_pc;
         IData/*31:0*/ __PVT__reg___05Fio_inst;
         IData/*31:0*/ __PVT__imm12;
+        IData/*17:0*/ __PVT___imm16_sign_T;
+        IData/*31:0*/ __PVT__imm16;
         IData/*31:0*/ __PVT__imm20u;
         IData/*31:0*/ __PVT__imm20;
         IData/*27:0*/ __PVT___imm26_sign_T;
@@ -329,10 +331,9 @@ class VMain_ID_stage final : public VerilatedModule {
         IData/*31:0*/ __PVT__imm;
         IData/*31:0*/ __PVT___br_target_T_1;
         IData/*31:0*/ __PVT___br_target_T_3;
-        IData/*31:0*/ __PVT___br_target_T_5;
+        IData/*31:0*/ __PVT___br_target_T_7;
         IData/*31:0*/ __PVT___br_target_T_9;
         IData/*31:0*/ __PVT___br_target_T_11;
-        IData/*31:0*/ __PVT___br_target_T_13;
         QData/*32:0*/ __PVT___rj_sub_rd_T;
         QData/*32:0*/ __PVT__rj_sub_rd;
     };
