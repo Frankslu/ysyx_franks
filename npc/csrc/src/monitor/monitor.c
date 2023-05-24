@@ -20,6 +20,7 @@ void init_trace();
 void init_verilator(int argc, char *argv[]);
 void verilator_finish();
 void set_npc_state(int state, vaddr_t pc, int halt_ret);
+void reload_bp();
 
 static int parse_args(int argc, char *argv[]) {
 	const struct option table[] = {
@@ -120,4 +121,5 @@ void reset_monitor(){
 	IFDEF(CONFIG_DIFFTEST ,init_difftest(diff_so_file, img_size));
 	IFDEF(CONFIG_TRACE, init_trace());
 	set_npc_state(NPC_RUNNING, RESET_VECTOR, 0);
+	reload_bp();
 }

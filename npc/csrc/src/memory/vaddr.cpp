@@ -9,6 +9,10 @@ void record_read(vaddr_t addr);
 void record_write(vaddr_t addr);
 
 extern "C" void vaddr_fetch(int raddr, int *rdata){
+	extern word_t replaced_inst;
+	if (cpu.is_break == 1){
+		*rdata = replaced_inst;
+	}
 	*rdata = paddr_read(raddr, 4);
 }
 

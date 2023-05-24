@@ -21,6 +21,8 @@ static BP *bp_free = NULL;
 BP *bp_head = NULL;
 word_t replaced_inst;
 
+static word_t brk_inst = 0x2a0000;
+
 word_t break_ifetch(vaddr_t addr, int len);
 void break_write(vaddr_t addr, int len, word_t data);
 
@@ -43,7 +45,6 @@ void init_bp_pool() {
 /* TODO: Implement the functionality of watchpoint */
 BP *new_bp(vaddr_t pc){
 	word_t mask = 0xffff8000;
-	word_t brk_inst = 0x2a0000;
 	if (in_pmem(pc) == false){
 		printf("Out of memory bound\n");
 		return NULL;
@@ -172,5 +173,13 @@ int scan_bp(vaddr_t pc){
 		p = p->next;
 	}
 	return found;
+}
+
+void reload_bp(){
+	BP *p = bp_head;
+	while (p != NULL){
+		break_write(p->pc, 4, brk_inst);
+		p = p->next;
+	}
 }
 #endif
