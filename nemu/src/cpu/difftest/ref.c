@@ -71,7 +71,7 @@ void difftest_memcpy(paddr_t addr, void *buf, size_t n, bool direction) {
 		}
 
 		uint8_t *buf2 = (uint8_t *)buf1;
-		while (n >= 1){
+		if (n >= 1){
 			paddr_write(addr, 1, *buf2);
 		}
 	}
