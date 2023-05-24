@@ -248,6 +248,7 @@ static struct {
 	{ "x", "scan memory", cmd_x},
 	{ "p", "print value of expression", cmd_p},
 	{ "d", "delete watchpoint or breakpoint", cmd_d},
+	{ "rst", "reset monitor", cmd_rst},
 	IFDEF(CONFIG_WATCHPOINT, { "w", "set watchpoint", cmd_w},)
 	IFDEF(CONFIG_BREAKPOINT, { "b", "set breakpoint", cmd_b})
 
