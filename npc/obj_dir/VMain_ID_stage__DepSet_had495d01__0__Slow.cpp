@@ -234,7 +234,7 @@ VL_ATTR_COLD void VMain_ID_stage___ctor_var_reset(VMain_ID_stage* vlSelf) {
     vlSelf->__PVT__decode_res_orMatrixOutputs_lo = VL_RAND_RESET_I(8);
     vlSelf->__PVT___decode_res_orMatrixOutputs_T = VL_RAND_RESET_I(17);
     vlSelf->__PVT___decode_res_orMatrixOutputs_T_1 = VL_RAND_RESET_I(1);
-    vlSelf->__PVT___decode_res_orMatrixOutputs_T_2 = VL_RAND_RESET_I(6);
+    vlSelf->__PVT___decode_res_orMatrixOutputs_T_2 = VL_RAND_RESET_I(7);
     vlSelf->__PVT___decode_res_orMatrixOutputs_T_3 = VL_RAND_RESET_I(1);
     vlSelf->__PVT___decode_res_orMatrixOutputs_T_4 = VL_RAND_RESET_I(7);
     vlSelf->__PVT___decode_res_orMatrixOutputs_T_5 = VL_RAND_RESET_I(1);

@@ -44,12 +44,12 @@ VL_INLINE_OPT void VMain_ID_stage___nba_sequent__TOP__Main__cpucore__ID__0(VMain
     vlSelf->__PVT__rk = (0x1fU & VL_SEL_IIII(32, vlSelf->__PVT__ds_bits_inst, 0xaU, 5U));
     vlSelf->__PVT__decode_res_andMatrixInput_4_23 = 
         (1U & VL_BITSEL_IIII(32, vlSelf->__PVT__ds_bits_inst, 0x15U));
-    vlSelf->__PVT__decode_res_andMatrixInput_1_5 = 
-        (1U & VL_BITSEL_IIII(32, vlSelf->__PVT__ds_bits_inst, 0x11U));
     vlSelf->__PVT__decode_res_andMatrixInput_1_4 = 
         (1U & VL_BITSEL_IIII(32, vlSelf->__PVT__ds_bits_inst, 0x10U));
     vlSelf->__PVT__decode_res_andMatrixInput_1_35 = 
         (1U & VL_BITSEL_IIII(32, vlSelf->__PVT__ds_bits_inst, 0x17U));
+    vlSelf->__PVT__decode_res_andMatrixInput_1_5 = 
+        (1U & VL_BITSEL_IIII(32, vlSelf->__PVT__ds_bits_inst, 0x11U));
     vlSelf->__PVT__decode_res_andMatrixInput_3_18 = 
         (1U & VL_BITSEL_IIII(32, vlSelf->__PVT__ds_bits_inst, 0x13U));
     vlSelf->__PVT__decode_res_andMatrixInput_1_36 = 
@@ -145,13 +145,13 @@ VL_INLINE_OPT void VMain_ID_stage___nba_sequent__TOP__Main__cpucore__ID__0(VMain
                                                      VL_CONCAT_III(4,1,3, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_2_41), 
                                                                    VL_CONCAT_III(3,1,2, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_12), 
                                                                                 VL_CONCAT_III(2,1,1, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_3_57), (IData)(vlSelf->__PVT__decode_res_andMatrixInput_14)))));
-    vlSelf->__PVT___decode_res_T_130 = VL_CONCAT_III(5,1,4, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_9), 
-                                                     VL_CONCAT_III(4,1,3, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_11), 
-                                                                   VL_CONCAT_III(3,1,2, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_5_44), 
-                                                                                VL_CONCAT_III(2,1,1, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_3_57), (IData)(vlSelf->__PVT__decode_res_andMatrixInput_14)))));
     vlSelf->__PVT___decode_res_T_126 = VL_CONCAT_III(5,1,4, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_2_43), 
                                                      VL_CONCAT_III(4,1,3, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_2_41), 
                                                                    VL_CONCAT_III(3,1,2, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_12), 
+                                                                                VL_CONCAT_III(2,1,1, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_3_57), (IData)(vlSelf->__PVT__decode_res_andMatrixInput_14)))));
+    vlSelf->__PVT___decode_res_T_130 = VL_CONCAT_III(5,1,4, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_9), 
+                                                     VL_CONCAT_III(4,1,3, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_11), 
+                                                                   VL_CONCAT_III(3,1,2, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_5_44), 
                                                                                 VL_CONCAT_III(2,1,1, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_3_57), (IData)(vlSelf->__PVT__decode_res_andMatrixInput_14)))));
     vlSelf->__PVT___decode_res_T_102 = VL_CONCAT_III(9,1,8, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_6), 
                                                      VL_CONCAT_III(8,1,7, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_1_36), 
@@ -195,7 +195,7 @@ VL_INLINE_OPT void VMain_ID_stage___nba_sequent__TOP__Main__cpucore__ID__0(VMain
                                                                                 VL_CONCAT_III(4,1,3, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_11), 
                                                                                 VL_CONCAT_III(3,1,2, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_5_44), 
                                                                                 VL_CONCAT_III(2,1,1, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_13), (IData)(vlSelf->__PVT__decode_res_andMatrixInput_14))))))))));
-    vlSelf->__PVT___decode_res_T_112 = VL_CONCAT_III(10,1,9, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_6_27), 
+    vlSelf->__PVT___decode_res_T_110 = VL_CONCAT_III(10,1,9, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_5), 
                                                      VL_CONCAT_III(9,1,8, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_6), 
                                                                    VL_CONCAT_III(8,1,7, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_7), 
                                                                                 VL_CONCAT_III(7,1,6, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_2_31), 
@@ -204,7 +204,7 @@ VL_INLINE_OPT void VMain_ID_stage___nba_sequent__TOP__Main__cpucore__ID__0(VMain
                                                                                 VL_CONCAT_III(4,1,3, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_11), 
                                                                                 VL_CONCAT_III(3,1,2, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_5_44), 
                                                                                 VL_CONCAT_III(2,1,1, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_13), (IData)(vlSelf->__PVT__decode_res_andMatrixInput_14))))))))));
-    vlSelf->__PVT___decode_res_T_110 = VL_CONCAT_III(10,1,9, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_5), 
+    vlSelf->__PVT___decode_res_T_112 = VL_CONCAT_III(10,1,9, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_6_27), 
                                                      VL_CONCAT_III(9,1,8, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_6), 
                                                                    VL_CONCAT_III(8,1,7, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_7), 
                                                                                 VL_CONCAT_III(7,1,6, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_2_31), 
@@ -379,15 +379,15 @@ VL_INLINE_OPT void VMain_ID_stage___nba_sequent__TOP__Main__cpucore__ID__0(VMain
     vlSelf->__PVT___decode_res_T_69 = VL_REDAND_II(9, (IData)(vlSelf->__PVT___decode_res_T_68));
     vlSelf->__PVT___decode_res_T_81 = VL_REDAND_II(10, (IData)(vlSelf->__PVT___decode_res_T_80));
     vlSelf->__PVT___decode_res_T_121 = VL_REDAND_II(5, (IData)(vlSelf->__PVT___decode_res_T_120));
-    vlSelf->__PVT___decode_res_T_131 = VL_REDAND_II(5, (IData)(vlSelf->__PVT___decode_res_T_130));
     vlSelf->__PVT___decode_res_T_127 = VL_REDAND_II(5, (IData)(vlSelf->__PVT___decode_res_T_126));
+    vlSelf->__PVT___decode_res_T_131 = VL_REDAND_II(5, (IData)(vlSelf->__PVT___decode_res_T_130));
     vlSelf->__PVT___decode_res_T_103 = VL_REDAND_II(9, (IData)(vlSelf->__PVT___decode_res_T_102));
     vlSelf->__PVT___decode_res_T_109 = VL_REDAND_II(9, (IData)(vlSelf->__PVT___decode_res_T_108));
     vlSelf->__PVT___decode_res_T_99 = VL_REDAND_II(9, (IData)(vlSelf->__PVT___decode_res_T_98));
     vlSelf->__PVT___decode_res_T_67 = VL_REDAND_II(10, (IData)(vlSelf->__PVT___decode_res_T_66));
     vlSelf->__PVT___decode_res_T_107 = VL_REDAND_II(10, (IData)(vlSelf->__PVT___decode_res_T_106));
-    vlSelf->__PVT___decode_res_T_113 = VL_REDAND_II(10, (IData)(vlSelf->__PVT___decode_res_T_112));
     vlSelf->__PVT___decode_res_T_111 = VL_REDAND_II(10, (IData)(vlSelf->__PVT___decode_res_T_110));
+    vlSelf->__PVT___decode_res_T_113 = VL_REDAND_II(10, (IData)(vlSelf->__PVT___decode_res_T_112));
     vlSelf->__PVT___decode_res_T_75 = VL_REDAND_II(10, (IData)(vlSelf->__PVT___decode_res_T_74));
     vlSelf->__PVT___decode_res_T_85 = VL_REDAND_II(7, (IData)(vlSelf->__PVT___decode_res_T_84));
     vlSelf->__PVT___decode_res_T_119 = VL_REDAND_II(4, (IData)(vlSelf->__PVT___decode_res_T_118));
@@ -643,15 +643,6 @@ VL_INLINE_OPT void VMain_ID_stage___nba_sequent__TOP__Main__cpucore__ID__0(VMain
                                                                                 VL_CONCAT_III(11,1,10, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_4), 
                                                                                 VL_CONCAT_III(10,1,9, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_5), 
                                                                                 VL_CONCAT_III(9,1,8, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_6), (IData)(vlSelf->__PVT__decode_res_lo_1)))))))));
-    vlSelf->__PVT___decode_res_T_52 = VL_CONCAT_III(17,1,16, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_0), 
-                                                    VL_CONCAT_III(16,1,15, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_1), 
-                                                                  VL_CONCAT_III(15,1,14, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_1_5), 
-                                                                                VL_CONCAT_III(14,1,13, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_3_1), 
-                                                                                VL_CONCAT_III(13,1,12, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_3_18), 
-                                                                                VL_CONCAT_III(12,1,11, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_3_23), 
-                                                                                VL_CONCAT_III(11,1,10, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_4_23), 
-                                                                                VL_CONCAT_III(10,1,9, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_5), 
-                                                                                VL_CONCAT_III(9,1,8, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_6), (IData)(vlSelf->__PVT__decode_res_lo_1))))))))));
     vlSelf->__PVT___decode_res_T_56 = VL_CONCAT_III(16,1,15, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_0_7), 
                                                     VL_CONCAT_III(15,1,14, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_1), 
                                                                   VL_CONCAT_III(14,1,13, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_2), 
@@ -668,6 +659,15 @@ VL_INLINE_OPT void VMain_ID_stage___nba_sequent__TOP__Main__cpucore__ID__0(VMain
                                                                                 VL_CONCAT_III(11,1,10, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_4), 
                                                                                 VL_CONCAT_III(10,1,9, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_6_27), 
                                                                                 VL_CONCAT_III(9,1,8, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_6), (IData)(vlSelf->__PVT__decode_res_lo_1)))))))));
+    vlSelf->__PVT___decode_res_T_52 = VL_CONCAT_III(17,1,16, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_0), 
+                                                    VL_CONCAT_III(16,1,15, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_1), 
+                                                                  VL_CONCAT_III(15,1,14, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_1_5), 
+                                                                                VL_CONCAT_III(14,1,13, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_3_1), 
+                                                                                VL_CONCAT_III(13,1,12, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_3_18), 
+                                                                                VL_CONCAT_III(12,1,11, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_3_23), 
+                                                                                VL_CONCAT_III(11,1,10, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_4_23), 
+                                                                                VL_CONCAT_III(10,1,9, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_5), 
+                                                                                VL_CONCAT_III(9,1,8, (IData)(vlSelf->__PVT__decode_res_andMatrixInput_6), (IData)(vlSelf->__PVT__decode_res_lo_1))))))))));
     vlSelf->__PVT___decode_res_orMatrixOutputs_T_22 
         = VL_CONCAT_III(2,1,1, (IData)(vlSelf->__PVT___decode_res_T_73), (IData)(vlSelf->__PVT___decode_res_T_77));
     vlSelf->__PVT___decode_res_orMatrixOutputs_T_4 
@@ -688,12 +688,6 @@ VL_INLINE_OPT void VMain_ID_stage___nba_sequent__TOP__Main__cpucore__ID__0(VMain
                                                     VL_CONCAT_III(2,1,1, (IData)(vlSelf->__PVT___decode_res_T_123), (IData)(vlSelf->__PVT___decode_res_T_133)))));
     vlSelf->__PVT___decode_res_orMatrixOutputs_T_12 
         = VL_CONCAT_III(2,1,1, (IData)(vlSelf->__PVT___decode_res_T_95), (IData)(vlSelf->__PVT___decode_res_T_97));
-    vlSelf->__PVT___decode_res_orMatrixOutputs_T_2 
-        = VL_CONCAT_III(6,1,5, (IData)(vlSelf->__PVT___decode_res_T_95), 
-                        VL_CONCAT_III(5,1,4, (IData)(vlSelf->__PVT___decode_res_T_105), 
-                                      VL_CONCAT_III(4,1,3, (IData)(vlSelf->__PVT___decode_res_T_113), 
-                                                    VL_CONCAT_III(3,1,2, (IData)(vlSelf->__PVT___decode_res_T_117), 
-                                                                  VL_CONCAT_III(2,1,1, (IData)(vlSelf->__PVT___decode_res_T_121), (IData)(vlSelf->__PVT___decode_res_T_131))))));
     vlSelf->__PVT__decode_res_orMatrixOutputs_hi_5 
         = VL_CONCAT_III(3,1,2, (IData)(vlSelf->__PVT___decode_res_T_89), 
                         VL_CONCAT_III(2,1,1, (IData)(vlSelf->__PVT___decode_res_T_91), (IData)(vlSelf->__PVT___decode_res_T_93)));
@@ -746,9 +740,9 @@ VL_INLINE_OPT void VMain_ID_stage___nba_sequent__TOP__Main__cpucore__ID__0(VMain
     vlSelf->__PVT___decode_res_T_61 = VL_REDAND_II(17, vlSelf->__PVT___decode_res_T_60);
     vlSelf->__PVT___decode_res_T_41 = VL_REDAND_II(16, (IData)(vlSelf->__PVT___decode_res_T_40));
     vlSelf->__PVT___decode_res_T_11 = VL_REDAND_II(16, (IData)(vlSelf->__PVT___decode_res_T_10));
-    vlSelf->__PVT___decode_res_T_53 = VL_REDAND_II(17, vlSelf->__PVT___decode_res_T_52);
     vlSelf->__PVT___decode_res_T_57 = VL_REDAND_II(16, (IData)(vlSelf->__PVT___decode_res_T_56));
     vlSelf->__PVT___decode_res_T_55 = VL_REDAND_II(16, (IData)(vlSelf->__PVT___decode_res_T_54));
+    vlSelf->__PVT___decode_res_T_53 = VL_REDAND_II(17, vlSelf->__PVT___decode_res_T_52);
     vlSelf->__PVT___decode_res_orMatrixOutputs_T_23 
         = VL_REDOR_I((IData)(vlSelf->__PVT___decode_res_orMatrixOutputs_T_22));
     vlSelf->__PVT___decode_res_orMatrixOutputs_T_5 
@@ -759,8 +753,6 @@ VL_INLINE_OPT void VMain_ID_stage___nba_sequent__TOP__Main__cpucore__ID__0(VMain
         = VL_REDOR_I((IData)(vlSelf->__PVT___decode_res_orMatrixOutputs_T_6));
     vlSelf->__PVT___decode_res_orMatrixOutputs_T_13 
         = VL_REDOR_I((IData)(vlSelf->__PVT___decode_res_orMatrixOutputs_T_12));
-    vlSelf->__PVT___decode_res_orMatrixOutputs_T_3 
-        = VL_REDOR_I((IData)(vlSelf->__PVT___decode_res_orMatrixOutputs_T_2));
     vlSelf->__PVT___decode_res_orMatrixOutputs_T_15 
         = VL_REDOR_I((IData)(vlSelf->__PVT__decode_res_orMatrixOutputs_hi_5));
     vlSelf->__PVT___decode_res_orMatrixOutputs_T_11 
@@ -779,27 +771,6 @@ VL_INLINE_OPT void VMain_ID_stage___nba_sequent__TOP__Main__cpucore__ID__0(VMain
                                       VL_CONCAT_III(4,1,3, (IData)(vlSelf->__PVT___decode_res_T_59), 
                                                     VL_CONCAT_III(3,1,2, (IData)(vlSelf->__PVT___decode_res_T_61), 
                                                                   VL_CONCAT_III(2,1,1, (IData)(vlSelf->__PVT___decode_res_T_67), (IData)(vlSelf->__PVT___decode_res_T_79))))));
-    vlSelf->__PVT___decode_res_orMatrixOutputs_T_20 
-        = VL_CONCAT_III(5,1,4, (IData)(vlSelf->__PVT___decode_res_T_53), 
-                        VL_CONCAT_III(4,1,3, (IData)(vlSelf->__PVT___decode_res_T_83), 
-                                      VL_CONCAT_III(3,1,2, (IData)(vlSelf->__PVT___decode_res_T_115), 
-                                                    VL_CONCAT_III(2,1,1, (IData)(vlSelf->__PVT___decode_res_T_119), (IData)(vlSelf->__PVT___decode_res_T_129)))));
-    vlSelf->__PVT__decode_res_orMatrixOutputs_lo_6 
-        = VL_CONCAT_III(7,1,6, (IData)(vlSelf->__PVT___decode_res_T_53), 
-                        VL_CONCAT_III(6,1,5, (IData)(vlSelf->__PVT___decode_res_T_63), 
-                                      VL_CONCAT_III(5,1,4, (IData)(vlSelf->__PVT___decode_res_T_65), 
-                                                    VL_CONCAT_III(4,1,3, (IData)(vlSelf->__PVT___decode_res_T_83), 
-                                                                  VL_CONCAT_III(3,1,2, (IData)(vlSelf->__PVT___decode_res_T_89), 
-                                                                                VL_CONCAT_III(2,1,1, (IData)(vlSelf->__PVT___decode_res_T_91), (IData)(vlSelf->__PVT___decode_res_T_93)))))));
-    vlSelf->__PVT___decode_res_orMatrixOutputs_T_18 
-        = VL_CONCAT_III(9,1,8, (IData)(vlSelf->__PVT___decode_res_T_53), 
-                        VL_CONCAT_III(8,1,7, (IData)(vlSelf->__PVT___decode_res_T_55), 
-                                      VL_CONCAT_III(7,1,6, (IData)(vlSelf->__PVT___decode_res_T_57), 
-                                                    VL_CONCAT_III(6,1,5, (IData)(vlSelf->__PVT___decode_res_T_63), 
-                                                                  VL_CONCAT_III(5,1,4, (IData)(vlSelf->__PVT___decode_res_T_65), 
-                                                                                VL_CONCAT_III(4,1,3, (IData)(vlSelf->__PVT___decode_res_T_89), 
-                                                                                VL_CONCAT_III(3,1,2, (IData)(vlSelf->__PVT___decode_res_T_91), 
-                                                                                VL_CONCAT_III(2,1,1, (IData)(vlSelf->__PVT___decode_res_T_93), (IData)(vlSelf->__PVT___decode_res_T_123)))))))));
     vlSelf->__PVT___decode_res_orMatrixOutputs_T_24 
         = VL_CONCAT_III(16,1,15, (IData)(vlSelf->__PVT___decode_res_T_3), 
                         VL_CONCAT_III(15,1,14, (IData)(vlSelf->__PVT___decode_res_T_7), 
@@ -828,6 +799,34 @@ VL_INLINE_OPT void VMain_ID_stage___nba_sequent__TOP__Main__cpucore__ID__0(VMain
                                                                                 VL_CONCAT_III(11,1,10, (IData)(vlSelf->__PVT___decode_res_T_47), 
                                                                                 VL_CONCAT_III(10,1,9, (IData)(vlSelf->__PVT___decode_res_T_55), 
                                                                                 VL_CONCAT_III(9,1,8, (IData)(vlSelf->__PVT___decode_res_T_57), (IData)(vlSelf->__PVT__decode_res_orMatrixOutputs_lo))))))))));
+    vlSelf->__PVT___decode_res_orMatrixOutputs_T_20 
+        = VL_CONCAT_III(5,1,4, (IData)(vlSelf->__PVT___decode_res_T_53), 
+                        VL_CONCAT_III(4,1,3, (IData)(vlSelf->__PVT___decode_res_T_83), 
+                                      VL_CONCAT_III(3,1,2, (IData)(vlSelf->__PVT___decode_res_T_115), 
+                                                    VL_CONCAT_III(2,1,1, (IData)(vlSelf->__PVT___decode_res_T_119), (IData)(vlSelf->__PVT___decode_res_T_129)))));
+    vlSelf->__PVT___decode_res_orMatrixOutputs_T_18 
+        = VL_CONCAT_III(9,1,8, (IData)(vlSelf->__PVT___decode_res_T_53), 
+                        VL_CONCAT_III(8,1,7, (IData)(vlSelf->__PVT___decode_res_T_55), 
+                                      VL_CONCAT_III(7,1,6, (IData)(vlSelf->__PVT___decode_res_T_57), 
+                                                    VL_CONCAT_III(6,1,5, (IData)(vlSelf->__PVT___decode_res_T_63), 
+                                                                  VL_CONCAT_III(5,1,4, (IData)(vlSelf->__PVT___decode_res_T_65), 
+                                                                                VL_CONCAT_III(4,1,3, (IData)(vlSelf->__PVT___decode_res_T_89), 
+                                                                                VL_CONCAT_III(3,1,2, (IData)(vlSelf->__PVT___decode_res_T_91), 
+                                                                                VL_CONCAT_III(2,1,1, (IData)(vlSelf->__PVT___decode_res_T_93), (IData)(vlSelf->__PVT___decode_res_T_123)))))))));
+    vlSelf->__PVT___decode_res_orMatrixOutputs_T_2 
+        = VL_CONCAT_III(7,1,6, (IData)(vlSelf->__PVT___decode_res_T_53), 
+                        VL_CONCAT_III(6,1,5, (IData)(vlSelf->__PVT___decode_res_T_95), 
+                                      VL_CONCAT_III(5,1,4, (IData)(vlSelf->__PVT___decode_res_T_105), 
+                                                    VL_CONCAT_III(4,1,3, (IData)(vlSelf->__PVT___decode_res_T_113), 
+                                                                  VL_CONCAT_III(3,1,2, (IData)(vlSelf->__PVT___decode_res_T_117), 
+                                                                                VL_CONCAT_III(2,1,1, (IData)(vlSelf->__PVT___decode_res_T_121), (IData)(vlSelf->__PVT___decode_res_T_131)))))));
+    vlSelf->__PVT__decode_res_orMatrixOutputs_lo_6 
+        = VL_CONCAT_III(7,1,6, (IData)(vlSelf->__PVT___decode_res_T_53), 
+                        VL_CONCAT_III(6,1,5, (IData)(vlSelf->__PVT___decode_res_T_63), 
+                                      VL_CONCAT_III(5,1,4, (IData)(vlSelf->__PVT___decode_res_T_65), 
+                                                    VL_CONCAT_III(4,1,3, (IData)(vlSelf->__PVT___decode_res_T_83), 
+                                                                  VL_CONCAT_III(3,1,2, (IData)(vlSelf->__PVT___decode_res_T_89), 
+                                                                                VL_CONCAT_III(2,1,1, (IData)(vlSelf->__PVT___decode_res_T_91), (IData)(vlSelf->__PVT___decode_res_T_93)))))));
     vlSelf->__PVT___decode_res_orMatrixOutputs_T_29 
         = VL_REDOR_I((IData)(vlSelf->__PVT___decode_res_orMatrixOutputs_T_28));
     vlSelf->__PVT___decode_res_orMatrixOutputs_T_26 
@@ -837,8 +836,18 @@ VL_INLINE_OPT void VMain_ID_stage___nba_sequent__TOP__Main__cpucore__ID__0(VMain
                                                     VL_CONCAT_III(9,1,8, (IData)(vlSelf->__PVT___decode_res_T_25), 
                                                                   VL_CONCAT_III(8,1,7, (IData)(vlSelf->__PVT___decode_res_T_35), 
                                                                                 VL_CONCAT_III(7,1,6, (IData)(vlSelf->__PVT___decode_res_T_39), (IData)(vlSelf->__PVT__decode_res_orMatrixOutputs_lo_10)))))));
+    vlSelf->__PVT___decode_res_orMatrixOutputs_T_25 
+        = VL_REDOR_I((IData)(vlSelf->__PVT___decode_res_orMatrixOutputs_T_24));
+    vlSelf->__PVT___decode_res_orMatrixOutputs_T_31 
+        = VL_REDOR_I((IData)(vlSelf->__PVT___decode_res_orMatrixOutputs_T_30));
+    vlSelf->__PVT___decode_res_orMatrixOutputs_T_1 
+        = VL_REDOR_I(vlSelf->__PVT___decode_res_orMatrixOutputs_T);
     vlSelf->__PVT___decode_res_orMatrixOutputs_T_21 
         = VL_REDOR_I((IData)(vlSelf->__PVT___decode_res_orMatrixOutputs_T_20));
+    vlSelf->__PVT___decode_res_orMatrixOutputs_T_19 
+        = VL_REDOR_I((IData)(vlSelf->__PVT___decode_res_orMatrixOutputs_T_18));
+    vlSelf->__PVT___decode_res_orMatrixOutputs_T_3 
+        = VL_REDOR_I((IData)(vlSelf->__PVT___decode_res_orMatrixOutputs_T_2));
     vlSelf->__PVT___decode_res_orMatrixOutputs_T_16 
         = VL_CONCAT_III(14,1,13, (IData)(vlSelf->__PVT___decode_res_T_1), 
                         VL_CONCAT_III(13,1,12, (IData)(vlSelf->__PVT___decode_res_T_5), 
@@ -847,18 +856,8 @@ VL_INLINE_OPT void VMain_ID_stage___nba_sequent__TOP__Main__cpucore__ID__0(VMain
                                                                   VL_CONCAT_III(10,1,9, (IData)(vlSelf->__PVT___decode_res_T_19), 
                                                                                 VL_CONCAT_III(9,1,8, (IData)(vlSelf->__PVT___decode_res_T_27), 
                                                                                 VL_CONCAT_III(8,1,7, (IData)(vlSelf->__PVT___decode_res_T_47), (IData)(vlSelf->__PVT__decode_res_orMatrixOutputs_lo_6))))))));
-    vlSelf->__PVT___decode_res_orMatrixOutputs_T_19 
-        = VL_REDOR_I((IData)(vlSelf->__PVT___decode_res_orMatrixOutputs_T_18));
-    vlSelf->__PVT___decode_res_orMatrixOutputs_T_25 
-        = VL_REDOR_I((IData)(vlSelf->__PVT___decode_res_orMatrixOutputs_T_24));
-    vlSelf->__PVT___decode_res_orMatrixOutputs_T_31 
-        = VL_REDOR_I((IData)(vlSelf->__PVT___decode_res_orMatrixOutputs_T_30));
-    vlSelf->__PVT___decode_res_orMatrixOutputs_T_1 
-        = VL_REDOR_I(vlSelf->__PVT___decode_res_orMatrixOutputs_T);
     vlSelf->__PVT___decode_res_orMatrixOutputs_T_27 
         = VL_REDOR_I((IData)(vlSelf->__PVT___decode_res_orMatrixOutputs_T_26));
-    vlSelf->__PVT___decode_res_orMatrixOutputs_T_17 
-        = VL_REDOR_I((IData)(vlSelf->__PVT___decode_res_orMatrixOutputs_T_16));
     vlSelf->__PVT__decode_res_orMatrixOutputs_lo_13 
         = VL_CONCAT_III(8,1,7, (IData)(vlSelf->__PVT___decode_res_orMatrixOutputs_T_15), 
                         VL_CONCAT_III(7,1,6, (IData)(vlSelf->__PVT___decode_res_orMatrixOutputs_T_13), 
@@ -867,6 +866,8 @@ VL_INLINE_OPT void VMain_ID_stage___nba_sequent__TOP__Main__cpucore__ID__0(VMain
                                                                   VL_CONCAT_III(4,1,3, (IData)(vlSelf->__PVT___decode_res_orMatrixOutputs_T_7), 
                                                                                 VL_CONCAT_III(3,1,2, (IData)(vlSelf->__PVT___decode_res_orMatrixOutputs_T_5), 
                                                                                 VL_CONCAT_III(2,1,1, (IData)(vlSelf->__PVT___decode_res_orMatrixOutputs_T_3), (IData)(vlSelf->__PVT___decode_res_orMatrixOutputs_T_1))))))));
+    vlSelf->__PVT___decode_res_orMatrixOutputs_T_17 
+        = VL_REDOR_I((IData)(vlSelf->__PVT___decode_res_orMatrixOutputs_T_16));
     vlSelf->__PVT__decode_res_orMatrixOutputs = VL_CONCAT_III(17,1,16, (IData)(vlSelf->__PVT___decode_res_orMatrixOutputs_T_32), 
                                                               VL_CONCAT_III(16,1,15, (IData)(vlSelf->__PVT___decode_res_orMatrixOutputs_T_31), 
                                                                             VL_CONCAT_III(15,1,14, (IData)(vlSelf->__PVT___decode_res_orMatrixOutputs_T_29), 
