@@ -44,11 +44,15 @@ VL_ATTR_COLD void VMain_mycpu_top___stl_sequent__TOP__Main__cpucore__2(VMain_myc
     VL_DEBUG_IF(VL_DBG_MSGF("+        VMain_mycpu_top___stl_sequent__TOP__Main__cpucore__2\n"); );
     // Body
     vlSelf->__PVT__ID_toes_bits_pc = vlSymsp->TOP__Main__cpucore__ID.__PVT__toes_bits_pc;
+    vlSelf->__PVT__pIF_tofs_valid = vlSymsp->TOP__Main__cpucore__pIF.__PVT__tofs_valid;
     vlSelf->__PVT__pIF_inst_sram_en = vlSymsp->TOP__Main__cpucore__pIF.__PVT__inst_sram_en;
     vlSelf->__PVT__EXE_es_bits_pc = vlSelf->__PVT__ID_toes_bits_pc;
+    vlSelf->__PVT__IF_fs_valid = vlSelf->__PVT__pIF_tofs_valid;
     vlSelf->__PVT__inst_sram_en = vlSelf->__PVT__pIF_inst_sram_en;
     vlSymsp->TOP__Main__cpucore__EXE.__PVT__es_bits_pc 
         = vlSelf->__PVT__EXE_es_bits_pc;
+    vlSymsp->TOP__Main__cpucore__IF.__PVT__fs_valid 
+        = vlSelf->__PVT__IF_fs_valid;
 }
 
 VL_ATTR_COLD void VMain_mycpu_top___stl_sequent__TOP__Main__cpucore__3(VMain_mycpu_top* vlSelf) {
@@ -57,9 +61,13 @@ VL_ATTR_COLD void VMain_mycpu_top___stl_sequent__TOP__Main__cpucore__3(VMain_myc
     VL_DEBUG_IF(VL_DBG_MSGF("+        VMain_mycpu_top___stl_sequent__TOP__Main__cpucore__3\n"); );
     // Body
     vlSelf->__PVT__EXE_toms_bits_pc = vlSymsp->TOP__Main__cpucore__EXE.__PVT__toms_bits_pc;
+    vlSelf->__PVT__IF_tods_valid = vlSymsp->TOP__Main__cpucore__IF.__PVT__tods_valid;
     vlSelf->__PVT__MEM_ms_bits_pc = vlSelf->__PVT__EXE_toms_bits_pc;
+    vlSelf->__PVT__ID_ds_valid = vlSelf->__PVT__IF_tods_valid;
     vlSymsp->TOP__Main__cpucore__MEM.__PVT__ms_bits_pc 
         = vlSelf->__PVT__MEM_ms_bits_pc;
+    vlSymsp->TOP__Main__cpucore__ID.__PVT__ds_valid 
+        = vlSelf->__PVT__ID_ds_valid;
 }
 
 VL_ATTR_COLD void VMain_mycpu_top___stl_sequent__TOP__Main__cpucore__4(VMain_mycpu_top* vlSelf) {
@@ -69,11 +77,15 @@ VL_ATTR_COLD void VMain_mycpu_top___stl_sequent__TOP__Main__cpucore__4(VMain_myc
     // Body
     vlSelf->__PVT__IF_inst_sram_rdata = vlSelf->__PVT__inst_sram_rdata;
     vlSelf->__PVT__MEM_tows_bits_pc = vlSymsp->TOP__Main__cpucore__MEM.__PVT__tows_bits_pc;
+    vlSelf->__PVT__ID_toes_valid = vlSymsp->TOP__Main__cpucore__ID.__PVT__toes_valid;
     vlSymsp->TOP__Main__cpucore__IF.__PVT__inst_sram_rdata 
         = vlSelf->__PVT__IF_inst_sram_rdata;
     vlSelf->__PVT__WB_ws_bits_pc = vlSelf->__PVT__MEM_tows_bits_pc;
+    vlSelf->__PVT__EXE_es_valid = vlSelf->__PVT__ID_toes_valid;
     vlSymsp->TOP__Main__cpucore__WB.__PVT__ws_bits_pc 
         = vlSelf->__PVT__WB_ws_bits_pc;
+    vlSymsp->TOP__Main__cpucore__EXE.__PVT__es_valid 
+        = vlSelf->__PVT__EXE_es_valid;
 }
 
 VL_ATTR_COLD void VMain_mycpu_top___stl_sequent__TOP__Main__cpucore__5(VMain_mycpu_top* vlSelf) {
@@ -83,12 +95,16 @@ VL_ATTR_COLD void VMain_mycpu_top___stl_sequent__TOP__Main__cpucore__5(VMain_myc
     // Body
     vlSelf->__PVT__IF_tods_bits_inst = vlSymsp->TOP__Main__cpucore__IF.__PVT__tods_bits_inst;
     vlSelf->__PVT__WB_torf_pc = vlSymsp->TOP__Main__cpucore__WB.__PVT__torf_pc;
+    vlSelf->__PVT__EXE_toms_valid = vlSymsp->TOP__Main__cpucore__EXE.__PVT__toms_valid;
     vlSelf->__PVT__ID_ds_bits_inst = vlSelf->__PVT__IF_tods_bits_inst;
     vlSelf->__PVT__ID_torf_pc = vlSelf->__PVT__WB_torf_pc;
+    vlSelf->__PVT__MEM_ms_valid = vlSelf->__PVT__EXE_toms_valid;
     vlSymsp->TOP__Main__cpucore__ID.__PVT__ds_bits_inst 
         = vlSelf->__PVT__ID_ds_bits_inst;
     vlSymsp->TOP__Main__cpucore__ID.__PVT__torf_pc 
         = vlSelf->__PVT__ID_torf_pc;
+    vlSymsp->TOP__Main__cpucore__MEM.__PVT__ms_valid 
+        = vlSelf->__PVT__MEM_ms_valid;
 }
 
 VL_ATTR_COLD void VMain_mycpu_top___stl_sequent__TOP__Main__cpucore__6(VMain_mycpu_top* vlSelf) {
@@ -102,12 +118,14 @@ VL_ATTR_COLD void VMain_mycpu_top___stl_sequent__TOP__Main__cpucore__6(VMain_myc
     vlSelf->__PVT__ID_toes_bits_alu_op = vlSymsp->TOP__Main__cpucore__ID.__PVT__toes_bits_alu_op;
     vlSelf->__PVT__ID_toes_bits_rf_waddr = vlSymsp->TOP__Main__cpucore__ID.__PVT__toes_bits_rf_waddr;
     vlSelf->__PVT__ID_toes_bits_is_break = vlSymsp->TOP__Main__cpucore__ID.__PVT__toes_bits_is_break;
+    vlSelf->__PVT__MEM_tows_valid = vlSymsp->TOP__Main__cpucore__MEM.__PVT__tows_valid;
     vlSelf->__PVT__EXE_es_bits_inst = vlSelf->__PVT__ID_toes_bits_inst;
     vlSelf->__PVT__EXE_es_bits_mem_we = vlSelf->__PVT__ID_toes_bits_mem_we;
     vlSelf->__PVT__EXE_es_bits_inst_name = vlSelf->__PVT__ID_toes_bits_inst_name;
     vlSelf->__PVT__EXE_es_bits_alu_op = vlSelf->__PVT__ID_toes_bits_alu_op;
     vlSelf->__PVT__EXE_es_bits_rf_waddr = vlSelf->__PVT__ID_toes_bits_rf_waddr;
     vlSelf->__PVT__EXE_es_bits_is_break = vlSelf->__PVT__ID_toes_bits_is_break;
+    vlSelf->__PVT__WB_ws_valid = vlSelf->__PVT__MEM_tows_valid;
     vlSymsp->TOP__Main__cpucore__EXE.__PVT__es_bits_inst 
         = vlSelf->__PVT__EXE_es_bits_inst;
     vlSymsp->TOP__Main__cpucore__EXE.__PVT__es_bits_mem_we 
@@ -120,6 +138,8 @@ VL_ATTR_COLD void VMain_mycpu_top___stl_sequent__TOP__Main__cpucore__6(VMain_myc
         = vlSelf->__PVT__EXE_es_bits_rf_waddr;
     vlSymsp->TOP__Main__cpucore__EXE.__PVT__es_bits_is_break 
         = vlSelf->__PVT__EXE_es_bits_is_break;
+    vlSymsp->TOP__Main__cpucore__WB.__PVT__ws_valid 
+        = vlSelf->__PVT__WB_ws_valid;
 }
 
 VL_ATTR_COLD void VMain_mycpu_top___stl_sequent__TOP__Main__cpucore__7(VMain_mycpu_top* vlSelf) {
@@ -135,6 +155,7 @@ VL_ATTR_COLD void VMain_mycpu_top___stl_sequent__TOP__Main__cpucore__7(VMain_myc
     vlSelf->__PVT__EXE_toms_bits_rf_waddr = vlSymsp->TOP__Main__cpucore__EXE.__PVT__toms_bits_rf_waddr;
     vlSelf->__PVT__EXE_toms_bits_is_break = vlSymsp->TOP__Main__cpucore__EXE.__PVT__toms_bits_is_break;
     vlSelf->__PVT__EXE_data_sram_wstrb = vlSymsp->TOP__Main__cpucore__EXE.__PVT__data_sram_wstrb;
+    vlSelf->__PVT__WB_torf_valid = vlSymsp->TOP__Main__cpucore__WB.__PVT__torf_valid;
     vlSelf->__PVT__ID_toes_bits_alu_src1 = vlSymsp->TOP__Main__cpucore__ID.__PVT__toes_bits_alu_src1;
     vlSelf->__PVT__ID_toes_bits_mem_wdata = vlSymsp->TOP__Main__cpucore__ID.__PVT__toes_bits_mem_wdata;
     vlSelf->__PVT__ID_toes_bits_alu_src2 = vlSymsp->TOP__Main__cpucore__ID.__PVT__toes_bits_alu_src2;
@@ -148,6 +169,7 @@ VL_ATTR_COLD void VMain_mycpu_top___stl_sequent__TOP__Main__cpucore__7(VMain_myc
     vlSelf->__PVT__MEM_ms_bits_rf_waddr = vlSelf->__PVT__EXE_toms_bits_rf_waddr;
     vlSelf->__PVT__MEM_ms_bits_is_break = vlSelf->__PVT__EXE_toms_bits_is_break;
     vlSelf->__PVT__data_sram_wstrb = vlSelf->__PVT__EXE_data_sram_wstrb;
+    vlSelf->__PVT__ID_torf_valid = vlSelf->__PVT__WB_torf_valid;
     vlSelf->__PVT__EXE_es_bits_alu_src1 = vlSelf->__PVT__ID_toes_bits_alu_src1;
     vlSelf->__PVT__EXE_es_bits_mem_wdata = vlSelf->__PVT__ID_toes_bits_mem_wdata;
     vlSelf->__PVT__EXE_es_bits_alu_src2 = vlSelf->__PVT__ID_toes_bits_alu_src2;
@@ -163,6 +185,8 @@ VL_ATTR_COLD void VMain_mycpu_top___stl_sequent__TOP__Main__cpucore__7(VMain_myc
         = vlSelf->__PVT__MEM_ms_bits_rf_waddr;
     vlSymsp->TOP__Main__cpucore__MEM.__PVT__ms_bits_is_break 
         = vlSelf->__PVT__MEM_ms_bits_is_break;
+    vlSymsp->TOP__Main__cpucore__ID.__PVT__torf_valid 
+        = vlSelf->__PVT__ID_torf_valid;
     vlSymsp->TOP__Main__cpucore__EXE.__PVT__es_bits_alu_src1 
         = vlSelf->__PVT__EXE_es_bits_alu_src1;
     vlSymsp->TOP__Main__cpucore__EXE.__PVT__es_bits_mem_wdata 

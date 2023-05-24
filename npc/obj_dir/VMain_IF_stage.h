@@ -13,6 +13,8 @@ class VMain_IF_stage final : public VerilatedModule {
   public:
 
     // DESIGN SPECIFIC STATE
+    VL_OUT8(__PVT__tods_valid,0,0);
+    VL_IN8(__PVT__fs_valid,0,0);
     VL_OUT(__PVT__tods_bits_pc,31,0);
     VL_OUT(__PVT__tods_bits_inst,31,0);
     VL_IN(__PVT__inst_sram_rdata,31,0);

@@ -20,15 +20,23 @@ VL_ATTR_COLD void VMain_WB_stage___stl_sequent__TOP__Main__cpucore__WB__1(VMain_
     VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_WB_stage___stl_sequent__TOP__Main__cpucore__WB__1\n"); );
     // Body
-    vlSelf->__PVT__torf_inst = vlSelf->__PVT__ws_bits_inst;
-    vlSelf->__PVT__torf_rf_waddr = vlSelf->__PVT__ws_bits_rf_waddr;
-    vlSelf->__PVT__torf_is_break = vlSelf->__PVT__ws_bits_is_break;
+    vlSelf->__PVT__torf_valid = vlSelf->__PVT__ws_valid;
 }
 
 VL_ATTR_COLD void VMain_WB_stage___stl_sequent__TOP__Main__cpucore__WB__2(VMain_WB_stage* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_WB_stage___stl_sequent__TOP__Main__cpucore__WB__2\n"); );
+    // Body
+    vlSelf->__PVT__torf_inst = vlSelf->__PVT__ws_bits_inst;
+    vlSelf->__PVT__torf_rf_waddr = vlSelf->__PVT__ws_bits_rf_waddr;
+    vlSelf->__PVT__torf_is_break = vlSelf->__PVT__ws_bits_is_break;
+}
+
+VL_ATTR_COLD void VMain_WB_stage___stl_sequent__TOP__Main__cpucore__WB__3(VMain_WB_stage* vlSelf) {
+    if (false && vlSelf) {}  // Prevent unused
+    VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_WB_stage___stl_sequent__TOP__Main__cpucore__WB__3\n"); );
     // Body
     vlSelf->__PVT__torf_rf_wdata = vlSelf->__PVT__ws_bits_rf_wdata;
 }
@@ -38,6 +46,7 @@ VL_ATTR_COLD void VMain_WB_stage___ctor_var_reset(VMain_WB_stage* vlSelf) {
     VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_WB_stage___ctor_var_reset\n"); );
     // Body
+    vlSelf->__PVT__ws_valid = VL_RAND_RESET_I(1);
     vlSelf->__PVT__ws_bits_pc = VL_RAND_RESET_I(32);
     vlSelf->__PVT__ws_bits_rf_waddr = VL_RAND_RESET_I(5);
     vlSelf->__PVT__ws_bits_rf_wdata = VL_RAND_RESET_I(32);
@@ -47,5 +56,6 @@ VL_ATTR_COLD void VMain_WB_stage___ctor_var_reset(VMain_WB_stage* vlSelf) {
     vlSelf->__PVT__torf_rf_waddr = VL_RAND_RESET_I(5);
     vlSelf->__PVT__torf_rf_wdata = VL_RAND_RESET_I(32);
     vlSelf->__PVT__torf_is_break = VL_RAND_RESET_I(1);
+    vlSelf->__PVT__torf_valid = VL_RAND_RESET_I(1);
     vlSelf->__PVT__torf_inst = VL_RAND_RESET_I(32);
 }

@@ -39,20 +39,28 @@ class VMain_mycpu_top final : public VerilatedModule {
         CData/*0:0*/ __PVT__pIF_reset;
         CData/*0:0*/ __PVT__pIF_br_taken;
         CData/*0:0*/ __PVT__pIF_inst_sram_en;
+        CData/*0:0*/ __PVT__pIF_tofs_valid;
+        CData/*0:0*/ __PVT__IF_tods_valid;
+        CData/*0:0*/ __PVT__IF_fs_valid;
         CData/*0:0*/ __PVT__ID_clock;
+        CData/*0:0*/ __PVT__ID_toes_valid;
         CData/*4:0*/ __PVT__ID_toes_bits_alu_op;
         CData/*4:0*/ __PVT__ID_toes_bits_rf_waddr;
         CData/*1:0*/ __PVT__ID_toes_bits_mem_we;
         CData/*4:0*/ __PVT__ID_toes_bits_inst_name;
         CData/*0:0*/ __PVT__ID_toes_bits_is_break;
+        CData/*0:0*/ __PVT__ID_ds_valid;
         CData/*4:0*/ __PVT__ID_torf_rf_waddr;
         CData/*0:0*/ __PVT__ID_torf_is_break;
+        CData/*0:0*/ __PVT__ID_torf_valid;
         CData/*0:0*/ __PVT__ID_br_taken;
+        CData/*0:0*/ __PVT__EXE_es_valid;
         CData/*4:0*/ __PVT__EXE_es_bits_alu_op;
         CData/*4:0*/ __PVT__EXE_es_bits_rf_waddr;
         CData/*1:0*/ __PVT__EXE_es_bits_mem_we;
         CData/*4:0*/ __PVT__EXE_es_bits_inst_name;
         CData/*0:0*/ __PVT__EXE_es_bits_is_break;
+        CData/*0:0*/ __PVT__EXE_toms_valid;
         CData/*4:0*/ __PVT__EXE_toms_bits_inst_name;
         CData/*0:0*/ __PVT__EXE_toms_bits_res_from_mem;
         CData/*4:0*/ __PVT__EXE_toms_bits_rf_waddr;
@@ -60,16 +68,20 @@ class VMain_mycpu_top final : public VerilatedModule {
         CData/*0:0*/ __PVT__EXE_data_sram_en;
         CData/*0:0*/ __PVT__EXE_data_sram_wr;
         CData/*3:0*/ __PVT__EXE_data_sram_wstrb;
+        CData/*0:0*/ __PVT__MEM_ms_valid;
         CData/*4:0*/ __PVT__MEM_ms_bits_inst_name;
         CData/*0:0*/ __PVT__MEM_ms_bits_res_from_mem;
         CData/*4:0*/ __PVT__MEM_ms_bits_rf_waddr;
         CData/*0:0*/ __PVT__MEM_ms_bits_is_break;
+        CData/*0:0*/ __PVT__MEM_tows_valid;
         CData/*4:0*/ __PVT__MEM_tows_bits_rf_waddr;
         CData/*0:0*/ __PVT__MEM_tows_bits_is_break;
+        CData/*0:0*/ __PVT__WB_ws_valid;
         CData/*4:0*/ __PVT__WB_ws_bits_rf_waddr;
         CData/*0:0*/ __PVT__WB_ws_bits_is_break;
         CData/*4:0*/ __PVT__WB_torf_rf_waddr;
         CData/*0:0*/ __PVT__WB_torf_is_break;
+        CData/*0:0*/ __PVT__WB_torf_valid;
         VL_OUT(__PVT__inst_sram_addr,31,0);
         VL_IN(__PVT__inst_sram_rdata,31,0);
         VL_OUT(__PVT__data_sram_addr,31,0);
@@ -81,6 +93,8 @@ class VMain_mycpu_top final : public VerilatedModule {
         IData/*31:0*/ __PVT__IF_tods_bits_pc;
         IData/*31:0*/ __PVT__IF_tods_bits_inst;
         IData/*31:0*/ __PVT__IF_inst_sram_rdata;
+    };
+    struct {
         IData/*31:0*/ __PVT__IF_fs_bits_pc;
         IData/*31:0*/ __PVT__ID_toes_bits_pc;
         IData/*31:0*/ __PVT__ID_toes_bits_alu_src1;
@@ -93,8 +107,6 @@ class VMain_mycpu_top final : public VerilatedModule {
         IData/*31:0*/ __PVT__ID_torf_rf_wdata;
         IData/*31:0*/ __PVT__ID_torf_inst;
         IData/*31:0*/ __PVT__ID_br_target;
-    };
-    struct {
         IData/*31:0*/ __PVT__EXE_es_bits_pc;
         IData/*31:0*/ __PVT__EXE_es_bits_alu_src1;
         IData/*31:0*/ __PVT__EXE_es_bits_alu_src2;

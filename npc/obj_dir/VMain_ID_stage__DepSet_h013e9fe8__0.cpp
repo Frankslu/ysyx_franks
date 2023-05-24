@@ -18,10 +18,10 @@ VL_INLINE_OPT void VMain_ID_stage___ico_sequent__TOP__Main__cpucore__ID__0(VMain
         = vlSelf->__PVT__reg___05Fclock;
 }
 
-VL_INLINE_OPT void VMain_ID_stage___ico_sequent__TOP__Main__cpucore__ID__1(VMain_ID_stage* vlSelf) {
+VL_INLINE_OPT void VMain_ID_stage___ico_sequent__TOP__Main__cpucore__ID__2(VMain_ID_stage* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_ID_stage___ico_sequent__TOP__Main__cpucore__ID__1\n"); );
+    VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_ID_stage___ico_sequent__TOP__Main__cpucore__ID__2\n"); );
     // Body
     vlSelf->__PVT__toes_bits_inst = vlSelf->__PVT__ds_bits_inst;
     vlSelf->__PVT___imm12_sign_T = (0xfffU & VL_SEL_IIII(32, vlSelf->__PVT__ds_bits_inst, 0xaU, 0xcU));
@@ -962,10 +962,10 @@ VL_INLINE_OPT void VMain_ID_stage___ico_sequent__TOP__Main__cpucore__ID__1(VMain
                            : vlSelf->__PVT___imm_T_10);
 }
 
-VL_INLINE_OPT void VMain_ID_stage___ico_sequent__TOP__Main__cpucore__ID__2(VMain_ID_stage* vlSelf) {
+VL_INLINE_OPT void VMain_ID_stage___ico_sequent__TOP__Main__cpucore__ID__3(VMain_ID_stage* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_ID_stage___ico_sequent__TOP__Main__cpucore__ID__2\n"); );
+    VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_ID_stage___ico_sequent__TOP__Main__cpucore__ID__3\n"); );
     // Body
     vlSelf->__PVT__reg___05Fio_rdata1 = vlSymsp->TOP__Main__cpucore__ID__reg_.__PVT__io_rdata1;
     vlSelf->__PVT__reg___05Fio_rdata2 = vlSymsp->TOP__Main__cpucore__ID__reg_.__PVT__io_rdata2;
@@ -1022,10 +1022,20 @@ VL_INLINE_OPT void VMain_ID_stage___ico_sequent__TOP__Main__cpucore__ID__2(VMain
                                | (0x10U == (IData)(vlSelf->__PVT__inst_name)));
 }
 
-VL_INLINE_OPT void VMain_ID_stage___ico_sequent__TOP__Main__cpucore__ID__3(VMain_ID_stage* vlSelf) {
+VL_INLINE_OPT void VMain_ID_stage___ico_sequent__TOP__Main__cpucore__ID__4(VMain_ID_stage* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_ID_stage___ico_sequent__TOP__Main__cpucore__ID__3\n"); );
+    VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_ID_stage___ico_sequent__TOP__Main__cpucore__ID__4\n"); );
+    // Body
+    vlSelf->__PVT__reg___05Fio_valid = vlSelf->__PVT__torf_valid;
+    vlSymsp->TOP__Main__cpucore__ID__reg_.__PVT__io_valid 
+        = vlSelf->__PVT__reg___05Fio_valid;
+}
+
+VL_INLINE_OPT void VMain_ID_stage___ico_sequent__TOP__Main__cpucore__ID__5(VMain_ID_stage* vlSelf) {
+    if (false && vlSelf) {}  // Prevent unused
+    VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_ID_stage___ico_sequent__TOP__Main__cpucore__ID__5\n"); );
     // Body
     vlSelf->__PVT__reg___05Fio_inst = vlSelf->__PVT__torf_inst;
     vlSelf->__PVT__reg___05Fio_waddr = vlSelf->__PVT__torf_rf_waddr;
@@ -1038,10 +1048,10 @@ VL_INLINE_OPT void VMain_ID_stage___ico_sequent__TOP__Main__cpucore__ID__3(VMain
         = vlSelf->__PVT__reg___05Fio_is_break;
 }
 
-VL_INLINE_OPT void VMain_ID_stage___ico_sequent__TOP__Main__cpucore__ID__4(VMain_ID_stage* vlSelf) {
+VL_INLINE_OPT void VMain_ID_stage___ico_sequent__TOP__Main__cpucore__ID__6(VMain_ID_stage* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_ID_stage___ico_sequent__TOP__Main__cpucore__ID__4\n"); );
+    VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_ID_stage___ico_sequent__TOP__Main__cpucore__ID__6\n"); );
     // Body
     vlSelf->__PVT__reg___05Fio_wdata = vlSelf->__PVT__torf_rf_wdata;
     vlSymsp->TOP__Main__cpucore__ID__reg_.__PVT__io_wdata 

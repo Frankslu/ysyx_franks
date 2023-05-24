@@ -28,6 +28,7 @@ class VMain_regfile final : public VerilatedModule {
         VL_IN8(__PVT__io_raddr2,4,0);
         VL_IN8(__PVT__io_waddr,4,0);
         VL_IN8(__PVT__io_is_break,0,0);
+        VL_IN8(__PVT__io_valid,0,0);
         CData/*0:0*/ __PVT__rf_io_rdata1_MPORT_en;
         CData/*4:0*/ __PVT__rf_io_rdata1_MPORT_addr;
         CData/*0:0*/ __PVT__rf_io_rdata2_MPORT_en;
@@ -86,9 +87,9 @@ class VMain_regfile final : public VerilatedModule {
         CData/*4:0*/ __PVT__rf_difftest_io_rf_26_MPORT_addr;
         CData/*0:0*/ __PVT__rf_difftest_io_rf_27_MPORT_en;
         CData/*4:0*/ __PVT__rf_difftest_io_rf_27_MPORT_addr;
-        CData/*0:0*/ __PVT__rf_difftest_io_rf_28_MPORT_en;
     };
     struct {
+        CData/*0:0*/ __PVT__rf_difftest_io_rf_28_MPORT_en;
         CData/*4:0*/ __PVT__rf_difftest_io_rf_28_MPORT_addr;
         CData/*0:0*/ __PVT__rf_difftest_io_rf_29_MPORT_en;
         CData/*4:0*/ __PVT__rf_difftest_io_rf_29_MPORT_addr;
@@ -152,9 +153,9 @@ class VMain_regfile final : public VerilatedModule {
         IData/*31:0*/ __PVT__difftest_rf_7;
         IData/*31:0*/ __PVT__difftest_rf_8;
         IData/*31:0*/ __PVT__difftest_rf_9;
-        IData/*31:0*/ __PVT__difftest_rf_10;
     };
     struct {
+        IData/*31:0*/ __PVT__difftest_rf_10;
         IData/*31:0*/ __PVT__difftest_rf_11;
         IData/*31:0*/ __PVT__difftest_rf_12;
         IData/*31:0*/ __PVT__difftest_rf_13;

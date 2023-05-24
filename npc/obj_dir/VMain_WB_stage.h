@@ -13,10 +13,12 @@ class VMain_WB_stage final : public VerilatedModule {
   public:
 
     // DESIGN SPECIFIC STATE
+    VL_IN8(__PVT__ws_valid,0,0);
     VL_IN8(__PVT__ws_bits_rf_waddr,4,0);
     VL_IN8(__PVT__ws_bits_is_break,0,0);
     VL_OUT8(__PVT__torf_rf_waddr,4,0);
     VL_OUT8(__PVT__torf_is_break,0,0);
+    VL_OUT8(__PVT__torf_valid,0,0);
     VL_IN(__PVT__ws_bits_pc,31,0);
     VL_IN(__PVT__ws_bits_rf_wdata,31,0);
     VL_IN(__PVT__ws_bits_inst,31,0);

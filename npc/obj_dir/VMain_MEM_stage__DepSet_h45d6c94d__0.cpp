@@ -12,15 +12,23 @@ VL_INLINE_OPT void VMain_MEM_stage___ico_sequent__TOP__Main__cpucore__MEM__0(VMa
     VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_MEM_stage___ico_sequent__TOP__Main__cpucore__MEM__0\n"); );
     // Body
-    vlSelf->__PVT__tows_bits_inst = vlSelf->__PVT__ms_bits_inst;
-    vlSelf->__PVT__tows_bits_rf_waddr = vlSelf->__PVT__ms_bits_rf_waddr;
-    vlSelf->__PVT__tows_bits_is_break = vlSelf->__PVT__ms_bits_is_break;
+    vlSelf->__PVT__tows_valid = vlSelf->__PVT__ms_valid;
 }
 
 VL_INLINE_OPT void VMain_MEM_stage___ico_sequent__TOP__Main__cpucore__MEM__1(VMain_MEM_stage* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_MEM_stage___ico_sequent__TOP__Main__cpucore__MEM__1\n"); );
+    // Body
+    vlSelf->__PVT__tows_bits_inst = vlSelf->__PVT__ms_bits_inst;
+    vlSelf->__PVT__tows_bits_rf_waddr = vlSelf->__PVT__ms_bits_rf_waddr;
+    vlSelf->__PVT__tows_bits_is_break = vlSelf->__PVT__ms_bits_is_break;
+}
+
+VL_INLINE_OPT void VMain_MEM_stage___ico_sequent__TOP__Main__cpucore__MEM__2(VMain_MEM_stage* vlSelf) {
+    if (false && vlSelf) {}  // Prevent unused
+    VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_MEM_stage___ico_sequent__TOP__Main__cpucore__MEM__2\n"); );
     // Body
     vlSelf->__PVT___mem_rdata_sign_T_1 = (0xffffU & 
                                           VL_SEL_IIII(32, vlSelf->__PVT__data_sram_rdata, 0U, 0x10U));

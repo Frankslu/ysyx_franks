@@ -79,13 +79,12 @@ VL_ATTR_COLD void VMain_regfile___eval_initial__TOP__Main__cpucore__ID__reg_(VMa
     vlSelf->__PVT__rf_MPORT_mask = 1U;
     vlSelf->__PVT__rf_MPORT_en = 1U;
     vlSelf->__PVT__difftest_rf_0 = 0U;
-    vlSelf->__PVT__inst_exec_once_valid = 1U;
 }
 
-VL_ATTR_COLD void VMain_regfile___stl_sequent__TOP__Main__cpucore__ID__reg___3(VMain_regfile* vlSelf) {
+VL_ATTR_COLD void VMain_regfile___stl_sequent__TOP__Main__cpucore__ID__reg___4(VMain_regfile* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+            VMain_regfile___stl_sequent__TOP__Main__cpucore__ID__reg___3\n"); );
+    VL_DEBUG_IF(VL_DBG_MSGF("+            VMain_regfile___stl_sequent__TOP__Main__cpucore__ID__reg___4\n"); );
     // Body
     vlSelf->__PVT__rf_MPORT_data = vlSelf->__PVT__io_wdata;
 }
@@ -104,6 +103,7 @@ VL_ATTR_COLD void VMain_regfile___ctor_var_reset(VMain_regfile* vlSelf) {
     vlSelf->__PVT__io_wdata = VL_RAND_RESET_I(32);
     vlSelf->__PVT__io_rf_pc = VL_RAND_RESET_I(32);
     vlSelf->__PVT__io_is_break = VL_RAND_RESET_I(1);
+    vlSelf->__PVT__io_valid = VL_RAND_RESET_I(1);
     vlSelf->__PVT__io_inst = VL_RAND_RESET_I(32);
     for (int __Vi0 = 0; __Vi0 < 32; ++__Vi0) {
         vlSelf->__PVT__rf[__Vi0] = VL_RAND_RESET_I(32);

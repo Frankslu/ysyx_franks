@@ -7,12 +7,21 @@
 
 #include "VMain_ID_stage.h"
 
+VL_ATTR_COLD void VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__1(VMain_ID_stage* vlSelf) {
+    if (false && vlSelf) {}  // Prevent unused
+    VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__1\n"); );
+    // Body
+    vlSelf->__PVT__toes_valid = vlSelf->__PVT__ds_valid;
+}
+
 VL_ATTR_COLD void VMain_ID_stage___ctor_var_reset(VMain_ID_stage* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_ID_stage___ctor_var_reset\n"); );
     // Body
     vlSelf->__PVT__clock = VL_RAND_RESET_I(1);
+    vlSelf->__PVT__toes_valid = VL_RAND_RESET_I(1);
     vlSelf->__PVT__toes_bits_pc = VL_RAND_RESET_I(32);
     vlSelf->__PVT__toes_bits_alu_src1 = VL_RAND_RESET_I(32);
     vlSelf->__PVT__toes_bits_alu_src2 = VL_RAND_RESET_I(32);
@@ -23,12 +32,14 @@ VL_ATTR_COLD void VMain_ID_stage___ctor_var_reset(VMain_ID_stage* vlSelf) {
     vlSelf->__PVT__toes_bits_mem_wdata = VL_RAND_RESET_I(32);
     vlSelf->__PVT__toes_bits_is_break = VL_RAND_RESET_I(1);
     vlSelf->__PVT__toes_bits_inst = VL_RAND_RESET_I(32);
+    vlSelf->__PVT__ds_valid = VL_RAND_RESET_I(1);
     vlSelf->__PVT__ds_bits_pc = VL_RAND_RESET_I(32);
     vlSelf->__PVT__ds_bits_inst = VL_RAND_RESET_I(32);
     vlSelf->__PVT__torf_pc = VL_RAND_RESET_I(32);
     vlSelf->__PVT__torf_rf_waddr = VL_RAND_RESET_I(5);
     vlSelf->__PVT__torf_rf_wdata = VL_RAND_RESET_I(32);
     vlSelf->__PVT__torf_is_break = VL_RAND_RESET_I(1);
+    vlSelf->__PVT__torf_valid = VL_RAND_RESET_I(1);
     vlSelf->__PVT__torf_inst = VL_RAND_RESET_I(32);
     vlSelf->__PVT__br_taken = VL_RAND_RESET_I(1);
     vlSelf->__PVT__br_target = VL_RAND_RESET_I(32);
@@ -41,6 +52,7 @@ VL_ATTR_COLD void VMain_ID_stage___ctor_var_reset(VMain_ID_stage* vlSelf) {
     vlSelf->__PVT__reg___05Fio_wdata = VL_RAND_RESET_I(32);
     vlSelf->__PVT__reg___05Fio_rf_pc = VL_RAND_RESET_I(32);
     vlSelf->__PVT__reg___05Fio_is_break = VL_RAND_RESET_I(1);
+    vlSelf->__PVT__reg___05Fio_valid = VL_RAND_RESET_I(1);
     vlSelf->__PVT__reg___05Fio_inst = VL_RAND_RESET_I(32);
     vlSelf->__PVT__rd = VL_RAND_RESET_I(5);
     vlSelf->__PVT__rk = VL_RAND_RESET_I(5);

@@ -15,11 +15,20 @@ VL_ATTR_COLD void VMain_EX_stage___stl_sequent__TOP__Main__cpucore__EXE__0(VMain
     vlSelf->__PVT__toms_bits_pc = vlSelf->__PVT__es_bits_pc;
 }
 
+VL_ATTR_COLD void VMain_EX_stage___stl_sequent__TOP__Main__cpucore__EXE__1(VMain_EX_stage* vlSelf) {
+    if (false && vlSelf) {}  // Prevent unused
+    VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_EX_stage___stl_sequent__TOP__Main__cpucore__EXE__1\n"); );
+    // Body
+    vlSelf->__PVT__toms_valid = vlSelf->__PVT__es_valid;
+}
+
 VL_ATTR_COLD void VMain_EX_stage___ctor_var_reset(VMain_EX_stage* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_EX_stage___ctor_var_reset\n"); );
     // Body
+    vlSelf->__PVT__es_valid = VL_RAND_RESET_I(1);
     vlSelf->__PVT__es_bits_pc = VL_RAND_RESET_I(32);
     vlSelf->__PVT__es_bits_alu_src1 = VL_RAND_RESET_I(32);
     vlSelf->__PVT__es_bits_alu_src2 = VL_RAND_RESET_I(32);
@@ -30,6 +39,7 @@ VL_ATTR_COLD void VMain_EX_stage___ctor_var_reset(VMain_EX_stage* vlSelf) {
     vlSelf->__PVT__es_bits_mem_wdata = VL_RAND_RESET_I(32);
     vlSelf->__PVT__es_bits_is_break = VL_RAND_RESET_I(1);
     vlSelf->__PVT__es_bits_inst = VL_RAND_RESET_I(32);
+    vlSelf->__PVT__toms_valid = VL_RAND_RESET_I(1);
     vlSelf->__PVT__toms_bits_pc = VL_RAND_RESET_I(32);
     vlSelf->__PVT__toms_bits_alu_res = VL_RAND_RESET_I(32);
     vlSelf->__PVT__toms_bits_inst_name = VL_RAND_RESET_I(5);

@@ -13,10 +13,12 @@ class VMain_MEM_stage final : public VerilatedModule {
   public:
 
     // DESIGN SPECIFIC STATE
+    VL_IN8(__PVT__ms_valid,0,0);
     VL_IN8(__PVT__ms_bits_inst_name,4,0);
     VL_IN8(__PVT__ms_bits_res_from_mem,0,0);
     VL_IN8(__PVT__ms_bits_rf_waddr,4,0);
     VL_IN8(__PVT__ms_bits_is_break,0,0);
+    VL_OUT8(__PVT__tows_valid,0,0);
     VL_OUT8(__PVT__tows_bits_rf_waddr,4,0);
     VL_OUT8(__PVT__tows_bits_is_break,0,0);
     CData/*7:0*/ __PVT___mem_rdata_sign_T;
