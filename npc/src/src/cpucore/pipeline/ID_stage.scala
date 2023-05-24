@@ -7,6 +7,7 @@ import cpucore.Unit._
 import cpucore.Unit.loongarch32r_inst._
 import myUtil.myUtil._
 import cpucore.pipeline._
+import ujson.Arr
 
 class ID_stage extends Module{
     val toes = IO(Decoupled(new ds2es))
@@ -80,7 +81,10 @@ class ID_stage extends Module{
                     inst_name === u(INST_BGEU) & ~sltu_res |
                     inst_name === u(INST_B) | inst_name === u(INST_BL) | inst_name === u(INST_JIRL)
     val ds_pc = ds.bits.pc
-    br.target := Mux(inst_name === u(INST_JIRL), rj_value, ds_pc) + imm
+    br.target := MuxLookup(inst_name, ds_pc + imm)(Seq(
+        u(INST_JIRL) -> (rj_value + imm),
+        u(INST_BRK) -> ds_pc
+    ))
 
 
 
