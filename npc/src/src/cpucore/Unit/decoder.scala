@@ -189,7 +189,7 @@ object loongarch32r_inst{
 		SLLI_W    -> BitPat("b" +OP_SLL   +R2I5   +MEM_UN +INST_NNNN +RF_WE),
 		SRLI_W    -> BitPat("b" +OP_SRL   +R2I5   +MEM_UN +INST_NNNN +RF_WE),
 		SRAI_W    -> BitPat("b" +OP_SRA   +R2I5   +MEM_UN +INST_NNNN +RF_WE),
-		BREAK     -> BitPat("b" +OP_NONE  +BRK_T  +MEM_UN +INST_NNNN +RF_UN)),
+		BREAK     -> BitPat("b" +OP_NONE  +BRK_T  +MEM_UN +INST_BRK  +RF_UN)),
 					 BitPat("b" +OP_NONE  +INV    +MEM_UN +INST_NNNN +RF_UN))
 //									5		4		2			5		1
 
