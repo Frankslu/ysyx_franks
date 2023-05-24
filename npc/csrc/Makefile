@@ -21,6 +21,7 @@ sim: V$(TOP)
 	$(BUILD_DIR)/V$(TOP) $(ARGS)
 
 gdb: V$(TOP)
+	@make -C $(NEMU_HOME) -f Makefile
 	@gdb -s $(BUILD_DIR)/V$(TOP) --args $(ARGS)
 
 wave:
