@@ -23,7 +23,7 @@ VL_INLINE_OPT void VMain_preIF___nba_sequent__TOP__Main__cpucore__pIF__0(VMain_p
     vlSelf->__Vdly__inst_sram_en_REG = vlSelf->__PVT__inst_sram_en_REG;
     vlSelf->__Vdly__pc = vlSelf->__PVT__pc;
     vlSelf->__Vdly__pc = ((IData)(vlSelf->__PVT__reset)
-                           ? 0x1c000000U : ((IData)(vlSelf->__PVT__br_taken)
+                           ? 0x1bffffffU : ((IData)(vlSelf->__PVT__br_taken)
                                              ? vlSelf->__PVT__br_target
                                              : vlSelf->__PVT__snpc));
     vlSelf->__Vdly__inst_sram_en_REG = (1U & (~ (IData)(vlSelf->__PVT__reset)));
