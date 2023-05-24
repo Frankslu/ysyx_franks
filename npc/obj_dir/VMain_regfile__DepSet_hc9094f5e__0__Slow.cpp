@@ -177,9 +177,9 @@ VL_ATTR_COLD void VMain_regfile___stl_sequent__TOP__Main__cpucore__ID__reg___2(V
     VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+            VMain_regfile___stl_sequent__TOP__Main__cpucore__ID__reg___2\n"); );
     // Body
-    vlSelf->__PVT__inst_exec_once_pc = vlSelf->__PVT__io_rf_pc;
-    vlSymsp->TOP__Main__cpucore__ID__reg___inst_exec_once.__PVT__pc 
-        = vlSelf->__PVT__inst_exec_once_pc;
+    vlSelf->__PVT__inst_exec_once_valid = vlSelf->__PVT__io_valid;
+    vlSymsp->TOP__Main__cpucore__ID__reg___inst_exec_once.__PVT__valid 
+        = vlSelf->__PVT__inst_exec_once_valid;
 }
 
 VL_ATTR_COLD void VMain_regfile___stl_sequent__TOP__Main__cpucore__ID__reg___3(VMain_regfile* vlSelf) {
@@ -188,13 +188,21 @@ VL_ATTR_COLD void VMain_regfile___stl_sequent__TOP__Main__cpucore__ID__reg___3(V
     VL_DEBUG_IF(VL_DBG_MSGF("+            VMain_regfile___stl_sequent__TOP__Main__cpucore__ID__reg___3\n"); );
     // Body
     vlSelf->__PVT__inst_exec_once_inst = vlSelf->__PVT__io_inst;
-    vlSelf->__PVT__inst_exec_once_valid = vlSelf->__PVT__io_valid;
     vlSelf->__PVT__rf_MPORT_addr = vlSelf->__PVT__io_waddr;
     vlSelf->__PVT__npc_brk_is_break = vlSelf->__PVT__io_is_break;
     vlSymsp->TOP__Main__cpucore__ID__reg___inst_exec_once.__PVT__inst 
         = vlSelf->__PVT__inst_exec_once_inst;
-    vlSymsp->TOP__Main__cpucore__ID__reg___inst_exec_once.__PVT__valid 
-        = vlSelf->__PVT__inst_exec_once_valid;
     vlSymsp->TOP__Main__cpucore__ID__reg___npc_brk.__PVT__is_break 
         = vlSelf->__PVT__npc_brk_is_break;
+}
+
+VL_ATTR_COLD void VMain_regfile___stl_sequent__TOP__Main__cpucore__ID__reg___4(VMain_regfile* vlSelf) {
+    if (false && vlSelf) {}  // Prevent unused
+    VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+            VMain_regfile___stl_sequent__TOP__Main__cpucore__ID__reg___4\n"); );
+    // Body
+    vlSelf->__PVT__inst_exec_once_pc = vlSelf->__PVT__io_rf_pc;
+    vlSelf->__PVT__rf_MPORT_data = vlSelf->__PVT__io_wdata;
+    vlSymsp->TOP__Main__cpucore__ID__reg___inst_exec_once.__PVT__pc 
+        = vlSelf->__PVT__inst_exec_once_pc;
 }

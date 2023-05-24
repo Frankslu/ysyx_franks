@@ -98,14 +98,6 @@ VL_ATTR_COLD void VMain_regfile___stl_sequent__TOP__Main__cpucore__ID__reg___1(V
                                  ? 0U : vlSelf->__PVT__rf_io_rdata2_MPORT_data);
 }
 
-VL_ATTR_COLD void VMain_regfile___stl_sequent__TOP__Main__cpucore__ID__reg___4(VMain_regfile* vlSelf) {
-    if (false && vlSelf) {}  // Prevent unused
-    VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+            VMain_regfile___stl_sequent__TOP__Main__cpucore__ID__reg___4\n"); );
-    // Body
-    vlSelf->__PVT__rf_MPORT_data = vlSelf->__PVT__io_wdata;
-}
-
 VL_ATTR_COLD void VMain_regfile___ctor_var_reset(VMain_regfile* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;

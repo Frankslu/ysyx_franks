@@ -23,6 +23,7 @@ class VMain_preIF final : public VerilatedModule {
     VL_IN(__PVT__br_target,31,0);
     VL_OUT(__PVT__inst_sram_addr,31,0);
     VL_OUT(__PVT__tofs_bits_pc,31,0);
+    VL_OUT(__PVT__tofs_bits_next_pc,31,0);
     IData/*31:0*/ __PVT__pc;
     IData/*31:0*/ __PVT__snpc;
     IData/*31:0*/ __Vdly__pc;

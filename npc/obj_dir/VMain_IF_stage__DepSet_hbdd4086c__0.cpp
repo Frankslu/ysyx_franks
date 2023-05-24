@@ -30,3 +30,11 @@ VL_INLINE_OPT void VMain_IF_stage___nba_sequent__TOP__Main__cpucore__IF__1(VMain
     // Body
     vlSelf->__PVT__tods_bits_inst = vlSelf->__PVT__inst_sram_rdata;
 }
+
+VL_INLINE_OPT void VMain_IF_stage___nba_comb__TOP__Main__cpucore__IF__0(VMain_IF_stage* vlSelf) {
+    if (false && vlSelf) {}  // Prevent unused
+    VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_IF_stage___nba_comb__TOP__Main__cpucore__IF__0\n"); );
+    // Body
+    vlSelf->__PVT__tods_bits_next_pc = vlSelf->__PVT__fs_bits_next_pc;
+}

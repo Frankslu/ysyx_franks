@@ -14,17 +14,16 @@ VL_ATTR_COLD void VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__0(VMain_
     VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__0\n"); );
     // Body
     vlSelf->__PVT__reg___05Fclock = vlSelf->__PVT__clock;
-    vlSelf->__PVT__toes_bits_pc = vlSelf->__PVT__ds_bits_pc;
     vlSymsp->TOP__Main__cpucore__ID__reg_.__PVT__clock 
         = vlSelf->__PVT__reg___05Fclock;
 }
 
-VL_ATTR_COLD void VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__1(VMain_ID_stage* vlSelf) {
+VL_ATTR_COLD void VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__2(VMain_ID_stage* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__1\n"); );
+    VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__2\n"); );
     // Body
-    vlSelf->__PVT__toes_bits_inst = vlSelf->__PVT__ds_bits_inst;
+    vlSelf->__PVT__toes_bits_dpi_c_inst = vlSelf->__PVT__ds_bits_inst;
     vlSelf->__PVT___imm12_sign_T = (0xfffU & VL_SEL_IIII(32, vlSelf->__PVT__ds_bits_inst, 0xaU, 0xcU));
     vlSelf->__PVT__imm12u = (0xfffU & VL_SEL_IIII(32, vlSelf->__PVT__ds_bits_inst, 0xaU, 0xcU));
     vlSelf->__PVT__imm20 = VL_CONCAT_III(32,20,12, 
@@ -66,7 +65,6 @@ VL_ATTR_COLD void VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__1(VMain_
     vlSelf->__PVT__decode_res_andMatrixInput_2_43 = 
         (1U & VL_BITSEL_IIII(32, vlSelf->__PVT__ds_bits_inst, 0x1bU));
     vlSelf->__PVT__decode_res_invInputs = (~ vlSelf->__PVT__ds_bits_inst);
-    vlSelf->__PVT__toes_valid = vlSelf->__PVT__ds_valid;
     vlSelf->__PVT__imm12 = VL_CONCAT_III(32,20,12, 
                                          (0xfffffU 
                                           & VL_REPLICATE_IOI(1,
@@ -923,12 +921,12 @@ VL_ATTR_COLD void VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__1(VMain_
     vlSelf->__PVT__mem_we = (3U & VL_SEL_IIII(17, vlSelf->__PVT__decode_res_invMatrixOutputs, 6U, 2U));
     vlSelf->__PVT__inst_name = (0x1fU & VL_SEL_IIII(17, vlSelf->__PVT__decode_res_invMatrixOutputs, 1U, 5U));
     vlSelf->__PVT__inst_type = (0xfU & VL_SEL_IIII(17, vlSelf->__PVT__decode_res_invMatrixOutputs, 8U, 4U));
-    vlSelf->__PVT___rf_waddr_T = (0xeU == (IData)(vlSelf->__PVT__inst_name));
     vlSelf->__PVT__toes_bits_rf_waddr = ((0xeU == (IData)(vlSelf->__PVT__inst_name))
                                           ? 1U : (IData)(vlSelf->__PVT__rd));
+    vlSelf->__PVT___rf_waddr_T = (0xeU == (IData)(vlSelf->__PVT__inst_name));
     vlSelf->__PVT___br_taken_T_22 = (0xfU == (IData)(vlSelf->__PVT__inst_name));
     vlSelf->__PVT___br_taken_T_24 = (0x10U == (IData)(vlSelf->__PVT__inst_name));
-    vlSelf->__PVT__toes_bits_is_break = (7U == (IData)(vlSelf->__PVT__inst_type));
+    vlSelf->__PVT__toes_bits_dpi_c_is_break = (7U == (IData)(vlSelf->__PVT__inst_type));
     vlSelf->__PVT___imm_T = (2U == (IData)(vlSelf->__PVT__inst_type));
     vlSelf->__PVT___imm_T_1 = (3U == (IData)(vlSelf->__PVT__inst_type));
     vlSelf->__PVT___imm_T_2 = (8U == (IData)(vlSelf->__PVT__inst_type));
@@ -964,10 +962,10 @@ VL_ATTR_COLD void VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__1(VMain_
                            : vlSelf->__PVT___imm_T_10);
 }
 
-VL_ATTR_COLD void VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__2(VMain_ID_stage* vlSelf) {
+VL_ATTR_COLD void VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__3(VMain_ID_stage* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__2\n"); );
+    VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__3\n"); );
     // Body
     vlSelf->__PVT__reg___05Fio_rdata1 = vlSymsp->TOP__Main__cpucore__ID__reg_.__PVT__io_rdata1;
     vlSelf->__PVT__reg___05Fio_rdata2 = vlSymsp->TOP__Main__cpucore__ID__reg_.__PVT__io_rdata2;
@@ -979,10 +977,10 @@ VL_ATTR_COLD void VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__2(VMain_
                                           : vlSelf->__PVT__reg___05Fio_rdata1);
     vlSelf->__PVT__rj_eq_rd = (vlSelf->__PVT__reg___05Fio_rdata1 
                                == vlSelf->__PVT__reg___05Fio_rdata2);
+    vlSelf->__PVT__toes_bits_mem_wdata = vlSelf->__PVT__reg___05Fio_rdata2;
     vlSelf->__PVT___rj_sub_rd_T = (0x1ffffffffULL & 
                                    (VL_EXTEND_QI(33,32, vlSelf->__PVT__reg___05Fio_rdata1) 
                                     + VL_EXTEND_QI(33,32, vlSelf->__PVT__reg___05Fio_rdata2)));
-    vlSelf->__PVT__toes_bits_mem_wdata = vlSelf->__PVT__reg___05Fio_rdata2;
     vlSelf->__PVT__toes_bits_alu_src2 = ((1U == (IData)(vlSelf->__PVT__inst_type))
                                           ? vlSelf->__PVT__reg___05Fio_rdata2
                                           : vlSelf->__PVT__imm);
@@ -1024,33 +1022,14 @@ VL_ATTR_COLD void VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__2(VMain_
                                | (0x10U == (IData)(vlSelf->__PVT__inst_name)));
 }
 
-VL_ATTR_COLD void VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__3(VMain_ID_stage* vlSelf) {
-    if (false && vlSelf) {}  // Prevent unused
-    VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__3\n"); );
-    // Body
-    vlSelf->__PVT__reg___05Fio_rf_pc = vlSelf->__PVT__torf_pc;
-    vlSymsp->TOP__Main__cpucore__ID__reg_.__PVT__io_rf_pc 
-        = vlSelf->__PVT__reg___05Fio_rf_pc;
-}
-
 VL_ATTR_COLD void VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__4(VMain_ID_stage* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__4\n"); );
     // Body
-    vlSelf->__PVT__reg___05Fio_inst = vlSelf->__PVT__torf_inst;
     vlSelf->__PVT__reg___05Fio_valid = vlSelf->__PVT__torf_valid;
-    vlSelf->__PVT__reg___05Fio_waddr = vlSelf->__PVT__torf_rf_waddr;
-    vlSelf->__PVT__reg___05Fio_is_break = vlSelf->__PVT__torf_is_break;
-    vlSymsp->TOP__Main__cpucore__ID__reg_.__PVT__io_inst 
-        = vlSelf->__PVT__reg___05Fio_inst;
     vlSymsp->TOP__Main__cpucore__ID__reg_.__PVT__io_valid 
         = vlSelf->__PVT__reg___05Fio_valid;
-    vlSymsp->TOP__Main__cpucore__ID__reg_.__PVT__io_waddr 
-        = vlSelf->__PVT__reg___05Fio_waddr;
-    vlSymsp->TOP__Main__cpucore__ID__reg_.__PVT__io_is_break 
-        = vlSelf->__PVT__reg___05Fio_is_break;
 }
 
 VL_ATTR_COLD void VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__5(VMain_ID_stage* vlSelf) {
@@ -1058,7 +1037,27 @@ VL_ATTR_COLD void VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__5(VMain_
     VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__5\n"); );
     // Body
+    vlSelf->__PVT__reg___05Fio_inst = vlSelf->__PVT__torf_dpi_c_inst;
+    vlSelf->__PVT__reg___05Fio_waddr = vlSelf->__PVT__torf_rf_waddr;
+    vlSelf->__PVT__reg___05Fio_is_break = vlSelf->__PVT__torf_dpi_c_is_break;
+    vlSelf->__PVT__toes_bits_dpi_c_next_pc = vlSelf->__PVT__ds_bits_next_pc;
+    vlSymsp->TOP__Main__cpucore__ID__reg_.__PVT__io_inst 
+        = vlSelf->__PVT__reg___05Fio_inst;
+    vlSymsp->TOP__Main__cpucore__ID__reg_.__PVT__io_waddr 
+        = vlSelf->__PVT__reg___05Fio_waddr;
+    vlSymsp->TOP__Main__cpucore__ID__reg_.__PVT__io_is_break 
+        = vlSelf->__PVT__reg___05Fio_is_break;
+}
+
+VL_ATTR_COLD void VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__6(VMain_ID_stage* vlSelf) {
+    if (false && vlSelf) {}  // Prevent unused
+    VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__6\n"); );
+    // Body
+    vlSelf->__PVT__reg___05Fio_rf_pc = vlSelf->__PVT__torf_dpi_c_next_pc;
     vlSelf->__PVT__reg___05Fio_wdata = vlSelf->__PVT__torf_rf_wdata;
+    vlSymsp->TOP__Main__cpucore__ID__reg_.__PVT__io_rf_pc 
+        = vlSelf->__PVT__reg___05Fio_rf_pc;
     vlSymsp->TOP__Main__cpucore__ID__reg_.__PVT__io_wdata 
         = vlSelf->__PVT__reg___05Fio_wdata;
 }

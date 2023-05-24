@@ -195,16 +195,6 @@ VL_INLINE_OPT void VMain_regfile___nba_sequent__TOP__Main__cpucore__ID__reg___2(
     VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+            VMain_regfile___nba_sequent__TOP__Main__cpucore__ID__reg___2\n"); );
     // Body
-    vlSelf->__PVT__inst_exec_once_pc = vlSelf->__PVT__io_rf_pc;
-    vlSymsp->TOP__Main__cpucore__ID__reg___inst_exec_once.__PVT__pc 
-        = vlSelf->__PVT__inst_exec_once_pc;
-}
-
-VL_INLINE_OPT void VMain_regfile___nba_sequent__TOP__Main__cpucore__ID__reg___3(VMain_regfile* vlSelf) {
-    if (false && vlSelf) {}  // Prevent unused
-    VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+            VMain_regfile___nba_sequent__TOP__Main__cpucore__ID__reg___3\n"); );
-    // Body
     vlSelf->__PVT__inst_exec_once_inst = vlSelf->__PVT__io_inst;
     vlSelf->__PVT__rf_MPORT_addr = vlSelf->__PVT__io_waddr;
     vlSelf->__PVT__npc_brk_is_break = vlSelf->__PVT__io_is_break;
@@ -212,4 +202,15 @@ VL_INLINE_OPT void VMain_regfile___nba_sequent__TOP__Main__cpucore__ID__reg___3(
         = vlSelf->__PVT__inst_exec_once_inst;
     vlSymsp->TOP__Main__cpucore__ID__reg___npc_brk.__PVT__is_break 
         = vlSelf->__PVT__npc_brk_is_break;
+}
+
+VL_INLINE_OPT void VMain_regfile___nba_comb__TOP__Main__cpucore__ID__reg___1(VMain_regfile* vlSelf) {
+    if (false && vlSelf) {}  // Prevent unused
+    VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+            VMain_regfile___nba_comb__TOP__Main__cpucore__ID__reg___1\n"); );
+    // Body
+    vlSelf->__PVT__inst_exec_once_pc = vlSelf->__PVT__io_rf_pc;
+    vlSelf->__PVT__rf_MPORT_data = vlSelf->__PVT__io_wdata;
+    vlSymsp->TOP__Main__cpucore__ID__reg___inst_exec_once.__PVT__pc 
+        = vlSelf->__PVT__inst_exec_once_pc;
 }

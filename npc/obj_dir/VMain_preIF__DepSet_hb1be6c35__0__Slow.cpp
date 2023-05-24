@@ -32,6 +32,16 @@ VL_ATTR_COLD void VMain_preIF___stl_sequent__TOP__Main__cpucore__pIF__1(VMain_pr
     vlSelf->__PVT__tofs_valid = (1U & (~ (IData)(vlSelf->__PVT__reset)));
 }
 
+VL_ATTR_COLD void VMain_preIF___stl_sequent__TOP__Main__cpucore__pIF__2(VMain_preIF* vlSelf) {
+    if (false && vlSelf) {}  // Prevent unused
+    VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_preIF___stl_sequent__TOP__Main__cpucore__pIF__2\n"); );
+    // Body
+    vlSelf->__PVT__tofs_bits_next_pc = ((IData)(vlSelf->__PVT__br_taken)
+                                         ? vlSelf->__PVT__br_target
+                                         : vlSelf->__PVT__snpc);
+}
+
 VL_ATTR_COLD void VMain_preIF___ctor_var_reset(VMain_preIF* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
@@ -45,6 +55,7 @@ VL_ATTR_COLD void VMain_preIF___ctor_var_reset(VMain_preIF* vlSelf) {
     vlSelf->__PVT__inst_sram_addr = VL_RAND_RESET_I(32);
     vlSelf->__PVT__tofs_valid = VL_RAND_RESET_I(1);
     vlSelf->__PVT__tofs_bits_pc = VL_RAND_RESET_I(32);
+    vlSelf->__PVT__tofs_bits_next_pc = VL_RAND_RESET_I(32);
     vlSelf->__PVT__pc = VL_RAND_RESET_I(32);
     vlSelf->__PVT__snpc = VL_RAND_RESET_I(32);
     vlSelf->__PVT__inst_sram_en_REG = VL_RAND_RESET_I(1);

@@ -25,11 +25,11 @@ class VMain_ID_stage final : public VerilatedModule {
         VL_OUT8(__PVT__toes_bits_rf_waddr,4,0);
         VL_OUT8(__PVT__toes_bits_mem_we,1,0);
         VL_OUT8(__PVT__toes_bits_inst_name,4,0);
-        VL_OUT8(__PVT__toes_bits_is_break,0,0);
+        VL_OUT8(__PVT__toes_bits_dpi_c_is_break,0,0);
         VL_IN8(__PVT__ds_valid,0,0);
         VL_IN8(__PVT__torf_rf_waddr,4,0);
-        VL_IN8(__PVT__torf_is_break,0,0);
         VL_IN8(__PVT__torf_valid,0,0);
+        VL_IN8(__PVT__torf_dpi_c_is_break,0,0);
         VL_OUT8(__PVT__br_taken,0,0);
         CData/*0:0*/ __PVT__reg___05Fclock;
         CData/*4:0*/ __PVT__reg___05Fio_raddr1;
@@ -277,18 +277,19 @@ class VMain_ID_stage final : public VerilatedModule {
         SData/*15:0*/ __PVT___decode_res_orMatrixOutputs_T_24;
         SData/*11:0*/ __PVT___decode_res_orMatrixOutputs_T_26;
         SData/*8:0*/ __PVT___decode_res_orMatrixOutputs_T_30;
-        VL_OUT(__PVT__toes_bits_pc,31,0);
         VL_OUT(__PVT__toes_bits_alu_src1,31,0);
         VL_OUT(__PVT__toes_bits_alu_src2,31,0);
         VL_OUT(__PVT__toes_bits_mem_wdata,31,0);
+        VL_OUT(__PVT__toes_bits_dpi_c_inst,31,0);
     };
     struct {
-        VL_OUT(__PVT__toes_bits_inst,31,0);
+        VL_OUT(__PVT__toes_bits_dpi_c_next_pc,31,0);
         VL_IN(__PVT__ds_bits_pc,31,0);
         VL_IN(__PVT__ds_bits_inst,31,0);
-        VL_IN(__PVT__torf_pc,31,0);
+        VL_IN(__PVT__ds_bits_next_pc,31,0);
         VL_IN(__PVT__torf_rf_wdata,31,0);
-        VL_IN(__PVT__torf_inst,31,0);
+        VL_IN(__PVT__torf_dpi_c_inst,31,0);
+        VL_IN(__PVT__torf_dpi_c_next_pc,31,0);
         VL_OUT(__PVT__br_target,31,0);
         IData/*31:0*/ __PVT__reg___05Fio_rdata1;
         IData/*31:0*/ __PVT__reg___05Fio_rdata2;
