@@ -72,7 +72,7 @@ class ID_stage extends Module{
 
     //branch
     val rj_eq_rd  = rj_value === rkd_value
-    val rj_sub_rd = rj_value +& rkd_value + 1.U
+    val rj_sub_rd = rj_value +& ~rkd_value + 1.U
     val slt_res = rj_value(31) & ~rkd_value(31) | ~(rj_value(31) ^ rkd_value(31)) & rj_sub_rd(31)
     val sltu_res = ~rj_sub_rd(32)
     br.taken  :=  inst_name === u(INST_BEQ)  & rj_eq_rd |
