@@ -1170,95 +1170,95 @@ module mycpu_top(
   output [3:0]  data_sram_wstrb, // @[src/src/cpucore/mycpu_top.scala 22:27]
   input  [31:0] data_sram_rdata // @[src/src/cpucore/mycpu_top.scala 22:27]
 );
-  wire  pIF_clock; // @[src/src/cpucore/mycpu_top.scala 24:25]
-  wire  pIF_reset; // @[src/src/cpucore/mycpu_top.scala 24:25]
-  wire  pIF_br_taken; // @[src/src/cpucore/mycpu_top.scala 24:25]
-  wire [31:0] pIF_br_target; // @[src/src/cpucore/mycpu_top.scala 24:25]
-  wire  pIF_inst_sram_en; // @[src/src/cpucore/mycpu_top.scala 24:25]
-  wire [31:0] pIF_inst_sram_addr; // @[src/src/cpucore/mycpu_top.scala 24:25]
-  wire  pIF_tofs_valid; // @[src/src/cpucore/mycpu_top.scala 24:25]
-  wire [31:0] pIF_tofs_bits_pc; // @[src/src/cpucore/mycpu_top.scala 24:25]
-  wire  IF_tods_valid; // @[src/src/cpucore/mycpu_top.scala 25:24]
-  wire [31:0] IF_tods_bits_pc; // @[src/src/cpucore/mycpu_top.scala 25:24]
-  wire [31:0] IF_tods_bits_inst; // @[src/src/cpucore/mycpu_top.scala 25:24]
-  wire [31:0] IF_inst_sram_rdata; // @[src/src/cpucore/mycpu_top.scala 25:24]
-  wire  IF_fs_valid; // @[src/src/cpucore/mycpu_top.scala 25:24]
-  wire [31:0] IF_fs_bits_pc; // @[src/src/cpucore/mycpu_top.scala 25:24]
-  wire  ID_clock; // @[src/src/cpucore/mycpu_top.scala 26:24]
-  wire  ID_toes_valid; // @[src/src/cpucore/mycpu_top.scala 26:24]
-  wire [31:0] ID_toes_bits_pc; // @[src/src/cpucore/mycpu_top.scala 26:24]
-  wire [31:0] ID_toes_bits_alu_src1; // @[src/src/cpucore/mycpu_top.scala 26:24]
-  wire [31:0] ID_toes_bits_alu_src2; // @[src/src/cpucore/mycpu_top.scala 26:24]
-  wire [4:0] ID_toes_bits_alu_op; // @[src/src/cpucore/mycpu_top.scala 26:24]
-  wire [4:0] ID_toes_bits_rf_waddr; // @[src/src/cpucore/mycpu_top.scala 26:24]
-  wire [1:0] ID_toes_bits_mem_we; // @[src/src/cpucore/mycpu_top.scala 26:24]
-  wire [4:0] ID_toes_bits_inst_name; // @[src/src/cpucore/mycpu_top.scala 26:24]
-  wire [31:0] ID_toes_bits_mem_wdata; // @[src/src/cpucore/mycpu_top.scala 26:24]
-  wire  ID_toes_bits_is_break; // @[src/src/cpucore/mycpu_top.scala 26:24]
-  wire [31:0] ID_toes_bits_inst; // @[src/src/cpucore/mycpu_top.scala 26:24]
-  wire  ID_ds_valid; // @[src/src/cpucore/mycpu_top.scala 26:24]
-  wire [31:0] ID_ds_bits_pc; // @[src/src/cpucore/mycpu_top.scala 26:24]
-  wire [31:0] ID_ds_bits_inst; // @[src/src/cpucore/mycpu_top.scala 26:24]
-  wire [31:0] ID_torf_pc; // @[src/src/cpucore/mycpu_top.scala 26:24]
-  wire [4:0] ID_torf_rf_waddr; // @[src/src/cpucore/mycpu_top.scala 26:24]
-  wire [31:0] ID_torf_rf_wdata; // @[src/src/cpucore/mycpu_top.scala 26:24]
-  wire  ID_torf_is_break; // @[src/src/cpucore/mycpu_top.scala 26:24]
-  wire  ID_torf_valid; // @[src/src/cpucore/mycpu_top.scala 26:24]
-  wire [31:0] ID_torf_inst; // @[src/src/cpucore/mycpu_top.scala 26:24]
-  wire  ID_br_taken; // @[src/src/cpucore/mycpu_top.scala 26:24]
-  wire [31:0] ID_br_target; // @[src/src/cpucore/mycpu_top.scala 26:24]
-  wire  EXE_es_valid; // @[src/src/cpucore/mycpu_top.scala 27:25]
-  wire [31:0] EXE_es_bits_pc; // @[src/src/cpucore/mycpu_top.scala 27:25]
-  wire [31:0] EXE_es_bits_alu_src1; // @[src/src/cpucore/mycpu_top.scala 27:25]
-  wire [31:0] EXE_es_bits_alu_src2; // @[src/src/cpucore/mycpu_top.scala 27:25]
-  wire [4:0] EXE_es_bits_alu_op; // @[src/src/cpucore/mycpu_top.scala 27:25]
-  wire [4:0] EXE_es_bits_rf_waddr; // @[src/src/cpucore/mycpu_top.scala 27:25]
-  wire [1:0] EXE_es_bits_mem_we; // @[src/src/cpucore/mycpu_top.scala 27:25]
-  wire [4:0] EXE_es_bits_inst_name; // @[src/src/cpucore/mycpu_top.scala 27:25]
-  wire [31:0] EXE_es_bits_mem_wdata; // @[src/src/cpucore/mycpu_top.scala 27:25]
-  wire  EXE_es_bits_is_break; // @[src/src/cpucore/mycpu_top.scala 27:25]
-  wire [31:0] EXE_es_bits_inst; // @[src/src/cpucore/mycpu_top.scala 27:25]
-  wire  EXE_toms_valid; // @[src/src/cpucore/mycpu_top.scala 27:25]
-  wire [31:0] EXE_toms_bits_pc; // @[src/src/cpucore/mycpu_top.scala 27:25]
-  wire [31:0] EXE_toms_bits_alu_res; // @[src/src/cpucore/mycpu_top.scala 27:25]
-  wire [4:0] EXE_toms_bits_inst_name; // @[src/src/cpucore/mycpu_top.scala 27:25]
-  wire  EXE_toms_bits_res_from_mem; // @[src/src/cpucore/mycpu_top.scala 27:25]
-  wire [4:0] EXE_toms_bits_rf_waddr; // @[src/src/cpucore/mycpu_top.scala 27:25]
-  wire  EXE_toms_bits_is_break; // @[src/src/cpucore/mycpu_top.scala 27:25]
-  wire [31:0] EXE_toms_bits_inst; // @[src/src/cpucore/mycpu_top.scala 27:25]
-  wire  EXE_data_sram_en; // @[src/src/cpucore/mycpu_top.scala 27:25]
-  wire  EXE_data_sram_wr; // @[src/src/cpucore/mycpu_top.scala 27:25]
-  wire [31:0] EXE_data_sram_addr; // @[src/src/cpucore/mycpu_top.scala 27:25]
-  wire [31:0] EXE_data_sram_wdata; // @[src/src/cpucore/mycpu_top.scala 27:25]
-  wire [3:0] EXE_data_sram_wstrb; // @[src/src/cpucore/mycpu_top.scala 27:25]
-  wire  MEM_ms_valid; // @[src/src/cpucore/mycpu_top.scala 28:25]
-  wire [31:0] MEM_ms_bits_pc; // @[src/src/cpucore/mycpu_top.scala 28:25]
-  wire [31:0] MEM_ms_bits_alu_res; // @[src/src/cpucore/mycpu_top.scala 28:25]
-  wire [4:0] MEM_ms_bits_inst_name; // @[src/src/cpucore/mycpu_top.scala 28:25]
-  wire  MEM_ms_bits_res_from_mem; // @[src/src/cpucore/mycpu_top.scala 28:25]
-  wire [4:0] MEM_ms_bits_rf_waddr; // @[src/src/cpucore/mycpu_top.scala 28:25]
-  wire  MEM_ms_bits_is_break; // @[src/src/cpucore/mycpu_top.scala 28:25]
-  wire [31:0] MEM_ms_bits_inst; // @[src/src/cpucore/mycpu_top.scala 28:25]
-  wire  MEM_tows_valid; // @[src/src/cpucore/mycpu_top.scala 28:25]
-  wire [31:0] MEM_tows_bits_pc; // @[src/src/cpucore/mycpu_top.scala 28:25]
-  wire [4:0] MEM_tows_bits_rf_waddr; // @[src/src/cpucore/mycpu_top.scala 28:25]
-  wire [31:0] MEM_tows_bits_rf_wdata; // @[src/src/cpucore/mycpu_top.scala 28:25]
-  wire  MEM_tows_bits_is_break; // @[src/src/cpucore/mycpu_top.scala 28:25]
-  wire [31:0] MEM_tows_bits_inst; // @[src/src/cpucore/mycpu_top.scala 28:25]
-  wire [31:0] MEM_data_sram_rdata; // @[src/src/cpucore/mycpu_top.scala 28:25]
-  wire  WB_ws_valid; // @[src/src/cpucore/mycpu_top.scala 29:24]
-  wire [31:0] WB_ws_bits_pc; // @[src/src/cpucore/mycpu_top.scala 29:24]
-  wire [4:0] WB_ws_bits_rf_waddr; // @[src/src/cpucore/mycpu_top.scala 29:24]
-  wire [31:0] WB_ws_bits_rf_wdata; // @[src/src/cpucore/mycpu_top.scala 29:24]
-  wire  WB_ws_bits_is_break; // @[src/src/cpucore/mycpu_top.scala 29:24]
-  wire [31:0] WB_ws_bits_inst; // @[src/src/cpucore/mycpu_top.scala 29:24]
-  wire [31:0] WB_torf_pc; // @[src/src/cpucore/mycpu_top.scala 29:24]
-  wire [4:0] WB_torf_rf_waddr; // @[src/src/cpucore/mycpu_top.scala 29:24]
-  wire [31:0] WB_torf_rf_wdata; // @[src/src/cpucore/mycpu_top.scala 29:24]
-  wire  WB_torf_is_break; // @[src/src/cpucore/mycpu_top.scala 29:24]
-  wire  WB_torf_valid; // @[src/src/cpucore/mycpu_top.scala 29:24]
-  wire [31:0] WB_torf_inst; // @[src/src/cpucore/mycpu_top.scala 29:24]
-  preIF pIF ( // @[src/src/cpucore/mycpu_top.scala 24:25]
+  wire  pIF_clock; // @[src/src/cpucore/mycpu_top.scala 26:25]
+  wire  pIF_reset; // @[src/src/cpucore/mycpu_top.scala 26:25]
+  wire  pIF_br_taken; // @[src/src/cpucore/mycpu_top.scala 26:25]
+  wire [31:0] pIF_br_target; // @[src/src/cpucore/mycpu_top.scala 26:25]
+  wire  pIF_inst_sram_en; // @[src/src/cpucore/mycpu_top.scala 26:25]
+  wire [31:0] pIF_inst_sram_addr; // @[src/src/cpucore/mycpu_top.scala 26:25]
+  wire  pIF_tofs_valid; // @[src/src/cpucore/mycpu_top.scala 26:25]
+  wire [31:0] pIF_tofs_bits_pc; // @[src/src/cpucore/mycpu_top.scala 26:25]
+  wire  IF_tods_valid; // @[src/src/cpucore/mycpu_top.scala 27:24]
+  wire [31:0] IF_tods_bits_pc; // @[src/src/cpucore/mycpu_top.scala 27:24]
+  wire [31:0] IF_tods_bits_inst; // @[src/src/cpucore/mycpu_top.scala 27:24]
+  wire [31:0] IF_inst_sram_rdata; // @[src/src/cpucore/mycpu_top.scala 27:24]
+  wire  IF_fs_valid; // @[src/src/cpucore/mycpu_top.scala 27:24]
+  wire [31:0] IF_fs_bits_pc; // @[src/src/cpucore/mycpu_top.scala 27:24]
+  wire  ID_clock; // @[src/src/cpucore/mycpu_top.scala 28:24]
+  wire  ID_toes_valid; // @[src/src/cpucore/mycpu_top.scala 28:24]
+  wire [31:0] ID_toes_bits_pc; // @[src/src/cpucore/mycpu_top.scala 28:24]
+  wire [31:0] ID_toes_bits_alu_src1; // @[src/src/cpucore/mycpu_top.scala 28:24]
+  wire [31:0] ID_toes_bits_alu_src2; // @[src/src/cpucore/mycpu_top.scala 28:24]
+  wire [4:0] ID_toes_bits_alu_op; // @[src/src/cpucore/mycpu_top.scala 28:24]
+  wire [4:0] ID_toes_bits_rf_waddr; // @[src/src/cpucore/mycpu_top.scala 28:24]
+  wire [1:0] ID_toes_bits_mem_we; // @[src/src/cpucore/mycpu_top.scala 28:24]
+  wire [4:0] ID_toes_bits_inst_name; // @[src/src/cpucore/mycpu_top.scala 28:24]
+  wire [31:0] ID_toes_bits_mem_wdata; // @[src/src/cpucore/mycpu_top.scala 28:24]
+  wire  ID_toes_bits_is_break; // @[src/src/cpucore/mycpu_top.scala 28:24]
+  wire [31:0] ID_toes_bits_inst; // @[src/src/cpucore/mycpu_top.scala 28:24]
+  wire  ID_ds_valid; // @[src/src/cpucore/mycpu_top.scala 28:24]
+  wire [31:0] ID_ds_bits_pc; // @[src/src/cpucore/mycpu_top.scala 28:24]
+  wire [31:0] ID_ds_bits_inst; // @[src/src/cpucore/mycpu_top.scala 28:24]
+  wire [31:0] ID_torf_pc; // @[src/src/cpucore/mycpu_top.scala 28:24]
+  wire [4:0] ID_torf_rf_waddr; // @[src/src/cpucore/mycpu_top.scala 28:24]
+  wire [31:0] ID_torf_rf_wdata; // @[src/src/cpucore/mycpu_top.scala 28:24]
+  wire  ID_torf_is_break; // @[src/src/cpucore/mycpu_top.scala 28:24]
+  wire  ID_torf_valid; // @[src/src/cpucore/mycpu_top.scala 28:24]
+  wire [31:0] ID_torf_inst; // @[src/src/cpucore/mycpu_top.scala 28:24]
+  wire  ID_br_taken; // @[src/src/cpucore/mycpu_top.scala 28:24]
+  wire [31:0] ID_br_target; // @[src/src/cpucore/mycpu_top.scala 28:24]
+  wire  EXE_es_valid; // @[src/src/cpucore/mycpu_top.scala 29:25]
+  wire [31:0] EXE_es_bits_pc; // @[src/src/cpucore/mycpu_top.scala 29:25]
+  wire [31:0] EXE_es_bits_alu_src1; // @[src/src/cpucore/mycpu_top.scala 29:25]
+  wire [31:0] EXE_es_bits_alu_src2; // @[src/src/cpucore/mycpu_top.scala 29:25]
+  wire [4:0] EXE_es_bits_alu_op; // @[src/src/cpucore/mycpu_top.scala 29:25]
+  wire [4:0] EXE_es_bits_rf_waddr; // @[src/src/cpucore/mycpu_top.scala 29:25]
+  wire [1:0] EXE_es_bits_mem_we; // @[src/src/cpucore/mycpu_top.scala 29:25]
+  wire [4:0] EXE_es_bits_inst_name; // @[src/src/cpucore/mycpu_top.scala 29:25]
+  wire [31:0] EXE_es_bits_mem_wdata; // @[src/src/cpucore/mycpu_top.scala 29:25]
+  wire  EXE_es_bits_is_break; // @[src/src/cpucore/mycpu_top.scala 29:25]
+  wire [31:0] EXE_es_bits_inst; // @[src/src/cpucore/mycpu_top.scala 29:25]
+  wire  EXE_toms_valid; // @[src/src/cpucore/mycpu_top.scala 29:25]
+  wire [31:0] EXE_toms_bits_pc; // @[src/src/cpucore/mycpu_top.scala 29:25]
+  wire [31:0] EXE_toms_bits_alu_res; // @[src/src/cpucore/mycpu_top.scala 29:25]
+  wire [4:0] EXE_toms_bits_inst_name; // @[src/src/cpucore/mycpu_top.scala 29:25]
+  wire  EXE_toms_bits_res_from_mem; // @[src/src/cpucore/mycpu_top.scala 29:25]
+  wire [4:0] EXE_toms_bits_rf_waddr; // @[src/src/cpucore/mycpu_top.scala 29:25]
+  wire  EXE_toms_bits_is_break; // @[src/src/cpucore/mycpu_top.scala 29:25]
+  wire [31:0] EXE_toms_bits_inst; // @[src/src/cpucore/mycpu_top.scala 29:25]
+  wire  EXE_data_sram_en; // @[src/src/cpucore/mycpu_top.scala 29:25]
+  wire  EXE_data_sram_wr; // @[src/src/cpucore/mycpu_top.scala 29:25]
+  wire [31:0] EXE_data_sram_addr; // @[src/src/cpucore/mycpu_top.scala 29:25]
+  wire [31:0] EXE_data_sram_wdata; // @[src/src/cpucore/mycpu_top.scala 29:25]
+  wire [3:0] EXE_data_sram_wstrb; // @[src/src/cpucore/mycpu_top.scala 29:25]
+  wire  MEM_ms_valid; // @[src/src/cpucore/mycpu_top.scala 30:25]
+  wire [31:0] MEM_ms_bits_pc; // @[src/src/cpucore/mycpu_top.scala 30:25]
+  wire [31:0] MEM_ms_bits_alu_res; // @[src/src/cpucore/mycpu_top.scala 30:25]
+  wire [4:0] MEM_ms_bits_inst_name; // @[src/src/cpucore/mycpu_top.scala 30:25]
+  wire  MEM_ms_bits_res_from_mem; // @[src/src/cpucore/mycpu_top.scala 30:25]
+  wire [4:0] MEM_ms_bits_rf_waddr; // @[src/src/cpucore/mycpu_top.scala 30:25]
+  wire  MEM_ms_bits_is_break; // @[src/src/cpucore/mycpu_top.scala 30:25]
+  wire [31:0] MEM_ms_bits_inst; // @[src/src/cpucore/mycpu_top.scala 30:25]
+  wire  MEM_tows_valid; // @[src/src/cpucore/mycpu_top.scala 30:25]
+  wire [31:0] MEM_tows_bits_pc; // @[src/src/cpucore/mycpu_top.scala 30:25]
+  wire [4:0] MEM_tows_bits_rf_waddr; // @[src/src/cpucore/mycpu_top.scala 30:25]
+  wire [31:0] MEM_tows_bits_rf_wdata; // @[src/src/cpucore/mycpu_top.scala 30:25]
+  wire  MEM_tows_bits_is_break; // @[src/src/cpucore/mycpu_top.scala 30:25]
+  wire [31:0] MEM_tows_bits_inst; // @[src/src/cpucore/mycpu_top.scala 30:25]
+  wire [31:0] MEM_data_sram_rdata; // @[src/src/cpucore/mycpu_top.scala 30:25]
+  wire  WB_ws_valid; // @[src/src/cpucore/mycpu_top.scala 31:24]
+  wire [31:0] WB_ws_bits_pc; // @[src/src/cpucore/mycpu_top.scala 31:24]
+  wire [4:0] WB_ws_bits_rf_waddr; // @[src/src/cpucore/mycpu_top.scala 31:24]
+  wire [31:0] WB_ws_bits_rf_wdata; // @[src/src/cpucore/mycpu_top.scala 31:24]
+  wire  WB_ws_bits_is_break; // @[src/src/cpucore/mycpu_top.scala 31:24]
+  wire [31:0] WB_ws_bits_inst; // @[src/src/cpucore/mycpu_top.scala 31:24]
+  wire [31:0] WB_torf_pc; // @[src/src/cpucore/mycpu_top.scala 31:24]
+  wire [4:0] WB_torf_rf_waddr; // @[src/src/cpucore/mycpu_top.scala 31:24]
+  wire [31:0] WB_torf_rf_wdata; // @[src/src/cpucore/mycpu_top.scala 31:24]
+  wire  WB_torf_is_break; // @[src/src/cpucore/mycpu_top.scala 31:24]
+  wire  WB_torf_valid; // @[src/src/cpucore/mycpu_top.scala 31:24]
+  wire [31:0] WB_torf_inst; // @[src/src/cpucore/mycpu_top.scala 31:24]
+  preIF pIF ( // @[src/src/cpucore/mycpu_top.scala 26:25]
     .clock(pIF_clock),
     .reset(pIF_reset),
     .br_taken(pIF_br_taken),
@@ -1268,7 +1268,7 @@ module mycpu_top(
     .tofs_valid(pIF_tofs_valid),
     .tofs_bits_pc(pIF_tofs_bits_pc)
   );
-  IF_stage IF ( // @[src/src/cpucore/mycpu_top.scala 25:24]
+  IF_stage IF ( // @[src/src/cpucore/mycpu_top.scala 27:24]
     .tods_valid(IF_tods_valid),
     .tods_bits_pc(IF_tods_bits_pc),
     .tods_bits_inst(IF_tods_bits_inst),
@@ -1276,7 +1276,7 @@ module mycpu_top(
     .fs_valid(IF_fs_valid),
     .fs_bits_pc(IF_fs_bits_pc)
   );
-  ID_stage ID ( // @[src/src/cpucore/mycpu_top.scala 26:24]
+  ID_stage ID ( // @[src/src/cpucore/mycpu_top.scala 28:24]
     .clock(ID_clock),
     .toes_valid(ID_toes_valid),
     .toes_bits_pc(ID_toes_bits_pc),
@@ -1301,7 +1301,7 @@ module mycpu_top(
     .br_taken(ID_br_taken),
     .br_target(ID_br_target)
   );
-  EX_stage EXE ( // @[src/src/cpucore/mycpu_top.scala 27:25]
+  EX_stage EXE ( // @[src/src/cpucore/mycpu_top.scala 29:25]
     .es_valid(EXE_es_valid),
     .es_bits_pc(EXE_es_bits_pc),
     .es_bits_alu_src1(EXE_es_bits_alu_src1),
@@ -1327,7 +1327,7 @@ module mycpu_top(
     .data_sram_wdata(EXE_data_sram_wdata),
     .data_sram_wstrb(EXE_data_sram_wstrb)
   );
-  MEM_stage MEM ( // @[src/src/cpucore/mycpu_top.scala 28:25]
+  MEM_stage MEM ( // @[src/src/cpucore/mycpu_top.scala 30:25]
     .ms_valid(MEM_ms_valid),
     .ms_bits_pc(MEM_ms_bits_pc),
     .ms_bits_alu_res(MEM_ms_bits_alu_res),
@@ -1344,7 +1344,7 @@ module mycpu_top(
     .tows_bits_inst(MEM_tows_bits_inst),
     .data_sram_rdata(MEM_data_sram_rdata)
   );
-  WB_stage WB ( // @[src/src/cpucore/mycpu_top.scala 29:24]
+  WB_stage WB ( // @[src/src/cpucore/mycpu_top.scala 31:24]
     .ws_valid(WB_ws_valid),
     .ws_bits_pc(WB_ws_bits_pc),
     .ws_bits_rf_waddr(WB_ws_bits_rf_waddr),
@@ -1358,30 +1358,30 @@ module mycpu_top(
     .torf_valid(WB_torf_valid),
     .torf_inst(WB_torf_inst)
   );
-  assign inst_sram_en = pIF_inst_sram_en; // @[src/src/cpucore/mycpu_top.scala 41:23]
-  assign inst_sram_addr = pIF_inst_sram_addr; // @[src/src/cpucore/mycpu_top.scala 41:23]
-  assign data_sram_en = EXE_data_sram_en; // @[src/src/cpucore/mycpu_top.scala 44:23]
-  assign data_sram_wr = EXE_data_sram_wr; // @[src/src/cpucore/mycpu_top.scala 44:23]
-  assign data_sram_addr = EXE_data_sram_addr; // @[src/src/cpucore/mycpu_top.scala 44:23]
-  assign data_sram_wdata = EXE_data_sram_wdata; // @[src/src/cpucore/mycpu_top.scala 44:23]
-  assign data_sram_wstrb = EXE_data_sram_wstrb; // @[src/src/cpucore/mycpu_top.scala 44:23]
+  assign inst_sram_en = pIF_inst_sram_en; // @[src/src/cpucore/mycpu_top.scala 43:23]
+  assign inst_sram_addr = pIF_inst_sram_addr; // @[src/src/cpucore/mycpu_top.scala 43:23]
+  assign data_sram_en = EXE_data_sram_en; // @[src/src/cpucore/mycpu_top.scala 46:23]
+  assign data_sram_wr = EXE_data_sram_wr; // @[src/src/cpucore/mycpu_top.scala 46:23]
+  assign data_sram_addr = EXE_data_sram_addr; // @[src/src/cpucore/mycpu_top.scala 46:23]
+  assign data_sram_wdata = EXE_data_sram_wdata; // @[src/src/cpucore/mycpu_top.scala 46:23]
+  assign data_sram_wstrb = EXE_data_sram_wstrb; // @[src/src/cpucore/mycpu_top.scala 46:23]
   assign pIF_clock = clock;
   assign pIF_reset = reset;
-  assign pIF_br_taken = ID_br_taken; // @[src/src/cpucore/mycpu_top.scala 37:16]
-  assign pIF_br_target = ID_br_target; // @[src/src/cpucore/mycpu_top.scala 37:16]
-  assign IF_inst_sram_rdata = inst_sram_rdata; // @[src/src/cpucore/mycpu_top.scala 40:22]
+  assign pIF_br_taken = ID_br_taken; // @[src/src/cpucore/mycpu_top.scala 39:16]
+  assign pIF_br_target = ID_br_target; // @[src/src/cpucore/mycpu_top.scala 39:16]
+  assign IF_inst_sram_rdata = inst_sram_rdata; // @[src/src/cpucore/mycpu_top.scala 42:22]
   assign IF_fs_valid = pIF_tofs_valid; // @[src/src/cpucore/mycpu_top.scala 13:64]
   assign IF_fs_bits_pc = pIF_tofs_bits_pc; // @[src/src/cpucore/mycpu_top.scala 13:64]
   assign ID_clock = clock;
   assign ID_ds_valid = IF_tods_valid; // @[src/src/cpucore/mycpu_top.scala 13:64]
   assign ID_ds_bits_pc = IF_tods_bits_pc; // @[src/src/cpucore/mycpu_top.scala 13:64]
   assign ID_ds_bits_inst = IF_tods_bits_inst; // @[src/src/cpucore/mycpu_top.scala 13:64]
-  assign ID_torf_pc = WB_torf_pc; // @[src/src/cpucore/mycpu_top.scala 38:17]
-  assign ID_torf_rf_waddr = WB_torf_rf_waddr; // @[src/src/cpucore/mycpu_top.scala 38:17]
-  assign ID_torf_rf_wdata = WB_torf_rf_wdata; // @[src/src/cpucore/mycpu_top.scala 38:17]
-  assign ID_torf_is_break = WB_torf_is_break; // @[src/src/cpucore/mycpu_top.scala 38:17]
-  assign ID_torf_valid = WB_torf_valid; // @[src/src/cpucore/mycpu_top.scala 38:17]
-  assign ID_torf_inst = WB_torf_inst; // @[src/src/cpucore/mycpu_top.scala 38:17]
+  assign ID_torf_pc = WB_torf_pc; // @[src/src/cpucore/mycpu_top.scala 40:17]
+  assign ID_torf_rf_waddr = WB_torf_rf_waddr; // @[src/src/cpucore/mycpu_top.scala 40:17]
+  assign ID_torf_rf_wdata = WB_torf_rf_wdata; // @[src/src/cpucore/mycpu_top.scala 40:17]
+  assign ID_torf_is_break = WB_torf_is_break; // @[src/src/cpucore/mycpu_top.scala 40:17]
+  assign ID_torf_valid = WB_torf_valid; // @[src/src/cpucore/mycpu_top.scala 40:17]
+  assign ID_torf_inst = WB_torf_inst; // @[src/src/cpucore/mycpu_top.scala 40:17]
   assign EXE_es_valid = ID_toes_valid; // @[src/src/cpucore/mycpu_top.scala 13:64]
   assign EXE_es_bits_pc = ID_toes_bits_pc; // @[src/src/cpucore/mycpu_top.scala 13:64]
   assign EXE_es_bits_alu_src1 = ID_toes_bits_alu_src1; // @[src/src/cpucore/mycpu_top.scala 13:64]
@@ -1401,7 +1401,7 @@ module mycpu_top(
   assign MEM_ms_bits_rf_waddr = EXE_toms_bits_rf_waddr; // @[src/src/cpucore/mycpu_top.scala 13:64]
   assign MEM_ms_bits_is_break = EXE_toms_bits_is_break; // @[src/src/cpucore/mycpu_top.scala 13:64]
   assign MEM_ms_bits_inst = EXE_toms_bits_inst; // @[src/src/cpucore/mycpu_top.scala 13:64]
-  assign MEM_data_sram_rdata = data_sram_rdata; // @[src/src/cpucore/mycpu_top.scala 43:23]
+  assign MEM_data_sram_rdata = data_sram_rdata; // @[src/src/cpucore/mycpu_top.scala 45:23]
   assign WB_ws_valid = MEM_tows_valid; // @[src/src/cpucore/mycpu_top.scala 13:64]
   assign WB_ws_bits_pc = MEM_tows_bits_pc; // @[src/src/cpucore/mycpu_top.scala 13:64]
   assign WB_ws_bits_rf_waddr = MEM_tows_bits_rf_waddr; // @[src/src/cpucore/mycpu_top.scala 13:64]
@@ -1413,6 +1413,9 @@ module Main(
   input   clock,
   input   reset
 );
+`ifdef RANDOMIZE_REG_INIT
+  reg [31:0] _RAND_0;
+`endif // RANDOMIZE_REG_INIT
   wire  cpucore_clock; // @[src/src/main.scala 8:29]
   wire  cpucore_reset; // @[src/src/main.scala 8:29]
   wire  cpucore_inst_sram_en; // @[src/src/main.scala 8:29]
@@ -1436,6 +1439,7 @@ module Main(
   wire [31:0] iram_wdata; // @[src/src/main.scala 10:33]
   wire [3:0] iram_wstrb; // @[src/src/main.scala 10:33]
   wire [31:0] iram_rdata; // @[src/src/main.scala 10:33]
+  reg  cpucore_reset_REG; // @[src/src/main.scala 12:33]
   mycpu_top cpucore ( // @[src/src/main.scala 8:29]
     .clock(cpucore_clock),
     .reset(cpucore_reset),
@@ -1465,18 +1469,66 @@ module Main(
     .wstrb(iram_wstrb),
     .rdata(iram_rdata)
   );
-  assign cpucore_clock = clock;
-  assign cpucore_reset = reset;
-  assign cpucore_inst_sram_rdata = iram_rdata; // @[src/src/main.scala 13:27]
-  assign cpucore_data_sram_rdata = dram_rdata; // @[src/src/main.scala 12:27]
-  assign dram_en = cpucore_data_sram_en; // @[src/src/main.scala 12:27]
-  assign dram_wr = cpucore_data_sram_wr; // @[src/src/main.scala 12:27]
-  assign dram_addr = cpucore_data_sram_addr; // @[src/src/main.scala 12:27]
-  assign dram_wdata = cpucore_data_sram_wdata; // @[src/src/main.scala 12:27]
-  assign dram_wstrb = cpucore_data_sram_wstrb; // @[src/src/main.scala 12:27]
-  assign iram_en = cpucore_inst_sram_en; // @[src/src/main.scala 13:27]
-  assign iram_wr = 1'h0; // @[src/src/main.scala 13:27]
-  assign iram_addr = cpucore_inst_sram_addr; // @[src/src/main.scala 13:27]
-  assign iram_wdata = 32'h0; // @[src/src/main.scala 13:27]
-  assign iram_wstrb = 4'h0; // @[src/src/main.scala 13:27]
+  assign cpucore_clock = clock; // @[src/src/main.scala 13:23]
+  assign cpucore_reset = cpucore_reset_REG; // @[src/src/main.scala 12:23]
+  assign cpucore_inst_sram_rdata = iram_rdata; // @[src/src/main.scala 15:27]
+  assign cpucore_data_sram_rdata = dram_rdata; // @[src/src/main.scala 14:27]
+  assign dram_en = cpucore_data_sram_en; // @[src/src/main.scala 14:27]
+  assign dram_wr = cpucore_data_sram_wr; // @[src/src/main.scala 14:27]
+  assign dram_addr = cpucore_data_sram_addr; // @[src/src/main.scala 14:27]
+  assign dram_wdata = cpucore_data_sram_wdata; // @[src/src/main.scala 14:27]
+  assign dram_wstrb = cpucore_data_sram_wstrb; // @[src/src/main.scala 14:27]
+  assign iram_en = cpucore_inst_sram_en; // @[src/src/main.scala 15:27]
+  assign iram_wr = 1'h0; // @[src/src/main.scala 15:27]
+  assign iram_addr = cpucore_inst_sram_addr; // @[src/src/main.scala 15:27]
+  assign iram_wdata = 32'h0; // @[src/src/main.scala 15:27]
+  assign iram_wstrb = 4'h0; // @[src/src/main.scala 15:27]
+  always @(posedge clock) begin
+    cpucore_reset_REG <= reset; // @[src/src/main.scala 12:33]
+  end
+// Register and memory initialization
+`ifdef RANDOMIZE_GARBAGE_ASSIGN
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_INVALID_ASSIGN
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_REG_INIT
+`define RANDOMIZE
+`endif
+`ifdef RANDOMIZE_MEM_INIT
+`define RANDOMIZE
+`endif
+`ifndef RANDOM
+`define RANDOM $random
+`endif
+`ifdef RANDOMIZE_MEM_INIT
+  integer initvar;
+`endif
+`ifndef SYNTHESIS
+`ifdef FIRRTL_BEFORE_INITIAL
+`FIRRTL_BEFORE_INITIAL
+`endif
+initial begin
+  `ifdef RANDOMIZE
+    `ifdef INIT_RANDOM
+      `INIT_RANDOM
+    `endif
+    `ifndef VERILATOR
+      `ifdef RANDOMIZE_DELAY
+        #`RANDOMIZE_DELAY begin end
+      `else
+        #0.002 begin end
+      `endif
+    `endif
+`ifdef RANDOMIZE_REG_INIT
+  _RAND_0 = {1{`RANDOM}};
+  cpucore_reset_REG = _RAND_0[0:0];
+`endif // RANDOMIZE_REG_INIT
+  `endif // RANDOMIZE
+end // initial
+`ifdef FIRRTL_AFTER_INITIAL
+`FIRRTL_AFTER_INITIAL
+`endif
+`endif // SYNTHESIS
 endmodule

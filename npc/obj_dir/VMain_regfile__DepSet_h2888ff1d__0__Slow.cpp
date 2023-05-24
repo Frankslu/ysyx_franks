@@ -81,10 +81,27 @@ VL_ATTR_COLD void VMain_regfile___eval_initial__TOP__Main__cpucore__ID__reg_(VMa
     vlSelf->__PVT__difftest_rf_0 = 0U;
 }
 
-VL_ATTR_COLD void VMain_regfile___stl_sequent__TOP__Main__cpucore__ID__reg___4(VMain_regfile* vlSelf) {
+VL_ATTR_COLD void VMain_regfile___stl_sequent__TOP__Main__cpucore__ID__reg___1(VMain_regfile* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+            VMain_regfile___stl_sequent__TOP__Main__cpucore__ID__reg___4\n"); );
+    VL_DEBUG_IF(VL_DBG_MSGF("+            VMain_regfile___stl_sequent__TOP__Main__cpucore__ID__reg___1\n"); );
+    // Body
+    vlSelf->__PVT__rf_io_rdata1_MPORT_addr = vlSelf->__PVT__io_raddr1;
+    vlSelf->__PVT__rf_io_rdata2_MPORT_addr = vlSelf->__PVT__io_raddr2;
+    vlSelf->__PVT__rf_io_rdata1_MPORT_data = vlSelf->__PVT__rf
+        [vlSelf->__PVT__rf_io_rdata1_MPORT_addr];
+    vlSelf->__PVT__rf_io_rdata2_MPORT_data = vlSelf->__PVT__rf
+        [vlSelf->__PVT__rf_io_rdata2_MPORT_addr];
+    vlSelf->__PVT__io_rdata1 = ((0U == (IData)(vlSelf->__PVT__io_raddr1))
+                                 ? 0U : vlSelf->__PVT__rf_io_rdata1_MPORT_data);
+    vlSelf->__PVT__io_rdata2 = ((0U == (IData)(vlSelf->__PVT__io_raddr2))
+                                 ? 0U : vlSelf->__PVT__rf_io_rdata2_MPORT_data);
+}
+
+VL_ATTR_COLD void VMain_regfile___stl_sequent__TOP__Main__cpucore__ID__reg___5(VMain_regfile* vlSelf) {
+    if (false && vlSelf) {}  // Prevent unused
+    VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+            VMain_regfile___stl_sequent__TOP__Main__cpucore__ID__reg___5\n"); );
     // Body
     vlSelf->__PVT__rf_MPORT_data = vlSelf->__PVT__io_wdata;
 }

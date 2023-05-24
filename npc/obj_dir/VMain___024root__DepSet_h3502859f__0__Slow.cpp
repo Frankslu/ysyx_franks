@@ -92,10 +92,13 @@ VL_ATTR_COLD void VMain___024root___dump_triggers__act(VMain___024root* vlSelf) 
         VL_DBG_MSGF("         No triggers active\n");
     }
     if (vlSelf->__VactTriggered.at(0U)) {
-        VL_DBG_MSGF("         'act' region trigger index 0 is active: @(posedge Main.cpucore.pIF.clock)\n");
+        VL_DBG_MSGF("         'act' region trigger index 0 is active: @(posedge Main.clock)\n");
     }
     if (vlSelf->__VactTriggered.at(1U)) {
-        VL_DBG_MSGF("         'act' region trigger index 1 is active: @(posedge Main.cpucore.ID.reg_.clock)\n");
+        VL_DBG_MSGF("         'act' region trigger index 1 is active: @(posedge Main.cpucore.pIF.clock)\n");
+    }
+    if (vlSelf->__VactTriggered.at(2U)) {
+        VL_DBG_MSGF("         'act' region trigger index 2 is active: @(posedge Main.cpucore.ID.reg_.clock)\n");
     }
 }
 #endif  // VL_DEBUG
@@ -110,10 +113,13 @@ VL_ATTR_COLD void VMain___024root___dump_triggers__nba(VMain___024root* vlSelf) 
         VL_DBG_MSGF("         No triggers active\n");
     }
     if (vlSelf->__VnbaTriggered.at(0U)) {
-        VL_DBG_MSGF("         'nba' region trigger index 0 is active: @(posedge Main.cpucore.pIF.clock)\n");
+        VL_DBG_MSGF("         'nba' region trigger index 0 is active: @(posedge Main.clock)\n");
     }
     if (vlSelf->__VnbaTriggered.at(1U)) {
-        VL_DBG_MSGF("         'nba' region trigger index 1 is active: @(posedge Main.cpucore.ID.reg_.clock)\n");
+        VL_DBG_MSGF("         'nba' region trigger index 1 is active: @(posedge Main.cpucore.pIF.clock)\n");
+    }
+    if (vlSelf->__VnbaTriggered.at(2U)) {
+        VL_DBG_MSGF("         'nba' region trigger index 2 is active: @(posedge Main.cpucore.ID.reg_.clock)\n");
     }
 }
 #endif  // VL_DEBUG
@@ -125,9 +131,10 @@ VL_ATTR_COLD void VMain___024root___ctor_var_reset(VMain___024root* vlSelf) {
     // Body
     vlSelf->clock = VL_RAND_RESET_I(1);
     vlSelf->reset = VL_RAND_RESET_I(1);
+    vlSelf->__Vtrigrprev__TOP__Main__clock = VL_RAND_RESET_I(1);
     vlSelf->__Vtrigrprev__TOP__Main__cpucore__pIF____PVT__clock = VL_RAND_RESET_I(1);
     vlSelf->__Vtrigrprev__TOP__Main__cpucore__ID__reg_____PVT__clock = VL_RAND_RESET_I(1);
-    for (int __Vi0 = 0; __Vi0 < 5; ++__Vi0) {
+    for (int __Vi0 = 0; __Vi0 < 8; ++__Vi0) {
         vlSelf->__Vm_traceActivity[__Vi0] = 0;
     }
 }

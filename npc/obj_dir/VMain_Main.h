@@ -35,6 +35,8 @@ class VMain_Main final : public VerilatedModule {
     CData/*0:0*/ __PVT__iram_en;
     CData/*0:0*/ __PVT__iram_wr;
     CData/*3:0*/ __PVT__iram_wstrb;
+    CData/*0:0*/ __PVT__cpucore_reset_REG;
+    CData/*0:0*/ __Vdly__cpucore_reset_REG;
     IData/*31:0*/ __PVT__cpucore_inst_sram_addr;
     IData/*31:0*/ __PVT__cpucore_inst_sram_rdata;
     IData/*31:0*/ __PVT__cpucore_data_sram_addr;

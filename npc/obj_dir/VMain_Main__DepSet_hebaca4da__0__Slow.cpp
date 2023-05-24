@@ -16,6 +16,10 @@ VL_ATTR_COLD void VMain_Main___stl_sequent__TOP__Main__0(VMain_Main* vlSelf) {
     vlSymsp->TOP__Main__iram.__PVT__wstrb = vlSelf->__PVT__iram_wstrb;
     vlSymsp->TOP__Main__iram.__PVT__wdata = vlSelf->__PVT__iram_wdata;
     vlSymsp->TOP__Main__iram.__PVT__wr = vlSelf->__PVT__iram_wr;
+    vlSelf->__PVT__cpucore_reset = vlSelf->__PVT__cpucore_reset_REG;
+    vlSelf->__PVT__cpucore_clock = vlSelf->clock;
+    vlSymsp->TOP__Main__cpucore.__PVT__reset = vlSelf->__PVT__cpucore_reset;
+    vlSymsp->TOP__Main__cpucore.__PVT__clock = vlSelf->__PVT__cpucore_clock;
 }
 
 VL_ATTR_COLD void VMain_Main___stl_sequent__TOP__Main__1(VMain_Main* vlSelf) {
@@ -23,11 +27,7 @@ VL_ATTR_COLD void VMain_Main___stl_sequent__TOP__Main__1(VMain_Main* vlSelf) {
     VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+      VMain_Main___stl_sequent__TOP__Main__1\n"); );
     // Body
-    vlSelf->__PVT__cpucore_clock = vlSelf->clock;
-    vlSelf->__PVT__cpucore_reset = vlSelf->reset;
     vlSelf->__PVT__cpucore_inst_sram_addr = vlSymsp->TOP__Main__cpucore.__PVT__inst_sram_addr;
-    vlSymsp->TOP__Main__cpucore.__PVT__clock = vlSelf->__PVT__cpucore_clock;
-    vlSymsp->TOP__Main__cpucore.__PVT__reset = vlSelf->__PVT__cpucore_reset;
     vlSelf->__PVT__iram_addr = vlSelf->__PVT__cpucore_inst_sram_addr;
     vlSymsp->TOP__Main__iram.__PVT__addr = vlSelf->__PVT__iram_addr;
 }

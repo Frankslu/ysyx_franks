@@ -7,66 +7,6 @@
 
 #include "VMain_MEM_stage.h"
 
-VL_INLINE_OPT void VMain_MEM_stage___ico_sequent__TOP__Main__cpucore__MEM__0(VMain_MEM_stage* vlSelf) {
-    if (false && vlSelf) {}  // Prevent unused
-    VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_MEM_stage___ico_sequent__TOP__Main__cpucore__MEM__0\n"); );
-    // Body
-    vlSelf->__PVT__tows_valid = vlSelf->__PVT__ms_valid;
-}
-
-VL_INLINE_OPT void VMain_MEM_stage___ico_sequent__TOP__Main__cpucore__MEM__1(VMain_MEM_stage* vlSelf) {
-    if (false && vlSelf) {}  // Prevent unused
-    VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_MEM_stage___ico_sequent__TOP__Main__cpucore__MEM__1\n"); );
-    // Body
-    vlSelf->__PVT__tows_bits_inst = vlSelf->__PVT__ms_bits_inst;
-    vlSelf->__PVT__tows_bits_rf_waddr = vlSelf->__PVT__ms_bits_rf_waddr;
-    vlSelf->__PVT__tows_bits_is_break = vlSelf->__PVT__ms_bits_is_break;
-}
-
-VL_INLINE_OPT void VMain_MEM_stage___ico_sequent__TOP__Main__cpucore__MEM__2(VMain_MEM_stage* vlSelf) {
-    if (false && vlSelf) {}  // Prevent unused
-    VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_MEM_stage___ico_sequent__TOP__Main__cpucore__MEM__2\n"); );
-    // Body
-    vlSelf->__PVT___mem_rdata_sign_T_1 = (0xffffU & 
-                                          VL_SEL_IIII(32, vlSelf->__PVT__data_sram_rdata, 0U, 0x10U));
-    vlSelf->__PVT___mem_rdata_sign_T = (0xffU & VL_SEL_IIII(32, vlSelf->__PVT__data_sram_rdata, 0U, 8U));
-    vlSelf->__PVT___mem_rdata_T_4 = VL_CONCAT_III(32,16,16, 
-                                                  (0xffffU 
-                                                   & VL_REPLICATE_IOI(1,
-                                                                      (1U 
-                                                                       & VL_BITSEL_IIII(16, (IData)(vlSelf->__PVT___mem_rdata_sign_T_1), 0xfU)), 0x10U)), (IData)(vlSelf->__PVT___mem_rdata_sign_T_1));
-    vlSelf->__PVT___mem_rdata_T_1 = VL_CONCAT_III(32,24,8, 
-                                                  (0xffffffU 
-                                                   & VL_REPLICATE_IOI(1,
-                                                                      (1U 
-                                                                       & VL_BITSEL_IIII(8, (IData)(vlSelf->__PVT___mem_rdata_sign_T), 7U)), 0x18U)), (IData)(vlSelf->__PVT___mem_rdata_sign_T));
-    vlSelf->__PVT___mem_rdata_T_7 = ((6U == (IData)(vlSelf->__PVT__ms_bits_inst_name))
-                                      ? vlSelf->__PVT___mem_rdata_T_1
-                                      : 0xdeadU);
-    vlSelf->__PVT___mem_rdata_T_9 = ((9U == (IData)(vlSelf->__PVT__ms_bits_inst_name))
-                                      ? VL_EXTEND_II(32,8, 
-                                                     (0xffU 
-                                                      & VL_SEL_IIII(32, vlSelf->__PVT__data_sram_rdata, 0U, 8U)))
-                                      : vlSelf->__PVT___mem_rdata_T_7);
-    vlSelf->__PVT___mem_rdata_T_11 = ((7U == (IData)(vlSelf->__PVT__ms_bits_inst_name))
-                                       ? vlSelf->__PVT___mem_rdata_T_4
-                                       : vlSelf->__PVT___mem_rdata_T_9);
-    vlSelf->__PVT___mem_rdata_T_13 = ((0xaU == (IData)(vlSelf->__PVT__ms_bits_inst_name))
-                                       ? VL_EXTEND_II(32,16, 
-                                                      (0xffffU 
-                                                       & VL_SEL_IIII(32, vlSelf->__PVT__data_sram_rdata, 0U, 0x10U)))
-                                       : vlSelf->__PVT___mem_rdata_T_11);
-    vlSelf->__PVT__mem_rdata = ((8U == (IData)(vlSelf->__PVT__ms_bits_inst_name))
-                                 ? vlSelf->__PVT__data_sram_rdata
-                                 : vlSelf->__PVT___mem_rdata_T_13);
-    vlSelf->__PVT__tows_bits_rf_wdata = ((IData)(vlSelf->__PVT__ms_bits_res_from_mem)
-                                          ? vlSelf->__PVT__mem_rdata
-                                          : vlSelf->__PVT__ms_bits_alu_res);
-}
-
 VL_INLINE_OPT void VMain_MEM_stage___nba_sequent__TOP__Main__cpucore__MEM__0(VMain_MEM_stage* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
@@ -80,15 +20,23 @@ VL_INLINE_OPT void VMain_MEM_stage___nba_sequent__TOP__Main__cpucore__MEM__1(VMa
     VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_MEM_stage___nba_sequent__TOP__Main__cpucore__MEM__1\n"); );
     // Body
-    vlSelf->__PVT__tows_bits_inst = vlSelf->__PVT__ms_bits_inst;
-    vlSelf->__PVT__tows_bits_rf_waddr = vlSelf->__PVT__ms_bits_rf_waddr;
-    vlSelf->__PVT__tows_bits_is_break = vlSelf->__PVT__ms_bits_is_break;
+    vlSelf->__PVT__tows_valid = vlSelf->__PVT__ms_valid;
 }
 
 VL_INLINE_OPT void VMain_MEM_stage___nba_comb__TOP__Main__cpucore__MEM__0(VMain_MEM_stage* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_MEM_stage___nba_comb__TOP__Main__cpucore__MEM__0\n"); );
+    // Body
+    vlSelf->__PVT__tows_bits_inst = vlSelf->__PVT__ms_bits_inst;
+    vlSelf->__PVT__tows_bits_rf_waddr = vlSelf->__PVT__ms_bits_rf_waddr;
+    vlSelf->__PVT__tows_bits_is_break = vlSelf->__PVT__ms_bits_is_break;
+}
+
+VL_INLINE_OPT void VMain_MEM_stage___nba_comb__TOP__Main__cpucore__MEM__1(VMain_MEM_stage* vlSelf) {
+    if (false && vlSelf) {}  // Prevent unused
+    VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+          VMain_MEM_stage___nba_comb__TOP__Main__cpucore__MEM__1\n"); );
     // Body
     vlSelf->__PVT___mem_rdata_sign_T_1 = (0xffffU & 
                                           VL_SEL_IIII(32, vlSelf->__PVT__data_sram_rdata, 0U, 0x10U));
