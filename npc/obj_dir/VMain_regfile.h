@@ -103,11 +103,9 @@ class VMain_regfile final : public VerilatedModule {
         CData/*0:0*/ __PVT__npc_brk_is_break;
         CData/*0:0*/ __PVT__inst_exec_once_valid;
         CData/*0:0*/ __PVT__is_break;
-        CData/*0:0*/ __PVT__valid;
         CData/*4:0*/ __Vdlyvdim0__rf__v0;
         CData/*0:0*/ __Vdlyvset__rf__v0;
         CData/*0:0*/ __Vdly__is_break;
-        CData/*0:0*/ __Vdly__valid;
         VL_OUT(__PVT__io_rdata1,31,0);
         VL_OUT(__PVT__io_rdata2,31,0);
         VL_IN(__PVT__io_wdata,31,0);
@@ -153,10 +151,10 @@ class VMain_regfile final : public VerilatedModule {
         IData/*31:0*/ __PVT__difftest_rf_3;
         IData/*31:0*/ __PVT__difftest_rf_4;
         IData/*31:0*/ __PVT__difftest_rf_5;
-    };
-    struct {
         IData/*31:0*/ __PVT__difftest_rf_6;
         IData/*31:0*/ __PVT__difftest_rf_7;
+    };
+    struct {
         IData/*31:0*/ __PVT__difftest_rf_8;
         IData/*31:0*/ __PVT__difftest_rf_9;
         IData/*31:0*/ __PVT__difftest_rf_10;
@@ -183,11 +181,7 @@ class VMain_regfile final : public VerilatedModule {
         IData/*31:0*/ __PVT__difftest_rf_31;
         IData/*31:0*/ __PVT__inst_exec_once_inst;
         IData/*31:0*/ __PVT__inst_exec_once_pc;
-        IData/*31:0*/ __PVT__pc;
-        IData/*31:0*/ __PVT__inst;
         IData/*31:0*/ __Vdlyvval__rf__v0;
-        IData/*31:0*/ __Vdly__pc;
-        IData/*31:0*/ __Vdly__inst;
         VlUnpacked<IData/*31:0*/, 32> __PVT__rf;
     };
 

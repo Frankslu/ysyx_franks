@@ -100,9 +100,6 @@ module regfile(
 `endif // RANDOMIZE_MEM_INIT
 `ifdef RANDOMIZE_REG_INIT
   reg [31:0] _RAND_1;
-  reg [31:0] _RAND_2;
-  reg [31:0] _RAND_3;
-  reg [31:0] _RAND_4;
 `endif // RANDOMIZE_REG_INIT
   reg [31:0] rf [0:31]; // @[src/src/cpucore/Unit/regfile.scala 40:17]
   wire  rf_io_rdata1_MPORT_en; // @[src/src/cpucore/Unit/regfile.scala 40:17]
@@ -244,10 +241,7 @@ module regfile(
   wire  inst_exec_once_valid; // @[src/src/cpucore/Unit/regfile.scala 62:32]
   wire [31:0] inst_exec_once_inst; // @[src/src/cpucore/Unit/regfile.scala 62:32]
   wire [31:0] inst_exec_once_pc; // @[src/src/cpucore/Unit/regfile.scala 62:32]
-  reg [31:0] pc; // @[src/src/cpucore/Unit/regfile.scala 46:21]
   reg  is_break; // @[src/src/cpucore/Unit/regfile.scala 54:27]
-  reg  valid; // @[src/src/cpucore/Unit/regfile.scala 59:24]
-  reg [31:0] inst; // @[src/src/cpucore/Unit/regfile.scala 61:23]
   Difftest difftest ( // @[src/src/cpucore/Unit/regfile.scala 48:26]
     .rf_0(difftest_rf_0),
     .rf_1(difftest_rf_1),
@@ -428,25 +422,18 @@ module regfile(
   assign difftest_rf_30 = rf_difftest_io_rf_30_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 51:27]
   assign difftest_rf_31 = rf_difftest_io_rf_31_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 51:27]
   assign npc_brk_is_break = is_break; // @[src/src/cpucore/Unit/regfile.scala 57:25]
-  assign inst_exec_once_valid = valid; // @[src/src/cpucore/Unit/regfile.scala 63:29]
-  assign inst_exec_once_inst = inst; // @[src/src/cpucore/Unit/regfile.scala 64:28]
-  assign inst_exec_once_pc = pc; // @[src/src/cpucore/Unit/regfile.scala 65:26]
+  assign inst_exec_once_valid = 1'h1; // @[src/src/cpucore/Unit/regfile.scala 63:29]
+  assign inst_exec_once_inst = io_inst; // @[src/src/cpucore/Unit/regfile.scala 64:28]
+  assign inst_exec_once_pc = io_rf_pc; // @[src/src/cpucore/Unit/regfile.scala 65:26]
   always @(posedge clock) begin
     if (rf_MPORT_en & rf_MPORT_mask) begin
       rf[rf_MPORT_addr] <= rf_MPORT_data; // @[src/src/cpucore/Unit/regfile.scala 40:17]
     end
-    pc <= io_rf_pc; // @[src/src/cpucore/Unit/regfile.scala 46:21]
     if (reset) begin // @[src/src/cpucore/Unit/regfile.scala 54:27]
       is_break <= 1'h0; // @[src/src/cpucore/Unit/regfile.scala 54:27]
     end else begin
       is_break <= io_is_break; // @[src/src/cpucore/Unit/regfile.scala 55:14]
     end
-    if (reset) begin // @[src/src/cpucore/Unit/regfile.scala 59:24]
-      valid <= 1'h0; // @[src/src/cpucore/Unit/regfile.scala 59:24]
-    end else begin
-      valid <= 1'h1; // @[src/src/cpucore/Unit/regfile.scala 60:11]
-    end
-    inst <= io_inst; // @[src/src/cpucore/Unit/regfile.scala 61:23]
   end
 // Register and memory initialization
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
@@ -490,13 +477,7 @@ initial begin
 `endif // RANDOMIZE_MEM_INIT
 `ifdef RANDOMIZE_REG_INIT
   _RAND_1 = {1{`RANDOM}};
-  pc = _RAND_1[31:0];
-  _RAND_2 = {1{`RANDOM}};
-  is_break = _RAND_2[0:0];
-  _RAND_3 = {1{`RANDOM}};
-  valid = _RAND_3[0:0];
-  _RAND_4 = {1{`RANDOM}};
-  inst = _RAND_4[31:0];
+  is_break = _RAND_1[0:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial

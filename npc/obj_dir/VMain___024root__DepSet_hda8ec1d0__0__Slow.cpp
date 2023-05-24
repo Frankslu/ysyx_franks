@@ -65,7 +65,6 @@ VL_ATTR_COLD void VMain_regfile___stl_sequent__TOP__Main__cpucore__ID__reg___0(V
 VL_ATTR_COLD void VMain_mycpu_top___stl_sequent__TOP__Main__cpucore__0(VMain_mycpu_top* vlSelf);
 VL_ATTR_COLD void VMain_Difftest___stl_sequent__TOP__Main__cpucore__ID__reg___difftest__0(VMain_Difftest* vlSelf);
 VL_ATTR_COLD void VMain_npc_break___stl_sequent__TOP__Main__cpucore__ID__reg___npc_brk__0(VMain_npc_break* vlSelf);
-VL_ATTR_COLD void VMain_Exec___stl_sequent__TOP__Main__cpucore__ID__reg___inst_exec_once__0(VMain_Exec* vlSelf);
 VL_ATTR_COLD void VMain_Main___stl_sequent__TOP__Main__1(VMain_Main* vlSelf);
 VL_ATTR_COLD void VMain_IF_stage___stl_sequent__TOP__Main__cpucore__IF__0(VMain_IF_stage* vlSelf);
 VL_ATTR_COLD void VMain_mycpu_top___stl_sequent__TOP__Main__cpucore__1(VMain_mycpu_top* vlSelf);
@@ -103,6 +102,7 @@ VL_ATTR_COLD void VMain_ID_stage___stl_sequent__TOP__Main__cpucore__ID__3(VMain_
 VL_ATTR_COLD void VMain_d_mem___stl_sequent__TOP__Main__dram__0(VMain_d_mem* vlSelf);
 VL_ATTR_COLD void VMain_regfile___stl_sequent__TOP__Main__cpucore__ID__reg___2(VMain_regfile* vlSelf);
 VL_ATTR_COLD void VMain_Main___stl_sequent__TOP__Main__7(VMain_Main* vlSelf);
+VL_ATTR_COLD void VMain_Exec___stl_sequent__TOP__Main__cpucore__ID__reg___inst_exec_once__0(VMain_Exec* vlSelf);
 VL_ATTR_COLD void VMain_mycpu_top___stl_sequent__TOP__Main__cpucore__10(VMain_mycpu_top* vlSelf);
 VL_ATTR_COLD void VMain_MEM_stage___stl_sequent__TOP__Main__cpucore__MEM__2(VMain_MEM_stage* vlSelf);
 VL_ATTR_COLD void VMain_mycpu_top___stl_sequent__TOP__Main__cpucore__11(VMain_mycpu_top* vlSelf);
@@ -129,7 +129,6 @@ VL_ATTR_COLD void VMain___024root___eval_stl(VMain___024root* vlSelf) {
         VMain_mycpu_top___stl_sequent__TOP__Main__cpucore__0((&vlSymsp->TOP__Main__cpucore));
         VMain_Difftest___stl_sequent__TOP__Main__cpucore__ID__reg___difftest__0((&vlSymsp->TOP__Main__cpucore__ID__reg___difftest));
         VMain_npc_break___stl_sequent__TOP__Main__cpucore__ID__reg___npc_brk__0((&vlSymsp->TOP__Main__cpucore__ID__reg___npc_brk));
-        VMain_Exec___stl_sequent__TOP__Main__cpucore__ID__reg___inst_exec_once__0((&vlSymsp->TOP__Main__cpucore__ID__reg___inst_exec_once));
         VMain_Main___stl_sequent__TOP__Main__1((&vlSymsp->TOP__Main));
         VMain_IF_stage___stl_sequent__TOP__Main__cpucore__IF__0((&vlSymsp->TOP__Main__cpucore__IF));
         VMain_mycpu_top___stl_sequent__TOP__Main__cpucore__1((&vlSymsp->TOP__Main__cpucore));
@@ -167,6 +166,7 @@ VL_ATTR_COLD void VMain___024root___eval_stl(VMain___024root* vlSelf) {
         VMain_d_mem___stl_sequent__TOP__Main__dram__0((&vlSymsp->TOP__Main__dram));
         VMain_regfile___stl_sequent__TOP__Main__cpucore__ID__reg___2((&vlSymsp->TOP__Main__cpucore__ID__reg_));
         VMain_Main___stl_sequent__TOP__Main__7((&vlSymsp->TOP__Main));
+        VMain_Exec___stl_sequent__TOP__Main__cpucore__ID__reg___inst_exec_once__0((&vlSymsp->TOP__Main__cpucore__ID__reg___inst_exec_once));
         VMain_mycpu_top___stl_sequent__TOP__Main__cpucore__10((&vlSymsp->TOP__Main__cpucore));
         VMain_MEM_stage___stl_sequent__TOP__Main__cpucore__MEM__2((&vlSymsp->TOP__Main__cpucore__MEM));
         VMain_mycpu_top___stl_sequent__TOP__Main__cpucore__11((&vlSymsp->TOP__Main__cpucore));

@@ -79,31 +79,7 @@ VL_ATTR_COLD void VMain_regfile___eval_initial__TOP__Main__cpucore__ID__reg_(VMa
     vlSelf->__PVT__rf_MPORT_mask = 1U;
     vlSelf->__PVT__rf_MPORT_en = 1U;
     vlSelf->__PVT__difftest_rf_0 = 0U;
-}
-
-VL_ATTR_COLD void VMain_regfile___stl_sequent__TOP__Main__cpucore__ID__reg___1(VMain_regfile* vlSelf) {
-    if (false && vlSelf) {}  // Prevent unused
-    VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+            VMain_regfile___stl_sequent__TOP__Main__cpucore__ID__reg___1\n"); );
-    // Body
-    vlSelf->__PVT__rf_io_rdata1_MPORT_addr = vlSelf->__PVT__io_raddr1;
-    vlSelf->__PVT__rf_io_rdata2_MPORT_addr = vlSelf->__PVT__io_raddr2;
-    vlSelf->__PVT__rf_io_rdata1_MPORT_data = vlSelf->__PVT__rf
-        [vlSelf->__PVT__rf_io_rdata1_MPORT_addr];
-    vlSelf->__PVT__rf_io_rdata2_MPORT_data = vlSelf->__PVT__rf
-        [vlSelf->__PVT__rf_io_rdata2_MPORT_addr];
-    vlSelf->__PVT__io_rdata1 = ((0U == (IData)(vlSelf->__PVT__io_raddr1))
-                                 ? 0U : vlSelf->__PVT__rf_io_rdata1_MPORT_data);
-    vlSelf->__PVT__io_rdata2 = ((0U == (IData)(vlSelf->__PVT__io_raddr2))
-                                 ? 0U : vlSelf->__PVT__rf_io_rdata2_MPORT_data);
-}
-
-VL_ATTR_COLD void VMain_regfile___stl_sequent__TOP__Main__cpucore__ID__reg___2(VMain_regfile* vlSelf) {
-    if (false && vlSelf) {}  // Prevent unused
-    VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+            VMain_regfile___stl_sequent__TOP__Main__cpucore__ID__reg___2\n"); );
-    // Body
-    vlSelf->__PVT__rf_MPORT_addr = vlSelf->__PVT__io_waddr;
+    vlSelf->__PVT__inst_exec_once_valid = 1U;
 }
 
 VL_ATTR_COLD void VMain_regfile___stl_sequent__TOP__Main__cpucore__ID__reg___3(VMain_regfile* vlSelf) {
@@ -272,15 +248,9 @@ VL_ATTR_COLD void VMain_regfile___ctor_var_reset(VMain_regfile* vlSelf) {
     vlSelf->__PVT__inst_exec_once_valid = VL_RAND_RESET_I(1);
     vlSelf->__PVT__inst_exec_once_inst = VL_RAND_RESET_I(32);
     vlSelf->__PVT__inst_exec_once_pc = VL_RAND_RESET_I(32);
-    vlSelf->__PVT__pc = VL_RAND_RESET_I(32);
     vlSelf->__PVT__is_break = VL_RAND_RESET_I(1);
-    vlSelf->__PVT__valid = VL_RAND_RESET_I(1);
-    vlSelf->__PVT__inst = VL_RAND_RESET_I(32);
     vlSelf->__Vdlyvdim0__rf__v0 = 0;
     vlSelf->__Vdlyvval__rf__v0 = VL_RAND_RESET_I(32);
     vlSelf->__Vdlyvset__rf__v0 = 0;
-    vlSelf->__Vdly__pc = VL_RAND_RESET_I(32);
     vlSelf->__Vdly__is_break = VL_RAND_RESET_I(1);
-    vlSelf->__Vdly__valid = VL_RAND_RESET_I(1);
-    vlSelf->__Vdly__inst = VL_RAND_RESET_I(32);
 }
