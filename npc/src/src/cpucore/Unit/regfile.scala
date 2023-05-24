@@ -43,22 +43,15 @@ class regfile extends Module{
     io.rdata2 := Mux(io.raddr2 === 0.U, 0.U, rf(io.raddr2))
 
     //for test
-    val pc = RegNext(io.rf_pc)
-
     val difftest = Module(new Difftest)
     difftest.io.rf(0) := 0.U
     for(i <- 1 to 31){
         difftest.io.rf(i) := rf(i)
     }
 
-    val is_break = RegInit(false.B)
-    is_break := io.is_break
     val npc_brk = Module(new npc_break)
-    npc_brk.io.is_break := is_break
+    npc_brk.io.is_break := io.is_break
 
-    val valid = RegInit(false.B)
-    valid := io.valid
-    val inst = RegNext(io.inst)
     val inst_exec_once = Module(new Exec)
     inst_exec_once.io.valid := io.valid
     inst_exec_once.io.inst := io.inst
