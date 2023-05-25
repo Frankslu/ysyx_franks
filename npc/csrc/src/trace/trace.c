@@ -80,7 +80,7 @@ void display_mring(){
 	int pos = mring.pos;
 	for (int i=0; i<MRING_BUFSIZE; i++){
 		if (mring.wr[pos] != INVALID){
-			printf("%x  %s %x\n", mring.pc[pos], mring.wr[pos] == READ ? "read" : "write", mring.addr[pos]);
+			printf("%x  %s %x\n", mring.pc[pos], mring.wr[pos] == READ ? "read " : "write", mring.addr[pos]);
 		}
 		pos = pos == (MRING_BUFSIZE - 1) ? 0 : (pos + 1);
 	}
