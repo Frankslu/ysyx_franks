@@ -142,7 +142,6 @@ typedef MUXDEF(CONFIG_ISA64, Elf64_Sym , Elf32_Sym ) Elf_Sym;
 			func[func_cnt].size = sym.st_size;
 			fseek(fp, strtab->sh_offset + sym.st_name, SEEK_SET);
 			res = fread(func[func_cnt].name, 50, 1, fp);
-			printf("Function %s at address %x, %d\n", func[func_cnt].name, func[func_cnt].addr, func[func_cnt].size);
 			func_cnt++;
 			printf("%d\n", func_cnt);
 		}
@@ -150,7 +149,7 @@ typedef MUXDEF(CONFIG_ISA64, Elf64_Sym , Elf32_Sym ) Elf_Sym;
 	fclose(fp);
 
 	for (int i = 0; i < FRING_SIZE; i++){
-		func[i].name[0] = '\0';
+		fring[i].func_name[0] = '\0';
 	}
 	fring_pos = 0;
 	return;
