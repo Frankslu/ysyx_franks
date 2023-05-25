@@ -98,7 +98,6 @@ typedef MUXDEF(CONFIG_ISA64, Elf64_Sym , Elf32_Sym ) Elf_Sym;
 	if(elf_file == NULL)
 		return;
 
-	printf("111\n");
 	FILE *fp = fopen(elf_file, "rb");
 	Assert(fp, "Can not open %s\n", elf_file);
 
@@ -112,12 +111,10 @@ typedef MUXDEF(CONFIG_ISA64, Elf64_Sym , Elf32_Sym ) Elf_Sym;
 		section_header.e_ident[EI_MAG3] == ELFMAG3,
 		"%s is not elf\n", elf_file);
 
-	printf("222\n");
 	Elf_Shdr section_table[section_header.e_shnum];
 	fseek(fp, section_header.e_shoff, SEEK_SET);
 	res = fread(section_table, sizeof(section_table), 1, fp);
 
-	printf("333\n");
 	Elf_Shdr *symtab = NULL, *strtab = NULL;
 	int a = 0;
 	for (int i = 0; i < section_header.e_shnum; i++) {
@@ -134,12 +131,13 @@ typedef MUXDEF(CONFIG_ISA64, Elf64_Sym , Elf32_Sym ) Elf_Sym;
 		}
 	} 
 	
-	printf("444\n");
-	for (int i=0; i < symtab->sh_size / sizeof(Elf_Sym); i++) {
+	for (int i = 0; i < symtab->sh_size / sizeof(Elf_Sym); i++) {
+		printf("%d\n", i);
 		Elf_Sym sym;
 		fseek(fp, symtab->sh_offset + i * sizeof(sym), SEEK_SET);
 		res = fread(&sym, sizeof(sym), 1, fp);
 		if (ELF32_ST_TYPE(sym.st_info) == STT_FUNC) {
+			printf("444\n");
 			func[func_cnt].addr = sym.st_value;
 			func[func_cnt].size = sym.st_size;
 			fseek(fp, strtab->sh_offset + sym.st_name, SEEK_SET);
