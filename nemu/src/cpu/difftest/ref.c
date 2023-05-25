@@ -77,6 +77,8 @@ void difftest_memcpy(paddr_t addr, void *buf, size_t n, bool direction) {
 	}
 }
 
+void isa_reg_display();
+
 void difftest_regcpy(void *dut, bool direction) {
 	if (direction == DIFFTEST_TO_DUT){
 		for (int i = 0; i < 32; i++)
@@ -90,6 +92,7 @@ void difftest_regcpy(void *dut, bool direction) {
 		cpu.pc = ((npc_CPU_state *)dut)->pc;
 		cpu.pc = ((npc_CPU_state *)dut)->pc;
 	}
+	isa_reg_display();
 }
 
 bool difftest_regcmp(void *dut){
