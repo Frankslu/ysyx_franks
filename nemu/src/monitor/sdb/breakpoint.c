@@ -156,12 +156,12 @@ bool free_bp(int NO){
 void display_breakpoint(){
 	BP *p = bp_head;
 	if(p==NULL){
-		printf("No watchpoint exist\n");
+		printf("No breakpoint exist\n");
 		return;
 	}
 	printf("           NO: expr\n");
 	while(p != NULL){
-		printf("watchpoint %02d: %x\n", p->NO, p->pc);
+		printf("Breakpoint %02d: %x\n", p->NO, p->pc);
 		p = p->next;
 	}
 	return;
@@ -172,7 +172,7 @@ int scan_bp(vaddr_t pc){
 	int found = 0;
 	while(p!=NULL){
 		if (pc == p->pc){
-			printf("break at %08x\n", pc);
+			IFDEF(CONFIG_TARGET_NATIVE_ELF, printf("break at %08x\n", pc));
 			found = 1;
 			replaced_inst = p->inst;
 			break;
