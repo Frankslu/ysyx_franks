@@ -151,6 +151,6 @@ void cpu_exec(uint64_t n) {
 						   // fall through
 		case NEMU_QUIT: 
 			// trace_log_write();
-			statistic();
+			IFDEF(CONFIG_TARGET_NATIVE_ELF, statistic();) break;
 	}
 }
