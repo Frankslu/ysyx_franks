@@ -68,13 +68,13 @@ static void exec_once(Decode *s) {
 
 	char *p = s->logbuf;
 	p += snprintf(p, sizeof(s->logbuf), FMT_WORD ":", s->pc);
-	int ilen = s->snpc - s->pc;
+#define ilen 4
 	int i;
 	uint8_t *inst = (uint8_t *)&s->isa.inst.val;
 	for (i = ilen - 1; i >= 0; i --) {
 		p += snprintf(p, 4, " %02x", inst[i]);
 	}
-	int ilen_max = MUXDEF(CONFIG_ISA_x86, 8, 4);
+#define ilen_max MUXDEF(CONFIG_ISA_x86, 8, 4);
 	int space_len = ilen_max - ilen;
 	if (space_len < 0) space_len = 0;
 	space_len = space_len * 3 + 1;
@@ -95,13 +95,16 @@ static void execute(uint64_t n) {
 		exec_once(&s);
 		g_nr_guest_inst ++;
 
+		if (cpu.is_break == false){
 #ifdef CONFIG_TRACE
-		trace_and_difftest(&s, cpu.pc);
+			trace_and_difftest(&s, cpu.pc);
 #else
 #ifdef CONFIG_DIFFTEST
-		trace_and_difftest(&s, cpu.pc);
+			trace_and_difftest(&s, cpu.pc);
 #endif
 #endif
+		}
+		
 		if (npc_state.state != NPC_RUNNING) break;
 		IFDEF(CONFIG_DEVICE, device_update());
 	}
@@ -141,7 +144,6 @@ void cpu_exec(uint64_t n) {
 
 	switch (npc_state.state) {
 		case NPC_RUNNING: npc_state.state = NPC_STOP; break;
-
 		case NPC_END: case NPC_ABORT:
 						   	Log("npc: %s at pc = " FMT_WORD,
 								   (npc_state.state == NPC_ABORT ? ANSI_FMT("ABORT", ANSI_FG_RED) :
