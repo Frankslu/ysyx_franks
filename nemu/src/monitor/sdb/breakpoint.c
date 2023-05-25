@@ -46,17 +46,17 @@ void init_bp_pool() {
 }
 
 /* TODO: Implement the functionality of watchpoint */
-void new_bp(vaddr_t pc){
+BP *new_bp(vaddr_t pc){
 	word_t mask = 0xffff8000;
 	word_t brk_inst = 0x2a0000;
 	if (in_pmem(pc) == false){
 		printf("Out of memory bound\n");
-		return;
+		return NULL;
 	}
 	word_t get_inst = break_ifetch(pc, 4);
 	if ((get_inst & mask) == brk_inst){
 		printf("The instruction is already break\n");
-		return;
+		return NULL;
 	}
 
 	if (bp_free != NULL){
@@ -91,15 +91,19 @@ void new_bp(vaddr_t pc){
 		new->inst = get_inst;
 		break_write(pc, 4, brk_inst);
 		printf("New breakpoint %d: %x\n", new->NO, pc);
-		return;
+		return new;
 	}
 	else{
 		printf("Breakpoint pool is full!\n");
-		return;
+		return NULL;
 	}
 }
 
-void free_bp(int NO){
+bool diff_new_bp(vaddr_t pc){
+	return new_bp(pc) == NULL ? false : true;
+}
+
+bool free_bp(int NO){
 	BP *p = bp_head;
 	BP *back = p;
 	if(p != NULL && p->NO != NO){
@@ -144,10 +148,9 @@ void free_bp(int NO){
 		}
 	}
 	else{
-		printf("Breakpoint not found\n");
-		return;
+		return false;
 	}
-	return;
+	return true;
 }
 
 void display_breakpoint(){

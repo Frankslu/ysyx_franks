@@ -60,6 +60,7 @@ static void exec_once(Decode *s) {
 	s->snpc = s->pc + 4;
 	npc_exec_once();
 	s->isa.inst.val = cpu.inst;
+	decode_exec(s);
 
 #ifdef CONFIG_ITRACE
 	if (cpu.is_break == true && npc_state.state == NPC_STOP){
@@ -67,7 +68,6 @@ static void exec_once(Decode *s) {
 		return;
 	}
 
-	decode_exec(s);
 	char *p = s->logbuf;
 	p += snprintf(p, sizeof(s->logbuf), FMT_WORD ":", s->pc);
 #define ilen 4
@@ -97,13 +97,7 @@ static void execute(uint64_t n) {
 		exec_once(&s);
 		g_nr_guest_inst ++;
 
-#ifdef CONFIG_TRACE
-			trace_and_difftest(&s, cpu.pc);
-#else
-#ifdef CONFIG_DIFFTEST
-			trace_and_difftest(&s, cpu.pc);
-#endif
-#endif
+		IFDEF(CONFIG_DIFF_TRACE, trace_and_difftest(&s, cpu.pc));
 		
 		if (npc_state.state != NPC_RUNNING) break;
 		IFDEF(CONFIG_DEVICE, device_update());

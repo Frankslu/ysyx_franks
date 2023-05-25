@@ -131,16 +131,16 @@ void difftest_exec(uint64_t n) {
 
 #ifdef CONFIG_BREAKPOINT
 
-void new_bp(vaddr_t pc);
-void free_bp(int NO);
+bool diff_new_bp(vaddr_t pc);
+bool free_bp(int NO);
 void init_bp_pool();
 
-void difftest_newbp(vaddr_t pc){
-	new_bp(pc);
+bool difftest_newbp(vaddr_t pc){
+	return diff_new_bp(pc);
 }
 
-void difftest_freebp(int NO){
-	free_bp(NO);
+bool difftest_freebp(int NO){
+	return free_bp(NO);
 }
 #endif
 

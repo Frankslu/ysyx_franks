@@ -23,8 +23,8 @@
 static int is_batch_mode = false;
 
 
-void ref_newbp(vaddr_t pc);
-void ref_freebp(int i);
+bool ref_newbp(vaddr_t pc);
+bool ref_freebp(int i);
 void verilator_finish();
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
@@ -197,10 +197,12 @@ static int cmd_d(char *args){
 	}
 	else if(argc == 2){
 		if(strcmp(c, "w") == 0){
-			MUXDEF(CONFIG_WATCHPOINT, free_wp(i), printf("Watchpoint disabled\n"));
+			MUXDEF(CONFIG_WATCHPOINT, bool success = free_wp(i), printf("Watchpoint disabled\n"));
+			IFDEF(CONFIG_WATCHPOINT, if (success == false) printf("Watchpoint doesn't exist\n"));
 		}
 		else if(strcmp(c, "b") == 0){
-			MUXDEF(CONFIG_BREAKPOINT, free_bp(i), printf("Breakpoint disabled\n"));
+			MUXDEF(CONFIG_BREAKPOINT, bool success = free_bp(i), printf("Breakpoint disabled\n"));
+			IFDEF(CONFIG_BREAKPOINT, if(success == false) printf("Breakpoint doesn't exist\n"));
 			IFDEF(CONFIG_DIFFTEST, IFDEF(CONFIG_BREAKPOINT, ref_freebp(i)));
 		}
 	}

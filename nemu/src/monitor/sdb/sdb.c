@@ -34,8 +34,8 @@ void display_mring();
 void display_fring();
 extern WP *new_wp(char *s);
 extern bool free_wp(int i);
-void new_bp(vaddr_t pc);
-void free_bp(int i);
+BP *new_bp(vaddr_t pc);
+bool free_bp(int i);
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char* rl_gets() {
@@ -201,10 +201,12 @@ static int cmd_d(char *args){
 	}
 	else if(argc == 2){
 		if(strcmp(c, "w") == 0){
-			MUXDEF(CONFIG_WATCHPOINT, free_wp(i), printf("Watchpoint disabled\n"));
+			MUXDEF(CONFIG_WATCHPOINT, bool success = free_wp(i), printf("Watchpoint disabled\n"));
+			IFDEF(CONFIG_WATCHPOINT, if (success == false) printf("Waichpoint doesn't exist"));
 		}
 		else if(strcmp(c, "b") == 0){
-			MUXDEF(CONFIG_BREAKPOINT, free_bp(i), printf("Breakpoint disabled\n"));
+			MUXDEF(CONFIG_BREAKPOINT, bool success = free_bp(i), printf("Breakpoint disabled\n"));
+			IFDEF(CONFIG_BREAKPOINT, if (success == false) printf("Breakpoint doesn't exist"));
 		}
 	}
 	return 0;

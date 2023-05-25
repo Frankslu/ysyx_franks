@@ -18,7 +18,7 @@
 #ifdef CONFIG_BREAKPOINT
 static BP bp_pool[NR_BP] = {};
 static BP *bp_free = NULL;
-BP *bp_head = NULL;
+static BP *bp_head = NULL;
 word_t replaced_inst;
 
 static word_t brk_inst = 0x2a0000;

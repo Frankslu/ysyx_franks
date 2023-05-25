@@ -19,15 +19,6 @@ static int fring_pos = 0;
 extern char* elf_file;
 extern CPU_state cpu;
 
-void iring_init();
-void mring_init();
-void ftrace_init(char *elf_file);
-
-void init_trace(){
-	IFDEF(CONFIG_IRING, iring_init());
-	IFDEF(CONFIG_MTRACE, mring_init());
-	IFDEF(CONFIG_FTRACE, ftrace_init(elf_file));
-}
 
 void iring_init(){
 	for (int i=0; i<IRING_BUFSIZE; i++){
@@ -215,4 +206,12 @@ void display_fring(){
 }
 #endif
 
+void init_trace(){
+	IFDEF(CONFIG_IRING, iring_init());
+	IFDEF(CONFIG_MTRACE, mring_init());
+	IFDEF(CONFIG_FTRACE, ftrace_init(elf_file));
+}
+
 #endif
+
+

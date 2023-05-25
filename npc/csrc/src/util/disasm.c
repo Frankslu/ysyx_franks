@@ -83,21 +83,22 @@ int decode_exec(Decode *s) {
 #define slli_sp(str) sprintf(as, "%s\t$r%d, $r%d, %x", str, rd, rj, rk)			
 #define slti_sp(str) sprintf(as, "%s\t$r%d, $r%d, %d(%x)", str, rd, rj, simm, imm)
 
+#ifdef CONFIG_ITRACE
 	INSTPAT_START();
 	INSTPAT("010100 ???????????????? ??????????", b, OFFS26, s->dnpc = s->pc + imm,
 		sprintf(as, "b\t%d(0x%x) # %x", simm, imm, s->dnpc));
 
 	INSTPAT("010101 ???????????????? ??????????", bl, OFFS26, s->dnpc = s->pc + imm,
-		sprintf(as, "bl\t%d(0x%x) # %x", simm, imm, s->dnpc)/*,
-		MUXDEF(CONFIG_JIRL_RET, func_call(s->dnpc, s->pc), func_call_ret(s->dnpc, s->pc))*/);
+		sprintf(as, "bl\t%d(0x%x) # %x", simm, imm, s->dnpc),
+		MUXDEF(CONFIG_JIRL_RET, func_call(s->dnpc, s->pc), func_call_ret(s->dnpc, s->pc)));
 
 	INSTPAT("010011 0000000000000000 00001 00000", ret, 2RO16,
-		sprintf(as, "ret\t$r%d, $r%d, %x", rd, rj, imm)/*,
-		MUXDEF(CONFIG_JIRL_RET, func_ret(s->dnpc, s->pc), func_call_ret(s->dnpc, s->pc))*/);
+		sprintf(as, "ret\t$r%d, $r%d, %x", rd, rj, imm),
+		MUXDEF(CONFIG_JIRL_RET, func_ret(s->dnpc, s->pc), func_call_ret(s->dnpc, s->pc)));
 
 	INSTPAT("010011 ???????????????? ????? ?????", jirl, 2RO16,
-		sprintf(as, "ret\t$r%d, $r%d, %x", rd, rj, imm)/*,
-		MUXDEF(CONFIG_JIRL_RET, func_call(s->dnpc, s->pc), func_call_ret(s->dnpc, s->pc))*/);
+		sprintf(as, "ret\t$r%d, $r%d, %x", rd, rj, imm),
+		MUXDEF(CONFIG_JIRL_RET, func_call(s->dnpc, s->pc), func_call_ret(s->dnpc, s->pc)));
 
 	INSTPAT("010110 ???????????????? ????? ?????", beq, 2RO16, s->dnpc = s->pc + imm,
 		br_sprintf("beq"));
@@ -231,6 +232,11 @@ int decode_exec(Decode *s) {
 	INSTPAT("0000 0000 0010 10100 ????? ????? ?????", brk, N, sprintf(as, "break")); // R(4) is $a0
 	INSTPAT("????????????????? ????? ????? ?????", inv, N, sprintf(as, "invalid instruction"));
 	INSTPAT_END();
+#else
+#ifdef CONFIG_FTRACE
+
+#endif
+#endif
 
 	return 0;
 }
