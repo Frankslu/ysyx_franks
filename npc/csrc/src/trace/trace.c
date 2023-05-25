@@ -209,7 +209,8 @@ void display_fring(){
 void init_trace(){
 	IFDEF(CONFIG_IRING, iring_init());
 	IFDEF(CONFIG_MTRACE, mring_init());
-	IFDEF(CONFIG_FTRACE, ftrace_init("/home/franks/ysyx-workbench/am-kernels/tests/cpu-tests/build/recursion-loongarch32r-nemu.elf"));
+	extern char *elf_file;
+	IFDEF(CONFIG_FTRACE, ftrace_init(elf_file));
 }
 
 #endif
