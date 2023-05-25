@@ -160,6 +160,7 @@ void func_call(vaddr_t next_pc, vaddr_t pc){
 			strcpy(fring[fring_pos].func_name, func[i].name);
 			fring[fring_pos].next_pc = func[i].addr;
 			fring[fring_pos].pc = pc;
+			fring[fring_pos].dir = CALL;
 			fring_pos = fring_pos == FRING_SIZE - 1 ? 0 : fring_pos + 1;
 			log_write("Ftrace: PC %08x call %s\t%08x\n", pc, func[i].name, next_pc);
 			return;
@@ -173,6 +174,7 @@ void func_ret(vaddr_t next_pc, vaddr_t pc){
 			strcpy(fring[fring_pos].func_name, func[i].name);
 			fring[fring_pos].next_pc = func[i].addr;
 			fring[fring_pos].pc = pc;
+			fring[fring_pos].dir = RET;
 			fring_pos = fring_pos == FRING_SIZE - 1 ? 0 : fring_pos + 1;
 			log_write("Ftrace: PC %08x ret %s\t%08x\n", pc, func[i].name, next_pc);
 			return;
@@ -186,6 +188,7 @@ void func_call_ret(vaddr_t next_pc, vaddr_t pc){
 			strcpy(fring[fring_pos].func_name, func[i].name);
 			fring[fring_pos].next_pc = func[i].addr;
 			fring[fring_pos].pc = pc;
+			fring[fring_pos].dir = CALL;
 			fring_pos = fring_pos == FRING_SIZE - 1 ? 0 : fring_pos + 1;
 			log_write("Ftrace: PC %08x call %s\t%08x\n", pc, func[i].name, next_pc);
 			return;
@@ -194,6 +197,7 @@ void func_call_ret(vaddr_t next_pc, vaddr_t pc){
 			strcpy(fring[fring_pos].func_name, func[i].name);
 			fring[fring_pos].next_pc = func[i].addr;
 			fring[fring_pos].pc = pc;
+			fring[fring_pos].dir = RET;
 			fring_pos = fring_pos == FRING_SIZE - 1 ? 0 : fring_pos + 1;
 			log_write("Ftrace: PC %08x ret %s\t%08x\n", pc, func[i].name, next_pc);
 			return;
@@ -204,8 +208,14 @@ void func_call_ret(vaddr_t next_pc, vaddr_t pc){
 void display_fring(){
 	int pos = fring_pos;
 	for (int i=0; i < FRING_SIZE; i++){
-		if(fring[pos].func_name[0] != '\0')
-			printf("Ftrace: PC %08x call %s\t%08x\n", fring[pos].pc, fring[pos].func_name, fring[pos].next_pc);
+		if (fring[pos].func_name[0] != '\0'){
+			if (fring[pos].dir == CALL){
+				printf("Ftrace: PC %08x call %s\t%08x\n", fring[pos].pc, fring[pos].func_name, fring[pos].next_pc);
+			}
+			else {
+				printf("Ftrace: PC %08x ret  %s\t%08x\n", fring[pos].pc, fring[pos].func_name, fring[pos].next_pc);
+			}
+		}
 		pos = pos == FRING_SIZE ? 0 : pos + 1;
 	}
 }

@@ -31,11 +31,15 @@ typedef struct _fring_{
     vaddr_t pc;
     vaddr_t next_pc;
     char func_name[24];
+    bool dir;
 } Fring_t;
 
 
 #define INVALID 0
 #define READ 1
 #define WRITE 2
+
+#define CALL true
+#define RET false
 
 #endif
