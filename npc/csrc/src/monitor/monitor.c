@@ -111,15 +111,16 @@ void init_monitor(int argc, char *argv[]){
 void reset_monitor(){
 	extern int parameter_argc;
 	extern char **parameter_argv;
-	verilator_finish();
+	verilator_finish();//1,finish verilator first to dump wave and reset
 	init_rand();
 	init_mem();
 	init_isa();
 	IFDEF(CONFIG_DEVICE, init_device());
 	long img_size = load_img();
-	reload_bp();
 	init_verilator(parameter_argc, parameter_argv);
-	IFDEF(CONFIG_DIFFTEST ,init_difftest(diff_so_file, img_size));
+	IFDEF(CONFIG_DIFFTEST, init_difftest(diff_so_file, img_size));
+	//breakpoint will be copied to ref if reload_bp is brefore init_difftest
+	reload_bp();
 	IFDEF(CONFIG_TRACE, init_trace());
 	set_npc_state(NPC_RUNNING, RESET_VECTOR, 0);
 }
