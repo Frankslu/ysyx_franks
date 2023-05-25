@@ -99,9 +99,6 @@ BP *new_bp(vaddr_t pc){
 	}
 }
 
-bool diff_new_bp(vaddr_t pc){
-	return new_bp(pc) == NULL ? false : true;
-}
 
 bool free_bp(int NO){
 	BP *p = bp_head;

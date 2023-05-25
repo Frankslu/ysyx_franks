@@ -187,7 +187,6 @@ static int cmd_d(char *args){
 			if(strcmp(c, "y") == 0){
 				for(int i=0; i < NR_BP; i++){
 					free_bp(i);
-					IFDEF(CONFIG_DIFFTEST, ref_freebp(i));
 				}
 			}
 #else		
@@ -203,7 +202,6 @@ static int cmd_d(char *args){
 		else if(strcmp(c, "b") == 0){
 			MUXDEF(CONFIG_BREAKPOINT, bool success = free_bp(i), printf("Breakpoint disabled\n"));
 			IFDEF(CONFIG_BREAKPOINT, if(success == false) printf("Breakpoint doesn't exist\n"));
-			IFDEF(CONFIG_DIFFTEST, IFDEF(CONFIG_BREAKPOINT, ref_freebp(i)));
 		}
 	}
 	return 0;
@@ -221,7 +219,6 @@ static int cmd_b(char *args){
 		return 0;
 	}
 	new_bp(i);
-	// IFDEF(CONFIG_DIFFTEST, ref_newbp(i));
 	return 0;
 }
 #endif

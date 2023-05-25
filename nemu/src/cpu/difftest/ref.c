@@ -129,21 +129,6 @@ void difftest_exec(uint64_t n) {
 	cpu_exec(n);
 }
 
-#ifdef CONFIG_BREAKPOINT
-
-bool diff_new_bp(vaddr_t pc);
-bool free_bp(int NO);
-void init_bp_pool();
-
-bool difftest_newbp(vaddr_t pc){
-	return diff_new_bp(pc);
-}
-
-bool difftest_freebp(int NO){
-	return free_bp(NO);
-}
-#endif
-
 void difftest_raise_intr(word_t NO) {
 	assert(0);
 }
@@ -153,6 +138,5 @@ void difftest_init() {
 	init_rand();
 	init_isa();
 	init_mem();
-	IFDEF(CONFIG_BREAKPOINT, init_bp_pool());
 	set_nemu_state(NEMU_RUNNING, RESET_VECTOR, 0);
 }
