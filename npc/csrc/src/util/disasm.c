@@ -89,16 +89,28 @@ int decode_exec(Decode *s) {
 		sprintf(as, "b\t%d(0x%x) # %x", simm, imm, s->dnpc));
 
 	INSTPAT("010101 ???????????????? ??????????", bl, OFFS26, s->dnpc = s->pc + imm,
-		sprintf(as, "bl\t%d(0x%x) # %x", simm, imm, s->dnpc),
-		MUXDEF(CONFIG_JIRL_RET, func_call(s->dnpc, s->pc), func_call_ret(s->dnpc, s->pc)));
+		sprintf(as, "bl\t%d(0x%x) # %x", simm, imm, s->dnpc)
+		IFDEF(CONFIG_FTRACE, ,
+			MUXDEF(CONFIG_JIRL_RET,
+				func_call(s->dnpc, s->pc), func_call_ret(s->dnpc, s->pc)
+			)
+		));
 
 	INSTPAT("010011 0000000000000000 00001 00000", ret, 2RO16,
-		sprintf(as, "ret\t$r%d, $r%d, %x", rd, rj, imm),
-		MUXDEF(CONFIG_JIRL_RET, func_ret(s->dnpc, s->pc), func_call_ret(s->dnpc, s->pc)));
+		sprintf(as, "ret\t$r%d, $r%d, %x", rd, rj, imm)
+		IFDEF(CONFIG_FTRACE, ,
+			MUXDEF(CONFIG_JIRL_RET,
+				func_ret(s->dnpc, s->pc), func_call_ret(s->dnpc, s->pc)
+			)
+		));
 
 	INSTPAT("010011 ???????????????? ????? ?????", jirl, 2RO16,
-		sprintf(as, "ret\t$r%d, $r%d, %x", rd, rj, imm),
-		MUXDEF(CONFIG_JIRL_RET, func_call(s->dnpc, s->pc), func_call_ret(s->dnpc, s->pc)));
+		sprintf(as, "ret\t$r%d, $r%d, %x", rd, rj, imm)
+		IFDEF(CONFIG_FTRACE, ,
+			MUXDEF(CONFIG_JIRL_RET,
+				func_call(s->dnpc, s->pc), func_call_ret(s->dnpc, s->pc)
+			)
+		));
 
 	INSTPAT("010110 ???????????????? ????? ?????", beq, 2RO16, s->dnpc = s->pc + imm,
 		br_sprintf("beq"));
@@ -234,7 +246,17 @@ int decode_exec(Decode *s) {
 	INSTPAT_END();
 #else
 #ifdef CONFIG_FTRACE
+	INSTPAT("010101 ???????????????? ??????????", bl, OFFS26, s->dnpc = s->pc + imm,
+		sprintf(as, "bl\t%d(0x%x) # %x", simm, imm, s->dnpc),
+			MUXDEF(CONFIG_JIRL_RET, func_call(s->dnpc, s->pc), func_call_ret(s->dnpc, s->pc)));
 
+	INSTPAT("010011 0000000000000000 00001 00000", ret, 2RO16,
+		sprintf(as, "ret\t$r%d, $r%d, %x", rd, rj, imm),
+			MUXDEF(CONFIG_JIRL_RET, func_ret(s->dnpc, s->pc), func_call_ret(s->dnpc, s->pc)));
+
+	INSTPAT("010011 ???????????????? ????? ?????", jirl, 2RO16,
+		sprintf(as, "ret\t$r%d, $r%d, %x", rd, rj, imm),
+			MUXDEF(CONFIG_JIRL_RET, func_call(s->dnpc, s->pc), func_call_ret(s->dnpc, s->pc)));
 #endif
 #endif
 
