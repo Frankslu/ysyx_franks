@@ -130,6 +130,7 @@ bool difftest_regcmp(void *dut){
 
 void difftest_exec(uint64_t n) {
 	cpu_exec(n);
+	isa_reg_display();
 }
 
 #ifdef CONFIG_BREAKPOINT
