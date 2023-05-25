@@ -23,7 +23,7 @@ unit: V$(TOP)
 
 sim: V$(TOP)
 	@$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
-	@$(BUILD_DIR)/V$(TOP) $(ARGS) $(IMG)
+	$(BUILD_DIR)/V$(TOP) $(ARGS) $(IMG)
 
 gdb: V$(TOP)
 	@echo $(BUILD_DIR)/V$(TOP)
