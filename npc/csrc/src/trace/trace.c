@@ -152,6 +152,7 @@ typedef MUXDEF(CONFIG_ISA64, Elf64_Sym , Elf32_Sym ) Elf_Sym;
 	for (int i = 0; i < FRING_SIZE; i++){
 		func[i].name[0] = '\0';
 	}
+	fring_pos = 0;
 	return;
 }
 
