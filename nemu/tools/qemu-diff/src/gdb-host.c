@@ -40,6 +40,7 @@ static bool gdb_memcpy_to_qemu_small(uint32_t dest, void *src, int len) {
 
   size_t size;
   uint8_t *reply = gdb_recv(conn, &size);
+  
   bool ok = !strcmp((const char*)reply, "OK");
   free(reply);
 
@@ -49,6 +50,10 @@ static bool gdb_memcpy_to_qemu_small(uint32_t dest, void *src, int len) {
 bool gdb_memcpy_to_qemu(uint32_t dest, void *src, int len) {
   const int mtu = 1500;
   bool ok = true;
+  
+  char *buf="Qqemu.PhyMemMode:1";
+  gdb_send(conn, (const uint8_t *)buf, strlen(buf));
+  
   while (len > mtu) {
     ok &= gdb_memcpy_to_qemu_small(dest, src, mtu);
     dest += mtu;
@@ -56,6 +61,7 @@ bool gdb_memcpy_to_qemu(uint32_t dest, void *src, int len) {
     len -= mtu;
   }
   ok &= gdb_memcpy_to_qemu_small(dest, src, len);
+  
   return ok;
 }
 
@@ -99,6 +105,20 @@ bool gdb_setregs(union isa_gdb_regs *r) {
   size_t size;
   uint8_t *reply = gdb_recv(conn, &size);
   bool ok = !strcmp((const char*)reply, "OK");
+  
+  char *buf1="g";
+  gdb_send(conn, (const uint8_t *)buf1, strlen(buf1));
+  reply = gdb_recv(conn, &size);
+  uint8_t *p1 = reply;
+  uint8_t c;
+  for (i = 0; i < sizeof(union isa_gdb_regs) / sizeof(uint32_t); i ++) {
+    c = p1[8];
+    p1[8] = '\0';
+    int j = gdb_decode_hex_str(p1);
+    printf("%d:%x\n",i,j);
+    p1[8] = c;
+    p1 += 8;
+  }
   free(reply);
 
   return ok;

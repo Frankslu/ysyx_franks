@@ -1,17 +1,18 @@
 AM_SRCS := platform/nemu/trm.c \
-           platform/nemu/ioe/ioe.c \
-           platform/nemu/ioe/timer.c \
-           platform/nemu/ioe/input.c \
-           platform/nemu/ioe/gpu.c \
-           platform/nemu/ioe/audio.c \
-           platform/nemu/ioe/disk.c \
-           platform/nemu/mpe.c
+		   platform/nemu/ioe/ioe.c \
+		   platform/nemu/ioe/timer.c \
+		   platform/nemu/ioe/input.c \
+		   platform/nemu/ioe/gpu.c \
+		   platform/nemu/ioe/audio.c \
+		   platform/nemu/ioe/disk.c \
+		   platform/nemu/mpe.c
 
 CFLAGS    += -fdata-sections -ffunction-sections
 LDFLAGS   += -T $(AM_HOME)/scripts/linker.ld \
-             --defsym=_pmem_start=0x80000000 --defsym=_entry_offset=0x0
+			 --defsym=_pmem_start=0x1C000000 --defsym=_entry_offset=0x0
 LDFLAGS   += --gc-sections -e _start
-NEMUFLAGS += -l $(shell dirname $(IMAGE).elf)/nemu-log.txt
+BATCHMODE =
+NEMUFLAGS += $(BATCHMODE) -l $(shell dirname $(IMAGE).elf)/nemu-log.txt -e $(IMAGE).elf
 
 CFLAGS += -DMAINARGS=\"$(mainargs)\"
 CFLAGS += -I$(AM_HOME)/am/src/platform/nemu/include
