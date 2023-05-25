@@ -108,7 +108,7 @@ bool free_bp(int NO){
 	if(p != NULL){
 		break_write(p->pc, 4, p->inst);
 
-		printf("delete watchpoint %d: %x\n", NO, p->pc);
+		printf("delete breakpoint %d: %x\n", NO, p->pc);
 		if(p == bp_head){
 			bp_head = p->next;
 		}
@@ -140,21 +140,20 @@ bool free_bp(int NO){
 		}
 	}
 	else{
-		printf("Breakpoint not found\n");
 		return false;
 	}
-	return false;
+	return true;
 }
 
 void display_breakpoint(){
 	BP *p = bp_head;
 	if(p==NULL){
-		printf("No watchpoint exist\n");
+		printf("No breakpoint exist\n");
 		return;
 	}
 	printf("           NO: expr\n");
 	while(p != NULL){
-		printf("watchpoint %02d: %x\n", p->NO, p->pc);
+		printf("breakpoint %02d: %x\n", p->NO, p->pc);
 		p = p->next;
 	}
 	return;

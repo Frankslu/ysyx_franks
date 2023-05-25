@@ -22,23 +22,9 @@
 
 static int is_batch_mode = false;
 
-void init_regex();
-void init_wp_pool();
-void init_bp_pool();
-word_t expr(char *e, bool *success);
 
-void print_watchpoint();
-void display_iring();
-void display_breakpoint();
-void display_mring();
-void display_fring();
-extern WP *new_wp(char *s);
-extern bool free_wp(int i);
-extern BP *new_bp(vaddr_t pc);
 void ref_newbp(vaddr_t pc);
-extern bool free_bp(int i);
 void ref_freebp(int i);
-void reset_monitor();
 void verilator_finish();
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */

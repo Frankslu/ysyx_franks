@@ -2,6 +2,7 @@
 #include "isa.h"
 #include "paddr.h"
 #include "ve.h"
+#include "cpu/cpu.h"
 
 extern VMain *top;
 
@@ -24,19 +25,21 @@ extern "C" void vaddr_read(int raddr, int *rdata){
 extern "C" void vaddr_write(int waddr, int wdata, char wmask, int *rdata){
 	IFDEF(CONFIG_MTRACE, record_write(waddr));
 	*rdata = 0xbeef;
-	uint32_t mask = (uint32_t)wmask;
-	printf("pc = %x, wmask = %u\n", cpu.pc, mask);
 	int len;
-	if (mask == 1){
+	if (1 == (uint32_t)wmask){
 		len = 1;
 	}
-	else if (mask == 3){
+	else if (3 == (uint32_t)wmask){
 		len = 2;
 	}
-	else if (mask == 7){
+	else if (7 == (uint32_t)wmask){
 		len = 4;
 	}
-	
+	else {
+		set_npc_state(NPC_ABORT, cpu.pc, 1);
+		return;
+	}
+
 	paddr_write(waddr, len, wdata);
 }
 

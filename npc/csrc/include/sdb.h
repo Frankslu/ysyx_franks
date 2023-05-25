@@ -22,7 +22,23 @@ typedef struct breakpoint {
 	word_t inst;
 } BP;
 
-
 word_t expr(char *e, bool *success);
+
+void init_regex();
+void init_wp_pool();
+void init_bp_pool();
+
+void print_watchpoint();
+void display_iring();
+void display_breakpoint();
+void display_mring();
+void display_fring();
+
+WP *new_wp(char *s);
+bool free_wp(int i);
+BP *new_bp(vaddr_t pc);
+bool free_bp(int i);
+
+void reset_monitor();
 
 #endif
