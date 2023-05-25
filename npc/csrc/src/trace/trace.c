@@ -10,7 +10,7 @@
 static Iring_t iring;
 static Mring_t mring;
 
-static Func_t func[24] = {};
+static Func_t func[FLIST_SIZE] = {};
 static int func_cnt = 0;
 
 static Fring_t fring[FRING_SIZE] = {};
@@ -91,6 +91,8 @@ void display_mring(){
 #ifdef CONFIG_FTRACE
 
 void ftrace_init(char *elf_file){
+	func_cnt = 0;
+	
 typedef MUXDEF(CONFIG_ISA64, Elf64_Shdr, Elf32_Shdr) Elf_Shdr;
 typedef MUXDEF(CONFIG_ISA64, Elf64_Ehdr, Elf32_Ehdr) Elf_Ehdr;
 typedef MUXDEF(CONFIG_ISA64, Elf64_Sym , Elf32_Sym ) Elf_Sym;
@@ -146,6 +148,10 @@ typedef MUXDEF(CONFIG_ISA64, Elf64_Sym , Elf32_Sym ) Elf_Sym;
 		}
 	}
 	fclose(fp);
+
+	for (int i = 0; i < FRING_SIZE; i++){
+		func[i].name[0] = '\0';
+	}
 	return;
 }
 

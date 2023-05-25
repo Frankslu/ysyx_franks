@@ -6,6 +6,7 @@
 
 #define IRING_BUFSIZE 20
 #define MRING_BUFSIZE 10
+#define FLIST_SIZE 32
 #define FRING_SIZE 16
 
 typedef struct _iring_ {
