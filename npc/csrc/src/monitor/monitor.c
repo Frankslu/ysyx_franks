@@ -5,7 +5,7 @@
 
 static char *npc_log_file = NULL;
 static char *diff_so_file = NULL;
-static char *elf_file = NULL;
+const char *elf_file = NULL;
 static char *img_file = NULL;
 
 void sdb_set_batch_mode();
