@@ -122,7 +122,7 @@ void reset_monitor(){
 	//breakpoint will be copied to ref if reload_bp is brefore init_difftest
 	reload_bp();
 	IFDEF(CONFIG_TRACE, init_trace());
-	IFDEF(CONFIG_TRACE, init_trace());
-	IFDEF(CONFIG_TRACE, init_trace());
+	// IFDEF(CONFIG_TRACE, init_trace());
+	// IFDEF(CONFIG_TRACE, init_trace());
 	set_npc_state(NPC_RUNNING, RESET_VECTOR, 0);
 }
