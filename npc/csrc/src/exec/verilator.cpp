@@ -29,7 +29,7 @@ extern "C" void inst_exec_once(char valid, int inst, int pc){
 }
 
 extern "C" void npc_break(char is_break){
-	cpu.is_break = (int)is_break == 1 ? 1 : 0;
+	cpu.is_break = (int)is_break == 1 ? true : false;
 }
 
 void init_verilator(int argc, char *argv[]){

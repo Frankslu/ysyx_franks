@@ -11,7 +11,7 @@ void record_write(vaddr_t addr);
 
 extern word_t replaced_inst;
 extern "C" void vaddr_fetch(int raddr, int *rdata){
-	if (cpu.is_break == 1){
+	if (cpu.is_break == true){
 		*rdata = replaced_inst;
 		return;
 	}
