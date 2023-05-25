@@ -63,6 +63,9 @@ static void exec_once(Decode *s) {
 	decode_exec(s);
 
 #ifdef CONFIG_ITRACE
+	if (cpu.is_break == true && npc_state.state == NPC_STOP)
+		return;
+
 	char *p = s->logbuf;
 	p += snprintf(p, sizeof(s->logbuf), FMT_WORD ":", s->pc);
 	int ilen = s->snpc - s->pc;
