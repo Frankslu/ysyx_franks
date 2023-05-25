@@ -57,6 +57,8 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 					out[len] = c;
 					len++;
 					break;
+				default:
+					return -1;
 			}
 		}
 		else {
@@ -129,6 +131,8 @@ int vsnprintf(char *out, size_t n, const char *fmt, va_list ap) {
 						goto L1;
 					}
 					break;
+				default:
+					return -1;
 			}
 		}
 		else {
@@ -164,6 +168,8 @@ int vsnprintf(char *out, size_t n, const char *fmt, va_list ap) {
 					c = (char)va_arg(ap, int);
 					len++;
 					break;
+				default:
+					return -1;
 			}
 		}
 		else {
