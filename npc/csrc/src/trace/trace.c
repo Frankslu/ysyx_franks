@@ -143,7 +143,6 @@ typedef MUXDEF(CONFIG_ISA64, Elf64_Sym , Elf32_Sym ) Elf_Sym;
 			fseek(fp, strtab->sh_offset + sym.st_name, SEEK_SET);
 			res = fread(func[func_cnt].name, 50, 1, fp);
 			func_cnt++;
-			printf("%d\n", func_cnt);
 		}
 	}
 	fclose(fp);

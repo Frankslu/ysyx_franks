@@ -100,7 +100,7 @@ int decode_exec(Decode *s) {
 		sprintf(as, "ret\t$r%d, $r%d, %x", rd, rj, imm)
 		IFDEF(CONFIG_FTRACE, ,
 			MUXDEF(CONFIG_JIRL_RET,
-				func_ret(s->dnpc, s->pc), func_call_ret(s->dnpc, s->pc)
+				func_ret(cpu.pc, s->pc), func_call_ret(cpu.pc, s->pc)
 			)
 		));
 
@@ -108,7 +108,7 @@ int decode_exec(Decode *s) {
 		sprintf(as, "ret\t$r%d, $r%d, %x", rd, rj, imm)
 		IFDEF(CONFIG_FTRACE, ,
 			MUXDEF(CONFIG_JIRL_RET,
-				func_call(s->dnpc, s->pc), func_call_ret(s->dnpc, s->pc)
+				func_call(cpu.pc, s->pc), func_call_ret(cpu.pc, s->pc)
 			)
 		));
 
