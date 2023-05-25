@@ -158,7 +158,7 @@ static int cmd_w(char *args){
 
 static int cmd_d(char *args){
 	int i;
-	char c[8];
+	char c[16];
 	int argc;
 	if((argc = sscanf(args, "%s %d", c, &i)) == 0){
 		printf("command error\n");
