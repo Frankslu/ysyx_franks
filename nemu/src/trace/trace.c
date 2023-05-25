@@ -1,4 +1,4 @@
-#include <trace/trace.h>
+#include "trace/trace.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -10,7 +10,7 @@
 static Iring_t iring;
 static Mring_t mring;
 
-static Func_t func[24] = {};
+static Func_t func[FLIST_SIZE] = {};
 static int func_cnt = 0;
 
 static Fring_t fring[FRING_SIZE] = {};
@@ -19,15 +19,6 @@ static int fring_pos = 0;
 extern char* elf_file;
 extern CPU_state cpu;
 
-void iring_init();
-void mring_init();
-void ftrace_init(char *elf_file);
-
-void init_trace(){
-	IFDEF(CONFIG_IRING, iring_init());
-	IFDEF(CONFIG_MTRACE, mring_init());
-	IFDEF(CONFIG_FTRACE, ftrace_init(elf_file));
-}
 
 void iring_init(){
 	for (int i=0; i<IRING_BUFSIZE; i++){
@@ -89,7 +80,7 @@ void display_mring(){
 	int pos = mring.pos;
 	for (int i=0; i<MRING_BUFSIZE; i++){
 		if (mring.wr[pos] != INVALID){
-			printf("%x  %s %x\n", mring.pc[pos], mring.wr[pos] == READ ? "read" : "write", mring.addr[pos]);
+			printf("%x  %s %x\n", mring.pc[pos], mring.wr[pos] == READ ? "read " : "write", mring.addr[pos]);
 		}
 		pos = pos == (MRING_BUFSIZE - 1) ? 0 : (pos + 1);
 	}
@@ -100,6 +91,8 @@ void display_mring(){
 #ifdef CONFIG_FTRACE
 
 void ftrace_init(char *elf_file){
+	func_cnt = 0;
+	
 typedef MUXDEF(CONFIG_ISA64, Elf64_Shdr, Elf32_Shdr) Elf_Shdr;
 typedef MUXDEF(CONFIG_ISA64, Elf64_Ehdr, Elf32_Ehdr) Elf_Ehdr;
 typedef MUXDEF(CONFIG_ISA64, Elf64_Sym , Elf32_Sym ) Elf_Sym;
@@ -124,7 +117,6 @@ typedef MUXDEF(CONFIG_ISA64, Elf64_Sym , Elf32_Sym ) Elf_Sym;
 	fseek(fp, section_header.e_shoff, SEEK_SET);
 	res = fread(section_table, sizeof(section_table), 1, fp);
 
-
 	Elf_Shdr *symtab = NULL, *strtab = NULL;
 	int a = 0;
 	for (int i = 0; i < section_header.e_shnum; i++) {
@@ -141,7 +133,7 @@ typedef MUXDEF(CONFIG_ISA64, Elf64_Sym , Elf32_Sym ) Elf_Sym;
 		}
 	} 
 	
-	for (int i=0; i < symtab->sh_size / sizeof(Elf_Sym); i++) {
+	for (int i = 0; i < symtab->sh_size / sizeof(Elf_Sym); i++) {
 		Elf_Sym sym;
 		fseek(fp, symtab->sh_offset + i * sizeof(sym), SEEK_SET);
 		res = fread(&sym, sizeof(sym), 1, fp);
@@ -150,11 +142,15 @@ typedef MUXDEF(CONFIG_ISA64, Elf64_Sym , Elf32_Sym ) Elf_Sym;
 			func[func_cnt].size = sym.st_size;
 			fseek(fp, strtab->sh_offset + sym.st_name, SEEK_SET);
 			res = fread(func[func_cnt].name, 50, 1, fp);
-			// printf("Function %s at address %x, %d\n", func[func_cnt].name, func[func_cnt].addr, func[func_cnt].size);
 			func_cnt++;
 		}
 	}
 	fclose(fp);
+
+	for (int i = 0; i < FRING_SIZE; i++){
+		fring[i].func_name[0] = '\0';
+	}
+	fring_pos = 0;
 	return;
 }
 
@@ -164,6 +160,7 @@ void func_call(vaddr_t next_pc, vaddr_t pc){
 			strcpy(fring[fring_pos].func_name, func[i].name);
 			fring[fring_pos].next_pc = func[i].addr;
 			fring[fring_pos].pc = pc;
+			fring[fring_pos].dir = CALL;
 			fring_pos = fring_pos == FRING_SIZE - 1 ? 0 : fring_pos + 1;
 			log_write("Ftrace: PC %08x call %s\t%08x\n", pc, func[i].name, next_pc);
 			return;
@@ -177,6 +174,7 @@ void func_ret(vaddr_t next_pc, vaddr_t pc){
 			strcpy(fring[fring_pos].func_name, func[i].name);
 			fring[fring_pos].next_pc = func[i].addr;
 			fring[fring_pos].pc = pc;
+			fring[fring_pos].dir = RET;
 			fring_pos = fring_pos == FRING_SIZE - 1 ? 0 : fring_pos + 1;
 			log_write("Ftrace: PC %08x ret %s\t%08x\n", pc, func[i].name, next_pc);
 			return;
@@ -190,6 +188,7 @@ void func_call_ret(vaddr_t next_pc, vaddr_t pc){
 			strcpy(fring[fring_pos].func_name, func[i].name);
 			fring[fring_pos].next_pc = func[i].addr;
 			fring[fring_pos].pc = pc;
+			fring[fring_pos].dir = CALL;
 			fring_pos = fring_pos == FRING_SIZE - 1 ? 0 : fring_pos + 1;
 			log_write("Ftrace: PC %08x call %s\t%08x\n", pc, func[i].name, next_pc);
 			return;
@@ -198,6 +197,7 @@ void func_call_ret(vaddr_t next_pc, vaddr_t pc){
 			strcpy(fring[fring_pos].func_name, func[i].name);
 			fring[fring_pos].next_pc = func[i].addr;
 			fring[fring_pos].pc = pc;
+			fring[fring_pos].dir = RET;
 			fring_pos = fring_pos == FRING_SIZE - 1 ? 0 : fring_pos + 1;
 			log_write("Ftrace: PC %08x ret %s\t%08x\n", pc, func[i].name, next_pc);
 			return;
@@ -208,11 +208,26 @@ void func_call_ret(vaddr_t next_pc, vaddr_t pc){
 void display_fring(){
 	int pos = fring_pos;
 	for (int i=0; i < FRING_SIZE; i++){
-		if(fring[pos].func_name[0] != '\0')
-			printf("Ftrace: PC %08x call %s\t%08x\n", fring[pos].pc, fring[pos].func_name, fring[pos].next_pc);
+		if (fring[pos].func_name[0] != '\0'){
+			if (fring[pos].dir == CALL){
+				printf("Ftrace: PC %08x call %s\t%08x\n", fring[pos].pc, fring[pos].func_name, fring[pos].next_pc);
+			}
+			else {
+				printf("Ftrace: PC %08x ret  %s\t%08x\n", fring[pos].pc, fring[pos].func_name, fring[pos].next_pc);
+			}
+		}
 		pos = pos == FRING_SIZE ? 0 : pos + 1;
 	}
 }
 #endif
 
+void init_trace(){
+	IFDEF(CONFIG_IRING, iring_init());
+	IFDEF(CONFIG_MTRACE, mring_init());
+	extern char *elf_file;
+	IFDEF(CONFIG_FTRACE, ftrace_init(elf_file));
+}
+
 #endif
+
+
