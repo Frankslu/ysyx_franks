@@ -97,8 +97,10 @@ static void execute(uint64_t n) {
 		exec_once(&s);
 		g_nr_guest_inst ++;
 
-		printf("%d\n", (int)cpu.is_break);
-		IFDEF(CONFIG_DIFF_TRACE, if (cpu.is_break == false || npc_state.state == NPC_END && cpu.is_break == true) trace_and_difftest(&s, cpu.pc));
+		IFDEF(CONFIG_DIFF_TRACE,
+			if (cpu.is_break == false || npc_state.state == NPC_END && cpu.is_break == true)
+				trace_and_difftest(&s, cpu.pc)
+		);
 
 		if (npc_state.state != NPC_RUNNING) break;
 		IFDEF(CONFIG_DEVICE, device_update());
