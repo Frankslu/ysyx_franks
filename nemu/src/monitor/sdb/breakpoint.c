@@ -50,12 +50,12 @@ BP *new_bp(vaddr_t pc){
 	word_t mask = 0xffff8000;
 	word_t brk_inst = 0x2a0000;
 	if (in_pmem(pc) == false){
-		printf("Out of memory bound\n");
+		IFDEF(CONFIG_TARGET_NATIVE_ELF ,printf("Out of memory bound\n"));
 		return NULL;
 	}
 	word_t get_inst = break_ifetch(pc, 4);
 	if ((get_inst & mask) == brk_inst){
-		printf("The instruction is already break\n");
+		IFDEF(CONFIG_TARGET_NATIVE_ELF, printf("The instruction is already break\n"));
 		return NULL;
 	}
 
@@ -90,11 +90,11 @@ BP *new_bp(vaddr_t pc){
 		new->pc = pc;
 		new->inst = get_inst;
 		break_write(pc, 4, brk_inst);
-		printf("New breakpoint %d: %x\n", new->NO, pc);
+		IFDEF(CONFIG_TARGET_NATIVE_ELF, printf("New breakpoint %d: %x\n", new->NO, pc));
 		return new;
 	}
 	else{
-		printf("Breakpoint pool is full!\n");
+		IFDEF(CONFIG_TARGET_NATIVE_ELF, printf("Breakpoint pool is full!\n"));
 		return NULL;
 	}
 }
@@ -116,7 +116,7 @@ bool free_bp(int NO){
 	if(p != NULL){
 		break_write(p->pc, 4, p->inst);
 
-		printf("delete watchpoint %d: %x\n", NO, p->pc);
+		IFDEF(CONFIG_TARGET_NATIVE_ELF, printf("delete watchpoint %d: %x\n", NO, p->pc));
 		if(p == bp_head){
 			bp_head = p->next;
 		}
