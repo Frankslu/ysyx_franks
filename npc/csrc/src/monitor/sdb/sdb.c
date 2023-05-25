@@ -221,7 +221,7 @@ static int cmd_b(char *args){
 		return 0;
 	}
 	new_bp(i);
-	IFDEF(CONFIG_DIFFTEST, ref_newbp(i));
+	// IFDEF(CONFIG_DIFFTEST, ref_newbp(i));
 	return 0;
 }
 #endif
