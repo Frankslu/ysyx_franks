@@ -107,7 +107,7 @@ static int cmd_info(char *args){
 	else if(strcmp(c, "b") == 0){
 		MUXDEF(CONFIG_BREAKPOINT, display_breakpoint(), printf("Breakpoint disabled\n"));
 	}
-	else if(strcmp(c, "wr") == 0){
+	else if(strcmp(c, "mr") == 0){
 		MUXDEF(CONFIG_MTRACE, display_mring(), printf("Mtrace disabled\n"));
 	}
 	else if(strcmp(c, "ir") == 0){
