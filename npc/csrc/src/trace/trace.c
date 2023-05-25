@@ -142,6 +142,7 @@ typedef MUXDEF(CONFIG_ISA64, Elf64_Sym , Elf32_Sym ) Elf_Sym;
 			res = fread(func[func_cnt].name, 50, 1, fp);
 			printf("Function %s at address %x, %d\n", func[func_cnt].name, func[func_cnt].addr, func[func_cnt].size);
 			func_cnt++;
+			printf("%d\n", func_cnt);
 		}
 	}
 	fclose(fp);
