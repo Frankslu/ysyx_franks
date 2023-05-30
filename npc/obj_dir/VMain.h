@@ -14,8 +14,6 @@
 class VMain__Syms;
 class VMain___024root;
 class VerilatedVcdC;
-class VMain_Main;
-
 
 // This class is the main interface to the Verilated model
 class VMain VL_NOT_FINAL : public VerilatedModel {
@@ -34,7 +32,6 @@ class VMain VL_NOT_FINAL : public VerilatedModel {
     // CELLS
     // Public to allow access to /* verilator public */ items.
     // Otherwise the application code can consider these internals.
-    VMain_Main* const __PVT__Main;
 
     // Root instance pointer to allow access to model internals,
     // including inlined /* verilator public_flat_* */ items.

@@ -40,6 +40,7 @@ static int event_thread(void *args) {
 }
 
 void __am_input_init() {
+  SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS);
   key_queue_lock = SDL_CreateMutex();
   SDL_CreateThread(event_thread, "event thread", NULL);
 }

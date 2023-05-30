@@ -8,6 +8,81 @@
 #include "VMain__Syms.h"
 #include "VMain___024root.h"
 
+extern "C" void set_gpr_ptr(const svOpenArrayHandle regs);
+
+VL_INLINE_OPT void VMain___024root____Vdpiimwrap_Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__difftest__DOT__set_gpr_ptr__Vdpioc2_TOP(const VlUnpacked<IData/*31:0*/, 32> &regs) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VMain___024root____Vdpiimwrap_Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__difftest__DOT__set_gpr_ptr__Vdpioc2_TOP\n"); );
+    // Body
+    static const int regs__Vopenprops__ulims[2] = {0, 31};
+    static const VerilatedVarProps regs__Vopenprops(VLVT_UINT32, VLVD_IN, VerilatedVarProps::Packed(), 31, 0, VerilatedVarProps::Unpacked(), 1, regs__Vopenprops__ulims);
+    VerilatedDpiOpenVar regs__Vopenarray (&regs__Vopenprops, &regs);
+    set_gpr_ptr(&regs__Vopenarray);
+}
+
+extern "C" void npc_break(char is_break);
+
+VL_INLINE_OPT void VMain___024root____Vdpiimwrap_Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__npc_brk__DOT__npc_break_TOP(CData/*7:0*/ is_break) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VMain___024root____Vdpiimwrap_Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__npc_brk__DOT__npc_break_TOP\n"); );
+    // Body
+    char is_break__Vcvt;
+    for (size_t is_break__Vidx = 0; is_break__Vidx < 1; ++is_break__Vidx) is_break__Vcvt = is_break;
+    npc_break(is_break__Vcvt);
+}
+
+extern "C" void inst_exec_once(char valid, int inst, int pc);
+
+VL_INLINE_OPT void VMain___024root____Vdpiimwrap_Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__inst_exec_once__DOT__inst_exec_once_TOP(CData/*7:0*/ valid, IData/*31:0*/ inst, IData/*31:0*/ pc) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VMain___024root____Vdpiimwrap_Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__inst_exec_once__DOT__inst_exec_once_TOP\n"); );
+    // Body
+    char valid__Vcvt;
+    for (size_t valid__Vidx = 0; valid__Vidx < 1; ++valid__Vidx) valid__Vcvt = valid;
+    int inst__Vcvt;
+    for (size_t inst__Vidx = 0; inst__Vidx < 1; ++inst__Vidx) inst__Vcvt = inst;
+    int pc__Vcvt;
+    for (size_t pc__Vidx = 0; pc__Vidx < 1; ++pc__Vidx) pc__Vcvt = pc;
+    inst_exec_once(valid__Vcvt, inst__Vcvt, pc__Vcvt);
+}
+
+extern "C" void vaddr_read(int raddr, int* rdata);
+
+VL_INLINE_OPT void VMain___024root____Vdpiimwrap_Main__DOT__dram__DOT__vaddr_read_TOP(IData/*31:0*/ raddr, IData/*31:0*/ &rdata) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VMain___024root____Vdpiimwrap_Main__DOT__dram__DOT__vaddr_read_TOP\n"); );
+    // Body
+    int raddr__Vcvt;
+    for (size_t raddr__Vidx = 0; raddr__Vidx < 1; ++raddr__Vidx) raddr__Vcvt = raddr;
+    int rdata__Vcvt;
+    vaddr_read(raddr__Vcvt, &rdata__Vcvt);
+    rdata = rdata__Vcvt;
+}
+
+extern "C" void vaddr_write(int waddr, int wdata, char wmask, int* rdata);
+
+VL_INLINE_OPT void VMain___024root____Vdpiimwrap_Main__DOT__dram__DOT__vaddr_write_TOP(IData/*31:0*/ waddr, IData/*31:0*/ wdata, CData/*7:0*/ wmask, IData/*31:0*/ &rdata) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VMain___024root____Vdpiimwrap_Main__DOT__dram__DOT__vaddr_write_TOP\n"); );
+    // Body
+    int waddr__Vcvt;
+    for (size_t waddr__Vidx = 0; waddr__Vidx < 1; ++waddr__Vidx) waddr__Vcvt = waddr;
+    int wdata__Vcvt;
+    for (size_t wdata__Vidx = 0; wdata__Vidx < 1; ++wdata__Vidx) wdata__Vcvt = wdata;
+    char wmask__Vcvt;
+    for (size_t wmask__Vidx = 0; wmask__Vidx < 1; ++wmask__Vidx) wmask__Vcvt = wmask;
+    int rdata__Vcvt;
+    vaddr_write(waddr__Vcvt, wdata__Vcvt, wmask__Vcvt, &rdata__Vcvt);
+    rdata = rdata__Vcvt;
+}
+
+extern "C" void vaddr_fetch(int raddr, int* rdata);
+
+VL_INLINE_OPT void VMain___024root____Vdpiimwrap_Main__DOT__iram__DOT__vaddr_fetch_TOP(IData/*31:0*/ raddr, IData/*31:0*/ &rdata) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VMain___024root____Vdpiimwrap_Main__DOT__iram__DOT__vaddr_fetch_TOP\n"); );
+    // Body
+    int raddr__Vcvt;
+    for (size_t raddr__Vidx = 0; raddr__Vidx < 1; ++raddr__Vidx) raddr__Vcvt = raddr;
+    int rdata__Vcvt;
+    vaddr_fetch(raddr__Vcvt, &rdata__Vcvt);
+    rdata = rdata__Vcvt;
+}
+
 #ifdef VL_DEBUG
 VL_ATTR_COLD void VMain___024root___dump_triggers__ico(VMain___024root* vlSelf);
 #endif  // VL_DEBUG
@@ -25,63 +100,6 @@ void VMain___024root___eval_triggers__ico(VMain___024root* vlSelf) {
 #endif
 }
 
-VL_INLINE_OPT void VMain___024root___ico_sequent__TOP__0(VMain___024root* vlSelf) {
-    if (false && vlSelf) {}  // Prevent unused
-    VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VMain___024root___ico_sequent__TOP__0\n"); );
-    // Body
-    vlSymsp->TOP__Main.clock = vlSelf->clock;
-    vlSymsp->TOP__Main.reset = vlSelf->reset;
-}
-
-void VMain_Main___ico_sequent__TOP__Main__0(VMain_Main* vlSelf);
-void VMain_mycpu_top___ico_sequent__TOP__Main__cpucore__0(VMain_mycpu_top* vlSelf);
-void VMain_ID_stage___ico_sequent__TOP__Main__cpucore__ID__0(VMain_ID_stage* vlSelf);
-void VMain_preIF___ico_sequent__TOP__Main__cpucore__pIF__0(VMain_preIF* vlSelf);
-void VMain_mycpu_top___ico_sequent__TOP__Main__cpucore__1(VMain_mycpu_top* vlSelf);
-void VMain_IF_stage___ico_sequent__TOP__Main__cpucore__IF__0(VMain_IF_stage* vlSelf);
-void VMain_mycpu_top___ico_sequent__TOP__Main__cpucore__2(VMain_mycpu_top* vlSelf);
-void VMain_ID_stage___ico_sequent__TOP__Main__cpucore__ID__1(VMain_ID_stage* vlSelf);
-void VMain_mycpu_top___ico_sequent__TOP__Main__cpucore__3(VMain_mycpu_top* vlSelf);
-void VMain_EX_stage___ico_sequent__TOP__Main__cpucore__EXE__0(VMain_EX_stage* vlSelf);
-void VMain_mycpu_top___ico_sequent__TOP__Main__cpucore__4(VMain_mycpu_top* vlSelf);
-void VMain_MEM_stage___ico_sequent__TOP__Main__cpucore__MEM__0(VMain_MEM_stage* vlSelf);
-void VMain_mycpu_top___ico_sequent__TOP__Main__cpucore__5(VMain_mycpu_top* vlSelf);
-void VMain_WB_stage___ico_sequent__TOP__Main__cpucore__WB__0(VMain_WB_stage* vlSelf);
-void VMain_mycpu_top___ico_sequent__TOP__Main__cpucore__6(VMain_mycpu_top* vlSelf);
-void VMain_ID_stage___ico_sequent__TOP__Main__cpucore__ID__2(VMain_ID_stage* vlSelf);
-void VMain_regfile___ico_sequent__TOP__Main__cpucore__ID__reg___0(VMain_regfile* vlSelf);
-void VMain_Exec___ico_sequent__TOP__Main__cpucore__ID__reg___inst_exec_once__0(VMain_Exec* vlSelf);
-
-void VMain___024root___eval_ico(VMain___024root* vlSelf) {
-    if (false && vlSelf) {}  // Prevent unused
-    VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VMain___024root___eval_ico\n"); );
-    // Body
-    if (vlSelf->__VicoTriggered.at(0U)) {
-        VMain___024root___ico_sequent__TOP__0(vlSelf);
-        vlSelf->__Vm_traceActivity[1U] = 1U;
-        VMain_Main___ico_sequent__TOP__Main__0((&vlSymsp->TOP__Main));
-        VMain_mycpu_top___ico_sequent__TOP__Main__cpucore__0((&vlSymsp->TOP__Main__cpucore));
-        VMain_ID_stage___ico_sequent__TOP__Main__cpucore__ID__0((&vlSymsp->TOP__Main__cpucore__ID));
-        VMain_preIF___ico_sequent__TOP__Main__cpucore__pIF__0((&vlSymsp->TOP__Main__cpucore__pIF));
-        VMain_mycpu_top___ico_sequent__TOP__Main__cpucore__1((&vlSymsp->TOP__Main__cpucore));
-        VMain_IF_stage___ico_sequent__TOP__Main__cpucore__IF__0((&vlSymsp->TOP__Main__cpucore__IF));
-        VMain_mycpu_top___ico_sequent__TOP__Main__cpucore__2((&vlSymsp->TOP__Main__cpucore));
-        VMain_ID_stage___ico_sequent__TOP__Main__cpucore__ID__1((&vlSymsp->TOP__Main__cpucore__ID));
-        VMain_mycpu_top___ico_sequent__TOP__Main__cpucore__3((&vlSymsp->TOP__Main__cpucore));
-        VMain_EX_stage___ico_sequent__TOP__Main__cpucore__EXE__0((&vlSymsp->TOP__Main__cpucore__EXE));
-        VMain_mycpu_top___ico_sequent__TOP__Main__cpucore__4((&vlSymsp->TOP__Main__cpucore));
-        VMain_MEM_stage___ico_sequent__TOP__Main__cpucore__MEM__0((&vlSymsp->TOP__Main__cpucore__MEM));
-        VMain_mycpu_top___ico_sequent__TOP__Main__cpucore__5((&vlSymsp->TOP__Main__cpucore));
-        VMain_WB_stage___ico_sequent__TOP__Main__cpucore__WB__0((&vlSymsp->TOP__Main__cpucore__WB));
-        VMain_mycpu_top___ico_sequent__TOP__Main__cpucore__6((&vlSymsp->TOP__Main__cpucore));
-        VMain_ID_stage___ico_sequent__TOP__Main__cpucore__ID__2((&vlSymsp->TOP__Main__cpucore__ID));
-        VMain_regfile___ico_sequent__TOP__Main__cpucore__ID__reg___0((&vlSymsp->TOP__Main__cpucore__ID__reg_));
-        VMain_Exec___ico_sequent__TOP__Main__cpucore__ID__reg___inst_exec_once__0((&vlSymsp->TOP__Main__cpucore__ID__reg___inst_exec_once));
-    }
-}
-
 #ifdef VL_DEBUG
 VL_ATTR_COLD void VMain___024root___dump_triggers__act(VMain___024root* vlSelf);
 #endif  // VL_DEBUG
@@ -91,136 +109,12 @@ void VMain___024root___eval_triggers__act(VMain___024root* vlSelf) {
     VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    VMain___024root___eval_triggers__act\n"); );
     // Body
-    vlSelf->__VactTriggered.at(0U) = ((IData)(vlSymsp->TOP__Main__cpucore__pIF.__PVT__clock) 
-                                      & (~ (IData)(vlSelf->__Vtrigrprev__TOP__Main__cpucore__pIF____PVT__clock)));
-    vlSelf->__VactTriggered.at(1U) = ((IData)(vlSymsp->TOP__Main__cpucore__ID__reg_.__PVT__clock) 
-                                      & (~ (IData)(vlSelf->__Vtrigrprev__TOP__Main__cpucore__ID__reg_____PVT__clock)));
-    vlSelf->__Vtrigrprev__TOP__Main__cpucore__pIF____PVT__clock 
-        = vlSymsp->TOP__Main__cpucore__pIF.__PVT__clock;
-    vlSelf->__Vtrigrprev__TOP__Main__cpucore__ID__reg_____PVT__clock 
-        = vlSymsp->TOP__Main__cpucore__ID__reg_.__PVT__clock;
+    vlSelf->__VactTriggered.at(0U) = ((IData)(vlSelf->clock) 
+                                      & (~ (IData)(vlSelf->__Vtrigrprev__TOP__clock)));
+    vlSelf->__Vtrigrprev__TOP__clock = vlSelf->clock;
 #ifdef VL_DEBUG
     if (VL_UNLIKELY(vlSymsp->_vm_contextp__->debug())) {
         VMain___024root___dump_triggers__act(vlSelf);
     }
 #endif
-}
-
-void VMain_regfile___nba_sequent__TOP__Main__cpucore__ID__reg___0(VMain_regfile* vlSelf);
-void VMain_preIF___nba_sequent__TOP__Main__cpucore__pIF__0(VMain_preIF* vlSelf);
-void VMain_mycpu_top___nba_sequent__TOP__Main__cpucore__0(VMain_mycpu_top* vlSelf);
-void VMain_Main___nba_sequent__TOP__Main__0(VMain_Main* vlSelf);
-void VMain_IF_stage___nba_sequent__TOP__Main__cpucore__IF__0(VMain_IF_stage* vlSelf);
-void VMain_i_mem___nba_sequent__TOP__Main__iram__0(VMain_i_mem* vlSelf);
-void VMain_mycpu_top___nba_sequent__TOP__Main__cpucore__1(VMain_mycpu_top* vlSelf);
-void VMain_Main___nba_sequent__TOP__Main__1(VMain_Main* vlSelf);
-void VMain_mycpu_top___nba_sequent__TOP__Main__cpucore__2(VMain_mycpu_top* vlSelf);
-void VMain_IF_stage___nba_sequent__TOP__Main__cpucore__IF__1(VMain_IF_stage* vlSelf);
-void VMain_mycpu_top___nba_sequent__TOP__Main__cpucore__3(VMain_mycpu_top* vlSelf);
-void VMain_ID_stage___nba_sequent__TOP__Main__cpucore__ID__0(VMain_ID_stage* vlSelf);
-void VMain_mycpu_top___nba_sequent__TOP__Main__cpucore__4(VMain_mycpu_top* vlSelf);
-void VMain_regfile___nba_sequent__TOP__Main__cpucore__ID__reg___1(VMain_regfile* vlSelf);
-void VMain_EX_stage___nba_sequent__TOP__Main__cpucore__EXE__0(VMain_EX_stage* vlSelf);
-void VMain_mycpu_top___nba_sequent__TOP__Main__cpucore__5(VMain_mycpu_top* vlSelf);
-void VMain_ALU___nba_sequent__TOP__Main__cpucore__EXE__alu__0(VMain_ALU* vlSelf);
-void VMain_Main___nba_sequent__TOP__Main__2(VMain_Main* vlSelf);
-void VMain_MEM_stage___nba_sequent__TOP__Main__cpucore__MEM__0(VMain_MEM_stage* vlSelf);
-void VMain_mycpu_top___nba_sequent__TOP__Main__cpucore__6(VMain_mycpu_top* vlSelf);
-void VMain_WB_stage___nba_sequent__TOP__Main__cpucore__WB__0(VMain_WB_stage* vlSelf);
-void VMain_mycpu_top___nba_sequent__TOP__Main__cpucore__7(VMain_mycpu_top* vlSelf);
-void VMain_ID_stage___nba_sequent__TOP__Main__cpucore__ID__1(VMain_ID_stage* vlSelf);
-void VMain_regfile___nba_sequent__TOP__Main__cpucore__ID__reg___2(VMain_regfile* vlSelf);
-void VMain_npc_break___nba_sequent__TOP__Main__cpucore__ID__reg___npc_brk__0(VMain_npc_break* vlSelf);
-void VMain_regfile___nba_comb__TOP__Main__cpucore__ID__reg___0(VMain_regfile* vlSelf);
-void VMain_ID_stage___nba_comb__TOP__Main__cpucore__ID__0(VMain_ID_stage* vlSelf);
-void VMain_mycpu_top___nba_comb__TOP__Main__cpucore__0(VMain_mycpu_top* vlSelf);
-void VMain_EX_stage___nba_comb__TOP__Main__cpucore__EXE__0(VMain_EX_stage* vlSelf);
-void VMain_preIF___nba_comb__TOP__Main__cpucore__pIF__0(VMain_preIF* vlSelf);
-void VMain_mycpu_top___nba_comb__TOP__Main__cpucore__1(VMain_mycpu_top* vlSelf);
-void VMain_ALU___nba_comb__TOP__Main__cpucore__EXE__alu__0(VMain_ALU* vlSelf);
-void VMain_Main___nba_comb__TOP__Main__0(VMain_Main* vlSelf);
-void VMain_IF_stage___nba_comb__TOP__Main__cpucore__IF__0(VMain_IF_stage* vlSelf);
-void VMain_EX_stage___nba_comb__TOP__Main__cpucore__EXE__1(VMain_EX_stage* vlSelf);
-void VMain_mycpu_top___nba_comb__TOP__Main__cpucore__2(VMain_mycpu_top* vlSelf);
-void VMain_Main___nba_comb__TOP__Main__1(VMain_Main* vlSelf);
-void VMain_ID_stage___nba_comb__TOP__Main__cpucore__ID__1(VMain_ID_stage* vlSelf);
-void VMain_d_mem___nba_comb__TOP__Main__dram__0(VMain_d_mem* vlSelf);
-void VMain_mycpu_top___nba_comb__TOP__Main__cpucore__3(VMain_mycpu_top* vlSelf);
-void VMain_Main___nba_comb__TOP__Main__2(VMain_Main* vlSelf);
-void VMain_EX_stage___nba_comb__TOP__Main__cpucore__EXE__2(VMain_EX_stage* vlSelf);
-void VMain_mycpu_top___nba_comb__TOP__Main__cpucore__4(VMain_mycpu_top* vlSelf);
-void VMain_MEM_stage___nba_comb__TOP__Main__cpucore__MEM__0(VMain_MEM_stage* vlSelf);
-void VMain_mycpu_top___nba_comb__TOP__Main__cpucore__5(VMain_mycpu_top* vlSelf);
-void VMain_WB_stage___nba_comb__TOP__Main__cpucore__WB__0(VMain_WB_stage* vlSelf);
-void VMain_mycpu_top___nba_comb__TOP__Main__cpucore__6(VMain_mycpu_top* vlSelf);
-void VMain_ID_stage___nba_comb__TOP__Main__cpucore__ID__2(VMain_ID_stage* vlSelf);
-void VMain_regfile___nba_comb__TOP__Main__cpucore__ID__reg___1(VMain_regfile* vlSelf);
-void VMain_Exec___nba_comb__TOP__Main__cpucore__ID__reg___inst_exec_once__0(VMain_Exec* vlSelf);
-void VMain_Difftest___nba_comb__TOP__Main__cpucore__ID__reg___difftest__0(VMain_Difftest* vlSelf);
-
-void VMain___024root___eval_nba(VMain___024root* vlSelf) {
-    if (false && vlSelf) {}  // Prevent unused
-    VMain__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VMain___024root___eval_nba\n"); );
-    // Body
-    if (vlSelf->__VnbaTriggered.at(1U)) {
-        VMain_regfile___nba_sequent__TOP__Main__cpucore__ID__reg___0((&vlSymsp->TOP__Main__cpucore__ID__reg_));
-        vlSelf->__Vm_traceActivity[2U] = 1U;
-    }
-    if (vlSelf->__VnbaTriggered.at(0U)) {
-        VMain_preIF___nba_sequent__TOP__Main__cpucore__pIF__0((&vlSymsp->TOP__Main__cpucore__pIF));
-        vlSelf->__Vm_traceActivity[3U] = 1U;
-        VMain_mycpu_top___nba_sequent__TOP__Main__cpucore__0((&vlSymsp->TOP__Main__cpucore));
-        VMain_Main___nba_sequent__TOP__Main__0((&vlSymsp->TOP__Main));
-        VMain_IF_stage___nba_sequent__TOP__Main__cpucore__IF__0((&vlSymsp->TOP__Main__cpucore__IF));
-        VMain_i_mem___nba_sequent__TOP__Main__iram__0((&vlSymsp->TOP__Main__iram));
-        VMain_mycpu_top___nba_sequent__TOP__Main__cpucore__1((&vlSymsp->TOP__Main__cpucore));
-        VMain_Main___nba_sequent__TOP__Main__1((&vlSymsp->TOP__Main));
-        VMain_mycpu_top___nba_sequent__TOP__Main__cpucore__2((&vlSymsp->TOP__Main__cpucore));
-        VMain_IF_stage___nba_sequent__TOP__Main__cpucore__IF__1((&vlSymsp->TOP__Main__cpucore__IF));
-        VMain_mycpu_top___nba_sequent__TOP__Main__cpucore__3((&vlSymsp->TOP__Main__cpucore));
-        VMain_ID_stage___nba_sequent__TOP__Main__cpucore__ID__0((&vlSymsp->TOP__Main__cpucore__ID));
-        VMain_mycpu_top___nba_sequent__TOP__Main__cpucore__4((&vlSymsp->TOP__Main__cpucore));
-        VMain_regfile___nba_sequent__TOP__Main__cpucore__ID__reg___1((&vlSymsp->TOP__Main__cpucore__ID__reg_));
-        VMain_EX_stage___nba_sequent__TOP__Main__cpucore__EXE__0((&vlSymsp->TOP__Main__cpucore__EXE));
-        VMain_mycpu_top___nba_sequent__TOP__Main__cpucore__5((&vlSymsp->TOP__Main__cpucore));
-        VMain_ALU___nba_sequent__TOP__Main__cpucore__EXE__alu__0((&vlSymsp->TOP__Main__cpucore__EXE__alu));
-        VMain_Main___nba_sequent__TOP__Main__2((&vlSymsp->TOP__Main));
-        VMain_MEM_stage___nba_sequent__TOP__Main__cpucore__MEM__0((&vlSymsp->TOP__Main__cpucore__MEM));
-        VMain_mycpu_top___nba_sequent__TOP__Main__cpucore__6((&vlSymsp->TOP__Main__cpucore));
-        VMain_WB_stage___nba_sequent__TOP__Main__cpucore__WB__0((&vlSymsp->TOP__Main__cpucore__WB));
-        VMain_mycpu_top___nba_sequent__TOP__Main__cpucore__7((&vlSymsp->TOP__Main__cpucore));
-        VMain_ID_stage___nba_sequent__TOP__Main__cpucore__ID__1((&vlSymsp->TOP__Main__cpucore__ID));
-        VMain_regfile___nba_sequent__TOP__Main__cpucore__ID__reg___2((&vlSymsp->TOP__Main__cpucore__ID__reg_));
-        VMain_npc_break___nba_sequent__TOP__Main__cpucore__ID__reg___npc_brk__0((&vlSymsp->TOP__Main__cpucore__ID__reg___npc_brk));
-    }
-    if ((vlSelf->__VnbaTriggered.at(0U) | vlSelf->__VnbaTriggered.at(1U))) {
-        VMain_regfile___nba_comb__TOP__Main__cpucore__ID__reg___0((&vlSymsp->TOP__Main__cpucore__ID__reg_));
-        vlSelf->__Vm_traceActivity[4U] = 1U;
-        VMain_ID_stage___nba_comb__TOP__Main__cpucore__ID__0((&vlSymsp->TOP__Main__cpucore__ID));
-        VMain_mycpu_top___nba_comb__TOP__Main__cpucore__0((&vlSymsp->TOP__Main__cpucore));
-        VMain_EX_stage___nba_comb__TOP__Main__cpucore__EXE__0((&vlSymsp->TOP__Main__cpucore__EXE));
-        VMain_preIF___nba_comb__TOP__Main__cpucore__pIF__0((&vlSymsp->TOP__Main__cpucore__pIF));
-        VMain_mycpu_top___nba_comb__TOP__Main__cpucore__1((&vlSymsp->TOP__Main__cpucore));
-        VMain_ALU___nba_comb__TOP__Main__cpucore__EXE__alu__0((&vlSymsp->TOP__Main__cpucore__EXE__alu));
-        VMain_Main___nba_comb__TOP__Main__0((&vlSymsp->TOP__Main));
-        VMain_IF_stage___nba_comb__TOP__Main__cpucore__IF__0((&vlSymsp->TOP__Main__cpucore__IF));
-        VMain_EX_stage___nba_comb__TOP__Main__cpucore__EXE__1((&vlSymsp->TOP__Main__cpucore__EXE));
-        VMain_mycpu_top___nba_comb__TOP__Main__cpucore__2((&vlSymsp->TOP__Main__cpucore));
-        VMain_Main___nba_comb__TOP__Main__1((&vlSymsp->TOP__Main));
-        VMain_ID_stage___nba_comb__TOP__Main__cpucore__ID__1((&vlSymsp->TOP__Main__cpucore__ID));
-        VMain_d_mem___nba_comb__TOP__Main__dram__0((&vlSymsp->TOP__Main__dram));
-        VMain_mycpu_top___nba_comb__TOP__Main__cpucore__3((&vlSymsp->TOP__Main__cpucore));
-        VMain_Main___nba_comb__TOP__Main__2((&vlSymsp->TOP__Main));
-        VMain_EX_stage___nba_comb__TOP__Main__cpucore__EXE__2((&vlSymsp->TOP__Main__cpucore__EXE));
-        VMain_mycpu_top___nba_comb__TOP__Main__cpucore__4((&vlSymsp->TOP__Main__cpucore));
-        VMain_MEM_stage___nba_comb__TOP__Main__cpucore__MEM__0((&vlSymsp->TOP__Main__cpucore__MEM));
-        VMain_mycpu_top___nba_comb__TOP__Main__cpucore__5((&vlSymsp->TOP__Main__cpucore));
-        VMain_WB_stage___nba_comb__TOP__Main__cpucore__WB__0((&vlSymsp->TOP__Main__cpucore__WB));
-        VMain_mycpu_top___nba_comb__TOP__Main__cpucore__6((&vlSymsp->TOP__Main__cpucore));
-        VMain_ID_stage___nba_comb__TOP__Main__cpucore__ID__2((&vlSymsp->TOP__Main__cpucore__ID));
-        VMain_regfile___nba_comb__TOP__Main__cpucore__ID__reg___1((&vlSymsp->TOP__Main__cpucore__ID__reg_));
-        VMain_Exec___nba_comb__TOP__Main__cpucore__ID__reg___inst_exec_once__0((&vlSymsp->TOP__Main__cpucore__ID__reg___inst_exec_once));
-        VMain_Difftest___nba_comb__TOP__Main__cpucore__ID__reg___difftest__0((&vlSymsp->TOP__Main__cpucore__ID__reg___difftest));
-    }
 }

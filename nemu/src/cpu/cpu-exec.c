@@ -58,8 +58,16 @@ static void exec_once(Decode *s, vaddr_t pc) {
 	s->snpc = pc;
 	isa_exec_once(s);
 	cpu.pc = s->dnpc;
-	cpu.ref_pc = pc;
+	// cpu.ref_pc = pc;
 #ifdef CONFIG_ITRACE
+#ifdef CONFIG_BREAKPOINT
+	extern int break_flag;
+	if (break_flag == 1){
+		s->logbuf[0] = '\0';
+		return;
+	}
+#endif
+	
 	char *p = s->logbuf;
 	p += snprintf(p, sizeof(s->logbuf), FMT_WORD ":", s->pc);
 	int ilen = s->snpc - s->pc;

@@ -11,6 +11,10 @@ static inline void outb(uintptr_t addr, uint8_t  data) { *(volatile uint8_t  *)a
 static inline void outw(uintptr_t addr, uint16_t data) { *(volatile uint16_t *)addr = data; }
 static inline void outl(uintptr_t addr, uint32_t data) { *(volatile uint32_t *)addr = data; }
 
+#define BYTE_L 0x1
+#define HALF_L 0x2
+#define WORD_L 0x4
+
 #define PTE_V 0x1
 #define PTE_D 0x2
 

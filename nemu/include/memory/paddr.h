@@ -32,6 +32,7 @@ static inline bool in_pmem(paddr_t addr) {
 }
 
 word_t paddr_read(paddr_t addr, int len);
+word_t sdb_paddr_read(paddr_t addr, int len, bool *suc);
 void paddr_write(paddr_t addr, int len, word_t data);
 
 #endif

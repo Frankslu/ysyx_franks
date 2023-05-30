@@ -32,8 +32,8 @@ word_t vaddr_read(vaddr_t addr, int len) {
 	return paddr_read(addr, len);
 }
 
-word_t sdb_vaddr_read(vaddr_t addr, int len) {
-	return paddr_read(addr, len);
+word_t sdb_vaddr_read(vaddr_t addr, int len, bool *suc) {
+	return sdb_paddr_read(addr, len, suc);
 }
 
 void vaddr_write(vaddr_t addr, int len, word_t data) {

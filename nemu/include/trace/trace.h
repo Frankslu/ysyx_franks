@@ -34,6 +34,7 @@ typedef struct _fring_{
     bool dir;
 } Fring_t;
 
+// typedef
 
 #define INVALID 0
 #define READ 1

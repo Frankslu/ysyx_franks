@@ -171,15 +171,23 @@ config MTRACE_END
   default 0x24000000
 endmenu
 
-config FTRACE
+menuconfig FTRACE
   depends on TRACE
   bool "Enable ftrace"
   default n
 
+if FTRACE
 config JIRL_RET
   depends on FTRACE && ISA_loongarch32r
   bool "See inst jirl $0 $1 0 as ret"
   default y
+
+endif
+
+config DTRACE
+  depends on TRACE
+  bool "Enable dtrace"
+  default n
 
 config DIFFTEST
   depends on TARGET_NATIVE_ELF
@@ -254,3 +262,8 @@ config BREAKPOINT
   bool "enable breakpoint"
   default n
 endmenu
+
+config loongarch32r_ITRACE
+  bool
+  default y if ISA_loongarch32r && ITRACE
+  default n

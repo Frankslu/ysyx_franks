@@ -10,8 +10,11 @@ V$(TOP): $(VSRC) $(CSRC) $(INCLUDE)
 	@make -s -C $(NEMU_HOME) -f Makefile
 	@verilator -Wall $(WAVE) $(GDB) $(OPT) --cc $(VSRC) --top-module $(TOP) \
 	--exe $(CSRC) -CFLAGS "-I $(INC)" \
-	-CFLAGS -Wno-narrowing \
-	-LDFLAGS "-l readline -l dl -l elf"
+	-CFLAGS "-Wno-narrowing" \
+	-CFLAGS "-ftrapv" \
+	-LDFLAGS "-l readline" \
+	-LDFLAGS  "-l dl" \
+	-LDFLAGS  "-l elf"
 	@echo "finish verilator"
 	@make -s OPT_FAST="$(OPT)" -j 8 -C $(BUILD_DIR) -f V$(TOP).mk V$(TOP)
 	@echo "finish make"

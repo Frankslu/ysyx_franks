@@ -14,7 +14,6 @@ VMain::VMain(VerilatedContext* _vcontextp__, const char* _vcname__)
     , vlSymsp{new VMain__Syms(contextp(), _vcname__, this)}
     , clock{vlSymsp->TOP.clock}
     , reset{vlSymsp->TOP.reset}
-    , __PVT__Main{vlSymsp->TOP.__PVT__Main}
     , rootp{&(vlSymsp->TOP)}
 {
     // Register model with the context

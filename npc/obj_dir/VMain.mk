@@ -38,10 +38,13 @@ VM_USER_CFLAGS = \
 	-g \
 	-I /home/franks/ysyx-workbench/npc/csrc/include \
 	-Wno-narrowing \
+	-ftrapv \
 
 # User LDLIBS (from -LDFLAGS on Verilator command line)
 VM_USER_LDLIBS = \
-	-l readline -l dl -l elf \
+	-l readline \
+	-l dl \
+	-l elf \
 
 # User .cpp files (from .cpp's on Verilator command line)
 VM_USER_CLASSES = \

@@ -7,17 +7,18 @@
 
 #ifdef CONFIG_TRACE
 
-static Iring_t iring;
-static Mring_t mring;
+__attribute__((unused)) static Iring_t iring;
+__attribute__((unused)) static Mring_t mring;
 
-static Func_t func[FLIST_SIZE] = {};
-static int func_cnt = 0;
+__attribute__((unused)) static Func_t func[FLIST_SIZE] = {};
+// __attribute__((unused)) static int func_cnt1 = 0;
+__attribute__((unused)) static int func_cnt = 0;
 
-static Fring_t fring[FRING_SIZE] = {};
-static int fring_pos = 0;
+__attribute__((unused)) static Fring_t fring[FRING_SIZE] = {};
+__attribute__((unused)) static int fring_pos = 0;
 
-extern char* elf_file;
-extern CPU_state cpu;
+__attribute__((unused)) extern char* elf_file;
+__attribute__((unused)) extern CPU_state cpu;
 
 
 void iring_init(){
@@ -117,7 +118,7 @@ typedef MUXDEF(CONFIG_ISA64, Elf64_Sym , Elf32_Sym ) Elf_Sym;
 	fseek(fp, section_header.e_shoff, SEEK_SET);
 	res = fread(section_table, sizeof(section_table), 1, fp);
 
-	Elf_Shdr *symtab = NULL, *strtab = NULL;
+	__attribute__((unused)) Elf_Shdr *symtab = NULL, *strtab = NULL;
 	int a = 0;
 	for (int i = 0; i < section_header.e_shnum; i++) {
 		if (section_table[i].sh_type == SHT_SYMTAB) {
@@ -141,21 +142,26 @@ typedef MUXDEF(CONFIG_ISA64, Elf64_Sym , Elf32_Sym ) Elf_Sym;
 			func[func_cnt].addr = sym.st_value;
 			func[func_cnt].size = sym.st_size;
 			fseek(fp, strtab->sh_offset + sym.st_name, SEEK_SET);
-			res = fread(func[func_cnt].name, 50, 1, fp);
+			res = fscanf(fp, "%23s", func[func_cnt].name);
 			func_cnt++;
+			if (func_cnt == FLIST_SIZE)
+				break;
 		}
 	}
+	
 	fclose(fp);
 
 	for (int i = 0; i < FRING_SIZE; i++){
 		fring[i].func_name[0] = '\0';
 	}
 	fring_pos = 0;
+
 	return;
 }
 
 void func_call(vaddr_t next_pc, vaddr_t pc){
-	for (int i=0; i < func_cnt; i++){
+	printf("func call\n");
+	for (int i = 0; i < func_cnt; i++){
 		if (next_pc == func[i].addr){
 			strcpy(fring[fring_pos].func_name, func[i].name);
 			fring[fring_pos].next_pc = func[i].addr;
@@ -169,7 +175,8 @@ void func_call(vaddr_t next_pc, vaddr_t pc){
 }
 
 void func_ret(vaddr_t next_pc, vaddr_t pc){
-	for (int i=0; i < func_cnt; i++){
+	printf("func ret\n");
+	for (int i = 0; i < func_cnt; i++){
 		if (next_pc > func[i].addr && next_pc < func[i].addr + func[i].size){
 			strcpy(fring[fring_pos].func_name, func[i].name);
 			fring[fring_pos].next_pc = func[i].addr;
@@ -183,7 +190,8 @@ void func_ret(vaddr_t next_pc, vaddr_t pc){
 }
 
 void func_call_ret(vaddr_t next_pc, vaddr_t pc){
-	for (int i=0; i < func_cnt; i++){
+	printf("func\n");
+	for (int i = 0; i < func_cnt; i++){
 		if (next_pc == func[i].addr){
 			strcpy(fring[fring_pos].func_name, func[i].name);
 			fring[fring_pos].next_pc = func[i].addr;
@@ -221,10 +229,14 @@ void display_fring(){
 }
 #endif
 
+#ifdef CONFIG_DTRACE
+
+#endif
+
 void init_trace(){
 	IFDEF(CONFIG_IRING, iring_init());
 	IFDEF(CONFIG_MTRACE, mring_init());
-	extern char *elf_file;
+	__attribute__((unused)) extern char *elf_file;
 	IFDEF(CONFIG_FTRACE, ftrace_init(elf_file));
 }
 

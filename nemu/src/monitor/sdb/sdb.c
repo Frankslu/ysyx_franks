@@ -14,6 +14,7 @@
  ***************************************************************************************/
 
 #include <memory/vaddr.h>
+#include <device/mmio.h>
 #include <isa.h>
 #include <cpu/cpu.h>
 #include <readline/readline.h>
@@ -36,6 +37,7 @@ extern WP *new_wp(char *s);
 extern bool free_wp(int i);
 BP *new_bp(vaddr_t pc);
 bool free_bp(int i);
+void reset_monitor();
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char* rl_gets() {
@@ -60,6 +62,10 @@ static int cmd_c(char *args) {
 	return 0;
 }
 
+static int cmd_rst(char *args){
+	reset_monitor();
+	return 0;
+}
 
 static int cmd_q(char *args) {
 	nemu_state.state = NEMU_QUIT;
@@ -124,10 +130,18 @@ static int cmd_x(char *args){
 	word_t result = expr(e,&success);
 	if(success == false)
 		return 0;
-	for(int i=0;i<n;i++){
-		printf("0x%08x  0x%08x\n",result + 4*i, vaddr_read(result + 4*i, 4));
+	
+	for (int i = 0;i < n;i++){
+		word_t ret = sdb_vaddr_read(result + 4 * i, 4, &success);
+		if (success == true)
+			printf("0x%08x:  %08x\n", result + 4 * i, ret);
 	}
 	free(e);
+	return 0;
+}
+
+static int cmd_xd(char *args){
+	display_mmio_map();
 	return 0;
 }
 
@@ -243,6 +257,8 @@ static struct {
 	{ "x", "scan memory", cmd_x},
 	{ "p", "print value of expression", cmd_p},
 	{ "d", "delete watchpoint or breakpoint", cmd_d},
+	{ "rst", "reset monitor", cmd_rst},
+	{ "xd", "scan device memory", cmd_xd},
 	IFDEF(CONFIG_WATCHPOINT, { "w", "set watchpoint", cmd_w},)
 	IFDEF(CONFIG_BREAKPOINT, { "b", "set breakpoint", cmd_b})
 
