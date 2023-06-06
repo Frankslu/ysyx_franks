@@ -63,10 +63,12 @@ static void exec_once(Decode *s) {
 	decode_exec(s);
 
 #ifdef CONFIG_ITRACE
+#ifdef CONFIG_BREAKPOINT
 	if (cpu.is_break == true && npc_state.state == NPC_STOP){
 		s->logbuf[0] = '\0';
 		return;
 	}
+#endif
 
 	char *p = s->logbuf;
 	p += snprintf(p, sizeof(s->logbuf), FMT_WORD ":", s->pc);

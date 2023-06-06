@@ -3,6 +3,7 @@
 #include "cpu/decode.h"
 #include "cpu/cpu.h"
 
+#define dump(x) IFDEF(CONFIG_CC_WAVE, tfp->dump(x))
 
 VerilatedContext *contextp = NULL;
 VMain *top = NULL;
@@ -11,6 +12,7 @@ uint64_t sim_time = 0;
 
 int decode_exec(Decode *s);
 int scan_bp(vaddr_t pc);
+
 
 extern "C" void set_gpr_ptr(const svOpenArrayHandle regs){
 	cpu.gpr = (word_t *)(((VerilatedDpiOpenVar *)regs)->datap());
@@ -53,36 +55,40 @@ void init_verilator(int argc, char *argv[]){
 		top->reset = 1;
 		top->clock = 1;
 		top->eval();
-    	tfp->dump(sim_time++);
+    	dump(sim_time++);
 		top->clock = 0;
 		top->eval();
-    	tfp->dump(sim_time++);
+    	dump(sim_time++);
 	}
 		top->reset = 1;
 		top->clock = 1;
 		top->eval();
-    	tfp->dump(sim_time++);
+    	dump(sim_time++);
 	top->reset = 0;
 		top->clock = 0;
 		top->eval();
-    	tfp->dump(sim_time++);
+    	dump(sim_time++);
 }
 
 int npc_exec_once(){
 	top->clock = 1;
 	top->eval();
-	tfp->dump(sim_time++);
+	dump(sim_time++);
 	top->clock = 0;
 	top->eval();
-    tfp->dump(sim_time++);
+    dump(sim_time++);
 	// decode_exec(s);
 	if (cpu.is_break == true){
+#ifdef CONFIG_BREAKPOINT
 		if (scan_bp(cpu.pc) == 1){
 			set_npc_state(NPC_STOP, cpu.pc, cpu.gpr[4]);
 		}
 		else {
 			set_npc_state(NPC_END, cpu.pc, cpu.gpr[4]);
 		}
+#else
+		set_npc_state(NPC_END, cpu.pc, cpu.gpr[4]);
+#endif
 	}
 	return 0;
 }
@@ -92,14 +98,14 @@ void verilator_finish(){
 		return;
 
 	top->eval();
-    tfp->dump(sim_time++);
+    dump(sim_time++);
 	top->eval();
-    tfp->dump(sim_time++);
+    dump(sim_time++);
 	top->eval();
-    tfp->dump(sim_time++);
+    dump(sim_time++);
 
 	top->final();
-	tfp->close();
+	IFDEF(CONFIG_CC_WAVE, tfp->close());
 	delete top;
 	top = nullptr;
 }

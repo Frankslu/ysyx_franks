@@ -43,7 +43,7 @@ enum {
 #define offs26()  do { *imm = SEXT((BITS(i, 25, 10) << 2 | BITS(i, 9, 0) << 18), 28);} while (0)
 #define offs16()  do { *imm = SEXT(BITS(i, 25, 10), 16) << 2;} while (0)
 
-static void decode_operand(Decode *s, int *rj, int *rk, int *rd_, word_t *src1, word_t *src2, word_t *imm, int type) {
+static inline void decode_operand(Decode *s, int *rj, int *rk, int *rd_, word_t *src1, word_t *src2, word_t *imm, int type) {
 	uint32_t i = s->isa.inst.val;
 	*rj = BITS(i, 9, 5);
 	*rk = BITS(i, 14, 10);
@@ -66,7 +66,7 @@ static int decode_exec(Decode *s) {
 	s->dnpc = s->snpc;
 #ifdef CONFIG_loongarch32r_ITRACE
 	char *as = s->disas;
-	int32_t simm = (signed)imm;
+#define simm (signed)imm
 #endif 
 
 #define INSTPAT_INST(s) ((s)->isa.inst.val)
@@ -86,12 +86,19 @@ static int decode_exec(Decode *s) {
 #define slti_sp(str) sprintf(as, "%s\t$r%d, $r%d:%d(%x), %d(%x) # %x", str, rd, rj, (signed)src1, src1, simm, imm, R(rd))
 	
 #define exec_break (scan_bp(old_pc) == 1) ? (NEMUBREAK(s->pc), break_flag = 1) : NEMUTRAP(s->pc, R(4))
+	
+#define I26 26
+#define I16_2R 26
+#define I20_R 25
+#define I12_2R 22
+#define R3 15
 
 	INSTPAT_START();
-	INSTPAT("010100 ???????????????? ??????????", b, OFFS26, s->dnpc = s->pc + imm
+		
+	INSTPAT(0b010100, I26, b, OFFS26, s->dnpc = s->pc + imm
 			IFDEF(CONFIG_loongarch32r_ITRACE, , sprintf(as, "b\t%d(0x%x) # %x", simm, imm, s->dnpc)));
 
-	INSTPAT("010101 ???????????????? ??????????", bl, OFFS26, s->dnpc = s->pc + imm, R(1) = s->snpc
+	INSTPAT(0b010101, I26, bl, OFFS26, s->dnpc = s->pc + imm, R(1) = s->snpc
 			IFDEF(CONFIG_loongarch32r_ITRACE, , sprintf(as, "bl\t%d(0x%x) # %x", simm, imm, s->dnpc))
 			IFDEF(CONFIG_FTRACE, , 
 				MUXDEF(CONFIG_JIRL_RET,
@@ -99,7 +106,7 @@ static int decode_exec(Decode *s) {
 				)
 		));
 
-	INSTPAT("010011 0000000000000000 00001 00000", ret, 2RO16, s->dnpc = src1 + imm, R(rd) = s->snpc
+	INSTPAT(0b010011, I16_2R, ret, 2RO16, s->dnpc = src1 + imm, R(rd) = s->snpc
 			IFDEF(CONFIG_loongarch32r_ITRACE, , sprintf(as, "ret\t$r%d, $r%d:%x, %x # %x", rd, rj, src1, imm, s->dnpc))
 			IFDEF(CONFIG_FTRACE, ,
 				MUXDEF(CONFIG_JIRL_RET,
@@ -107,7 +114,7 @@ static int decode_exec(Decode *s) {
 				)
 		));
 
-	INSTPAT("010011 ???????????????? ????? ?????", jirl, 2RO16, s->dnpc = src1 + imm, R(rd) = s->snpc
+	INSTPAT(0b010011, I16_2R, jirl, 2RO16, s->dnpc = src1 + imm, R(rd) = s->snpc
 			IFDEF(CONFIG_loongarch32r_ITRACE, , sprintf(as, "jirl\t$r%d, $r%d:%x, %x # %x", rd, rj, src1, imm, s->dnpc))
 			IFDEF(CONFIG_FTRACE, ,
 				MUXDEF(CONFIG_JIRL_RET,
@@ -115,139 +122,139 @@ static int decode_exec(Decode *s) {
 			)
 		));
 
-	INSTPAT("010110 ???????????????? ????? ?????", beq, 2RO16, s->dnpc = s->pc + (src1 == R(rd) ? imm : 4)
+	INSTPAT(0b010110, I16_2R, beq, 2RO16, s->dnpc = s->pc + (src1 == R(rd) ? imm : 4)
 			IFDEF(CONFIG_loongarch32r_ITRACE, , br_sprintf("beq")));
 
-	INSTPAT("010111 ???????????????? ????? ?????", bne, 2RO16, s->dnpc = s->pc + (src1 != R(rd) ? imm : 4)
+	INSTPAT(0b010111, I16_2R, bne, 2RO16, s->dnpc = s->pc + (src1 != R(rd) ? imm : 4)
 			IFDEF(CONFIG_loongarch32r_ITRACE, , br_sprintf("bne")));
 
-	INSTPAT("011000 ???????????????? ????? ?????", blt, 2RO16, s->dnpc = s->pc + ((signed)src1 < (signed)R(rd) ? imm : 4)
+	INSTPAT(0b011000, I16_2R, blt, 2RO16, s->dnpc = s->pc + ((signed)src1 < (signed)R(rd) ? imm : 4)
 			IFDEF(CONFIG_loongarch32r_ITRACE, , br_sprintf("blt")));
 
-	INSTPAT("011001 ???????????????? ????? ?????", bge, 2RO16, s->dnpc = s->pc + ((signed)src1 >= (signed)R(rd) ? imm : 4)
+	INSTPAT(0b011001, I16_2R, bge, 2RO16, s->dnpc = s->pc + ((signed)src1 >= (signed)R(rd) ? imm : 4)
 			IFDEF(CONFIG_loongarch32r_ITRACE, , br_sprintf("bge")));
 
-	INSTPAT("011010 ???????????????? ????? ?????", bltu, 2RO16, s->dnpc = s->pc + ((unsigned)src1 < (unsigned)R(rd) ? imm : 4)
+	INSTPAT(0b011010, I16_2R, bltu, 2RO16, s->dnpc = s->pc + ((unsigned)src1 < (unsigned)R(rd) ? imm : 4)
 			IFDEF(CONFIG_loongarch32r_ITRACE, , ubr_sprintf("bltu")));
 
-	INSTPAT("011011 ???????????????? ????? ?????", bgeu, 2RO16, s->dnpc = s->pc + ((unsigned)src1 >= (unsigned)R(rd) ? imm : 4)
+	INSTPAT(0b011011, I16_2R, bgeu, 2RO16, s->dnpc = s->pc + ((unsigned)src1 >= (unsigned)R(rd) ? imm : 4)
 			IFDEF(CONFIG_loongarch32r_ITRACE, , ubr_sprintf("bgeu")));
 
-	INSTPAT("0001010 ????? ????? ????? ????? ?????", lu12i.w, 1RI20, R(rd) = imm
+	INSTPAT(0b0001010, I20_R, lu12i.w, 1RI20, R(rd) = imm
 			IFDEF(CONFIG_loongarch32r_ITRACE, , R1I20_sp("lu12i.w")));
 
-	INSTPAT("0001110 ????? ????? ????? ????? ?????", pcaddu12i, 1RI20, R(rd) = s->pc + imm
+	INSTPAT(0b0001110, I20_R, pcaddu12i, 1RI20, R(rd) = s->pc + imm
 			IFDEF(CONFIG_loongarch32r_ITRACE, , R1I20_sp("pcaddu12i.w")));
 
-	INSTPAT("0000001000 ???????????? ????? ?????", slti, 2RI12, R(rd) = (signed)src1 < (signed)imm ? 1 : 0
+	INSTPAT(0b0000001000, I12_2R, slti, 2RI12, R(rd) = (signed)src1 < (signed)imm ? 1 : 0
 			IFDEF(CONFIG_loongarch32r_ITRACE, , slti_sp("slti")));
 
-	INSTPAT("0000001001 ???????????? ????? ?????", sltui, 2RI12, R(rd) = (unsigned)src1 < (unsigned)imm ? 1 : 0
+	INSTPAT(0b0000001001, I12_2R, sltui, 2RI12, R(rd) = (unsigned)src1 < (unsigned)imm ? 1 : 0
 			IFDEF(CONFIG_loongarch32r_ITRACE, , addi_sp("sltui")));
 
-	INSTPAT("0000001010 ???????????? ????? ?????", addi.w, 2RI12, R(rd) = imm + src1
+	INSTPAT(0b0000001010, I12_2R, addi.w, 2RI12, R(rd) = imm + src1
 			IFDEF(CONFIG_loongarch32r_ITRACE, , addi_sp("addi.w")));
 
-	INSTPAT("0000001101 ???????????? ????? ?????", andi, 2RI12U, R(rd) = imm & src1
+	INSTPAT(0b0000001101, I12_2R, andi, 2RI12U, R(rd) = imm & src1
 			IFDEF(CONFIG_loongarch32r_ITRACE, , addi_sp("andi")));
 
-	INSTPAT("0000001110 ???????????? ????? ?????", ori, 2RI12U, R(rd) = imm | src1
+	INSTPAT(0b0000001110, I12_2R, ori, 2RI12U, R(rd) = imm | src1
 			IFDEF(CONFIG_loongarch32r_ITRACE, , addi_sp("ori")));
 
-	INSTPAT("0000001111 ???????????? ????? ?????", xori, 2RI12U, R(rd) = imm ^ src1
+	INSTPAT(0b0000001111, I12_2R, xori, 2RI12U, R(rd) = imm ^ src1
 			IFDEF(CONFIG_loongarch32r_ITRACE, , addi_sp("xori")));
 
-	INSTPAT("0010100000 ???????????? ????? ?????", ld.b, 2RI12, R(rd) = (int8_t)Mr(src1 + imm, 1)
+	INSTPAT(0b0010100000, I12_2R, ld.b, 2RI12, R(rd) = (int8_t)Mr(src1 + imm, 1)
 			IFDEF(CONFIG_loongarch32r_ITRACE, , ls_sp("ld.b")));
 
-	INSTPAT("0010100001 ???????????? ????? ?????", ld.h, 2RI12, R(rd) = (int16_t)Mr(src1 + imm, 2)
+	INSTPAT(0b0010100001, I12_2R, ld.h, 2RI12, R(rd) = (int16_t)Mr(src1 + imm, 2)
 			IFDEF(CONFIG_loongarch32r_ITRACE, , ls_sp("ld.h")));
 
-	INSTPAT("0010100010 ???????????? ????? ?????", ld.w, 2RI12, R(rd) = Mr(src1 + imm, 4)
+	INSTPAT(0b0010100010, I12_2R, ld.w, 2RI12, R(rd) = Mr(src1 + imm, 4)
 			IFDEF(CONFIG_loongarch32r_ITRACE, , ls_sp("ld.w")));
 
-	INSTPAT("0010100100 ???????????? ????? ?????", st.b, 2RI12, Mw(src1 + imm, 1, R(rd))
+	INSTPAT(0b0010100100, I12_2R, st.b, 2RI12, Mw(src1 + imm, 1, R(rd))
 			IFDEF(CONFIG_loongarch32r_ITRACE, , ls_sp("st.b")));
 
-	INSTPAT("0010100101 ???????????? ????? ?????", st.h, 2RI12, Mw(src1 + imm, 2, R(rd))
+	INSTPAT(0b0010100101, I12_2R, st.h, 2RI12, Mw(src1 + imm, 2, R(rd))
 			IFDEF(CONFIG_loongarch32r_ITRACE, , ls_sp("st.h")));
 
-	INSTPAT("0010100110 ???????????? ????? ?????", st.w, 2RI12, Mw(src1 + imm, 4, R(rd))
+	INSTPAT(0b0010100110, I12_2R, st.w, 2RI12, Mw(src1 + imm, 4, R(rd))
 			IFDEF(CONFIG_loongarch32r_ITRACE, , ls_sp("st.w")));
 
-	INSTPAT("0010101000 ???????????? ????? ?????", ld.bu, 2RI12, R(rd) = (uint8_t)Mr(src1 + imm, 1)
+	INSTPAT(0b0010101000, I12_2R, ld.bu, 2RI12, R(rd) = (uint8_t)Mr(src1 + imm, 1)
 			IFDEF(CONFIG_loongarch32r_ITRACE, , ls_sp("ld.bu")));
 
-	INSTPAT("0010101001 ???????????? ????? ?????", ld.hu, 2RI12, R(rd) = (uint16_t)Mr(src1 + imm, 2)
+	INSTPAT(0b0010101001, I12_2R, ld.hu, 2RI12, R(rd) = (uint16_t)Mr(src1 + imm, 2)
 			IFDEF(CONFIG_loongarch32r_ITRACE, , ls_sp("ld.hu")));
 
-	INSTPAT("00000000000100000 ????? ????? ?????", add.w, 3R, R(rd) = src1 + src2
+	INSTPAT(0b00000000000100000, R3, add.w, 3R, R(rd) = src1 + src2
 			IFDEF(CONFIG_loongarch32r_ITRACE, , add_sp("add.w")));
 
-	INSTPAT("00000000000100010 ????? ????? ?????", sub.w, 3R, R(rd) = src1 - src2
+	INSTPAT(0b00000000000100010, R3, sub.w, 3R, R(rd) = src1 - src2
 			IFDEF(CONFIG_loongarch32r_ITRACE, , add_sp("sub.w")));
 
-	INSTPAT("00000000000100100 ????? ????? ?????", slt, 3R, R(rd) = (signed)src1 < (signed)src2 ? 1 : 0
+	INSTPAT(0b00000000000100100, R3, slt, 3R, R(rd) = (signed)src1 < (signed)src2 ? 1 : 0
 			IFDEF(CONFIG_loongarch32r_ITRACE, , slt_sp("slt")));
 
-	INSTPAT("00000000000100101 ????? ????? ?????", sltu, 3R, R(rd) = (unsigned)src1 < (unsigned)src2 ? 1 : 0
+	INSTPAT(0b00000000000100101, R3, sltu, 3R, R(rd) = (unsigned)src1 < (unsigned)src2 ? 1 : 0
 			IFDEF(CONFIG_loongarch32r_ITRACE, , add_sp("sltu")));
 
-	INSTPAT("00000000000101000 ????? ????? ?????", nor, 3R, R(rd) = ~(src1 | src2)
+	INSTPAT(0b00000000000101000, R3, nor, 3R, R(rd) = ~(src1 | src2)
 			IFDEF(CONFIG_loongarch32r_ITRACE, , add_sp("nor")));
 
-	INSTPAT("00000000000101001 ????? ????? ?????", and, 3R, R(rd) = src1 & src2
+	INSTPAT(0b00000000000101001, R3, and, 3R, R(rd) = src1 & src2
 			IFDEF(CONFIG_loongarch32r_ITRACE, , add_sp("and")));
 
-	INSTPAT("00000000000101010 ????? ????? ?????", move(or), 3R, R(rd) = src1 | src2
+	INSTPAT(0b00000000000101010, R3, move(or), 3R, R(rd) = src1 | src2
 			IFDEF(CONFIG_loongarch32r_ITRACE, , add_sp("move")));
 
-	INSTPAT("00000000000101011 ????? ????? ?????", xor, 3R, R(rd) = src1 ^ src2
+	INSTPAT(0b00000000000101011, R3, xor, 3R, R(rd) = src1 ^ src2
 			IFDEF(CONFIG_loongarch32r_ITRACE, , add_sp("xor")));
 
-	INSTPAT("00000000000101110 ????? ????? ?????", sll.w, 3R, R(rd) = src1 << (src2 & 0x1f)
+	INSTPAT(0b00000000000101110, R3, sll.w, 3R, R(rd) = src1 << (src2 & 0x1f)
 			IFDEF(CONFIG_loongarch32r_ITRACE, , add_sp("sll.w")));
 
-	INSTPAT("00000000000101111 ????? ????? ?????", srl.w, 3R, R(rd) = (unsigned)src1 >> (src2 & 0x1f)
+	INSTPAT(0b00000000000101111, R3, srl.w, 3R, R(rd) = (unsigned)src1 >> (src2 & 0x1f)
 			IFDEF(CONFIG_loongarch32r_ITRACE, , add_sp("srl.w")));
 
-	INSTPAT("00000000000110000 ????? ????? ?????", sra.w, 3R, R(rd) = (signed)src1 >> (src2 & 0x1f)
+	INSTPAT(0b00000000000110000, R3, sra.w, 3R, R(rd) = (signed)src1 >> (src2 & 0x1f)
 			IFDEF(CONFIG_loongarch32r_ITRACE, , add_sp("sra.w")));
 
-	INSTPAT("00000000000111000 ????? ????? ?????", mul.w, 3R, R(rd) = (int32_t)((int64_t)src1 * (int64_t)src2)
+	INSTPAT(0b00000000000111000, R3, mul.w, 3R, R(rd) = (int32_t)((int64_t)src1 * (int64_t)src2)
 			IFDEF(CONFIG_loongarch32r_ITRACE, , add_sp("mul.w")));
 
-	INSTPAT("00000000000111001 ????? ????? ?????", mulh.w, 3R, R(rd) = (int32_t)(((int64_t)(signed)src1 * (int64_t)(signed)src2) >> 32)
+	INSTPAT(0b00000000000111001, R3, mulh.w, 3R, R(rd) = (int32_t)(((int64_t)(signed)src1 * (int64_t)(signed)src2) >> 32)
 			IFDEF(CONFIG_loongarch32r_ITRACE, , add_sp("mulh.w")));
 
-	INSTPAT("00000000000111010 ????? ????? ?????", mulh.wu, 3R, R(rd) = (uint32_t)(((uint64_t)src1 * (uint64_t)src2) >> 32)
+	INSTPAT(0b00000000000111010, R3, mulh.wu, 3R, R(rd) = (uint32_t)(((uint64_t)src1 * (uint64_t)src2) >> 32)
 			IFDEF(CONFIG_loongarch32r_ITRACE, , add_sp("mulh.wu")));
 
-	INSTPAT("00000000001000000 ????? ????? ?????", div.w, 3R, R(rd) = (signed)src1 / (signed)src2
+	INSTPAT(0b00000000001000000, R3, div.w, 3R, R(rd) = (signed)src1 / (signed)src2
 			IFDEF(CONFIG_loongarch32r_ITRACE, , add_sp("div.w")));
 
-	INSTPAT("00000000001000001 ????? ????? ?????", mod.w, 3R, R(rd) = (signed)src1 % (signed)src2
+	INSTPAT(0b00000000001000001, R3, mod.w, 3R, R(rd) = (signed)src1 % (signed)src2
 			IFDEF(CONFIG_loongarch32r_ITRACE, , add_sp("mod.w")));
 
-	INSTPAT("00000000001000010 ????? ????? ?????", div.wu, 3R, R(rd) = (unsigned)src1 / (unsigned)src2
+	INSTPAT(0b00000000001000010, R3, div.wu, 3R, R(rd) = (unsigned)src1 / (unsigned)src2
 			IFDEF(CONFIG_loongarch32r_ITRACE, , add_sp("div.wu")));
 
-	INSTPAT("00000000001000011 ????? ????? ?????", mod.wu, 3R, R(rd) = (unsigned)src1 % (unsigned)src2
+	INSTPAT(0b00000000001000011, R3, mod.wu, 3R, R(rd) = (unsigned)src1 % (unsigned)src2
 			IFDEF(CONFIG_loongarch32r_ITRACE, , add_sp("mod.wu")));
 
-	INSTPAT("00000000010000001 ????? ????? ?????", slli.w, 2RI5, R(rd) = src1 << src2
+	INSTPAT(0b00000000010000001, R3, slli.w, 2RI5, R(rd) = src1 << src2
 			IFDEF(CONFIG_loongarch32r_ITRACE, , slli_sp("slli.w")));
 
-	INSTPAT("00000000010001001 ????? ????? ?????", srli.w, 2RI5, R(rd) = (unsigned)src1 >> src2
+	INSTPAT(0b00000000010001001, R3, srli.w, 2RI5, R(rd) = (unsigned)src1 >> src2
 			IFDEF(CONFIG_loongarch32r_ITRACE, , slli_sp("srli.w")));
 
-	INSTPAT("00000000010010001 ????? ????? ?????", srai.w, 2RI5, R(rd) = (signed)src1 >> src2
+	INSTPAT(0b00000000010010001, R3, srai.w, 2RI5, R(rd) = (signed)src1 >> src2
 			IFDEF(CONFIG_loongarch32r_ITRACE, , slli_sp("srai.w")));
 
-	INSTPAT("0000 0000 0010 10100 ????? ????? ?????", break, N, MUXDEF(CONFIG_BREAKPOINT, exec_break, NEMUTRAP(s->pc, R(4)))
+	INSTPAT(0b00000000001010100, 15, break, N, MUXDEF(CONFIG_BREAKPOINT, exec_break, NEMUTRAP(s->pc, R(4)))
 			, s->dnpc = old_pc
 			IFDEF(CONFIG_loongarch32r_ITRACE, , sprintf(as, "break"))); // R(4) is $a0
-	INSTPAT("????????????????? ????? ????? ?????", inv, N, INV(s->pc));
+	INV(s->pc);
 	INSTPAT_END();
 
 	R(0) = 0; // reset $zero to 0

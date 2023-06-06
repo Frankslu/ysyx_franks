@@ -120,7 +120,7 @@ void reset_monitor(){
 	init_verilator(parameter_argc, parameter_argv);
 	IFDEF(CONFIG_DIFFTEST, init_difftest(diff_so_file, img_size));
 	//breakpoint will be copied to ref if reload_bp is brefore init_difftest
-	reload_bp();
+	IFDEF(CONFIG_BREAKPOINT, reload_bp());
 	IFDEF(CONFIG_TRACE, init_trace());
 	set_npc_state(NPC_RUNNING, RESET_VECTOR, 0);
 }

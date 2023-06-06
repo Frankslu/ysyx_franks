@@ -9,12 +9,14 @@ extern VMain *top;
 void record_read(vaddr_t addr);
 void record_write(vaddr_t addr);
 
-extern word_t replaced_inst;
 extern "C" void vaddr_fetch(int raddr, int *rdata){
+#ifdef CONFIG_BREAKPOINT
+	extern word_t replaced_inst;
 	if (cpu.is_break == true){
 		*rdata = replaced_inst;
 		return;
 	}
+#endif
 	*rdata = paddr_read(raddr, 4);
 }
 

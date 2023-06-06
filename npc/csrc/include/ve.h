@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 #include <stdio.h>
-
+#include "macro.h"
 // Include common routines
 #include <verilated.h>
 #include <verilated_dpi.h>
@@ -14,6 +14,7 @@
 
 extern VerilatedContext *contextp;
 extern VMain *top;
-extern VerilatedVcdC *tfp;
+
+IFDEF(CONFIG_CC_WAVE, extern VerilatedVcdC *tfp;)
 
 #endif

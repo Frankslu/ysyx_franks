@@ -88,10 +88,20 @@ finish:
 
 
 // --- pattern matching wrappers for decode ---
+/*
 #define INSTPAT(pattern, ...) do { \
   uint64_t key, mask, shift; \
   pattern_decode(pattern, STRLEN(pattern), &key, &mask, &shift); \
   if ((((uint64_t)INSTPAT_INST(s) >> shift) & mask) == key) { \
+    INSTPAT_MATCH(s, ##__VA_ARGS__); \
+    goto *(__instpat_end); \
+  } \
+} while (0) 
+*/
+// --- pattern matching wrappers for decode ---
+#define INSTPAT(pattern, shift, ...) do { \
+  if ((INSTPAT_INST(s) >> shift) \
+    == pattern) {\
     INSTPAT_MATCH(s, ##__VA_ARGS__); \
     goto *(__instpat_end); \
   } \
