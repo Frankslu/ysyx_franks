@@ -8,6 +8,7 @@
 #define MRING_BUFSIZE 10
 #define FLIST_SIZE 32
 #define FRING_SIZE 16
+#define DRING_SIZE 16
 
 typedef struct _iring_ {
     char buf[IRING_BUFSIZE][128];
@@ -17,6 +18,7 @@ typedef struct _iring_ {
 typedef struct _mring_ {
     vaddr_t pc[MRING_BUFSIZE];
     vaddr_t addr[MRING_BUFSIZE];
+    word_t data[MRING_BUFSIZE];
     int wr[MRING_BUFSIZE];
     int pos;
 } Mring_t;
@@ -34,7 +36,13 @@ typedef struct _fring_{
     bool dir;
 } Fring_t;
 
-// typedef
+typedef struct _dring_{
+    vaddr_t pc;
+    vaddr_t addr;
+    char dev_name[20];
+    int wr;
+    word_t data;
+} Dring_t;
 
 #define INVALID 0
 #define READ 1

@@ -17,7 +17,10 @@ __attribute__((unused)) static int func_cnt = 0;
 __attribute__((unused)) static Fring_t fring[FRING_SIZE] = {};
 __attribute__((unused)) static int fring_pos = 0;
 
-__attribute__((unused)) extern char* elf_file;
+__attribute__((unused)) static Dring_t dring[DRING_SIZE] = {};
+__attribute__((unused)) static int dring_pos = 0;
+
+__attribute__((unused)) extern char *elf_file;
 __attribute__((unused)) extern CPU_state cpu;
 
 
@@ -57,22 +60,24 @@ void display_iring(){
 #endif
 
 #ifdef CONFIG_MTRACE
-void record_read(vaddr_t addr){
+void record_read(vaddr_t addr, word_t data){
 	if(addr < CONFIG_MTRACE_START || addr > CONFIG_MTRACE_END)
 		return;
-	log_write("Mtrace: pc %08x read  %08x\n", cpu.pc, addr);
+	log_write("Mtrace: pc %08x read  %08x data %08x\n", cpu.pc, addr, data);
 	mring.pc[mring.pos] = cpu.pc;
 	mring.addr[mring.pos] = addr;
+	mring.data[mring.pos] = data;
 	mring.wr[mring.pos] = READ;
 	mring.pos = mring.pos == (MRING_BUFSIZE - 1) ? 0 : (mring.pos + 1);
 }
 
-void record_write(vaddr_t addr){
+void record_write(vaddr_t addr, word_t data){
 	if(addr < CONFIG_MTRACE_START || addr > CONFIG_MTRACE_END)
 		return;
-	log_write("Mtrace: pc %08x wrtie %08x\n", cpu.pc, addr);
+	log_write("Mtrace: pc %08x write %08x data %08x\n", cpu.pc, addr, data);
 	mring.pc[mring.pos] = cpu.pc;
 	mring.addr[mring.pos] = addr;
+	mring.data[mring.pos] = data;
 	mring.wr[mring.pos] = WRITE;
 	mring.pos = mring.pos == (MRING_BUFSIZE - 1) ? 0 : (mring.pos + 1);
 }
@@ -81,7 +86,7 @@ void display_mring(){
 	int pos = mring.pos;
 	for (int i=0; i<MRING_BUFSIZE; i++){
 		if (mring.wr[pos] != INVALID){
-			printf("%x  %s %x\n", mring.pc[pos], mring.wr[pos] == READ ? "read " : "write", mring.addr[pos]);
+			printf("%08x  %s %08x %08x\n", mring.pc[pos], mring.wr[pos] == READ ? "read " : "write", mring.addr[pos], mring.data[pos]);
 		}
 		pos = pos == (MRING_BUFSIZE - 1) ? 0 : (pos + 1);
 	}
@@ -160,7 +165,6 @@ typedef MUXDEF(CONFIG_ISA64, Elf64_Sym , Elf32_Sym ) Elf_Sym;
 }
 
 void func_call(vaddr_t next_pc, vaddr_t pc){
-	printf("func call\n");
 	for (int i = 0; i < func_cnt; i++){
 		if (next_pc == func[i].addr){
 			strcpy(fring[fring_pos].func_name, func[i].name);
@@ -175,7 +179,6 @@ void func_call(vaddr_t next_pc, vaddr_t pc){
 }
 
 void func_ret(vaddr_t next_pc, vaddr_t pc){
-	printf("func ret\n");
 	for (int i = 0; i < func_cnt; i++){
 		if (next_pc > func[i].addr && next_pc < func[i].addr + func[i].size){
 			strcpy(fring[fring_pos].func_name, func[i].name);
@@ -230,7 +233,42 @@ void display_fring(){
 #endif
 
 #ifdef CONFIG_DTRACE
+#define d_pos dring[dring_pos]
+void dring_init(){
+	for (int i = 0; i < DRING_SIZE; i++){
+		d_pos.dev_name[0] = '\0';
+	}
+	dring_pos = 0;
+}
 
+void record_dev_read(vaddr_t addr, const char *name, word_t data){
+	log_write("Dtrace pc %08x read  %08x data %08x %s\n", cpu.pc, addr, data, name);
+	d_pos.pc = cpu.pc;
+	d_pos.addr = addr;
+	strcpy(d_pos.dev_name, name);
+	d_pos.wr = READ;
+	d_pos.data = data;
+}
+
+void record_dev_write(vaddr_t addr, const char *name, word_t data){
+	log_write("Dtrace pc %08x write  %08x data %08x %s\n", cpu.pc, addr, data, name);
+	d_pos.pc = cpu.pc;
+	d_pos.addr = addr;
+	strcpy(d_pos.dev_name, name);
+	d_pos.wr = WRITE;
+	d_pos.data = data;
+}
+
+void display_dring(){
+	int pos = dring_pos;
+	for (int i=0; i < DRING_SIZE; i++){
+		if (dring[pos].dev_name[0] != '\0'){
+			printf("%08x  %s %08x %08x %s\n",
+				dring[pos].pc, dring[pos].wr == READ ? "read " : "write", dring[pos].addr, dring[pos].data, dring[pos].dev_name);
+		}
+		pos = pos == DRING_SIZE ? 0 : pos + 1;
+	}
+}
 #endif
 
 void init_trace(){
@@ -238,6 +276,7 @@ void init_trace(){
 	IFDEF(CONFIG_MTRACE, mring_init());
 	__attribute__((unused)) extern char *elf_file;
 	IFDEF(CONFIG_FTRACE, ftrace_init(elf_file));
+	IFDEF(CONFIG_DTRACE, dring_init());
 }
 
 #endif

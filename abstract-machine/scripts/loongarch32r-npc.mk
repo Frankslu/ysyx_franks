@@ -11,11 +11,12 @@ AM_SRCS := loongarch/npc/start.S \
            platform/dummy/mpe.c
 
 CFLAGS    += -fdata-sections -ffunction-sections
+CFLAGS  += -DISA_H=\"loongarch/loongarch32r.h\"
 LDFLAGS   += -T $(AM_HOME)/scripts/linker.ld --defsym=_pmem_start=0x1C000000 --defsym=_entry_offset=0x0
 LDFLAGS   += --gc-sections -e _start
 CFLAGS += -DMAINARGS=\"$(mainargs)\"
 BATCHMODE = -b
-NPCFLAGS += $(BATCHMODE) -l $(shell dirname $(IMAGE).elf)/npc-log.txt -e $(IMAGE).elf
+NPCFLAGS += $(BATCHMODE) -l $(shell dirname $(IMAGE).elf)/nemu-log.txt -e $(IMAGE).elf
 .PHONY: $(AM_HOME)/am/src/loongarch/npc/trm.c
 
 image: $(IMAGE).elf

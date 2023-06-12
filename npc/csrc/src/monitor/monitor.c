@@ -90,7 +90,7 @@ void init_monitor(int argc, char *argv[]){
 	init_isa();
 
 	/* Initialize devices. */
-	IFDEF(CONFIG_DEVICE, init_device());
+	// IFDEF(CONFIG_DEVICE, init_device());
 
 	/* Load the image to memory. This will overwrite the built-in image. */
 	long img_size = load_img();
@@ -115,7 +115,7 @@ void reset_monitor(){
 	init_rand();
 	init_mem();
 	init_isa();
-	IFDEF(CONFIG_DEVICE, init_device());
+	// IFDEF(CONFIG_DEVICE, init_device());
 	long img_size = load_img();
 	init_verilator(parameter_argc, parameter_argv);
 	IFDEF(CONFIG_DIFFTEST, init_difftest(diff_so_file, img_size));
