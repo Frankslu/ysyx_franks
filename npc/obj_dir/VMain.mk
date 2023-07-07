@@ -116,7 +116,7 @@ sdb.o: /home/franks/ysyx-workbench/npc/csrc/src/monitor/sdb/sdb.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 watchpoint.o: /home/franks/ysyx-workbench/npc/csrc/src/monitor/sdb/watchpoint.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
-trace.o: /home/franks/ysyx-workbench/npc/csrc/src/trace/trace.c
+trace.o: /home/franks/ysyx-workbench/npc/csrc/src/trace/trace.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 disasm.o: /home/franks/ysyx-workbench/npc/csrc/src/util/disasm.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<

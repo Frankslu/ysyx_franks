@@ -4,7 +4,7 @@ import chisel3._
 import chisel3.util._
 
 import cpucore.Unit.loongarch32r_inst._
-import myUtil.myUtil._
+import myUtil.Util._
 import cpucore.pipeline._
 import memory._
 
@@ -14,7 +14,7 @@ class MEM_stage extends Module{
 	val data_sram = IO(new sram_io)
 
 	data_sram := DontCare
-	val mem_rdata = MuxLookup(ms.bits.inst_name, "hdead".U)(Array(
+	val mem_rdata = MuxLookup(ms.bits.inst_name, "hdead".U, Array(
 		u(INST_LDB) 	-> sign_extend(data_sram.rdata(7,0)),
 		u(INST_LDBU) 	-> data_sram.rdata(7,0),
 		u(INST_LDH) 	-> sign_extend(data_sram.rdata(15,0)),
@@ -25,10 +25,8 @@ class MEM_stage extends Module{
 	tows.bits.pc := ms.bits.pc
 	tows.bits.rf_we := ms.bits.rf_we
 	tows.bits.rf_waddr := ms.bits.rf_waddr
-	tows.bits.rf_wdata := Mux(ms.bits.res_from_mem, mem_rdata, ms.bits.alu_res)
-	tows.bits.dpi_c.is_break := ms.bits.dpi_c.is_break
-	tows.bits.dpi_c.inst := ms.bits.dpi_c.inst
-	tows.bits.dpi_c.next_pc := ms.bits.dpi_c.next_pc
+	tows.bits.rf_wdata := Mux(ms.bits.res_from_mem, mem_rdata, ms.bits.rf_wdata)
+	tows.bits.dpi_c <> ms.bits.dpi_c
 
 	ms.ready := 1.U
 	tows.valid := ms.valid

@@ -33,6 +33,9 @@ void display_iring();
 void display_breakpoint();
 void display_mring();
 void display_fring();
+void display_ering();
+void display_dring();
+vaddr_t func2addr(const char *s, bool *success);
 
 WP *new_wp(char *s);
 bool free_wp(int i);

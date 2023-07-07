@@ -19,6 +19,17 @@ VL_INLINE_OPT void VMain___024root____Vdpiimwrap_Main__DOT__cpucore__DOT__ID__DO
     set_gpr_ptr(&regs__Vopenarray);
 }
 
+extern "C" void set_csr_ptr(const svOpenArrayHandle regs);
+
+VL_INLINE_OPT void VMain___024root____Vdpiimwrap_Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__difftest__DOT__set_csr_ptr__Vdpioc2_TOP(const VlUnpacked<IData/*31:0*/, 5> &regs) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VMain___024root____Vdpiimwrap_Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__difftest__DOT__set_csr_ptr__Vdpioc2_TOP\n"); );
+    // Body
+    static const int regs__Vopenprops__ulims[2] = {0, 4};
+    static const VerilatedVarProps regs__Vopenprops(VLVT_UINT32, VLVD_IN, VerilatedVarProps::Packed(), 31, 0, VerilatedVarProps::Unpacked(), 1, regs__Vopenprops__ulims);
+    VerilatedDpiOpenVar regs__Vopenarray (&regs__Vopenprops, &regs);
+    set_csr_ptr(&regs__Vopenarray);
+}
+
 extern "C" void npc_break(char is_break);
 
 VL_INLINE_OPT void VMain___024root____Vdpiimwrap_Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__npc_brk__DOT__npc_break_TOP(CData/*7:0*/ is_break) {
@@ -29,18 +40,38 @@ VL_INLINE_OPT void VMain___024root____Vdpiimwrap_Main__DOT__cpucore__DOT__ID__DO
     npc_break(is_break__Vcvt);
 }
 
-extern "C" void inst_exec_once(char valid, int inst, int pc);
+extern "C" void inst_exec_once(char valid, char inv, int inst, int pc);
 
-VL_INLINE_OPT void VMain___024root____Vdpiimwrap_Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__inst_exec_once__DOT__inst_exec_once_TOP(CData/*7:0*/ valid, IData/*31:0*/ inst, IData/*31:0*/ pc) {
+VL_INLINE_OPT void VMain___024root____Vdpiimwrap_Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__inst_exec_once__DOT__inst_exec_once_TOP(CData/*7:0*/ valid, CData/*7:0*/ inv, IData/*31:0*/ inst, IData/*31:0*/ pc) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    VMain___024root____Vdpiimwrap_Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__inst_exec_once__DOT__inst_exec_once_TOP\n"); );
     // Body
     char valid__Vcvt;
     for (size_t valid__Vidx = 0; valid__Vidx < 1; ++valid__Vidx) valid__Vcvt = valid;
+    char inv__Vcvt;
+    for (size_t inv__Vidx = 0; inv__Vidx < 1; ++inv__Vidx) inv__Vcvt = inv;
     int inst__Vcvt;
     for (size_t inst__Vidx = 0; inst__Vidx < 1; ++inst__Vidx) inst__Vcvt = inst;
     int pc__Vcvt;
     for (size_t pc__Vidx = 0; pc__Vidx < 1; ++pc__Vidx) pc__Vcvt = pc;
-    inst_exec_once(valid__Vcvt, inst__Vcvt, pc__Vcvt);
+    inst_exec_once(valid__Vcvt, inv__Vcvt, inst__Vcvt, pc__Vcvt);
+}
+
+extern "C" void record_exception(char ex, char ertn, int ecode, int esubcode, int pc);
+
+VL_INLINE_OPT void VMain___024root____Vdpiimwrap_Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__inst_exec_once__DOT__record_exception_TOP(CData/*7:0*/ ex, CData/*7:0*/ ertn, IData/*31:0*/ ecode, IData/*31:0*/ esubcode, IData/*31:0*/ pc) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VMain___024root____Vdpiimwrap_Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__inst_exec_once__DOT__record_exception_TOP\n"); );
+    // Body
+    char ex__Vcvt;
+    for (size_t ex__Vidx = 0; ex__Vidx < 1; ++ex__Vidx) ex__Vcvt = ex;
+    char ertn__Vcvt;
+    for (size_t ertn__Vidx = 0; ertn__Vidx < 1; ++ertn__Vidx) ertn__Vcvt = ertn;
+    int ecode__Vcvt;
+    for (size_t ecode__Vidx = 0; ecode__Vidx < 1; ++ecode__Vidx) ecode__Vcvt = ecode;
+    int esubcode__Vcvt;
+    for (size_t esubcode__Vidx = 0; esubcode__Vidx < 1; ++esubcode__Vidx) esubcode__Vcvt = esubcode;
+    int pc__Vcvt;
+    for (size_t pc__Vidx = 0; pc__Vidx < 1; ++pc__Vidx) pc__Vcvt = pc;
+    record_exception(ex__Vcvt, ertn__Vcvt, ecode__Vcvt, esubcode__Vcvt, pc__Vcvt);
 }
 
 extern "C" void vaddr_read(int raddr, int* rdata);

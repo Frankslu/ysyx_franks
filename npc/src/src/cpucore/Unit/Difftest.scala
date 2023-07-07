@@ -8,6 +8,11 @@ import Config.Configs._
 class Difftest extends HasBlackBoxInline {
 	val io = IO(new Bundle{
     	val rf = Input(Vec(32, UInt(32.W)))
+		val crmd = Input(UInt(DATA_WIDTH.W))
+		val prmd = Input(UInt(DATA_WIDTH.W))
+		val estat = Input(UInt(DATA_WIDTH.W))
+		val era = Input(UInt(DATA_WIDTH.W))
+		val eentry = Input(UInt(DATA_WIDTH.W))
 	})
 
 	setInline("Difftest.v",
@@ -43,10 +48,16 @@ class Difftest extends HasBlackBoxInline {
 	|	input wire [31:0] rf_28,
 	|	input wire [31:0] rf_29,
 	|	input wire [31:0] rf_30,
-	|	input wire [31:0] rf_31
+	|	input wire [31:0] rf_31,
+	|	input wire [31:0] crmd,
+	|	input wire [31:0] prmd,
+	|	input wire [31:0] estat,
+	|	input wire [31:0] era,
+	|	input wire [31:0] eentry
 	|);
 	|
 	|import "DPI-C" function void set_gpr_ptr(input logic [31:0] regs[]);
+	|import "DPI-C" function void set_csr_ptr(input logic [31:0] regs[]);
 	|
 	|wire [31:0] regs [32];
 	|assign regs[0] = rf_0;
@@ -82,7 +93,15 @@ class Difftest extends HasBlackBoxInline {
 	|assign regs[30] = rf_30;
 	|assign regs[31] = rf_31;
 	|
+	|wire [31:0] csr [5];
+	|assign csr[0] = crmd;
+	|assign csr[1] = prmd;
+	|assign csr[2] = estat;
+	|assign csr[3] = era;
+	|assign csr[4] = eentry;
+	|
 	|initial set_gpr_ptr(regs);
+	|initial set_csr_ptr(csr);
 	|
 	|endmodule
 	|""".stripMargin)

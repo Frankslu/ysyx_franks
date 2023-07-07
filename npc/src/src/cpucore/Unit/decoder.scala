@@ -4,12 +4,12 @@ import chisel3._
 import chisel3.util._
 import chisel3.util.experimental.decode._
 
-import myUtil.myUtil._
+import myUtil._
+import myUtil.Util._
 import Config.Configs._
 
 
-object loongarch32r_inst{
-	import cpucore.Unit.ALUOP._
+object loongarch32r_inst extends MyEnum{
 	//transport ChiselEnum to BinaryString
 	def trans(num: UInt, width: Int) = {num.litValue.toString(2).reverse.padTo(width, '0').reverse}
 	//alu_op
@@ -46,8 +46,9 @@ object loongarch32r_inst{
 	val R1I20   = set_inst_type(5)
 	val R1I20U  = set_inst_type(6)
 	val I26     = set_inst_type(7)
-	val BRK_T   = set_inst_type(8)
+	val SYS     = set_inst_type(8)
 	val R2I12U  = set_inst_type(9)
+	val R2CSR   = set_inst_type(10)
 //    val R2
 //    val R4
 //    val R2I8
@@ -80,7 +81,10 @@ object loongarch32r_inst{
 	val INST_JIRL = set_inst_name(16)
 	val INST_PCAD = set_inst_name(17)
 	val INST_BRK  = set_inst_name(18)
-	val INST_NNNN = set_inst_name(19)
+	val INST_SYS  = set_inst_name(19)
+	val INST_ERTN = set_inst_name(20)
+	val INST_CSR  = set_inst_name(21)
+	val INST_NNNN = set_inst_name(31)
 
 	//reg_we
 	val RF_WE = "1"
@@ -140,7 +144,10 @@ object loongarch32r_inst{
 	def SLLI_W    = BitPat("b00000000010000001_?????_?????_?????"   )//shift 
 	def SRLI_W    = BitPat("b00000000010001001_?????_?????_?????"   )//shift
 	def SRAI_W    = BitPat("b00000000010010001_?????_?????_?????"   )//shift
-	def BREAK     = BitPat("b0000_0000_0010_10100_?????_?????_?????") 
+	def BREAK     = BitPat("b0000_0000_0010_10100_?????_?????_?????")
+	def SYSCALL	  = BitPat("b0000_0000_0010_10110_?????_?????_?????")
+	def ERTN      = BitPat("b0000_0110_0100_10000_01110_00000_00000")
+	def CSR		  = BitPat("b0000_0100_????_?????_?????_?????_?????")
 
 	val inst_table = TruthTable(Map(
 		//                      ALUOP   INSTTYPE   MEMEN  INST       RFWE 
@@ -190,7 +197,10 @@ object loongarch32r_inst{
 		SLLI_W    -> BitPat("b" +OP_SLL   +R2I5   +MEM_UN +INST_NNNN +RF_WE),
 		SRLI_W    -> BitPat("b" +OP_SRL   +R2I5   +MEM_UN +INST_NNNN +RF_WE),
 		SRAI_W    -> BitPat("b" +OP_SRA   +R2I5   +MEM_UN +INST_NNNN +RF_WE),
-		BREAK     -> BitPat("b" +OP_NONE  +BRK_T  +MEM_UN +INST_BRK  +RF_UN)),
+		BREAK     -> BitPat("b" +OP_NONE  +SYS    +MEM_UN +INST_BRK  +RF_UN),
+		SYSCALL	  -> BitPat("b" +OP_NONE  +SYS    +MEM_UN +INST_SYS  +RF_UN),
+		ERTN	  -> BitPat("b" +OP_NONE  +SYS    +MEM_UN +INST_ERTN +RF_UN),
+		CSR		  -> BitPat("b" +OP_NONE  +R2CSR  +MEM_UN +INST_CSR  +RF_WE)),
 					 BitPat("b" +OP_NONE  +INV    +MEM_UN +INST_NNNN +RF_UN))
 //									5		4		2			5		1
 

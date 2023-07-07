@@ -20,6 +20,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "sdb.h"
+#include <trace/trace.h>
 
 static int is_batch_mode = false;
 
@@ -28,11 +29,6 @@ void init_wp_pool();
 void init_bp_pool();
 word_t expr(char *e, bool *success);
 
-void print_watchpoint();
-void display_iring();
-void display_breakpoint();
-void display_mring();
-void display_fring();
 extern WP *new_wp(char *s);
 extern bool free_wp(int i);
 BP *new_bp(vaddr_t pc);
@@ -48,7 +44,7 @@ static char* rl_gets() {
 		line_read = NULL;
 	}
 
-	line_read = readline("(nemu) ");
+	line_read = readline(ANSI_FMT("(nemu) ", ANSI_FG_GREEN));
 
 	if (line_read && *line_read) {
 		add_history(line_read);
@@ -79,7 +75,7 @@ static int cmd_si(char *args){
 	}else{
 		int tmp = atoi(args);
 		if(tmp <= 0){
-			printf("invalid input!");
+			printf(ANSI_FMT("command error\n", ANSI_FG_RED));
 			return 0;
 		}else
 			step = (uint64_t)tmp;
@@ -90,7 +86,7 @@ static int cmd_si(char *args){
 
 static int cmd_info(char *args){
 	if(args == NULL){
-		printf("Invalid input\nUse info r or info w\n");
+		printf(ANSI_FMT("command error\n", ANSI_FG_RED));
 		return 0;
 	}
 	char c[3];
@@ -99,32 +95,42 @@ static int cmd_info(char *args){
 		isa_reg_display(NULL);
 	}
 	else if(c[0] == 'w' && c[1] == '\0'){
-		MUXDEF(CONFIG_WATCHPOINT, print_watchpoint(), printf("Watchpoint disabled\n"));
+		MUXDEF(CONFIG_WATCHPOINT, print_watchpoint(), printf(ANSI_FMT("Watchpoint disabled\n", ANSI_FG_RED)));
 	}
 	else if(strcmp(c, "b") == 0){
-		MUXDEF(CONFIG_BREAKPOINT, display_breakpoint(), printf("Breakpoint disabled\n"));
+		MUXDEF(CONFIG_BREAKPOINT, display_breakpoint(), printf(ANSI_FMT("Breakpoint disabled\n", ANSI_FG_RED)));
 	}
 	else if(strcmp(c, "wr") == 0){
-		MUXDEF(CONFIG_MTRACE, display_mring(), printf("Mtrace disabled\n"));
+		MUXDEF(CONFIG_MTRACE, display_mring(), printf(ANSI_FMT("Mtrace disabled\n", ANSI_FG_RED)));
 	}
 	else if(strcmp(c, "ir") == 0){
-		MUXDEF(CONFIG_IRING, display_iring(), printf("Iring disabled\n"));
+		MUXDEF(CONFIG_IRING, display_iring(), printf(ANSI_FMT("Iring disabled\n", ANSI_FG_RED)));
 	}
 	else if(strcmp(c, "fr") == 0){
-		MUXDEF(CONFIG_FTRACE, display_fring(), printf("Fring disabled\n"));
+		MUXDEF(CONFIG_FTRACE, display_fring(), printf(ANSI_FMT("Fring disabled\n", ANSI_FG_RED)));
+	}
+	else if(streq(c, "er")){
+		MUXDEF(CONFIG_FTRACE, display_ering(), printf(ANSI_FMT("Ering disabled\n", ANSI_FG_RED)));
+	}
+	else if (streq(c, "device")){
+		display_mmio_map();
 	}
 	else {
-		printf("Invalid Input\n");
+		printf(ANSI_FMT("command error\n", ANSI_FG_RED));
 	}
 	return 0;
 }
 
 static int cmd_x(char *args){
-	char *e = malloc(128*sizeof(char));
+	if (NULL == args){
+		printf(ANSI_FMT("command error\n", ANSI_FG_RED));
+		return 0;
+	}
+	char *e = malloc(128 * sizeof(char));
 	int n;
 	bool success = true;
 	if(sscanf(args, "%d %[^\n]", &n, e) != 2){
-		printf("command error\n");
+		printf(ANSI_FMT("command error\n", ANSI_FG_RED));
 		return 0;
 	}
 	word_t result = expr(e,&success);
@@ -140,15 +146,10 @@ static int cmd_x(char *args){
 	return 0;
 }
 
-static int cmd_xd(char *args){
-	display_mmio_map();
-	return 0;
-}
-
 static int cmd_p(char *args){
 	char *e = malloc(128*sizeof(char));
 	if(args == NULL){
-		printf("command error\n");
+		printf(ANSI_FMT("command error\n", ANSI_FG_RED));
 		free(e);
 		return 0;
 	}
@@ -167,7 +168,7 @@ static int cmd_p(char *args){
 #ifdef CONFIG_WATCHPOINT
 static int cmd_w(char *args){
 	if(args == NULL){
-		printf("command error\n");
+		printf(ANSI_FMT("command error\n", ANSI_FG_RED));
 		return 0;
 	}
 	new_wp(args);
@@ -176,11 +177,16 @@ static int cmd_w(char *args){
 #endif
 
 static int cmd_d(char *args){
+	if (NULL == args){
+		printf(ANSI_FMT("command error\n", ANSI_FG_RED));
+		return 0;
+	}
+
 	int i;
 	char c[8];
 	int argc;
 	if((argc = sscanf(args, "%s %d", c, &i)) == 0){
-		printf("command error\n");
+		printf(ANSI_FMT("command error\n", ANSI_FG_RED));
 		return 0;
 	}
 	else if(argc == 1){
@@ -228,19 +234,38 @@ static int cmd_d(char *args){
 
 #ifdef CONFIG_BREAKPOINT
 static int cmd_b(char *args){
-	vaddr_t i;
-	if(sscanf(args, "0x%x", &i) == 0){
-		printf("command error\n");
+	if (args == NULL){
+		printf(ANSI_FMT("command error\n", ANSI_FG_RED));
 		return 0;
 	}
-	if(i%4 != 0){
-		printf("Invalid pc\n");
+	
+	vaddr_t i;
+	char s[50];
+	bool success = true;
+	if (sscanf(args, "0x%x", &i) == 1){
+		if (i % 4 != 0){
+			printf("Invalid pc\n");
+			return 0;
+		}
+		new_bp(i);
+		return 0;
+	}
+
+	sscanf(args, "%s", s);
+	i = func2addr(s, &success);
+	if (success == false){
+		printf("func doesn't exist\n");
 		return 0;
 	}
 	new_bp(i);
 	return 0;
 }
 #endif
+
+static int cmd_pc(char *args){
+	display_csr(args);
+	return 0;
+}
 
 static int cmd_help(char *args);
 
@@ -254,11 +279,11 @@ static struct {
 	{ "q", "Exit NEMU", cmd_q },
 	{ "si", "Run N instructions in NEMU", cmd_si},
 	{ "info", "print the information in reg(r), watchpoint(w), breakpoint(b), iring(ir)", cmd_info},
-	{ "x", "scan memory", cmd_x},
+	{ "x", "scan memory(x addr len)", cmd_x},
 	{ "p", "print value of expression", cmd_p},
 	{ "d", "delete watchpoint or breakpoint", cmd_d},
 	{ "rst", "reset monitor", cmd_rst},
-	{ "xd", "scan device memory", cmd_xd},
+	{ "pcsr", "print csr reg", cmd_pc},
 	IFDEF(CONFIG_WATCHPOINT, { "w", "set watchpoint", cmd_w},)
 	IFDEF(CONFIG_BREAKPOINT, { "b", "set breakpoint", cmd_b})
 

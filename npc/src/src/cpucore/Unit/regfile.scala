@@ -2,6 +2,7 @@ package cpucore.Unit
 
 import Config.Configs._
 import chisel3._
+import cpucore.pipeline.csr_for_dpic
 /*
 class regfile extends Module{
     val io = IO(new Bundle {
@@ -36,6 +37,8 @@ class regfile extends Module{
         val is_break = Input(Bool())
         val valid = Input(Bool())
         val inst = Input(UInt(DATA_WIDTH.W))
+        val inv = Input(Bool())
+        val csr = Flipped(new csr_for_dpic)
     })
     val rf = Mem(REG_NUM ,UInt(DATA_WIDTH.W))
     when(io.wen) {rf(io.waddr) := io.wdata}
@@ -48,12 +51,24 @@ class regfile extends Module{
     for(i <- 1 to 31){
         difftest.io.rf(i) := Mux(i.U === io.waddr & io.wen, io.wdata, rf(i))
     }
+    difftest.io.crmd := io.csr.crmd
+    difftest.io.prmd := io.csr.prmd
+    difftest.io.estat := io.csr.estat
+    difftest.io.era := io.csr.era
+    difftest.io.eentry := io.csr.eentry
 
     val npc_brk = Module(new npc_break)
     npc_brk.io.is_break := io.is_break
 
     val inst_exec_once = Module(new Exec)
+    inst_exec_once.io.clock := clock
     inst_exec_once.io.valid := io.valid
     inst_exec_once.io.inst := io.inst
     inst_exec_once.io.pc := io.rf_pc
+    inst_exec_once.io.inv := io.inv
+    inst_exec_once.io.ex := io.csr.ex
+    inst_exec_once.io.ertn := io.csr.ertn
+    inst_exec_once.io.ecode := io.csr.ecode
+    inst_exec_once.io.esubcode := io.csr.esubcode
+    inst_exec_once.io.ex_pc := io.csr.ex_pc
 }

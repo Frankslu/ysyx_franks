@@ -50,6 +50,14 @@ uint64_t get_time();
     } \
   } while (0)
 
+#define log_write_cc(...)  do { \
+    extern FILE* log_fp; \
+    if (log_enable()) { \
+      fprintf(log_fp, __VA_ARGS__); \
+      fflush(log_fp); \
+    } \
+  } while (0)
+
 #define _Log(...) \
   do { \
     printf(__VA_ARGS__); \

@@ -83,8 +83,11 @@
 // NOTE2: each element in the container can be a tuple
 #define MAP(c, f) c(f)
 
-#define BITMASK(bits) ((1ull << (bits)) - 1)
-#define BITS(x, hi, lo) (((x) >> (lo)) & BITMASK((hi) - (lo) + 1)) // similar to x[hi:lo] in verilog
+#define BITMASK(bits) ((1ull << (bits)) - 1) 
+// similar to x[hi:lo] in verilog
+#define BITS(x, hi, lo) (((x) >> (lo)) & BITMASK((hi) - (lo) + 1))
+//without shift
+#define BIT(x, hi, lo) (BITS(x, hi, lo) << (lo))
 #define SEXT(x, len) ({ struct { int64_t n : len; } __x = { .n = x }; (uint64_t)__x.n; })
 
 #define ROUNDUP(a, sz)   ((((uintptr_t)a) + (sz) - 1) & ~((sz) - 1))
@@ -106,5 +109,7 @@
 #define io_write(reg, ...) \
   ({ reg##_T __io_param = (reg##_T) { __VA_ARGS__ }; \
     ioe_write(reg, &__io_param); })
+
+#define streq(s1, s2) (strcmp(s1, s2) == 0)
 
 #endif

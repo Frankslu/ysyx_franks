@@ -1,13 +1,15 @@
 #ifndef _TRACE_H_
 #define _TRACE_H_
 
+#include "ve.h"
 #include <common.h>
 #include <isa.h>
 
 #define IRING_BUFSIZE 20
 #define MRING_BUFSIZE 10
-#define FLIST_SIZE 32
 #define FRING_SIZE 16
+#define ERING_SIZE 16
+#define DRING_SIZE 16
 
 typedef struct _iring_ {
     char buf[IRING_BUFSIZE][128];
@@ -34,6 +36,25 @@ typedef struct _fring_{
     bool dir;
 } Fring_t;
 
+typedef struct _ering_{
+    vaddr_t pc;
+    char *NO;
+} Ering_t;
+
+typedef struct _dring_{
+    vaddr_t pc;
+    vaddr_t addr;
+    char dev_name[20];
+    int wr;
+    word_t data;
+} Dring_t;
+
+#ifndef ECODE
+#define ECODE
+enum ecode {
+    SYS = 0xB << 16
+};
+#endif
 
 #define INVALID 0
 #define READ 1

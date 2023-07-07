@@ -96,11 +96,12 @@ static void exec_once(Decode *s, vaddr_t pc) {
 	p[0] = '\0';
 #endif
 #endif
+	return;
 }
 
 static void execute(uint64_t n) {
 	Decode s;
-	for (;n > 0; n --) {
+	for (;n > 0; n--) {
 		exec_once(&s, cpu.pc);
 		g_nr_guest_inst ++;
 

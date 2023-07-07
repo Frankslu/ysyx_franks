@@ -121,8 +121,7 @@ void init_monitor(int argc, char *argv[]) {
 	/* Perform some global initialization. */
 
 	/* Parse arguments. */
-	int i = parse_args(argc, argv);
-	printf("%d\n", i);
+	__attribute_maybe_unused__ int i = parse_args(argc, argv);
 
 	/* Set random seed. */
 	init_rand();
@@ -149,7 +148,7 @@ void init_monitor(int argc, char *argv[]) {
 	init_sdb();
 
 	/*Initialize tracer*/
-	IFDEF(CONFIG_TRACE, init_trace());
+	init_trace();
 
 #ifndef CONFIG_ISA_loongarch32r
 	IFDEF(CONFIG_ITRACE, init_disasm(
@@ -190,6 +189,6 @@ void reset_monitor(){
 	// IFDEF(CONFIG_DEVICE, init_device());
 	__attribute__((unused)) long img_size = load_img();
 	IFDEF(CONFIG_BREAKPOINT, reload_bp());
-	IFDEF(CONFIG_TRACE, init_trace());
+	init_trace();
 	set_nemu_state(NEMU_STOP, RESET_VECTOR, 0);
 }

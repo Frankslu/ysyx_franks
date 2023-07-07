@@ -19,16 +19,29 @@
 #include <common.h>
 
 typedef struct {
-  word_t gpr[32];
-  vaddr_t pc;
-  vaddr_t ref_pc;
+	word_t gpr[32];
+	vaddr_t pc;
+	word_t csr[0x182];//crmd, prmd, era, estat, eentry
+	// vaddr_t ref_pc;
 } loongarch32r_CPU_state;
+
+#ifndef ECODE
+#define ECODE
+enum Ecode{
+	SYS = 0xB << 16
+};
+
+enum csr_name {
+	CRMD = 0, PRMD = 0x1, ESTAT = 0x5,
+	ERA = 0x6, EENTRY = 0xc,
+};
+#endif
 
 // decode
 typedef struct {
-  union {
-    uint32_t val;
-  } inst;
+	union {
+		uint32_t val;
+	} inst;
 } loongarch32r_ISADecodeInfo;
 
 #define isa_mmu_check(vaddr, len, type) (MMU_DIRECT)

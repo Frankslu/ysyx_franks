@@ -9,7 +9,7 @@
 extern "C" {
 #endif
 
-// #define __NATIVE_USE_KLIB__
+#define __NATIVE_USE_KLIB__
 
 // string.h
 void  *memset    (void *s, int c, size_t n);
@@ -30,7 +30,9 @@ void  *malloc    (size_t size);
 void   free      (void *ptr);
 int    abs       (int x);
 int    atoi      (const char *nptr);
-void   itoa      (char *s, int num, int binary);
+void   itoa      (char *s, int num, int high_bits_0, int width);
+void   xtoa      (char *s, unsigned int num, int high_bits_0, int width);
+void   otoa      (char *s, unsigned int num, int high_bits_0, int width);
 
 // stdio.h
 int    printf    (const char *format, ...);

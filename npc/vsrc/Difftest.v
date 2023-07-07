@@ -30,10 +30,16 @@ module Difftest(
 	input wire [31:0] rf_28,
 	input wire [31:0] rf_29,
 	input wire [31:0] rf_30,
-	input wire [31:0] rf_31
+	input wire [31:0] rf_31,
+	input wire [31:0] crmd,
+	input wire [31:0] prmd,
+	input wire [31:0] estat,
+	input wire [31:0] era,
+	input wire [31:0] eentry
 );
 
 import "DPI-C" function void set_gpr_ptr(input logic [31:0] regs[]);
+import "DPI-C" function void set_csr_ptr(input logic [31:0] regs[]);
 
 wire [31:0] regs [32];
 assign regs[0] = rf_0;
@@ -69,6 +75,14 @@ assign regs[29] = rf_29;
 assign regs[30] = rf_30;
 assign regs[31] = rf_31;
 
+wire [31:0] csr [5];
+assign csr[0] = crmd;
+assign csr[1] = prmd;
+assign csr[2] = estat;
+assign csr[3] = era;
+assign csr[4] = eentry;
+
 initial set_gpr_ptr(regs);
+initial set_csr_ptr(csr);
 
 endmodule

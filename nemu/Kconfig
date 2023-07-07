@@ -181,12 +181,16 @@ config JIRL_RET
   depends on FTRACE && ISA_loongarch32r
   bool "See inst jirl $0 $1 0 as ret"
   default y
-
 endif
 
 config DTRACE
   depends on TRACE
   bool "Enable dtrace"
+  default n
+
+config ETRACE
+  depends on TRACE
+  bool "Enable etrace"
   default n
 
 config DIFFTEST

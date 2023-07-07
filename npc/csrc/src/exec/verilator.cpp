@@ -18,12 +18,22 @@ extern "C" void set_gpr_ptr(const svOpenArrayHandle regs){
 	cpu.gpr = (word_t *)(((VerilatedDpiOpenVar *)regs)->datap());
 }
 
+extern "C" void set_csr_ptr(const svOpenArrayHandle regs){
+	cpu.csr = (word_t *)(((VerilatedDpiOpenVar *)regs)->datap());
+}
+
 //verilator dpi-c
-extern "C" void inst_exec_once(char valid, int inst, int pc){
-	if ((int)valid == 1){
-		cpu.valid = true;
+extern "C" void inst_exec_once(char valid, char inv, int inst, int pc){
+	static int i = 0;
+	if (valid){
+		// cpu.valid = true;
 		cpu.pc = (vaddr_t)pc;
 		cpu.inst = inst;
+		// printf("%08x\n", inst);
+		if (inv)
+			cpu.inst_invalid = true;
+		else
+			cpu.inst_invalid = false;
 	}
 	else{
 		cpu.valid = false;
@@ -31,7 +41,7 @@ extern "C" void inst_exec_once(char valid, int inst, int pc){
 }
 
 extern "C" void npc_break(char is_break){
-	cpu.is_break = (int)is_break == 1 ? true : false;
+	cpu.is_break = (bool)is_break;
 }
 
 void init_verilator(int argc, char *argv[]){
@@ -60,14 +70,14 @@ void init_verilator(int argc, char *argv[]){
 		top->eval();
     	dump(sim_time++);
 	}
-		top->reset = 1;
-		top->clock = 1;
-		top->eval();
-    	dump(sim_time++);
+	top->reset = 1;
+	top->clock = 1;
+	top->eval();
+	dump(sim_time++);
 	top->reset = 0;
-		top->clock = 0;
-		top->eval();
-    	dump(sim_time++);
+	top->clock = 0;
+	top->eval();
+	dump(sim_time++);
 }
 
 int npc_exec_once(){
@@ -76,7 +86,10 @@ int npc_exec_once(){
 	dump(sim_time++);
 	top->clock = 0;
 	top->eval();
-    dump(sim_time++);
+	dump(sim_time++);
+	if (cpu.inst_invalid == true){
+		invalid_inst(cpu.pc);
+	}
 	// decode_exec(s);
 	if (cpu.is_break == true){
 #ifdef CONFIG_BREAKPOINT

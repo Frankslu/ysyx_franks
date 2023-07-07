@@ -4,43 +4,53 @@
 
 static Context* (*user_handler)(Event, Context*) = NULL;
 
-Context* __am_irq_handle(Context *c) {
-  if (user_handler) {
-    Event ev = {0};
-    uintptr_t ecode = 0;
-    switch (ecode) {
-      default: ev.event = EVENT_ERROR; break;
-    }
+enum ECODE{
+	SYS = 0xB
+};
 
-    c = user_handler(ev, c);
-    assert(c != NULL);
-  }
+Context *__am_irq_handle(Context *c) {
+	if (user_handler) {
+		Event ev = {0};
+		uintptr_t ecode = (c->estat & 0x3f0000) >> 16;
+		__attribute__((unused)) uintptr_t esubcode = (c->estat & 0x7fc0000) >> 22;
+		if (ecode == SYS){
+			if (c->GPR1 == -1){
+				ev.event = EVENT_YIELD;
+			}
+		}
 
-  return c;
+		// for (int i = 0; i < 32; i++){
+		// 	printf("%08x\n", c->gpr[i]);
+		// }
+		c = user_handler(ev, c);
+		assert(c != NULL);
+	}
+
+	return c;
 }
 
 extern void __am_asm_trap(void);
 
 bool cte_init(Context*(*handler)(Event, Context*)) {
-  // initialize exception entry
-  asm volatile("csrwr %0, 0xc" : : "r"(__am_asm_trap));  // 0xc = eentry
+	// initialize exception entry
+	asm volatile("csrwr %0, 0xc" : : "r"(__am_asm_trap));  // 0xc = eentry
 
-  // register event handler
-  user_handler = handler;
+	// register event handler
+	user_handler = handler;
 
-  return true;
+	return true;
 }
 
 Context *kcontext(Area kstack, void (*entry)(void *), void *arg) {
-  return NULL;
+	return NULL;
 }
 
 void yield() {
-  asm volatile("li.w $a7, -1; syscall 0");
+	asm volatile("li.w $a7, -1; syscall 0");
 }
 
 bool ienabled() {
-  return false;
+	return false;
 }
 
 void iset(bool enable) {

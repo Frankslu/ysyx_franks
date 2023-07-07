@@ -7,7 +7,7 @@
 #include "difftest.h"
 
 #ifdef CONFIG_DIFFTEST
-
+static bool check_csr = true;
 
 typedef void (*ref_difftest_memcpy_t)(paddr_t, void *, size_t, bool);
 ref_difftest_memcpy_t ref_difftest_memcpy = NULL;
@@ -19,6 +19,8 @@ typedef void (*ref_difftest_raise_intr_t)(uint64_t);
 ref_difftest_raise_intr_t ref_difftest_raise_intr = NULL;
 typedef bool (*ref_difftest_regcmp_t)(void *);
 ref_difftest_regcmp_t ref_difftest_regcmp = NULL;
+typedef bool (*ref_difftest_csrcmp_t)(void *);
+ref_difftest_regcmp_t ref_difftest_csrcmp = NULL;
 
 static bool is_skip_ref = false;
 static int skip_dut_nr_inst = 0;
@@ -76,6 +78,9 @@ void init_difftest(const char *ref_so_file, int img_size){
 	ref_difftest_regcmp = (ref_difftest_regcmp_t)dlsym(handle, "difftest_regcmp");
 	assert(ref_difftest_regcmp);
 	
+	ref_difftest_csrcmp = (ref_difftest_csrcmp_t)dlsym(handle, "difftest_csrcmp");
+	assert(ref_difftest_csrcmp);
+	
 	Log("Differential testing: %s", ANSI_FMT("ON", ANSI_FG_GREEN));
 	Log("The result of every instruction will be compared with %s. "
 			"This will help you a lot for debugging, but also significantly reduce the performance. "
@@ -92,13 +97,29 @@ void init_difftest(const char *ref_so_file, int img_size){
 void difftest_step(vaddr_t pc, vaddr_t npc) {
 	ref_difftest_exec(1);
 
+	if (is_skip_ref){
+		is_skip_ref = false;
+		ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);
+		return;
+	}
+	
 	if (ref_difftest_regcmp(&cpu) == false) {
 		npc_state.state = NPC_ABORT;
 		npc_state.halt_pc = pc;
 //  	isa_reg_display();
 	}
+
+	if (check_csr == true){
+		if (ref_difftest_csrcmp(&cpu) == false){
+			npc_state.state = NPC_ABORT;
+			npc_state.halt_pc = pc;
+		}
+	}
 }
 
+void whether_check_csr(bool yn){
+	check_csr = yn;
+}
 #else
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc){ }
 #endif

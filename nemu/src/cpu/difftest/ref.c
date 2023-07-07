@@ -22,6 +22,7 @@ extern CPU_state cpu;
 
 typedef struct {
 	word_t *gpr;
+	word_t *csr;
 	vaddr_t pc;
 	bool valid;
 	word_t inst;
@@ -93,13 +94,14 @@ void difftest_regcpy(void *dut, bool direction) {
 }
 
 bool difftest_regcmp(void *dut){
+#define DUT ((npc_CPU_state *)dut)
 	bool err = true;
 		// printf("PC: ref = ");
 		// printf(ANSI_FMT("0x%x", ANSI_FG_GREEN), cpu.pc);
 		// printf("dut = ");
 		// printf(ANSI_FMT("0x%x", ANSI_FG_GREEN), ((npc_CPU_state *)dut)->pc);
 		// printf("\n");
-	if (((npc_CPU_state *)dut)->pc != cpu.pc){
+	if (DUT->pc != cpu.pc){
 		printf("PC wrong: ref = ");
 		printf(ANSI_FMT("0x%x", ANSI_FG_GREEN), cpu.pc);
 		printf("dut = ");
@@ -109,7 +111,7 @@ bool difftest_regcmp(void *dut){
 	}
 
 	for (int i = 0; i < 32; i++){
-		if (((npc_CPU_state *)dut)->gpr[i] != cpu.gpr[i]){
+		if (DUT->gpr[i] != cpu.gpr[i]){
 			printf("$r");
 			printf(ANSI_FMT("%d", ANSI_FG_GREEN), i);
 			printf(" wrong: ref = ");
@@ -124,6 +126,43 @@ bool difftest_regcmp(void *dut){
 	return err;
 }
 
+bool difftest_csrcmp(void *dut){
+#define DUT ((npc_CPU_state *)dut)
+#define error(csr_name, ref_csr, dut_csr) \
+do { \
+	printf(ANSI_FMT("%s", ANSI_FG_GREEN), csr_name); \
+	printf(" wrong: ref = "); \
+	printf(ANSI_FMT("0x%x", ANSI_FG_GREEN), ref_csr); \
+	printf("dut = "); \
+	printf(ANSI_FMT("0x%x", ANSI_FG_GREEN), dut_csr); \
+	printf("\n"); \
+}while(0)
+	
+	bool err = true;
+
+	if (DUT->csr[0] != cpu.csr[CRMD]){
+		err = false;
+		error("CRMD", cpu.csr[CRMD], DUT->csr[0]);
+	}
+	else if (DUT->csr[1] != cpu.csr[PRMD]){
+		err = false;
+		error("PRMD", cpu.csr[PRMD], DUT->csr[1]);
+	}
+	else if (DUT->csr[2] != cpu.csr[ESTAT]){
+		err = false;
+		error("ESTAT", cpu.csr[ESTAT], DUT->csr[2]);
+	}
+	else if (DUT->csr[3] != cpu.csr[ERA]){
+		err = false;
+		error("ERA", cpu.csr[ERA], DUT->csr[3]);
+	}
+	else if (DUT->csr[4] != cpu.csr[EENTRY]){
+		err = false;
+		error("EENTRY", cpu.csr[EENTRY], DUT->csr[4]);
+	}
+
+	return err;
+}
 
 void difftest_exec(uint64_t n) {
 	cpu_exec(n);

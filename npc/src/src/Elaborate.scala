@@ -16,4 +16,5 @@ object Elaborate extends App {
   } else {
     (new chisel3.stage.ChiselStage).execute(args, generator)
   }
+  println("finish")
 }

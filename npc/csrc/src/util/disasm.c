@@ -33,7 +33,8 @@ int scan_bp(vaddr_t pc);
 IFDEF(CONFIG_BREAKPOINT, static int break_flag = 0);
 
 enum {
-	TYPE_2RI12, TYPE_2RI12U,TYPE_1RI20, TYPE_3R, TYPE_OFFS26, TYPE_2RO16, TYPE_2RI5,	
+	TYPE_2RI12, TYPE_2RI12U, TYPE_1RI20, TYPE_3R, TYPE_OFFS26, TYPE_2RO16, TYPE_2RI5,
+	TYPE_CSR,
 	TYPE_N, // none
 };
 
@@ -45,11 +46,13 @@ enum {
 #define offs26()  do { *imm = SEXT((BITS(i, 25, 10) << 2 | BITS(i, 9, 0) << 18), 28);} while (0)
 #define offs16()  do { *imm = SEXT(BITS(i, 25, 10), 16) << 2;} while (0)
 
-static void decode_operand(Decode *s, int *rj, int *rk, int *rd_, word_t *imm, int32_t *simm, int type) {
+static void decode_operand(Decode *s, int *rj, int *rk, int *rd_, int *csr_num,
+	word_t *imm, int32_t *simm, int type) {
 	uint32_t i = s->isa.inst.val;
 	*rj = BITS(i, 9, 5);
 	*rk = BITS(i, 14, 10);
 	*rd_ = BITS(i, 4, 0);
+	*csr_num = BITS(i, 23, 10);
 	switch (type) {
 		case TYPE_1RI20 : simm20(); break;
 		case TYPE_2RI12 : simm12(); break;
@@ -57,20 +60,21 @@ static void decode_operand(Decode *s, int *rj, int *rk, int *rd_, word_t *imm, i
 		case TYPE_3R    : break;
 		case TYPE_OFFS26: offs26(); break;
 		case TYPE_2RO16 : offs16(); break;
-		case TYPE_2RI5  : break;
+		case TYPE_2RI5: break;
+		case TYPE_CSR: break;
 	}
 	*simm = (signed)*imm;
 }
 
 int decode_exec(Decode *s) {
-	int rj = 0, rk = 0, rd = 0;
+	int rj = 0, rk = 0, rd = 0, csr_num = 0;
 	word_t imm = 0;//imm also used as offset
 	char *as = s->disas;
 	int32_t simm = 0;
 
 #define INSTPAT_INST(s) ((s)->isa.inst.val)
 #define INSTPAT_MATCH(s, name, type, ... /* execute body */ ) { \
-	decode_operand(s, &rj, &rk, &rd, &imm, &simm, concat(TYPE_, type)); \
+	decode_operand(s, &rj, &rk, &rd, &csr_num, &imm, &simm, concat(TYPE_, type)); \
 	__VA_ARGS__ ; \
 }
 
@@ -241,8 +245,28 @@ int decode_exec(Decode *s) {
 	INSTPAT("00000000010010001 ????? ????? ?????", srai.w, 2RI5,
 		slli_sp("srai.w"));
 
-	INSTPAT("0000 0000 0010 10100 ????? ????? ?????", brk, N, sprintf(as, "break")); // R(4) is $a0
-	INSTPAT("????????????????? ????? ????? ?????", inv, N, sprintf(as, "invalid instruction"));
+	INSTPAT("0000 0000 0010 10100 ????? ????? ?????", brk, N,
+		sprintf(as, "break")); // R(4) is $a0
+
+	INSTPAT("0000 0000 0010 10110 ????? ????? ?????", syscall, N,
+		sprintf(as, "syscall"));
+	
+	INSTPAT("0000 0110 0100 10000 01110 00000 00000", ertn, N,
+		sprintf(as, "ertn"));
+	
+	INSTPAT("0000 0100 ???? ????? ????? 00000 ?????", csrrd, CSR,
+		sprintf(as, "csrrd\tr%d, %x", rd, csr_num));
+
+	INSTPAT("0000 0100 ???? ????? ????? 00001 ?????", csrwr, CSR,
+		sprintf(as, "csrwr\tr%d, %x", rd, csr_num));
+	
+	INSTPAT("0000 0100 ???? ????? ????? ????? ?????", csrxchg, CSR,
+		sprintf(as, "csrxchg\tr%d, r%d, %x", rd, rj, csr_num));
+	
+	printf("Invalid inst %08x\n", INSTPAT_INST(s));
+	sprintf(as, "invalid instruction");
+
+	exit(1);
 	INSTPAT_END();
 #else
 #ifdef CONFIG_FTRACE

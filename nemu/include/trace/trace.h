@@ -6,9 +6,9 @@
 
 #define IRING_BUFSIZE 20
 #define MRING_BUFSIZE 10
-#define FLIST_SIZE 32
 #define FRING_SIZE 16
 #define DRING_SIZE 16
+#define ERING_SIZE 16
 
 typedef struct _iring_ {
     char buf[IRING_BUFSIZE][128];
@@ -44,11 +44,24 @@ typedef struct _dring_{
     word_t data;
 } Dring_t;
 
+typedef struct _ering_{
+    vaddr_t pc;
+    char *NO;
+} Ering_t;
+
 #define INVALID 0
 #define READ 1
 #define WRITE 2
 
 #define CALL true
 #define RET false
+
+void print_watchpoint();
+void display_iring();
+void display_breakpoint();
+void display_mring();
+void display_fring();
+void display_ering();
+vaddr_t func2addr(const char *s, bool *success);
 
 #endif

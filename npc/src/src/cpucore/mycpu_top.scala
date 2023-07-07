@@ -5,6 +5,7 @@ import chisel3.util._
 
 import cpucore.pipeline._
 import cpucore.Unit._
+import cpucore.csr._
 import _root_.memory._
 
 object StageConnect {
@@ -30,6 +31,8 @@ class mycpu_top extends Module{
 	val MEM = Module(new MEM_stage)
 	val WB = Module(new WB_stage)
 
+	val csr = Module(new csr)
+
 	StageConnect(pIF.tofs, IF.fs)
 	StageConnect(IF.tods, ID.ds)
 	StageConnect(ID.toes, EXE.es)
@@ -44,6 +47,9 @@ class mycpu_top extends Module{
 
 	MEM.data_sram <> data_sram
 	EXE.data_sram <> data_sram
+
+	csr.csr_br <> pIF.csr_br
+	csr.io <> EXE.csr
 
 	// pIF.reset := rst
 	// pIF.clock := clk

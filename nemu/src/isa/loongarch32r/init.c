@@ -35,6 +35,11 @@ static void restart() {
 	for (int i = 1; i < 32; i++){
 		cpu.gpr[i] = 0xdeadbeef;
 	}
+	
+	for (int i = 0; i < ARRLEN(cpu.csr); i++){
+		cpu.csr[i] = 0;
+	}
+	cpu.csr[CRMD] = 0x8;
 }
 
 void init_isa() {

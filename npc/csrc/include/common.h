@@ -25,6 +25,7 @@ typedef uint32_t paddr_t;
 #define FMT_PADDR "0x%08" PRIx32
 typedef uint16_t ioaddr_t;
 
+#define streq(str1, str2) (strcmp((str1), (str2)) == 0)
 #include "debug.h"
 
 #endif
