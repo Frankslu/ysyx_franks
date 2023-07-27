@@ -36,6 +36,5 @@
 #define CONFIG_CC_O3 1
 #define CONFIG_TRACE 1
 #define CONFIG_PMEM_GARRAY 1
-#define CONFIG_CC_WAVE 1
 #define CONFIG_JIRL_RET 1
 #define CONFIG_LOG 1

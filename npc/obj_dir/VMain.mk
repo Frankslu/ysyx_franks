@@ -61,6 +61,12 @@ VM_USER_CLASSES = \
 	expr \
 	sdb \
 	watchpoint \
+	dtrace \
+	etrace \
+	ftrace \
+	itrace \
+	mtrace \
+	strace \
 	trace \
 	disasm \
 	log \
@@ -115,6 +121,18 @@ expr.o: /home/franks/ysyx-workbench/npc/csrc/src/monitor/sdb/expr.c
 sdb.o: /home/franks/ysyx-workbench/npc/csrc/src/monitor/sdb/sdb.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 watchpoint.o: /home/franks/ysyx-workbench/npc/csrc/src/monitor/sdb/watchpoint.c
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+dtrace.o: /home/franks/ysyx-workbench/npc/csrc/src/trace/dtrace.c
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+etrace.o: /home/franks/ysyx-workbench/npc/csrc/src/trace/etrace.cpp
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+ftrace.o: /home/franks/ysyx-workbench/npc/csrc/src/trace/ftrace.c
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+itrace.o: /home/franks/ysyx-workbench/npc/csrc/src/trace/itrace.c
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+mtrace.o: /home/franks/ysyx-workbench/npc/csrc/src/trace/mtrace.c
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+strace.o: /home/franks/ysyx-workbench/npc/csrc/src/trace/strace.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 trace.o: /home/franks/ysyx-workbench/npc/csrc/src/trace/trace.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<

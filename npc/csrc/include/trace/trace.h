@@ -1,7 +1,6 @@
 #ifndef _TRACE_H_
 #define _TRACE_H_
 
-#include "ve.h"
 #include <common.h>
 #include <isa.h>
 
@@ -41,6 +40,7 @@ typedef struct _fring_{
     vaddr_t pc;
     vaddr_t next_pc;
     char func_name[24];
+    char filename[50];
     bool dir;
 } Fring_t;
 
@@ -77,4 +77,5 @@ enum ecode {
 #define CALL true
 #define RET false
 
+extern bool log_enable();
 #endif
