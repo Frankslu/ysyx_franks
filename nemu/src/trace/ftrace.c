@@ -1,5 +1,4 @@
 #include <trace/trace.h>
-#include <stdio.h>
 #include <assert.h>
 #include <elf.h>
 

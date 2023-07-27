@@ -1,5 +1,4 @@
 #include "trace/trace.h"
-#include <stdio.h>
 
 char *NO2exception(word_t NO);
 __attribute_maybe_unused__ static Ering_t ering[ERING_SIZE] = {};

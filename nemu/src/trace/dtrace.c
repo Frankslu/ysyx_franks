@@ -1,6 +1,4 @@
 #include <trace/trace.h>
-#include <stdio.h>
-#include <string.h>
 
 __attribute__((unused)) static Dring_t dring[DRING_SIZE] = {};
 __attribute__((unused)) static int dring_pos = 0;

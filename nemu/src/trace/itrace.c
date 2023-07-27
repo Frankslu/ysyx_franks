@@ -1,5 +1,4 @@
 #include "trace/trace.h"
-#include <stdio.h>
 
 #ifdef CONFIG_IRING
 __attribute__((unused)) static Iring_t iring;

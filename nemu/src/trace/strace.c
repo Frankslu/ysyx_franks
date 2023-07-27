@@ -1,6 +1,4 @@
 #include "trace/trace.h"
-#include <stdio.h>
-#include <stdlib.h>
 #include <syscall_num.h>
 #include <isa.h>
 #include <memory/vaddr.h>
