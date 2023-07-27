@@ -6,6 +6,8 @@
 !/nanos-lite/*
 !/navy-apps/*
 !/npc/*
+!/fceux-am/*
+!/am-kernels/*
 !Makefile
 !README.md
 !.gitignore
