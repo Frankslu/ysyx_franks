@@ -63,6 +63,7 @@ VM_USER_CLASSES = \
 	watchpoint \
 	dtrace \
 	etrace \
+	fd2name \
 	ftrace \
 	itrace \
 	mtrace \
@@ -125,6 +126,8 @@ watchpoint.o: /home/franks/ysyx-workbench/npc/csrc/src/monitor/sdb/watchpoint.c
 dtrace.o: /home/franks/ysyx-workbench/npc/csrc/src/trace/dtrace.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 etrace.o: /home/franks/ysyx-workbench/npc/csrc/src/trace/etrace.cpp
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+fd2name.o: /home/franks/ysyx-workbench/npc/csrc/src/trace/fd2name.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 ftrace.o: /home/franks/ysyx-workbench/npc/csrc/src/trace/ftrace.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<

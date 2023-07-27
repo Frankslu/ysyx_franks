@@ -31,9 +31,9 @@ extern "C" {
     // DPI import at /home/franks/ysyx-workbench/npc/vsrc/i_mem.v:13:31
     extern void vaddr_fetch(int raddr, int* rdata);
     // DPI import at /home/franks/ysyx-workbench/npc/vsrc/d_mem.v:12:31
-    extern void vaddr_read(int raddr, int* rdata);
+    extern void vaddr_read_npc(int raddr, int* rdata);
     // DPI import at /home/franks/ysyx-workbench/npc/vsrc/d_mem.v:14:31
-    extern void vaddr_write(int waddr, int wdata, char wmask, int* rdata);
+    extern void vaddr_write_npc(int waddr, int wdata, char wmask, int* rdata);
 
 #ifdef __cplusplus
 }

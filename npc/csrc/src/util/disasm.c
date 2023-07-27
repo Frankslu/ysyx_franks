@@ -28,6 +28,7 @@
 void func_call_ret(vaddr_t next_pc, vaddr_t pc);
 void func_call(vaddr_t next_pc, vaddr_t pc);
 void func_ret(vaddr_t next_pc, vaddr_t pc);
+void record_info();
 
 int scan_bp(vaddr_t pc);
 void reload_bp();
@@ -274,6 +275,7 @@ int decode_exec(Decode *s) {
 		sprintf(as, "break")); // R(4) is $a0
 	
 	INSTPAT("0000 0000 0010 10110 00000 00000 00001", syscall, N,
+		IFDEF(CONFIG_STRACE, record_info(),)
 		sprintf(as, "syscall 0x1"));
 
 	INSTPAT("0000 0000 0010 10110 ????? ????? ?????", syscall, N,
@@ -299,16 +301,18 @@ int decode_exec(Decode *s) {
 #else
 #ifdef CONFIG_FTRACE
 	INSTPAT("010101 ???????????????? ??????????", bl, OFFS26, s->dnpc = s->pc + imm,
-		sprintf(as, "bl\t%d(0x%x) # %x", simm, imm, s->dnpc),
-			MUXDEF(CONFIG_JIRL_RET, func_call(s->dnpc, s->pc), func_call_ret(s->dnpc, s->pc)));
+		MUXDEF(CONFIG_JIRL_RET, func_call(s->dnpc, s->pc), func_call_ret(s->dnpc, s->pc)));
 
 	INSTPAT("010011 0000000000000000 00001 00000", ret, 2RO16,
-		sprintf(as, "ret\t$r%d, $r%d, %x", rd, rj, imm),
-			MUXDEF(CONFIG_JIRL_RET, func_ret(s->dnpc, s->pc), func_call_ret(s->dnpc, s->pc)));
+		MUXDEF(CONFIG_JIRL_RET, func_ret(s->dnpc, s->pc), func_call_ret(s->dnpc, s->pc)));
 
 	INSTPAT("010011 ???????????????? ????? ?????", jirl, 2RO16,
-		sprintf(as, "ret\t$r%d, $r%d, %x", rd, rj, imm),
-			MUXDEF(CONFIG_JIRL_RET, func_call(s->dnpc, s->pc), func_call_ret(s->dnpc, s->pc)));
+		MUXDEF(CONFIG_JIRL_RET, func_call(s->dnpc, s->pc), func_call_ret(s->dnpc, s->pc)));
+#endif
+
+#ifdef CONFIG_STRACE
+	INSTPAT("0000 0000 0010 10110 00000 00000 00001", syscall, N,
+		IFDEF(CONFIG_STRACE, record_info()));
 #endif
 #endif
 

@@ -86,22 +86,22 @@ VL_INLINE_OPT void VMain___024root____Vdpiimwrap_Main__DOT__cpucore__DOT__ID__DO
     record_syscall(ex__Vcvt, pc__Vcvt);
 }
 
-extern "C" void vaddr_read(int raddr, int* rdata);
+extern "C" void vaddr_read_npc(int raddr, int* rdata);
 
-VL_INLINE_OPT void VMain___024root____Vdpiimwrap_Main__DOT__dram__DOT__vaddr_read_TOP(IData/*31:0*/ raddr, IData/*31:0*/ &rdata) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VMain___024root____Vdpiimwrap_Main__DOT__dram__DOT__vaddr_read_TOP\n"); );
+VL_INLINE_OPT void VMain___024root____Vdpiimwrap_Main__DOT__dram__DOT__vaddr_read_npc_TOP(IData/*31:0*/ raddr, IData/*31:0*/ &rdata) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VMain___024root____Vdpiimwrap_Main__DOT__dram__DOT__vaddr_read_npc_TOP\n"); );
     // Body
     int raddr__Vcvt;
     for (size_t raddr__Vidx = 0; raddr__Vidx < 1; ++raddr__Vidx) raddr__Vcvt = raddr;
     int rdata__Vcvt;
-    vaddr_read(raddr__Vcvt, &rdata__Vcvt);
+    vaddr_read_npc(raddr__Vcvt, &rdata__Vcvt);
     rdata = rdata__Vcvt;
 }
 
-extern "C" void vaddr_write(int waddr, int wdata, char wmask, int* rdata);
+extern "C" void vaddr_write_npc(int waddr, int wdata, char wmask, int* rdata);
 
-VL_INLINE_OPT void VMain___024root____Vdpiimwrap_Main__DOT__dram__DOT__vaddr_write_TOP(IData/*31:0*/ waddr, IData/*31:0*/ wdata, CData/*7:0*/ wmask, IData/*31:0*/ &rdata) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VMain___024root____Vdpiimwrap_Main__DOT__dram__DOT__vaddr_write_TOP\n"); );
+VL_INLINE_OPT void VMain___024root____Vdpiimwrap_Main__DOT__dram__DOT__vaddr_write_npc_TOP(IData/*31:0*/ waddr, IData/*31:0*/ wdata, CData/*7:0*/ wmask, IData/*31:0*/ &rdata) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VMain___024root____Vdpiimwrap_Main__DOT__dram__DOT__vaddr_write_npc_TOP\n"); );
     // Body
     int waddr__Vcvt;
     for (size_t waddr__Vidx = 0; waddr__Vidx < 1; ++waddr__Vidx) waddr__Vcvt = waddr;
@@ -110,7 +110,7 @@ VL_INLINE_OPT void VMain___024root____Vdpiimwrap_Main__DOT__dram__DOT__vaddr_wri
     char wmask__Vcvt;
     for (size_t wmask__Vidx = 0; wmask__Vidx < 1; ++wmask__Vidx) wmask__Vcvt = wmask;
     int rdata__Vcvt;
-    vaddr_write(waddr__Vcvt, wdata__Vcvt, wmask__Vcvt, &rdata__Vcvt);
+    vaddr_write_npc(waddr__Vcvt, wdata__Vcvt, wmask__Vcvt, &rdata__Vcvt);
     rdata = rdata__Vcvt;
 }
 

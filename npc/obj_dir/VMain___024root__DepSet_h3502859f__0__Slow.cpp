@@ -67,7 +67,7 @@ VL_ATTR_COLD void VMain___024root___eval_settle(VMain___024root* vlSelf) {
 #ifdef VL_DEBUG
                 VMain___024root___dump_triggers__stl(vlSelf);
 #endif
-                VL_FATAL_MT("/home/franks/ysyx-workbench/npc/vsrc/Main.v", 2406, "", "Settle region did not converge.");
+                VL_FATAL_MT("/home/franks/ysyx-workbench/npc/vsrc/Main.v", 2403, "", "Settle region did not converge.");
             }
             vlSelf->__VstlIterCount = ((IData)(1U) 
                                        + vlSelf->__VstlIterCount);
@@ -94,8 +94,8 @@ VL_ATTR_COLD void VMain___024root___dump_triggers__stl(VMain___024root* vlSelf) 
 void VMain___024root____Vdpiimwrap_Main__DOT__iram__DOT__vaddr_fetch_TOP(IData/*31:0*/ raddr, IData/*31:0*/ &rdata);
 void VMain___024root____Vdpiimwrap_Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__npc_brk__DOT__npc_break_TOP(CData/*7:0*/ is_break);
 void VMain___024root____Vdpiimwrap_Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__inst_exec_once__DOT__inst_exec_once_TOP(CData/*7:0*/ valid, CData/*7:0*/ inv, IData/*31:0*/ inst, IData/*31:0*/ pc);
-void VMain___024root____Vdpiimwrap_Main__DOT__dram__DOT__vaddr_write_TOP(IData/*31:0*/ waddr, IData/*31:0*/ wdata, CData/*7:0*/ wmask, IData/*31:0*/ &rdata);
-void VMain___024root____Vdpiimwrap_Main__DOT__dram__DOT__vaddr_read_TOP(IData/*31:0*/ raddr, IData/*31:0*/ &rdata);
+void VMain___024root____Vdpiimwrap_Main__DOT__dram__DOT__vaddr_write_npc_TOP(IData/*31:0*/ waddr, IData/*31:0*/ wdata, CData/*7:0*/ wmask, IData/*31:0*/ &rdata);
+void VMain___024root____Vdpiimwrap_Main__DOT__dram__DOT__vaddr_read_npc_TOP(IData/*31:0*/ raddr, IData/*31:0*/ &rdata);
 
 VL_ATTR_COLD void VMain___024root___stl_sequent__TOP__0(VMain___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
@@ -2143,7 +2143,7 @@ VL_ATTR_COLD void VMain___024root___stl_sequent__TOP__0(VMain___024root* vlSelf)
                                                                : 0xdeadbeefU)))))))))))))))))));
     if ((2U != (IData)(vlSelf->Main__DOT__cpucore__DOT__ID_toes_bits_mem_we))) {
         if ((0U == (IData)(vlSelf->Main__DOT__cpucore__DOT__ID_toes_bits_mem_we))) {
-            VMain___024root____Vdpiimwrap_Main__DOT__dram__DOT__vaddr_write_TOP(vlSelf->Main__DOT__cpucore__DOT__EXE__DOT__alu_io_res, vlSelf->Main__DOT__cpucore__DOT__ID__DOT__reg___05Fio_rdata2, 
+            VMain___024root____Vdpiimwrap_Main__DOT__dram__DOT__vaddr_write_npc_TOP(vlSelf->Main__DOT__cpucore__DOT__EXE__DOT__alu_io_res, vlSelf->Main__DOT__cpucore__DOT__ID__DOT__reg___05Fio_rdata2, 
                                                                                 ((0xdU 
                                                                                 == (IData)(vlSelf->Main__DOT__cpucore__DOT__ID_toes_bits_inst_name))
                                                                                  ? 7U
@@ -2155,11 +2155,11 @@ VL_ATTR_COLD void VMain___024root___stl_sequent__TOP__0(VMain___024root* vlSelf)
                                                                                 ((0xbU 
                                                                                 == (IData)(vlSelf->Main__DOT__cpucore__DOT__ID_toes_bits_inst_name))
                                                                                  ? 1U
-                                                                                 : 0xdU))), vlSelf->__Vtask_Main__DOT__dram__DOT__vaddr_write__6__rdata);
-            vlSelf->Main__DOT__dram_rdata = vlSelf->__Vtask_Main__DOT__dram__DOT__vaddr_write__6__rdata;
+                                                                                 : 0xdU))), vlSelf->__Vtask_Main__DOT__dram__DOT__vaddr_write_npc__6__rdata);
+            vlSelf->Main__DOT__dram_rdata = vlSelf->__Vtask_Main__DOT__dram__DOT__vaddr_write_npc__6__rdata;
         } else {
-            VMain___024root____Vdpiimwrap_Main__DOT__dram__DOT__vaddr_read_TOP(vlSelf->Main__DOT__cpucore__DOT__EXE__DOT__alu_io_res, vlSelf->__Vtask_Main__DOT__dram__DOT__vaddr_read__7__rdata);
-            vlSelf->Main__DOT__dram_rdata = vlSelf->__Vtask_Main__DOT__dram__DOT__vaddr_read__7__rdata;
+            VMain___024root____Vdpiimwrap_Main__DOT__dram__DOT__vaddr_read_npc_TOP(vlSelf->Main__DOT__cpucore__DOT__EXE__DOT__alu_io_res, vlSelf->__Vtask_Main__DOT__dram__DOT__vaddr_read_npc__7__rdata);
+            vlSelf->Main__DOT__dram_rdata = vlSelf->__Vtask_Main__DOT__dram__DOT__vaddr_read_npc__7__rdata;
         }
     }
     vlSelf->Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__rf_MPORT_data 
@@ -2724,8 +2724,8 @@ VL_ATTR_COLD void VMain___024root___ctor_var_reset(VMain___024root* vlSelf) {
     vlSelf->__VdfgTmp_h6b07fa0a__0 = 0;
     vlSelf->__VdfgTmp_h8e11cbc3__0 = 0;
     vlSelf->__VdfgTmp_ha33f277c__0 = 0;
-    vlSelf->__Vtask_Main__DOT__dram__DOT__vaddr_write__6__rdata = 0;
-    vlSelf->__Vtask_Main__DOT__dram__DOT__vaddr_read__7__rdata = 0;
+    vlSelf->__Vtask_Main__DOT__dram__DOT__vaddr_write_npc__6__rdata = 0;
+    vlSelf->__Vtask_Main__DOT__dram__DOT__vaddr_read_npc__7__rdata = 0;
     vlSelf->__Vtask_Main__DOT__iram__DOT__vaddr_fetch__8__rdata = 0;
     vlSelf->__Vtrigrprev__TOP__clock = VL_RAND_RESET_I(1);
 }

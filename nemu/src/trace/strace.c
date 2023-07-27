@@ -75,6 +75,7 @@ char *NO2syscall(){
 			s1[i] = c;
 			i++;
 		}
+		s1[i] = c;
 		set_filename(s1);
 		sprintf(s, "open   path:%s  flag:%d  mod:%d", s1, GPR3, GPR4);
 		return s;

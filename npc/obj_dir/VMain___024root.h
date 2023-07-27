@@ -264,8 +264,8 @@ class VMain___024root final : public VerilatedModule {
         IData/*28:0*/ Main__DOT__cpucore__DOT__csr__DOT____VdfgTmp_hf9f99d99__0;
         IData/*31:0*/ __VdfgTmp_h6b07fa0a__0;
         IData/*31:0*/ __VdfgTmp_h8e11cbc3__0;
-        IData/*31:0*/ __Vtask_Main__DOT__dram__DOT__vaddr_write__6__rdata;
-        IData/*31:0*/ __Vtask_Main__DOT__dram__DOT__vaddr_read__7__rdata;
+        IData/*31:0*/ __Vtask_Main__DOT__dram__DOT__vaddr_write_npc__6__rdata;
+        IData/*31:0*/ __Vtask_Main__DOT__dram__DOT__vaddr_read_npc__7__rdata;
         IData/*31:0*/ __Vtask_Main__DOT__iram__DOT__vaddr_fetch__8__rdata;
         IData/*31:0*/ __VstlIterCount;
         IData/*31:0*/ __VicoIterCount;

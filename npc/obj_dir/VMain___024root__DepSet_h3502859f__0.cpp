@@ -55,8 +55,8 @@ void VMain___024root____Vdpiimwrap_Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__
 void VMain___024root____Vdpiimwrap_Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__inst_exec_once__DOT__record_syscall_TOP(CData/*7:0*/ ex, IData/*31:0*/ pc);
 void VMain___024root____Vdpiimwrap_Main__DOT__iram__DOT__vaddr_fetch_TOP(IData/*31:0*/ raddr, IData/*31:0*/ &rdata);
 void VMain___024root____Vdpiimwrap_Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__npc_brk__DOT__npc_break_TOP(CData/*7:0*/ is_break);
-void VMain___024root____Vdpiimwrap_Main__DOT__dram__DOT__vaddr_write_TOP(IData/*31:0*/ waddr, IData/*31:0*/ wdata, CData/*7:0*/ wmask, IData/*31:0*/ &rdata);
-void VMain___024root____Vdpiimwrap_Main__DOT__dram__DOT__vaddr_read_TOP(IData/*31:0*/ raddr, IData/*31:0*/ &rdata);
+void VMain___024root____Vdpiimwrap_Main__DOT__dram__DOT__vaddr_write_npc_TOP(IData/*31:0*/ waddr, IData/*31:0*/ wdata, CData/*7:0*/ wmask, IData/*31:0*/ &rdata);
+void VMain___024root____Vdpiimwrap_Main__DOT__dram__DOT__vaddr_read_npc_TOP(IData/*31:0*/ raddr, IData/*31:0*/ &rdata);
 
 VL_INLINE_OPT void VMain___024root___nba_sequent__TOP__0(VMain___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
@@ -2200,7 +2200,7 @@ VL_INLINE_OPT void VMain___024root___nba_sequent__TOP__0(VMain___024root* vlSelf
                                                                : 0xdeadbeefU)))))))))))))))))));
     if ((2U != (IData)(vlSelf->Main__DOT__cpucore__DOT__ID_toes_bits_mem_we))) {
         if ((0U == (IData)(vlSelf->Main__DOT__cpucore__DOT__ID_toes_bits_mem_we))) {
-            VMain___024root____Vdpiimwrap_Main__DOT__dram__DOT__vaddr_write_TOP(vlSelf->Main__DOT__cpucore__DOT__EXE__DOT__alu_io_res, vlSelf->Main__DOT__cpucore__DOT__ID__DOT__reg___05Fio_rdata2, 
+            VMain___024root____Vdpiimwrap_Main__DOT__dram__DOT__vaddr_write_npc_TOP(vlSelf->Main__DOT__cpucore__DOT__EXE__DOT__alu_io_res, vlSelf->Main__DOT__cpucore__DOT__ID__DOT__reg___05Fio_rdata2, 
                                                                                 ((0xdU 
                                                                                 == (IData)(vlSelf->Main__DOT__cpucore__DOT__ID_toes_bits_inst_name))
                                                                                  ? 7U
@@ -2212,11 +2212,11 @@ VL_INLINE_OPT void VMain___024root___nba_sequent__TOP__0(VMain___024root* vlSelf
                                                                                 ((0xbU 
                                                                                 == (IData)(vlSelf->Main__DOT__cpucore__DOT__ID_toes_bits_inst_name))
                                                                                  ? 1U
-                                                                                 : 0xdU))), vlSelf->__Vtask_Main__DOT__dram__DOT__vaddr_write__6__rdata);
-            vlSelf->Main__DOT__dram_rdata = vlSelf->__Vtask_Main__DOT__dram__DOT__vaddr_write__6__rdata;
+                                                                                 : 0xdU))), vlSelf->__Vtask_Main__DOT__dram__DOT__vaddr_write_npc__6__rdata);
+            vlSelf->Main__DOT__dram_rdata = vlSelf->__Vtask_Main__DOT__dram__DOT__vaddr_write_npc__6__rdata;
         } else {
-            VMain___024root____Vdpiimwrap_Main__DOT__dram__DOT__vaddr_read_TOP(vlSelf->Main__DOT__cpucore__DOT__EXE__DOT__alu_io_res, vlSelf->__Vtask_Main__DOT__dram__DOT__vaddr_read__7__rdata);
-            vlSelf->Main__DOT__dram_rdata = vlSelf->__Vtask_Main__DOT__dram__DOT__vaddr_read__7__rdata;
+            VMain___024root____Vdpiimwrap_Main__DOT__dram__DOT__vaddr_read_npc_TOP(vlSelf->Main__DOT__cpucore__DOT__EXE__DOT__alu_io_res, vlSelf->__Vtask_Main__DOT__dram__DOT__vaddr_read_npc__7__rdata);
+            vlSelf->Main__DOT__dram_rdata = vlSelf->__Vtask_Main__DOT__dram__DOT__vaddr_read_npc__7__rdata;
         }
     }
     vlSelf->Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__rf_MPORT_data 
@@ -2508,7 +2508,7 @@ void VMain___024root___eval(VMain___024root* vlSelf) {
 #ifdef VL_DEBUG
                 VMain___024root___dump_triggers__ico(vlSelf);
 #endif
-                VL_FATAL_MT("/home/franks/ysyx-workbench/npc/vsrc/Main.v", 2406, "", "Input combinational region did not converge.");
+                VL_FATAL_MT("/home/franks/ysyx-workbench/npc/vsrc/Main.v", 2403, "", "Input combinational region did not converge.");
             }
             vlSelf->__VicoIterCount = ((IData)(1U) 
                                        + vlSelf->__VicoIterCount);
@@ -2531,7 +2531,7 @@ void VMain___024root___eval(VMain___024root* vlSelf) {
 #ifdef VL_DEBUG
                     VMain___024root___dump_triggers__act(vlSelf);
 #endif
-                    VL_FATAL_MT("/home/franks/ysyx-workbench/npc/vsrc/Main.v", 2406, "", "Active region did not converge.");
+                    VL_FATAL_MT("/home/franks/ysyx-workbench/npc/vsrc/Main.v", 2403, "", "Active region did not converge.");
                 }
                 vlSelf->__VactIterCount = ((IData)(1U) 
                                            + vlSelf->__VactIterCount);
@@ -2546,7 +2546,7 @@ void VMain___024root___eval(VMain___024root* vlSelf) {
 #ifdef VL_DEBUG
                 VMain___024root___dump_triggers__nba(vlSelf);
 #endif
-                VL_FATAL_MT("/home/franks/ysyx-workbench/npc/vsrc/Main.v", 2406, "", "NBA region did not converge.");
+                VL_FATAL_MT("/home/franks/ysyx-workbench/npc/vsrc/Main.v", 2403, "", "NBA region did not converge.");
             }
             __VnbaIterCount = ((IData)(1U) + __VnbaIterCount);
             VMain___024root___eval_nba(vlSelf);
