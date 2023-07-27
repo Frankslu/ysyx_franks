@@ -109,6 +109,9 @@ static int cmd_info(char *args){
 	else if(strcmp(c, "fr") == 0){
 		MUXDEF(CONFIG_FTRACE, display_fring(), printf(ANSI_FMT("Fring disabled\n", ANSI_FG_RED)));
 	}
+	else if(strcmp(c, "dr") == 0){
+		MUXDEF(CONFIG_FTRACE, display_dring(), printf(ANSI_FMT("Dring disabled\n", ANSI_FG_RED)));
+	}
 	else if(streq(c, "er")){
 		MUXDEF(CONFIG_ETRACE, display_ering(), printf(ANSI_FMT("Ering disabled\n", ANSI_FG_RED)));
 	}

@@ -76,8 +76,11 @@ void display_iring();
 void display_breakpoint();
 void display_mring();
 void display_fring();
+void display_dring();
 void display_ering();
 void display_sring();
 vaddr_t func2addr(char *func, char *file, bool *success);
+
+__attribute__((unused)) extern CPU_state cpu;
 
 #endif

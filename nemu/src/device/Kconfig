@@ -63,7 +63,7 @@ endif # HAS_KEYBOARD
 
 menuconfig HAS_VGA
   bool "Enable VGA"
-  default y
+  default n
 
 if HAS_VGA
 config FB_ADDR
@@ -96,7 +96,7 @@ endif # HAS_VGA
 if !TARGET_AM
 menuconfig HAS_AUDIO
   bool "Enable audio"
-  default y
+  default n
 
 if HAS_AUDIO
 config SB_ADDR
@@ -119,7 +119,7 @@ endif # HAS_AUDIO
 
 menuconfig HAS_DISK
   bool "Enable disk"
-  default y
+  default n
 
 if HAS_DISK
 config DISK_CTL_PORT

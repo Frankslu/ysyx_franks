@@ -17,6 +17,7 @@
 #define __ISA_LOONGARCH32R_H__
 
 #include <common.h>
+#include <reg.h>
 
 typedef struct {
 	word_t gpr[32];
