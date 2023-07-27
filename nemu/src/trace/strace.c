@@ -98,6 +98,8 @@ char *NO2syscall(){
 	}
 }
 
+#endif
+
 void record_info(){
 #ifdef CONFIG_STRACE
 	switch (GPR1){
@@ -111,6 +113,4 @@ void record_info(){
 #endif
 	return;
 }
-
-#endif
 
