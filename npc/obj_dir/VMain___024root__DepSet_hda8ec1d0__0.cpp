@@ -74,6 +74,18 @@ VL_INLINE_OPT void VMain___024root____Vdpiimwrap_Main__DOT__cpucore__DOT__ID__DO
     record_exception(ex__Vcvt, ertn__Vcvt, ecode__Vcvt, esubcode__Vcvt, pc__Vcvt);
 }
 
+extern "C" void record_syscall(char ex, int pc);
+
+VL_INLINE_OPT void VMain___024root____Vdpiimwrap_Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__inst_exec_once__DOT__record_syscall_TOP(CData/*7:0*/ ex, IData/*31:0*/ pc) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VMain___024root____Vdpiimwrap_Main__DOT__cpucore__DOT__ID__DOT__reg___DOT__inst_exec_once__DOT__record_syscall_TOP\n"); );
+    // Body
+    char ex__Vcvt;
+    for (size_t ex__Vidx = 0; ex__Vidx < 1; ++ex__Vidx) ex__Vcvt = ex;
+    int pc__Vcvt;
+    for (size_t pc__Vidx = 0; pc__Vidx < 1; ++pc__Vidx) pc__Vcvt = pc;
+    record_syscall(ex__Vcvt, pc__Vcvt);
+}
+
 extern "C" void vaddr_read(int raddr, int* rdata);
 
 VL_INLINE_OPT void VMain___024root____Vdpiimwrap_Main__DOT__dram__DOT__vaddr_read_TOP(IData/*31:0*/ raddr, IData/*31:0*/ &rdata) {

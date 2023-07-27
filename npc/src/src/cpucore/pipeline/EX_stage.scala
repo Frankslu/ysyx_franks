@@ -40,7 +40,8 @@ class EX_stage extends Module{
     csr.wvalue := es.bits.alu_src2
     csr.exe_pc := es.bits.pc
     csr.ecode := MuxCase(0.U, Seq(
-        (es.bits.inst_name === u(INST_SYS)) -> 0xB.U
+        (es.bits.inst_name === u(INST_SYS)) -> 0xB.U,
+        (es.bits.inst_name === u(INST_BRK)) -> 0xC.U
     ))
     csr.esubcode := 0.U
 

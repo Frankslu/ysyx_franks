@@ -152,12 +152,12 @@ config ITRACE_COND
 config IRING
   depends on TRACE
   bool "Enable Iring"
-  default n
+  default y
 
 config MTRACE
   depends on TRACE
   bool "Enable mtrace"
-  default n
+  default y
 
 menu "Mtrace condition"
   depends on MTRACE
@@ -174,7 +174,7 @@ endmenu
 menuconfig FTRACE
   depends on TRACE
   bool "Enable ftrace"
-  default n
+  default y
 
 if FTRACE
 config JIRL_RET
@@ -186,12 +186,17 @@ endif
 config DTRACE
   depends on TRACE
   bool "Enable dtrace"
-  default n
+  default y
 
 config ETRACE
   depends on TRACE
   bool "Enable etrace"
-  default n
+  default y
+
+config STRACE
+  depends on TRACE
+  bool "Enable strace"
+  default y
 
 config DIFFTEST
   depends on TARGET_NATIVE_ELF

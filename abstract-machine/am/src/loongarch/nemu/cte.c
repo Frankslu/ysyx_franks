@@ -13,9 +13,26 @@ Context *__am_irq_handle(Context *c) {
 		Event ev = {0};
 		uintptr_t ecode = (c->estat & 0x3f0000) >> 16;
 		__attribute__((unused)) uintptr_t esubcode = (c->estat & 0x7fc0000) >> 22;
+		ev.event = EVENT_NULL;
+
 		if (ecode == SYS){
-			if (c->GPR1 == -1){
-				ev.event = EVENT_YIELD;
+			switch (c->GPR1){
+			case -1:
+				ev.event = EVENT_YIELD;break;
+			case SYS_exit:
+				halt(c->GPRx);break;
+			case SYS_yield:
+			case SYS_write:
+			case SYS_brk:
+			case SYS_open:
+			case SYS_read:
+			case SYS_close:
+			case SYS_lseek:
+				ev.event = EVENT_SYSCALL;break;
+
+			default:
+				ev.event = EVENT_ERROR;
+				break;
 			}
 		}
 
@@ -31,7 +48,7 @@ Context *__am_irq_handle(Context *c) {
 
 extern void __am_asm_trap(void);
 
-bool cte_init(Context*(*handler)(Event, Context*)) {
+bool cte_init(Context *(*handler)(Event, Context *)) {
 	// initialize exception entry
 	asm volatile("csrwr %0, 0xc" : : "r"(__am_asm_trap));  // 0xc = eentry
 

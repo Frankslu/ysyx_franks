@@ -5,13 +5,15 @@
 #include <elf.h>
 #include <assert.h>
 
-char *NO2exception(word_t NO);
+char *NO2exception(word_t NO), *NO2syscall();
+extern uint64_t g_nr_guest_inst;
+
+__attribute__((unused)) extern CPU_state cpu;
 
 __attribute__((unused)) static Iring_t iring;
 __attribute__((unused)) static Mring_t mring;
 
-__attribute__((unused)) static Func_t *func;
-__attribute__((unused)) static int func_cnt = 0;
+__attribute__((unused)) static Func_array_t *func_array = NULL;
 
 __attribute__((unused)) static Fring_t fring[FRING_SIZE] = {};
 __attribute__((unused)) static int fring_pos = 0;
@@ -22,18 +24,45 @@ __attribute__((unused)) static int dring_pos = 0;
 __attribute_maybe_unused__ static Ering_t ering[ERING_SIZE] = {};
 __attribute_maybe_unused__ static int ering_pos = 0;
 
-__attribute__((unused)) extern char *elf_file;
-__attribute__((unused)) extern CPU_state cpu;
+__attribute_maybe_unused__ static Sring_t sring[ERING_SIZE] = {};
+__attribute_maybe_unused__ static int sring_pos = 0;
+
+void fring_init(){
+	for (int i = 0; i < FRING_SIZE; i++){
+		fring[i].func_name[0] = '\0';
+	}
+	fring_pos = 0;	
+}
 
 void ftrace_init(char *elf_file){
-	func_cnt = 0;
-	
+	Func_array_t *p = func_array;
+	if (func_array == NULL){
+		func_array = (Func_array_t *)malloc(sizeof(Func_array_t));
+		func_array->next = NULL;
+		func_array->cnt = 0;
+		p = func_array;
+	}
+	else {
+		while (p->next != NULL){
+			p = p->next;
+		}
+		p->next = (Func_array_t *)malloc(sizeof(Func_array_t));
+		p = p->next;
+		p->next = NULL;
+		p->cnt = 0;
+	}
+
 typedef MUXDEF(CONFIG_ISA64, Elf64_Shdr, Elf32_Shdr) Elf_Shdr;
 typedef MUXDEF(CONFIG_ISA64, Elf64_Ehdr, Elf32_Ehdr) Elf_Ehdr;
 typedef MUXDEF(CONFIG_ISA64, Elf64_Sym , Elf32_Sym ) Elf_Sym;
 	
 	if(elf_file == NULL)
 		return;
+
+	char *filename_start = strstr(elf_file, "build/") + strlen("build/");
+	char *filename_end = strstr(elf_file, "-loongarch32r");
+	strncpy(p->filename, filename_start, filename_end - filename_start);
+	p->filename[filename_end - filename_start] = '\0';
 
 	FILE *fp = fopen(elf_file, "rb");
 	Assert(fp, "Can not open %s\n", elf_file);
@@ -73,40 +102,62 @@ typedef MUXDEF(CONFIG_ISA64, Elf64_Sym , Elf32_Sym ) Elf_Sym;
 		fseek(fp, symtab->sh_offset + i * sizeof(sym), SEEK_SET);
 		res = fread(&sym, sizeof(sym), 1, fp);
 		if (ELF32_ST_TYPE(sym.st_info) == STT_FUNC)
-			func_cnt++;
+			p->cnt++;
 	}
 
-	func = (Func_t *)malloc(func_cnt * sizeof(Func_t));
-	func_cnt = 0;
+	p->func = (Func_t *)malloc(p->cnt * sizeof(Func_t));
+	p->cnt = 0;
 
 	for (int i = 0; i < symtab->sh_size / sizeof(Elf_Sym); i++){
 		Elf_Sym sym;
 		fseek(fp, symtab->sh_offset + i * sizeof(sym), SEEK_SET);
 		res = fread(&sym, sizeof(sym), 1, fp);
 		if (ELF32_ST_TYPE(sym.st_info) == STT_FUNC) {
-			func[func_cnt].addr = sym.st_value;
-			func[func_cnt].size = sym.st_size;
+			p->func[p->cnt].addr = sym.st_value;
+			p->func[p->cnt].size = sym.st_size;
 			fseek(fp, strtab->sh_offset + sym.st_name, SEEK_SET);
-			res = fscanf(fp, "%23s", func[func_cnt].name);
-			func_cnt++;
+			res = fscanf(fp, "%23s", p->func[p->cnt].name);
+			p->cnt++;
 		}
 	}
 	
 	fclose(fp);
 
-	for (int i = 0; i < FRING_SIZE; i++){
-		fring[i].func_name[0] = '\0';
-	}
-	fring_pos = 0;
-
 	return;
 }
 
-vaddr_t func2addr(const char *s, bool *success){
+vaddr_t func2addr(char *func_name, char *file_name, bool *success){
+	Func_t *func = NULL;
 	*success = true;
-	for (int i = 0; i < func_cnt; i++)
-		if (streq(s, func[i].name))
-			return func[i].addr;
+	if (file_name == NULL){
+		if (streq(func_name, "main")){
+			for (Func_array_t *p = func_array->next; p != NULL; p = p->next){
+				func = p->func;
+				for (int i = 0; i < p->cnt; i++)
+					if (streq(func_name, func[i].name))
+						return func[i].addr;
+			}
+		}
+		else {
+			for (Func_array_t *p = func_array; p != NULL; p = p->next){
+				func = p->func;
+				for (int i = 0; i < p->cnt; i++)
+					if (streq(func_name, func[i].name))
+						return func[i].addr;
+			}
+		}
+	}
+	else{
+		for (Func_array_t *p = func_array; p != NULL; p = p->next){
+			if (streq(file_name, p->filename)){
+				func = p->func;
+				for (int i = 0; i < p->cnt; i++)
+					if (streq(func_name, func[i].name))
+						return func[i].addr;
+				break;
+			}
+		}
+	}
 
 	*success = false;
 	return 0;
@@ -147,6 +198,7 @@ void display_iring(){
 }
 #endif
 
+//------------------------------------------------------
 #ifdef CONFIG_MTRACE
 void record_read(vaddr_t addr, word_t data){
 	if(addr < CONFIG_MTRACE_START || addr > CONFIG_MTRACE_END)
@@ -181,55 +233,72 @@ void display_mring(){
 }
 #endif
 
+//-------------------------------------------------------
 #ifdef CONFIG_FTRACE
 void func_call(vaddr_t next_pc, vaddr_t pc){
-	for (int i = 0; i < func_cnt; i++){
-		if (next_pc == func[i].addr){
-			strcpy(fring[fring_pos].func_name, func[i].name);
-			fring[fring_pos].next_pc = func[i].addr;
-			fring[fring_pos].pc = pc;
-			fring[fring_pos].dir = CALL;
-			fring_pos = fring_pos == FRING_SIZE - 1 ? 0 : fring_pos + 1;
-			log_write("Ftrace: PC %08x call %s\t%08x\n", pc, func[i].name, next_pc);
-			return;
+	for (Func_array_t *p = func_array; p != NULL; p = p->next){
+		Func_t *func = p->func;
+		for (int i = 0; i < p->cnt; i++){
+			if (next_pc == func[i].addr){
+				strcpy(fring[fring_pos].func_name, func[i].name);
+				strcpy(fring[fring_pos].file_name, p->filename);
+				fring[fring_pos].next_pc = func[i].addr;
+				fring[fring_pos].pc = pc;
+				fring[fring_pos].dir = CALL;
+				fring[fring_pos].clk = g_nr_guest_inst;
+				fring_pos = fring_pos == FRING_SIZE - 1 ? 0 : fring_pos + 1;
+				log_write("Ftrace:%lu PC %08x call %s %s\t%08x\n", g_nr_guest_inst , pc, p->filename, func[i].name, next_pc);
+				return;
+			}
 		}
 	}
 }
 
 void func_ret(vaddr_t next_pc, vaddr_t pc){
-	for (int i = 0; i < func_cnt; i++){
-		if (next_pc > func[i].addr && next_pc < func[i].addr + func[i].size){
-			strcpy(fring[fring_pos].func_name, func[i].name);
-			fring[fring_pos].next_pc = func[i].addr;
-			fring[fring_pos].pc = pc;
-			fring[fring_pos].dir = RET;
-			fring_pos = fring_pos == FRING_SIZE - 1 ? 0 : fring_pos + 1;
-			log_write("Ftrace: PC %08x ret %s\t%08x\n", pc, func[i].name, next_pc);
-			return;
+	for (Func_array_t *p = func_array; p != NULL; p = p->next){
+		Func_t *func = p->func;
+		for (int i = 0; i < p->cnt; i++){
+			if (next_pc > func[i].addr && next_pc < func[i].addr + func[i].size){
+				strcpy(fring[fring_pos].func_name, func[i].name);
+				strcpy(fring[fring_pos].file_name, p->filename);
+				fring[fring_pos].next_pc = func[i].addr;
+				fring[fring_pos].pc = pc;
+				fring[fring_pos].dir = RET;
+				fring[fring_pos].clk = g_nr_guest_inst;
+				fring_pos = fring_pos == FRING_SIZE - 1 ? 0 : fring_pos + 1;
+				log_write("Ftrace:%lu PC %08x ret  %s %s\t%08x\n", g_nr_guest_inst, pc, p->filename, func[i].name, next_pc);
+				return;
+			}
 		}
 	}
 }
 
 void func_call_ret(vaddr_t next_pc, vaddr_t pc){
-	printf("func\n");
-	for (int i = 0; i < func_cnt; i++){
-		if (next_pc == func[i].addr){
-			strcpy(fring[fring_pos].func_name, func[i].name);
-			fring[fring_pos].next_pc = func[i].addr;
-			fring[fring_pos].pc = pc;
-			fring[fring_pos].dir = CALL;
-			fring_pos = fring_pos == FRING_SIZE - 1 ? 0 : fring_pos + 1;
-			log_write("Ftrace: PC %08x call %s\t%08x\n", pc, func[i].name, next_pc);
-			return;
-		}
-		else if (next_pc > func[i].addr && next_pc < func[i].addr + func[i].size){
-			strcpy(fring[fring_pos].func_name, func[i].name);
-			fring[fring_pos].next_pc = func[i].addr;
-			fring[fring_pos].pc = pc;
-			fring[fring_pos].dir = RET;
-			fring_pos = fring_pos == FRING_SIZE - 1 ? 0 : fring_pos + 1;
-			log_write("Ftrace: PC %08x ret %s\t%08x\n", pc, func[i].name, next_pc);
-			return;
+	for (Func_array_t *p = func_array; p != NULL; p = p->next){
+		Func_t *func = p->func;
+		for (int i = 0; i < p->cnt; i++){
+			if (next_pc == func[i].addr){
+				strcpy(fring[fring_pos].func_name, func[i].name);
+				strcpy(fring[fring_pos].file_name, p->filename);
+				fring[fring_pos].next_pc = func[i].addr;
+				fring[fring_pos].pc = pc;
+				fring[fring_pos].dir = CALL;
+				fring[fring_pos].clk = g_nr_guest_inst;
+				fring_pos = fring_pos == FRING_SIZE - 1 ? 0 : fring_pos + 1;
+				log_write("Ftrace:%lu PC %08x call %s %s\t%08x\n", g_nr_guest_inst, pc, p->filename, func[i].name, next_pc);
+				return;
+			}
+			else if (next_pc > func[i].addr && next_pc < func[i].addr + func[i].size){
+				strcpy(fring[fring_pos].func_name, func[i].name);
+				strcpy(fring[fring_pos].file_name, p->filename);
+				fring[fring_pos].next_pc = func[i].addr;
+				fring[fring_pos].pc = pc;
+				fring[fring_pos].dir = RET;
+				fring[fring_pos].clk = g_nr_guest_inst;
+				fring_pos = fring_pos == FRING_SIZE - 1 ? 0 : fring_pos + 1;
+				log_write("Ftrace:%lu PC %08x ret  %s %s\t%08x\n", g_nr_guest_inst, pc, p->filename, func[i].name, next_pc);
+				return;
+			}
 		}
 	}
 }
@@ -239,17 +308,18 @@ void display_fring(){
 	for (int i=0; i < FRING_SIZE; i++){
 		if (fring[pos].func_name[0] != '\0'){
 			if (fring[pos].dir == CALL){
-				printf("Ftrace: PC %08x call %s\t%08x\n", fring[pos].pc, fring[pos].func_name, fring[pos].next_pc);
+				printf("Ftrace:%lu PC %08x call %s %s\t%08x\n", fring[pos].clk, fring[pos].pc, fring[pos].file_name, fring[pos].func_name, fring[pos].next_pc);
 			}
 			else {
-				printf("Ftrace: PC %08x ret  %s\t%08x\n", fring[pos].pc, fring[pos].func_name, fring[pos].next_pc);
+				printf("Ftrace:%lu PC %08x ret  %s %s\t%08x\n", fring[pos].clk, fring[pos].pc, fring[pos].file_name, fring[pos].func_name, fring[pos].next_pc);
 			}
 		}
-		pos = pos == FRING_SIZE ? 0 : pos + 1;
+		pos = pos == FRING_SIZE - 1 ? 0 : pos + 1;
 	}
 }
 #endif
 
+//------------------------------------------------------------
 #ifdef CONFIG_DTRACE
 #define d_pos dring[dring_pos]
 void dring_init(){
@@ -291,6 +361,7 @@ void display_dring(){
 }
 #endif
 
+//-----------------------------------------------------------------
 #ifdef CONFIG_ETRACE
 #define e_pos ering[ering_pos]
 void ering_init(){
@@ -300,9 +371,9 @@ void ering_init(){
 }
 
 void record_exception(word_t NO){
-	if (e_pos.NO != NULL)
-		free(e_pos.NO);
 	e_pos.NO = NO2exception(NO);
+	if (e_pos.NO == NULL)
+		return;
 	log_write("Etrace pc %08x exception %s\n", cpu.pc, e_pos.NO);
 	e_pos.pc = cpu.pc;
 	ering_pos = ering_pos == ERING_SIZE - 1 ? 0 : ering_pos + 1;
@@ -318,13 +389,43 @@ void display_ering(){
 }
 #endif
 
+//--------------------------------------------------
+#ifdef CONFIG_STRACE
+#define s_pos sring[sring_pos]
+void sring_init(){
+	sring_pos = 0;
+	for (int i = 0; i < SRING_SIZE; i++)
+		sring[i].NO = NULL;
+}
+
+void record_syscall(){
+	if (s_pos.NO != NULL)
+		free(s_pos.NO);
+	s_pos.NO = NO2syscall();
+	if (s_pos.NO == NULL)
+		return;
+	log_write("Strace pc %08x %s\n", cpu.pc, s_pos.NO);
+	s_pos.pc = cpu.pc;
+	sring_pos = sring_pos == SRING_SIZE - 1 ? 0 : sring_pos + 1;
+}
+
+void display_sring(){
+	int pos = sring_pos;
+	for (int i=0; i < SRING_SIZE; i++){
+		if (sring[pos].NO != NULL)
+			printf("%08x %s\n",sring[pos].pc, sring[pos].NO);
+		pos = pos == (SRING_SIZE - 1) ? 0 : pos + 1;
+	}
+}
+#endif
+
 #endif
 
 void init_trace(){
 	IFDEF(CONFIG_IRING, iring_init());
 	IFDEF(CONFIG_MTRACE, mring_init());
-	__attribute__((unused)) extern char *elf_file;
-	ftrace_init(elf_file);
+	IFDEF(CONFIG_FTRACE, fring_init());
 	IFDEF(CONFIG_DTRACE, dring_init());
 	IFDEF(CONFIG_ETRACE, ering_init());
+	IFDEF(CONFIG_STRACE, sring_init());
 }

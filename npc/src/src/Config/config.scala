@@ -14,4 +14,6 @@ object Configs {
 
     val WSTRB_WIDTH = 4
     val INST_NAME_WIDTH = 5
+
+    val for_test = 1
 }

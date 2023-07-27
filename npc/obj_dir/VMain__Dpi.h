@@ -22,6 +22,8 @@ extern "C" {
     extern void npc_break(char is_break);
     // DPI import at /home/franks/ysyx-workbench/npc/vsrc/Exec.v:16:30
     extern void record_exception(char ex, char ertn, int ecode, int esubcode, int pc);
+    // DPI import at /home/franks/ysyx-workbench/npc/vsrc/Exec.v:17:30
+    extern void record_syscall(char ex, int pc);
     // DPI import at /home/franks/ysyx-workbench/npc/vsrc/Difftest.v:42:30
     extern void set_csr_ptr(const svOpenArrayHandle regs);
     // DPI import at /home/franks/ysyx-workbench/npc/vsrc/Difftest.v:41:30

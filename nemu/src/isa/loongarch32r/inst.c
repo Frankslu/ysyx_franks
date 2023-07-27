@@ -28,7 +28,21 @@ void func_call(vaddr_t next_pc, vaddr_t pc);
 void func_ret(vaddr_t next_pc, vaddr_t pc);
 
 int scan_bp(vaddr_t pc);
+void reload_bp();
 IFDEF(CONFIG_BREAKPOINT, int break_flag = 0);
+IFDEF(CONFIG_BREAKPOINT, static int in_kernel = 0);
+
+#ifdef CONFIG_BREAKPOINT
+void reload_bp_after_left_kernel(vaddr_t next_pc){
+	if (next_pc >= (vaddr_t)0x1f000000 && in_kernel == 1){
+		in_kernel = 0;
+		reload_bp();
+	}
+	else if (next_pc < (vaddr_t)0x1f000000 && in_kernel == 0){
+		in_kernel = 1;
+	}
+}
+#endif
 
 enum {
 	TYPE_2RI12, TYPE_2RI12U, TYPE_1RI20, TYPE_3R,
@@ -110,7 +124,14 @@ static int decode_exec(Decode *s) {
 	INSTPAT_START();
 
 	INSTPAT("010100 ???????????????? ??????????", b, OFFS26, s->dnpc = s->pc + imm
-		IFDEF(CONFIG_loongarch32r_ITRACE, , sprintf(as, "b\t%d(0x%x) # %x", simm, imm, s->dnpc)));
+		IFDEF(CONFIG_loongarch32r_ITRACE, , sprintf(as, "b\t%d(0x%x) # %x", simm, imm, s->dnpc))
+		IFDEF(CONFIG_FTRACE, ,
+			MUXDEF(CONFIG_JIRL_RET,
+				func_call(s->dnpc, s->pc), func_call_ret(s->dnpc, s->pc)
+			)
+		)
+		IFDEF(CONFIG_BREAKPOINT, , reload_bp_after_left_kernel(s->dnpc))
+	);
 
 	INSTPAT("010101 ???????????????? ??????????", bl, OFFS26, s->dnpc = s->pc + imm, R(1) = s->snpc
 		IFDEF(CONFIG_loongarch32r_ITRACE, , sprintf(as, "bl\t%d(0x%x) # %x", simm, imm, s->dnpc))
@@ -118,23 +139,29 @@ static int decode_exec(Decode *s) {
 			MUXDEF(CONFIG_JIRL_RET,
 				func_call(s->dnpc, s->pc), func_call_ret(s->dnpc, s->pc)
 			)
-		));
+		)
+		IFDEF(CONFIG_BREAKPOINT, , reload_bp_after_left_kernel(s->dnpc))
+	);
 
 	INSTPAT("010011 0000000000000000 00001 00000", ret, 2RO16, s->dnpc = src1 + imm, R(rd) = s->snpc
 		IFDEF(CONFIG_loongarch32r_ITRACE, , sprintf(as, "ret\t$r%d, $r%d:%x, %x # %x", rd, rj, src1, imm, s->dnpc))
 		IFDEF(CONFIG_FTRACE, ,
 			MUXDEF(CONFIG_JIRL_RET,
-				func_ret(cpu.pc, s->pc), func_call_ret(cpu.pc, s->pc)
+				func_ret(s->dnpc, s->pc), func_call_ret(s->dnpc, s->pc)
 			)
-		));
+		)
+		IFDEF(CONFIG_BREAKPOINT, , reload_bp_after_left_kernel(s->dnpc))
+	);
 
 	INSTPAT("010011 ???????????????? ????? ?????", jirl, 2RO16, s->dnpc = src1 + imm, R(rd) = s->snpc
 		IFDEF(CONFIG_loongarch32r_ITRACE, , sprintf(as, "jirl\t$r%d, $r%d:%x, %x # %x", rd, rj, src1, imm, s->dnpc))
 		IFDEF(CONFIG_FTRACE, ,
 			MUXDEF(CONFIG_JIRL_RET,
-				func_call(cpu.pc, s->pc), func_call_ret(cpu.pc, s->pc)
+				func_call(s->dnpc, s->pc), func_call_ret(s->dnpc, s->pc)
 			)
-		));
+		)
+		IFDEF(CONFIG_BREAKPOINT, , reload_bp_after_left_kernel(s->dnpc))
+	);
 
 	INSTPAT("010110 ???????????????? ????? ?????", beq, 2RO16, s->dnpc = s->pc + (src1 == R(rd) ? imm : 4)
 		IFDEF(CONFIG_loongarch32r_ITRACE, , br_sprintf("beq")));
@@ -268,9 +295,12 @@ static int decode_exec(Decode *s) {
 	INSTPAT("0000 0000 0010 10100 ????? ????? ?????", break, N, MUXDEF(CONFIG_BREAKPOINT, exec_break, NEMUTRAP(s->pc, R(4)))
 		, s->dnpc = old_pc
 		IFDEF(CONFIG_loongarch32r_ITRACE, , sprintf(as, "break"))); // R(4) is $a0
+	
+	INSTPAT("0000 0000 0010 10110 00000 00000 00001", syscall, N, record_info()
+		IFDEF(CONFIG_loongarch32r_ITRACE, , sprintf(as, "syscall 0x1")));
 
 	INSTPAT("0000 0000 0010 10110 ????? ????? ?????", syscall, N, s->dnpc = isa_raise_intr(SYS, s->pc)
-		IFDEF(CONFIG_loongarch32r_ITRACE, , sprintf(as, "syscall")));
+		IFDEF(CONFIG_loongarch32r_ITRACE, , sprintf(as, "syscall 0")));
 	
 	INSTPAT("0000 0110 0100 10000 01110 00000 00000", ertn, N, s->dnpc = exception_return()
 		IFDEF(CONFIG_loongarch32r_ITRACE, , sprintf(as, "ertn")));

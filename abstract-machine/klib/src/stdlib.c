@@ -61,6 +61,38 @@ void itoa(char *s, int num, int high_bits_0, int width){
 	}
 }
 
+void utoa(char *s, unsigned long num, int high_bits_0, int width){
+	char tmp;
+	int i = 0;
+	char high_bits = high_bits_0 ? '0' : (char)32;
+
+	if (num == 0){
+		if (width == 0)
+			width = 1;
+		memset(s, high_bits, width);
+		s[width - 1] = '0';
+		s[width] = '\0';
+		return;
+	}
+
+	while (num != 0){
+		s[i] = (char)(num % 10 + '0');
+		num /= 10;
+		i++;
+	}
+
+	for (; i < width; i++)
+		s[i] = high_bits;
+
+	s[i] = '\0';
+
+	for (int j = 0; j < i - 1 - j; j++){
+		tmp = s[j];
+		s[j] = s[i - 1 - j];
+		s[i - 1 - j] = tmp;
+	}
+}
+
 void xtoa(char *s, unsigned int num, int high_bits_0, int width){
 	char tmp;
 	int i = 0;

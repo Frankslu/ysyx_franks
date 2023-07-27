@@ -5,7 +5,6 @@
 
 static char *npc_log_file = NULL;
 static char *diff_so_file = NULL;
-const char *elf_file = NULL;
 static char *img_file = NULL;
 
 void sdb_set_batch_mode();
@@ -21,6 +20,7 @@ void init_verilator(int argc, char *argv[]);
 void verilator_finish();
 void set_npc_state(int state, vaddr_t pc, int halt_ret);
 void reload_bp();
+void ftrace_init(char *elf_file);
 
 static int parse_args(int argc, char *argv[]) {
 	const struct option table[] = {
@@ -37,7 +37,7 @@ static int parse_args(int argc, char *argv[]) {
 		case 'b': sdb_set_batch_mode(); break;
 		case 'l': npc_log_file = optarg; break;
 		case 'd': diff_so_file = optarg; break;
-		case 'e': elf_file = optarg; break;
+		case 'e': ftrace_init(optarg); break;
 		case 1: img_file = optarg; return 1;
 		default:
 		printf("Usage: %s [OPTION...] IMAGE [args]\n\n", argv[0]);

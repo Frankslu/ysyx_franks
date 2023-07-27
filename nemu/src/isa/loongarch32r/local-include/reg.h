@@ -59,4 +59,10 @@ static inline int check_csr_idx(int idx){
 
 // #define csrr_ERA_PC csr[ERA]
 // #define csrw_ERA_PC(num) csr[ERA] = (num)
+#define GPR1 gpr(11)
+#define GPR2 gpr(4)
+#define GPR3 gpr(5)
+#define GPR4 gpr(6)
+#define GPRx gpr(4)
+
 #endif

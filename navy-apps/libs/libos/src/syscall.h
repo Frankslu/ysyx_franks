@@ -21,7 +21,10 @@ enum {
   SYS_unlink,
   SYS_wait,
   SYS_times,
-  SYS_gettimeofday
+  SYS_gettimeofday,
+
+  //for test
+  SYS_getfilename
 };
 
 #endif

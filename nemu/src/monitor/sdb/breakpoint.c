@@ -182,6 +182,9 @@ int scan_bp(vaddr_t pc){
 void reload_bp(){
 	BP *p = bp_head;
 	while (p != NULL){
+		word_t get_inst = break_ifetch(p->pc, 4);
+		if (get_inst != brk_inst)
+			p->inst = get_inst;
 		break_write(p->pc, 4, brk_inst);
 		p = p->next;
 	}

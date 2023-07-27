@@ -9,6 +9,7 @@
 #define FRING_SIZE 16
 #define DRING_SIZE 16
 #define ERING_SIZE 16
+#define SRING_SIZE 16
 
 typedef struct _iring_ {
     char buf[IRING_BUFSIZE][128];
@@ -29,10 +30,19 @@ typedef struct _func_ {
     char name[24];
 } Func_t;
 
+typedef struct _func_array_ {
+    Func_t *func;
+    char filename[50];
+    int cnt;
+    struct _func_array_ *next;
+} Func_array_t;
+
 typedef struct _fring_{
     vaddr_t pc;
     vaddr_t next_pc;
+    uint64_t clk;
     char func_name[24];
+    char file_name[50];
     bool dir;
 } Fring_t;
 
@@ -49,6 +59,11 @@ typedef struct _ering_{
     char *NO;
 } Ering_t;
 
+typedef struct _sring_ {
+    vaddr_t pc;
+    char *NO;
+} Sring_t;
+
 #define INVALID 0
 #define READ 1
 #define WRITE 2
@@ -62,6 +77,7 @@ void display_breakpoint();
 void display_mring();
 void display_fring();
 void display_ering();
-vaddr_t func2addr(const char *s, bool *success);
+void display_sring();
+vaddr_t func2addr(char *func, char *file, bool *success);
 
 #endif

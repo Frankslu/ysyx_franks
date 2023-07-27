@@ -51,38 +51,55 @@ intptr_t _syscall_(intptr_t type, intptr_t a0, intptr_t a1, intptr_t a2) {
   return ret;
 }
 
+intptr_t _testcall_(intptr_t type, intptr_t a0, intptr_t a1, intptr_t a2) {
+  register intptr_t _gpr1 asm("a7") = type;
+  register intptr_t _gpr2 asm("a0") = a0;
+  register intptr_t _gpr3 asm("a1") = a1;
+  register intptr_t _gpr4 asm("a2") = a2;
+  register intptr_t ret asm("a0");
+  asm volatile ("syscall 0x1" : "=r" (ret) : "r"(_gpr1), "r"(_gpr2), "r"(_gpr3), "r"(_gpr4));
+  return ret;
+}
+
 void _exit(int status) {
   _syscall_(SYS_exit, status, 0, 0);
   while (1);
 }
 
 int _open(const char *path, int flags, mode_t mode) {
-  _exit(SYS_open);
-  return 0;
+  int fd = _syscall_(SYS_open, path, flags, mode);
+  _testcall_(SYS_getfilename, fd, 0, 0);
+  return fd;
 }
 
 int _write(int fd, void *buf, size_t count) {
-  _exit(SYS_write);
-  return 0;
+  return _syscall_(SYS_write, fd, buf, count);
 }
 
 void *_sbrk(intptr_t increment) {
-  return (void *)-1;
+  extern end;
+  static intptr_t programe_break = &end;
+  intptr_t new_brk = programe_break + increment;
+  if (_syscall_(SYS_brk, new_brk, 0, 0) == 0){
+    intptr_t old_brk = programe_break;
+    programe_break = new_brk;
+    return old_brk;
+  }
+  else{
+    return (void *)-1;
+  }
 }
 
 int _read(int fd, void *buf, size_t count) {
-  _exit(SYS_read);
-  return 0;
+  return _syscall_(SYS_read, fd, buf, count);
 }
 
 int _close(int fd) {
-  _exit(SYS_close);
-  return 0;
+  return _syscall_(SYS_close, fd, 0, 0);
 }
 
 off_t _lseek(int fd, off_t offset, int whence) {
-  _exit(SYS_lseek);
-  return 0;
+  return _syscall_(SYS_lseek, fd, offset, whence);
 }
 
 int _gettimeofday(struct timeval *tv, struct timezone *tz) {

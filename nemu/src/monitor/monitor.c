@@ -26,6 +26,7 @@ void init_sdb();
 void init_trace();
 void init_disasm(const char *triple);
 void reload_bp();
+void ftrace_init(char *elf_file);
 
 static void welcome() {
 	Log("Trace: %s", MUXDEF(CONFIG_TRACE, ANSI_FMT("ON", ANSI_FG_GREEN), ANSI_FMT("OFF", ANSI_FG_RED)));
@@ -59,7 +60,6 @@ void sdb_set_batch_mode();
 static char *log_file = NULL;
 static char *diff_so_file = NULL;
 static char *img_file = NULL;
-char *elf_file = NULL;
 static int difftest_port = 1234;
 
 static long load_img() {
@@ -101,7 +101,7 @@ static int parse_args(int argc, char *argv[]) {
 		case 'p': sscanf(optarg, "%d", &difftest_port); break;
 		case 'l': log_file = optarg; break;
 		case 'd': diff_so_file = optarg; break;
-		case 'e': elf_file = optarg; break;
+		case 'e': ftrace_init(optarg); break;
 		case 1: img_file = optarg; return 1;
 		default:
 			printf("Usage: %s [OPTION...] IMAGE [args]\n\n", argv[0]);

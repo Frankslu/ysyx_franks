@@ -28,7 +28,19 @@ void init_log(const char *log_file) {
   Log("Log is written to %s", log_file ? log_file : "stdout");
 }
 
+// bool log_enable() {
+//   return MUXDEF(CONFIG_TRACE, (g_nr_guest_inst >= CONFIG_TRACE_START) &&
+//          (g_nr_guest_inst <= (CONFIG_TRACE_START + CONFIG_TRACE_END)), false);
+// }
+
+// bool log_enable() {
+//   return MUXDEF(CONFIG_TRACE, (g_nr_guest_inst <= (CONFIG_TRACE_START + CONFIG_TRACE_END)), false);
+// }
+
 bool log_enable() {
-  return MUXDEF(CONFIG_TRACE, (g_nr_guest_inst >= CONFIG_TRACE_START) &&
-         (g_nr_guest_inst <= CONFIG_TRACE_END), true);
+  return MUXDEF(CONFIG_TRACE, (g_nr_guest_inst >= CONFIG_TRACE_START), false);
 }
+
+// bool log_enable() {
+//   return true;
+// }

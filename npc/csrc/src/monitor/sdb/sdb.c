@@ -110,9 +110,11 @@ static int cmd_info(char *args){
 	else if(streq(c, "dr")){
 		MUXDEF(CONFIG_DTRACE, display_dring(), printf(ANSI_FMT("Dring disabled\n", ANSI_FG_RED)));
 	}
+	else if(streq(c, "sr")){
+		MUXDEF(CONFIG_STRACE, display_sring(), printf(ANSI_FMT("Sring disabled\n", ANSI_FG_RED)));
+	}
 	else {
-			printf(ANSI_FMT("command error\n", ANSI_FG_RED));
-		printf("Invalid Input\n");
+		printf(ANSI_FMT("command error\n", ANSI_FG_RED));
 	}
 	return 0;
 }
@@ -236,22 +238,31 @@ static int cmd_b(char *args){
 	}
 	
 	vaddr_t i;
-	char s[50];
+	char func_name[50] = {};
+	char file_name[50] = {};
 	bool success = true;
 	if (sscanf(args, "0x%x", &i) == 1){
 		if (i % 4 != 0){
-			printf(ANSI_FMT("Invalid pc\n", ANSI_FG_RED));
+			printf("Invalid pc\n");
 			return 0;
 		}
 		new_bp(i);
 		return 0;
 	}
 
-	sscanf(args, "%s", s);
-	i = func2addr(s, &success);
-	if (success == false){
-		printf(ANSI_FMT("func doesn't exist\n", ANSI_FG_RED));
-		return 0;
+	if(sscanf(args, "%s %s", func_name, file_name) == 2){
+		i = func2addr(func_name, file_name, &success);
+		if (success == false){
+			printf("func doesn't exist\n");
+			return 0;
+		}
+	}
+	else{
+		i = func2addr(func_name, NULL, &success);
+		if (success == false){
+			printf("func doesn't exist\n");
+			return 0;
+		}
 	}
 	new_bp(i);
 	return 0;

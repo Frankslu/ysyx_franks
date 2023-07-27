@@ -10,6 +10,7 @@
 #define FRING_SIZE 16
 #define ERING_SIZE 16
 #define DRING_SIZE 16
+#define SRING_SIZE 16
 
 typedef struct _iring_ {
     char buf[IRING_BUFSIZE][128];
@@ -28,6 +29,13 @@ typedef struct _func_ {
     vaddr_t size;
     char name[24];
 } Func_t;
+
+typedef struct _func_array_ {
+    Func_t *func;
+    char filename[50];
+    int cnt;
+    struct _func_array_ *next;
+} Func_array_t;
 
 typedef struct _fring_{
     vaddr_t pc;
@@ -48,6 +56,12 @@ typedef struct _dring_{
     int wr;
     word_t data;
 } Dring_t;
+
+typedef struct _sring_ {
+    vaddr_t pc;
+    char *NO;
+} Sring_t;
+
 
 #ifndef ECODE
 #define ECODE

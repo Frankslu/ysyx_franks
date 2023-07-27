@@ -14,6 +14,7 @@ module Exec(
 
 import "DPI-C" function void inst_exec_once(input byte valid, input byte inv, input int inst, input int pc);
 import "DPI-C" function void record_exception(input byte ex, input byte ertn, input int ecode, input int esubcode, input int pc);
+import "DPI-C" function void record_syscall(input byte ex, input int pc);
 
 always @(*) begin
 	inst_exec_once(valid, inv, inst, pc);
@@ -21,6 +22,7 @@ end
 
 always @(posedge clock) begin
 	record_exception(ex, ertn, ecode, esubcode, ex_pc);
+	record_syscall(ex, ex_pc);
 end
 
 endmodule

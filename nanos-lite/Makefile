@@ -1,34 +1,25 @@
-#HAS_NAVY = 1
-RAMDISK_FILE = build/ramdisk.img
+IMG += hello
+ISA = $(word 1, $(subst -, , $(ARCH)))
+PLATFROM = $(word 2, $(subst -, , $(ARCH)))
+APP_DIR = $(NAVY_HOME)/tests/$(IMG)
 
-NAME = nanos-lite
-SRCS = $(shell find -L ./src/ -name "*.c" -o -name "*.cpp" -o -name "*.S")
-include $(AM_HOME)/Makefile
+APP += hello dummy file-test
+APP_ELF = $(foreach app, $(APP), $(addsuffix -loongarch32r, $(app)))
+ELF_FILE = $(foreach app, $(APP_ELF), $(shell find $(NAVY_HOME)/tests -type f -name $(app)))
 
-ifeq ($(ARCH),native)
-ISA = am_native
-else
-INC_PATH += include $(NAVY_HOME)/libs/libc/include
-endif
+.PHONY: $(ELF_FILE) run
 
-./src/resources.S: $(RAMDISK_FILE)
-	@touch $@
+$(ELF_FILE):
+	@loongarch32r-linux-gnusf-objdump -d $@ > build/$(notdir $@).txt
 
-ifeq ($(HAS_NAVY),)
-files = $(RAMDISK_FILE) src/files.h src/syscall.h
-# create an empty file if it does not exist
-$(foreach f,$(files),$(if $(wildcard $f),, $(shell touch $f)))
-else
+run:
+	$(MAKE) -f nanos.mk ARCH=$(ARCH) run
 
-ifeq ($(wildcard $(NAVY_HOME)/libs/libos/src/syscall.h),)
-  $(error $$NAVY_HOME must be a Navy-apps repo)
-endif
+gdb:
+	$(MAKE) -f nanos.mk ARCH=$(ARCH) gdb
+	
+update:$(ELF_FILE)
+	$(MAKE) -f nanos.mk ARCH=$(ARCH) update
 
-update:
-	$(MAKE) -s -C $(NAVY_HOME) ISA=$(ISA) ramdisk
-	@ln -sf $(NAVY_HOME)/build/ramdisk.img $(RAMDISK_FILE)
-	@ln -sf $(NAVY_HOME)/build/ramdisk.h src/files.h
-	@ln -sf $(NAVY_HOME)/libs/libos/src/syscall.h src/syscall.h
-
-.PHONY: update
-endif
+hello:
+	$(MAKE) -C $(NAVY_HOME) ISA=loongarch32r hello

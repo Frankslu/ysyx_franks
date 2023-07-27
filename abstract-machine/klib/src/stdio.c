@@ -53,6 +53,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 	char c;
 	char s1[33];
 	char *s;
+	// unsigned long pointer;
 
 	int width = 0;
 	int high_bits_0 = 0;
@@ -139,7 +140,7 @@ int vsnprintf(char *out, size_t n, const char *fmt, va_list ap) {
 		// putch('\n');
 	// 	putch(fmt[i]);
 	// }
-	
+
 	size_t i = 0;
 	while (fmt[i] != '\0'){
 		if (fmt[i] == '%'){

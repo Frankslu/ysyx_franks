@@ -1,6 +1,9 @@
 /* verilator lint_off UNUSEDSIGNAL */
 /* verilator lint_off DECLFILENAME */
 /* verilator lint_off WIDTHEXPAND */
+/* verilator lint_off UNUSEDSIGNAL */
+/* verilator lint_off DECLFILENAME */
+/* verilator lint_off WIDTHEXPAND */
 module preIF(
   input         clock,
   input         reset,
@@ -729,6 +732,7 @@ module ID_stage(
   wire [31:0] imm20 = {ds_bits_inst[24:5],12'h0}; // @[tool.scala 9:14]
   wire [27:0] _imm26_sign_T = {rj,rd,ds_bits_inst[25:10],2'h0}; // @[tool.scala 8:22]
   wire [31:0] imm26 = {{4{_imm26_sign_T[27]}},_imm26_sign_T}; // @[tool.scala 9:14]
+  wire [14:0] code = ds_bits_inst[14:0]; // @[ID_stage.scala 29:20]
   wire [31:0] decode_res_invInputs = ~ds_bits_inst; // @[pla.scala 78:21]
   wire  decode_res_andMatrixInput_0 = decode_res_invInputs[15]; // @[pla.scala 91:29]
   wire  decode_res_andMatrixInput_1 = decode_res_invInputs[16]; // @[pla.scala 91:29]
@@ -1194,6 +1198,7 @@ module ID_stage(
   wire [31:0] _br_add2_T_5 = 5'he == inst_name ? ds_bits_pc : _br_add2_T_3; // @[Mux.scala 81:58]
   wire [32:0] _br_target_T = {br_target_adder__out_cout,br_target_adder__out_s}; // @[Cat.scala 33:92]
   wire  src1_is_pc = _br_taken_T_24 | inst_name == 5'h11 | _reg_io_waddr_T; // @[ID_stage.scala 108:78]
+  wire  is_syscall_0x1 = inst_name == 5'h13 & code == 15'h1; // @[ID_stage.scala 119:56]
   regfile reg_ ( // @[ID_stage.scala 55:21]
     .clock(reg__clock),
     .io_raddr1(reg__io_raddr1),
@@ -1232,7 +1237,7 @@ module ID_stage(
     .out_s(br_target_adder__out_s),
     .out_cout(br_target_adder__out_cout)
   );
-  assign toes_valid = ds_valid; // @[ID_stage.scala 129:16]
+  assign toes_valid = ds_valid; // @[ID_stage.scala 134:16]
   assign toes_bits_pc = ds_bits_pc; // @[ID_stage.scala 107:18]
   assign toes_bits_alu_src1 = src1_is_pc ? ds_bits_pc : reg__io_rdata1; // @[ID_stage.scala 109:30]
   assign toes_bits_alu_src2 = inst_type == 4'h1 | _src2_is_rd_T_5 ? reg__io_rdata2 : imm; // @[ID_stage.scala 110:30]
@@ -1244,13 +1249,13 @@ module ID_stage(
   assign toes_bits_mem_wdata = reg__io_rdata2; // @[ID_stage.scala 115:25]
   assign toes_bits_csr_num = ds_bits_inst[23:10]; // @[ID_stage.scala 117:30]
   assign toes_bits_csr_we = rj != 5'h0 & inst_name == 5'h15; // @[ID_stage.scala 116:36]
-  assign toes_bits_ex = inst_type == 4'h8 & inst_name != 5'h14 & inst_name != 5'h12; // @[ID_stage.scala 118:71]
-  assign toes_bits_ertn = inst_name == 5'h14; // @[ID_stage.scala 119:33]
-  assign toes_bits_csr_wmask = rj == 5'h1 ? 32'hffffffff : reg__io_rdata1; // @[ID_stage.scala 120:31]
-  assign toes_bits_dpi_c_is_break = inst_name == 5'h12; // @[ID_stage.scala 122:43]
-  assign toes_bits_dpi_c_inst = ds_bits_inst; // @[ID_stage.scala 123:26]
-  assign toes_bits_dpi_c_next_pc = ds_bits_next_pc; // @[ID_stage.scala 124:29]
-  assign toes_bits_dpi_c_inv = inst_type == 4'h0; // @[ID_stage.scala 125:38]
+  assign toes_bits_ex = inst_type == 4'h8 & inst_name != 5'h14 & inst_name != 5'h12 & ~is_syscall_0x1; // @[ID_stage.scala 120:103]
+  assign toes_bits_ertn = inst_name == 5'h14; // @[ID_stage.scala 124:33]
+  assign toes_bits_csr_wmask = rj == 5'h1 ? 32'hffffffff : reg__io_rdata1; // @[ID_stage.scala 125:31]
+  assign toes_bits_dpi_c_is_break = inst_name == 5'h12; // @[ID_stage.scala 127:43]
+  assign toes_bits_dpi_c_inst = ds_bits_inst; // @[ID_stage.scala 128:26]
+  assign toes_bits_dpi_c_next_pc = ds_bits_next_pc; // @[ID_stage.scala 129:29]
+  assign toes_bits_dpi_c_inv = inst_type == 4'h0; // @[ID_stage.scala 130:38]
   assign br_taken = _br_taken_T_25 | inst_name == 5'h12; // @[ID_stage.scala 87:48]
   assign br_target = _br_target_T[31:0]; // @[ID_stage.scala 102:15]
   assign reg__clock = clock;
@@ -1479,33 +1484,35 @@ module EX_stage(
   wire [15:0] _data_sram_wstrb_T_3 = 5'hc == es_bits_inst_name ? 16'h3 : _data_sram_wstrb_T_1; // @[Mux.scala 81:58]
   wire [15:0] _data_sram_wstrb_T_5 = 5'hd == es_bits_inst_name ? 16'h7 : _data_sram_wstrb_T_3; // @[Mux.scala 81:58]
   wire  _csr_ecode_T = es_bits_inst_name == 5'h13; // @[EX_stage.scala 43:28]
-  wire [3:0] _csr_ecode_T_1 = _csr_ecode_T ? 4'hb : 4'h0; // @[Mux.scala 101:16]
-  wire  res_from_csr = es_bits_inst_name == 5'h15; // @[EX_stage.scala 47:42]
+  wire  _csr_ecode_T_1 = es_bits_inst_name == 5'h12; // @[EX_stage.scala 44:28]
+  wire [3:0] _csr_ecode_T_2 = _csr_ecode_T_1 ? 4'hc : 4'h0; // @[Mux.scala 101:16]
+  wire [3:0] _csr_ecode_T_3 = _csr_ecode_T ? 4'hb : _csr_ecode_T_2; // @[Mux.scala 101:16]
+  wire  res_from_csr = es_bits_inst_name == 5'h15; // @[EX_stage.scala 48:42]
   ALU alu ( // @[EX_stage.scala 20:21]
     .io_alu_op(alu_io_alu_op),
     .io_src1(alu_io_src1),
     .io_src2(alu_io_src2),
     .io_res(alu_io_res)
   );
-  assign toms_valid = es_valid; // @[EX_stage.scala 60:16]
-  assign toms_bits_rf_wdata = res_from_csr ? csr_rvalue : alu_io_res; // @[EX_stage.scala 49:30]
-  assign toms_bits_inst_name = es_bits_inst_name; // @[EX_stage.scala 50:25]
-  assign toms_bits_res_from_mem = es_bits_mem_we == 2'h1; // @[EX_stage.scala 51:46]
-  assign toms_bits_rf_we = es_bits_rf_we; // @[EX_stage.scala 53:21]
-  assign toms_bits_rf_waddr = es_bits_rf_waddr; // @[EX_stage.scala 54:24]
-  assign toms_bits_dpi_c_is_break = es_bits_dpi_c_is_break; // @[EX_stage.scala 55:21]
-  assign toms_bits_dpi_c_inst = es_bits_dpi_c_inst; // @[EX_stage.scala 55:21]
-  assign toms_bits_dpi_c_next_pc = es_bits_dpi_c_next_pc; // @[EX_stage.scala 55:21]
-  assign toms_bits_dpi_c_inv = es_bits_dpi_c_inv; // @[EX_stage.scala 55:21]
-  assign toms_bits_dpi_c_csr_ex = csr_dpic_ex; // @[EX_stage.scala 57:25]
-  assign toms_bits_dpi_c_csr_ertn = csr_dpic_ertn; // @[EX_stage.scala 57:25]
-  assign toms_bits_dpi_c_csr_ecode = csr_dpic_ecode; // @[EX_stage.scala 57:25]
-  assign toms_bits_dpi_c_csr_ex_pc = csr_dpic_ex_pc; // @[EX_stage.scala 57:25]
-  assign toms_bits_dpi_c_csr_crmd = csr_dpic_crmd; // @[EX_stage.scala 57:25]
-  assign toms_bits_dpi_c_csr_prmd = csr_dpic_prmd; // @[EX_stage.scala 57:25]
-  assign toms_bits_dpi_c_csr_estat = csr_dpic_estat; // @[EX_stage.scala 57:25]
-  assign toms_bits_dpi_c_csr_era = csr_dpic_era; // @[EX_stage.scala 57:25]
-  assign toms_bits_dpi_c_csr_eentry = csr_dpic_eentry; // @[EX_stage.scala 57:25]
+  assign toms_valid = es_valid; // @[EX_stage.scala 61:16]
+  assign toms_bits_rf_wdata = res_from_csr ? csr_rvalue : alu_io_res; // @[EX_stage.scala 50:30]
+  assign toms_bits_inst_name = es_bits_inst_name; // @[EX_stage.scala 51:25]
+  assign toms_bits_res_from_mem = es_bits_mem_we == 2'h1; // @[EX_stage.scala 52:46]
+  assign toms_bits_rf_we = es_bits_rf_we; // @[EX_stage.scala 54:21]
+  assign toms_bits_rf_waddr = es_bits_rf_waddr; // @[EX_stage.scala 55:24]
+  assign toms_bits_dpi_c_is_break = es_bits_dpi_c_is_break; // @[EX_stage.scala 56:21]
+  assign toms_bits_dpi_c_inst = es_bits_dpi_c_inst; // @[EX_stage.scala 56:21]
+  assign toms_bits_dpi_c_next_pc = es_bits_dpi_c_next_pc; // @[EX_stage.scala 56:21]
+  assign toms_bits_dpi_c_inv = es_bits_dpi_c_inv; // @[EX_stage.scala 56:21]
+  assign toms_bits_dpi_c_csr_ex = csr_dpic_ex; // @[EX_stage.scala 58:25]
+  assign toms_bits_dpi_c_csr_ertn = csr_dpic_ertn; // @[EX_stage.scala 58:25]
+  assign toms_bits_dpi_c_csr_ecode = csr_dpic_ecode; // @[EX_stage.scala 58:25]
+  assign toms_bits_dpi_c_csr_ex_pc = csr_dpic_ex_pc; // @[EX_stage.scala 58:25]
+  assign toms_bits_dpi_c_csr_crmd = csr_dpic_crmd; // @[EX_stage.scala 58:25]
+  assign toms_bits_dpi_c_csr_prmd = csr_dpic_prmd; // @[EX_stage.scala 58:25]
+  assign toms_bits_dpi_c_csr_estat = csr_dpic_estat; // @[EX_stage.scala 58:25]
+  assign toms_bits_dpi_c_csr_era = csr_dpic_era; // @[EX_stage.scala 58:25]
+  assign toms_bits_dpi_c_csr_eentry = csr_dpic_eentry; // @[EX_stage.scala 58:25]
   assign data_sram_en = es_bits_mem_we != 2'h2; // @[EX_stage.scala 25:36]
   assign data_sram_wr = es_bits_mem_we == 2'h0; // @[EX_stage.scala 26:36]
   assign data_sram_addr = alu_io_res; // @[EX_stage.scala 27:20]
@@ -1518,7 +1525,7 @@ module EX_stage(
   assign csr_ex = es_bits_ex; // @[EX_stage.scala 35:12]
   assign csr_ertn = es_bits_ertn; // @[EX_stage.scala 36:14]
   assign csr_exe_pc = es_bits_pc; // @[EX_stage.scala 41:16]
-  assign csr_ecode = {{2'd0}, _csr_ecode_T_1}; // @[EX_stage.scala 42:15]
+  assign csr_ecode = {{2'd0}, _csr_ecode_T_3}; // @[EX_stage.scala 42:15]
   assign alu_io_alu_op = es_bits_alu_op; // @[EX_stage.scala 21:19]
   assign alu_io_src1 = es_bits_alu_src1; // @[EX_stage.scala 22:17]
   assign alu_io_src2 = es_bits_alu_src2; // @[EX_stage.scala 23:17]

@@ -26,7 +26,7 @@ class ID_stage extends Module{
     val imm20u  = Cat(inst(24,5), 0.U(12.W))
     val imm20 = sign_extend(imm20u)
     val imm26  = sign_extend(Cat(rj, rd, inst(25,10), 0.U(2.W)))
-
+    val code = inst(14,0)
 
 
     val decode_res = loongarch32r_decoder(inst)
@@ -115,7 +115,12 @@ class ID_stage extends Module{
     toes.bits.mem_wdata := rkd_value
     toes.bits.csr_we := rj =/= 0.U & inst_name === u(INST_CSR)
     toes.bits.csr_num := inst(23,10)
-    toes.bits.ex := inst_type === u(SYS) & inst_name =/= u(INST_ERTN) & inst_name =/= u(INST_BRK) 
+    if(for_test == 1){
+        val is_syscall_0x1 = inst_name === u(INST_SYS) & code === 1.U
+        toes.bits.ex := inst_type === u(SYS) & inst_name =/= u(INST_ERTN) & inst_name =/= u(INST_BRK) & is_syscall_0x1 =/= 1.B
+    }else{
+        toes.bits.ex := inst_type === u(SYS) & inst_name =/= u(INST_ERTN)
+    }
     toes.bits.ertn := inst_name === u(INST_ERTN)
     toes.bits.csr_wmask := Mux(rj === 1.U, Fill(32, 1.B), rj_value)
 

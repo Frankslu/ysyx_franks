@@ -55,7 +55,7 @@ word_t paddr_read(paddr_t addr, int len) {
 		IFDEF(CONFIG_DIFFTEST, difftest_skip_ref());
 		uint64_t time = get_time();
 		int shift = (addr - CONFIG_RTC_MMIO) * 8;
-		record_dev_read(addr, "TIMER", time >> shift);
+		IFDEF(CONFIG_DTRACE, record_dev_read(addr, "TIMER", time >> shift));
 		return time >> shift;
 	}
 	out_of_bound(addr);
@@ -67,7 +67,7 @@ void paddr_write(paddr_t addr, int len, word_t data) {
 	// IFDEF(CONFIG_DEVICE, mmio_write(addr, len, data); return);
 	if (addr == CONFIG_SERIAL_MMIO) {
 		putchar((int)data);
-		record_dev_write(addr, "serial", data);
+		IFDEF(CONFIG_DTRACE, record_dev_write(addr, "serial", data));
 		return;
 	}
 	out_of_bound(addr);
