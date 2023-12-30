@@ -31,7 +31,10 @@ override ARGS += $(ARGS_DIFF)
 IMG ?=
 NEMU_EXEC := $(BINARY) $(ARGS) $(IMG)
 
-run-env: $(BINARY) $(DIFF_REF_SO)
+run-env: $(BINARY)
+diff: $(DIFF_REF_SO)
+fmt:
+	find ./src ./include -name "*.c" -o -name "*.h" | xargs clang-format -i -style=file
 
 run: run-env
 	$(call git_commit, "run NEMU")
