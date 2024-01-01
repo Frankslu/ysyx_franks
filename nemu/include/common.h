@@ -19,6 +19,7 @@
 #include <inttypes.h>
 #include <stdbool.h>
 #include <stdint.h>
+#include <stdio.h>
 #include <string.h>
 
 #include <generated/autoconf.h>
@@ -45,5 +46,6 @@ typedef MUXDEF(PMEM64, uint64_t, uint32_t) paddr_t;
 typedef uint16_t ioaddr_t;
 
 #include <debug.h>
+#include <hex-output.h>
 
 #endif

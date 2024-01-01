@@ -52,5 +52,7 @@ void add_mmio_map(const char *name, paddr_t addr, void *space, uint32_t len,
 
 word_t map_read(paddr_t addr, int len, IOMap *map);
 void map_write(paddr_t addr, int len, word_t data, IOMap *map);
+word_t sdb_map_read(paddr_t addr, int len, IOMap *map, bool *success);
+void sdb_map_write(paddr_t addr, int len, word_t data, IOMap *map, bool *success);
 
 #endif

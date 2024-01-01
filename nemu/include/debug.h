@@ -17,7 +17,6 @@
 #define __DEBUG_H__
 
 #include <common.h>
-#include <stdio.h>
 #include <utils.h>
 
 enum { NLOG, ILOG, MLOG, FLOG, ELOG, SLOG, Trace_type_count };

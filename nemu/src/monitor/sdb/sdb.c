@@ -14,10 +14,15 @@
  ***************************************************************************************/
 
 #include "sdb.h"
+#include "common.h"
+#include "hex-output.h"
+#include "utils.h"
 #include <cpu/cpu.h>
 #include <isa.h>
+#include <memory/vaddr.h>
 #include <readline/history.h>
 #include <readline/readline.h>
+#include <string.h>
 
 static int is_batch_mode = false;
 
@@ -28,16 +33,24 @@ void init_wp_pool();
  */
 static char *rl_gets() {
   static char *line_read = NULL;
-
+  static char pre_line[256] = {0};
   if (line_read) {
+    strcpy(pre_line, line_read);
     free(line_read);
     line_read = NULL;
   }
 
-  line_read = readline("(nemu) ");
-
+  char *line_start = ANSI_FMT("(nemu) ", ANSI_FG_GREEN);
+  line_read = readline(line_start);
   if (line_read && *line_read) {
     add_history(line_read);
+    return line_read;
+  } else if (line_read && !*line_read && *pre_line) {
+    // use the previous command when user input nothing
+    add_history(pre_line);
+    free(line_read);
+    line_read = NULL;
+    return pre_line;
   }
 
   return line_read;
@@ -50,6 +63,69 @@ static int cmd_c(char *args) {
 
 static int cmd_q(char *args) { return -1; }
 
+static int cmd_p(char *args) {
+  char e[256];
+  if (args == NULL) {
+    printf(ANSI_FMT("command error\n", ANSI_FG_RED));
+    return 0;
+  }
+  sscanf(args, "%[^\n]", e);
+  bool success = true;
+  word_t result = expr(e, &success);
+  if (success == false) {
+    return 0;
+  }
+
+  print_b(result);
+  endl();
+  return 0;
+}
+
+static int cmd_x(char *args) {
+  if (NULL == args) {
+    printf(ANSI_FMT("command error\n", ANSI_FG_RED));
+    return 0;
+  }
+  char *e = malloc(128 * sizeof(char));
+  int n;
+  bool success = true;
+  if (sscanf(args, "%d %[^\n]", &n, e) != 2) {
+    printf(ANSI_FMT("command error\n", ANSI_FG_RED));
+    return 0;
+  }
+  word_t result = expr(e, &success);
+  if (success == false)
+    return 0;
+
+  for (int i = 0; i < n; i++) {
+    word_t ret = sdb_vaddr_read(result + 4 * i, 4, &success);
+    if (success == true) {
+      print_0xb(result + 4 * i);
+      printf(":  ");
+      print_32b(ret);
+      printf("\n");
+    }
+  }
+  free(e);
+  return 0;
+}
+
+static int cmd_si(char *args) {
+  uint64_t step;
+  if (NULL == args) {
+    step = 1;
+  } else {
+    int tmp = atoi(args);
+    if (tmp <= 0) {
+      printf(ANSI_FMT("command error\n", ANSI_FG_RED));
+      return 0;
+    } else
+      step = (uint64_t)tmp;
+  }
+  cpu_exec(step);
+  return 0;
+}
+
 static int cmd_help(char *args);
 
 static struct {
@@ -60,9 +136,9 @@ static struct {
     {"help", "Display information about all supported commands", cmd_help},
     {"c", "Continue the execution of the program", cmd_c},
     {"q", "Exit NEMU", cmd_q},
-
-    /* TODO: Add more commands */
-
+    {"p", "Calculate the value of the expression", cmd_p},
+    {"si", "Execute the program step by step", cmd_si},
+    {"x", "Scan the memory", cmd_x},
 };
 
 #define NR_CMD ARRLEN(cmd_table)
@@ -130,7 +206,8 @@ void sdb_mainloop() {
     }
 
     if (i == NR_CMD) {
-      printf("Unknown command '%s'\n", cmd);
+      printf(ANSI_FMT("Unknown command", ANSI_FG_RED));
+      printf(" '%s'\n", cmd);
     }
   }
 }
