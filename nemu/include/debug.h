@@ -17,12 +17,28 @@
 #define __DEBUG_H__
 
 #include <common.h>
-#include <stdio.h>
 #include <utils.h>
 
+enum { NLOG, ILOG, MLOG, FLOG, ELOG, SLOG, Trace_type_count };
+
 #define Log(format, ...)                                                       \
-  _Log(ANSI_FMT("[%s:%d %s] " format, ANSI_FG_BLUE) "\n", __FILE__, __LINE__,  \
-       __func__, ##__VA_ARGS__)
+  _Log(NLOG, ANSI_FMT("[%s:%d %s] " format, ANSI_FG_BLUE) "\n", __FILE__,      \
+       __LINE__, __func__, ##__VA_ARGS__)
+#define Inst_log(format, ...)                                                  \
+  _Log(ILOG, ANSI_FMT("[%s:%d %s] " format, ANSI_FG_GREEN) "\n", __FILE__,     \
+       __LINE__, __func__, ##__VA_ARGS__)
+#define Mem_log(format, ...)                                                   \
+  _Log(MLOG, ANSI_FMT("[%s:%d %s] " format, ANSI_FG_YELLOW) "\n", __FILE__,    \
+       __LINE__, __func__, ##__VA_ARGS__)
+#define Func_log(format, ...)                                                  \
+  _Log(FLOG, ANSI_FMT("[%s:%d %s] " format, ANSI_FG_MAGENTA) "\n", __FILE__,   \
+       __LINE__, __func__, ##__VA_ARGS__)
+#define Exc_log(format, ...)                                                   \
+  _Log(ELOG, ANSI_FMT("[%s:%d %s] " format, ANSI_FG_RED) "\n", __FILE__,       \
+       __LINE__, __func__, ##__VA_ARGS__)
+#define Sys_log(format, ...)                                                   \
+  _Log(SLOG, ANSI_FMT("[%s:%d %s] " format, ANSI_FG_CYAN) "\n", __FILE__,      \
+       __LINE__, __func__, ##__VA_ARGS__)
 
 #define Assert(cond, format, ...)                                              \
   do {                                                                         \
@@ -32,7 +48,8 @@
           printf(ANSI_FMT(format, ANSI_FG_RED) "\n", ##__VA_ARGS__),           \
           (fflush(stdout), fprintf(stderr, ANSI_FMT(format, ANSI_FG_RED) "\n", \
                                    ##__VA_ARGS__)));       \
-      IFNDEF(CONFIG_TARGET_AM, extern FILE *log_fp; fflush(log_fp));           \
+      IFNDEF(CONFIG_TARGET_AM, extern FILE *log_fp[]; \
+          for(int i=0; i<Trace_type_count; i++) { fflush(log_fp[i]);});     \
       extern void assert_fail_msg();                                           \
       assert_fail_msg();                                                       \
       assert(cond);                                                            \

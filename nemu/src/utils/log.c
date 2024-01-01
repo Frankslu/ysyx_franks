@@ -13,21 +13,28 @@
  * See the Mulan PSL v2 for more details.
  ***************************************************************************************/
 
+#include "debug.h"
 #include <common.h>
 
 extern uint64_t g_nr_guest_inst;
 
 #ifndef CONFIG_TARGET_AM
-FILE *log_fp = NULL;
+FILE *log_fp[Trace_type_count] = {};
+char *filename[Trace_type_count] = {"nemu.log", "inst.log", "mem.log",
+                                    "func.log", "exc.log",  "sys.log"};
 
-void init_log(const char *log_file) {
-  log_fp = stdout;
-  if (log_file != NULL) {
-    FILE *fp = fopen(log_file, "w");
-    Assert(fp, "Can not open '%s'", log_file);
-    log_fp = fp;
+void init_log(const char *log_dir) {
+  for (int i = 0; i < Trace_type_count; i++) {
+    log_fp[i] = stdout;
+    char log_file[256];
+    if (log_dir != NULL) {
+      strcat(strncpy(log_file, log_dir, 246), filename[i]);
+      FILE *fp = fopen(log_file, "w");
+      Assert(fp, "Can not open '%s'", log_file);
+      log_fp[i] = fp;
+    }
   }
-  Log("Log is written to %s", log_file ? log_file : "stdout");
+  Log("Log is written to directory %s", log_dir ? log_dir : "stdout");
 }
 
 bool log_enable() {

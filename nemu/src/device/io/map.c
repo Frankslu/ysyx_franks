@@ -17,6 +17,7 @@
 #include <isa.h>
 #include <memory/host.h>
 #include <memory/vaddr.h>
+#include <stdbool.h>
 
 #define IO_SPACE_MAX (2 * 1024 * 1024)
 
@@ -45,6 +46,28 @@ static void check_bound(IOMap *map, paddr_t addr) {
   }
 }
 
+static bool sdb_check_bound(IOMap *map, paddr_t addr) {
+  if (map == NULL) {
+    printf(
+        "1 address (" ANSI_FMT(FMT_PADDR, ANSI_FG_GREEN) ") is out of bound\n",
+        addr);
+    return false;
+  } else if (addr > map->high || addr < map->low) {
+    printf(
+        "2 address (" ANSI_FMT(
+            FMT_PADDR,
+            ANSI_FG_GREEN) ") is out of bound {%s} "
+                           "[" ANSI_FMT(FMT_PADDR,
+                                        ANSI_FG_GREEN) ","
+                                                       " " ANSI_FMT(
+                                                           FMT_PADDR,
+                                                           ANSI_FG_GREEN) "]\n",
+        addr, map->name, map->low, map->high);
+    return false;
+  }
+  return true;
+}
+
 static void invoke_callback(io_callback_t c, paddr_t offset, int len,
                             bool is_write) {
   if (c != NULL) {
@@ -70,6 +93,27 @@ word_t map_read(paddr_t addr, int len, IOMap *map) {
 void map_write(paddr_t addr, int len, word_t data, IOMap *map) {
   assert(len >= 1 && len <= 8);
   check_bound(map, addr);
+  paddr_t offset = addr - map->low;
+  host_write(map->space + offset, len, data);
+  invoke_callback(map->callback, offset, len, true);
+}
+
+word_t sdb_map_read(paddr_t addr, int len, IOMap *map, bool *suc) {
+  if (sdb_check_bound(map, addr) == false) {
+    *suc = false;
+    return 0;
+  }
+  *suc = true;
+  paddr_t offset = addr - map->low;
+  return host_read(map->space + offset, 4);
+}
+
+void sdb_map_write(paddr_t addr, int len, word_t data, IOMap *map, bool *suc) {
+  if (sdb_check_bound(map, addr) == false) {
+    *suc = false;
+    return;
+  }
+  *suc = true;
   paddr_t offset = addr - map->low;
   host_write(map->space + offset, len, data);
   invoke_callback(map->callback, offset, len, true);
